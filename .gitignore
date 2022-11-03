@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/BlazorWASM-AppLogic/BlazorWASM/bin/
+/BlazorWASM-AppLogic/BlazorWASM/obj/
+/BlazorWASM-AppLogic/WebAPI/bin/
+/BlazorWASM-AppLogic/WebAPI/obj/
+/BlazorWASM-AppLogic/HttpClients/bin/
+/BlazorWASM-AppLogic/HttpClients/obj/
+/BlazorWASM-AppLogic/Domain/bin/
+/BlazorWASM-AppLogic/Domain/obj/
+/BlazorWASM-AppLogic/Application/bin/
+/BlazorWASM-AppLogic/Application/obj/
+/BlazorWASM-AppLogic/.idea/
