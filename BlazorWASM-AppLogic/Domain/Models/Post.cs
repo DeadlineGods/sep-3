@@ -1,0 +1,23 @@
+﻿namespace DefaultNamespace;
+
+public class Post
+{
+    public int likes { get; set; }
+    public string title { get; set;}
+
+    public string description { get; set;}
+    public Date postedOn { get; set;}
+    public Location location { get; set; };
+    public Tag tag { get; set; }
+
+    public Post(int likes, string title, string description, Date postedOn,Location location, Tag tag)
+    {
+        this.likes = likes;
+        this.title = title;
+        this.description = description;
+        this.postedOn = postedOn;
+        this.location = location;
+        this.tag = tag;
+    }
+    
+}
