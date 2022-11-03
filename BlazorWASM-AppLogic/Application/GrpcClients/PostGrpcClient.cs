@@ -19,7 +19,10 @@ public class PostGrpcClient : IPostDao
 		    });
 
 	    Console.WriteLine(reply.Title);
-	    return await new Post(reply.Likes, reply.Title, reply.Description);
+	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
+	    DateTime postedOn = new DateTime(time.Ticks);
+
+	    return await Task.FromResult(new Post(reply.Id, reply.Likes, reply.Title, reply.Description, postedOn));
 
     }
 }
