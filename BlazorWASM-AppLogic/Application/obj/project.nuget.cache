@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "GpjARfshjE+B9J3PryFjAa6gsDh72wusAvbp/pnW2Q5MgX44D2iKRyPHS8tAm+2HRb/SQeq+YIOmPlRvdfHKsA==",
+  "dgSpecHash": "075IK+i0OYD455Ii1RQDJqaLp3Mbkv/Bn+tJA9r5qNQ5ny07hbx7I56Z64vyLJt2lGms2Kk+83hSjJHrYmzn0g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV2\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Application/Application.csproj",
+  "expectedPackageFiles": [
+    "/Users/antondurcak/.nuget/packages/google.protobuf/3.21.9/google.protobuf.3.21.9.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/grpc.core.api/2.49.0/grpc.core.api.2.49.0.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/grpc.net.client/2.49.0/grpc.net.client.2.49.0.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/grpc.net.common/2.49.0/grpc.net.common.2.49.0.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/grpc.tools/2.50.0/grpc.tools.2.50.0.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/microsoft.extensions.logging.abstractions/3.0.3/microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512"
+  ],
   "logs": []
 }
