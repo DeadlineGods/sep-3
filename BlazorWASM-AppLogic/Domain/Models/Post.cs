@@ -3,19 +3,16 @@
 public class Post
 {
     public int Id{ get; set; }
-    public int likes { get; set; }
+    public int likes { get; set; } = 0;
     public string title { get; set; }
     public string description { get; set; }
     public DateTime postedOn { get; set; }
     public Location location { get; set; }
     public ICollection<Tag> tags { get; set; }
 
-    public Post()
-    {
-        likes = 0;
-    }
+    public Post() { }
 
-    public Post(int likes, string title, string description, DateTime postedOn,Location location, Tag tag, int Id)
+    public Post(int likes, string title, string description, DateTime postedOn,Location location, ICollection<Tag> tags, int Id)
     {
         this.likes = likes;
         this.title = title;
