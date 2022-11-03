@@ -1,7 +1,0 @@
-POST localhost:8191/animals
-Content-Type: application/json
-
-{
-  "title": "Hello there",
-  "description": "Working"
-}
