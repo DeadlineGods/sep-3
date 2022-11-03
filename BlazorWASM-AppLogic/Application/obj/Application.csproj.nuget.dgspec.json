@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj": {}
+    "C:\\Users\\natal\\RiderProjects\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj": {
+    "C:\\Users\\natal\\RiderProjects\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\natal\\RiderProjects\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Darko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\obj\\",
+        "projectPath": "C:\\Users\\natal\\RiderProjects\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\natal\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\natal\\RiderProjects\\sep-3\\BlazorWASM-AppLogic\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Darko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\natal\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\natal\\.dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
