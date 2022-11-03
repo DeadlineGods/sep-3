@@ -1,8 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{BE56070B-FAB1-4A8F-A39D-A9DD7AA4BA5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{DF16CC64-46AD-448C-A6DD-D77B243EB5CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE56070B-FAB1-4A8F-A39D-A9DD7AA4BA5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE56070B-FAB1-4A8F-A39D-A9DD7AA4BA5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE56070B-FAB1-4A8F-A39D-A9DD7AA4BA5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE56070B-FAB1-4A8F-A39D-A9DD7AA4BA5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF16CC64-46AD-448C-A6DD-D77B243EB5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF16CC64-46AD-448C-A6DD-D77B243EB5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF16CC64-46AD-448C-A6DD-D77B243EB5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF16CC64-46AD-448C-A6DD-D77B243EB5CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
