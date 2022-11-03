@@ -1,8 +1,10 @@
-﻿namespace DefaultNamespace;
+﻿using System.ComponentModel;
+
+namespace Domain.Models;
 
 public enum Country
 {
-        [Description("Afghanistan")] AF = 1,
+    [Description("Afghanistan")] AF = 1,
     [Description("Åland Islands")] AX = 2,
     [Description("Albania")] AL = 3,
     [Description("Algeria")] DZ = 4,

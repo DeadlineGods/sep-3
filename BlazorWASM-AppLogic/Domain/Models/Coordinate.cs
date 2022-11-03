@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace;
+﻿namespace Domain.Models;
 
 public class Coordinate
 {
@@ -7,7 +7,7 @@ public class Coordinate
 
     public Coordinate(long latitude, long longitude)
     {
-        this.latitide = latitude;
+        this.latitude = latitude;
         this.longitude = longitude;
     }
 }

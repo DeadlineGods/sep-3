@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace;
+﻿namespace Domain.DTOs;
 
 public class PostCreationDto
 {
@@ -6,14 +6,11 @@ public class PostCreationDto
     public string title { get; }
 
     public string description { get; }
-    public Date postedOn { get; }
 
-    public PostCreationDto(int likes, string title, string description, Date postedOn)
+    public PostCreationDto(int likes, string title, string description)
     {
         this.likes = likes;
         this.title = title;
         this.description = description;
-        this.postedOn = postedOn;
     }
-  
 }
