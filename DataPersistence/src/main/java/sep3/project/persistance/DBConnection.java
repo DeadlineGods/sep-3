@@ -11,7 +11,7 @@ public class DBConnection {
 	}
 
 	public static Connection getConnection() throws SQLException {
-		String url = "jdbc:postgresql://";
+		String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=photoguard";
 
 		//Remember guys you have to have the same user and password in your postgres for this to work
 		String user = "postgres";

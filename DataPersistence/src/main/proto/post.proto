@@ -9,7 +9,6 @@ service Post {
 
 message RequestCreatePost {
 	int32 likes = 1;
-	string title = 2;
 	string description = 3;
 }
 

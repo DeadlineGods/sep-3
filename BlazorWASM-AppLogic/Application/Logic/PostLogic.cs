@@ -23,6 +23,7 @@ public class PostLogic : IPostLogic
             title = postCreationDto.title,
             description = postCreationDto.title,
         };
+        Post post = new Post(postCreationDto.likes,postCreationDto.title,postCreationDto.description);
         
         return await postDao.CreateAsync(post);
     }
