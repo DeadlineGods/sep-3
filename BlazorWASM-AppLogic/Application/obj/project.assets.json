@@ -1,26 +1,45 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
-    "C:\\Users\\Darko\\.nuget\\packages\\": {}
+    "C:\\Users\\Dávid\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV2\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
-      "packagesPath": "C:\\Users\\Darko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\obj\\",
+      "projectPath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV2\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
+      "packagesPath": "C:\\Users\\Dávid\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV2\\sep-3\\BlazorWASM-AppLogic\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Darko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Dávid\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -31,7 +50,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV2\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV2\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

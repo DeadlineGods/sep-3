@@ -1,5 +1,8 @@
 ﻿@page "/CreatePost"
+@using Domain.DTOs
+@using HttpClients.ClientInterfaces
 @inject NavigationManager navMgr
+@inject IPostService postService
 
 
 <div class="card">
@@ -49,7 +52,7 @@
     }
         try
         {
-            PostCreationDto dto = new(likes, postTitle, postDescription, );
+            PostCreationDto dto = new(likes, postTitle, postDescription );
             await postService.CreateAsync(dto);
             navMgr.NavigateTo("/");
         }

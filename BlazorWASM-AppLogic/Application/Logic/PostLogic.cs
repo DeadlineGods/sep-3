@@ -1,5 +1,7 @@
 ﻿using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
+using Domain.DTOs;
+using Domain.Models;
 
 namespace Application.Logic;
 
@@ -16,7 +18,7 @@ public class PostLogic : IPostLogic
     {
         ValidatePost(postCreationDto);
 
-        Post post = new Post();
+        Post post = new Post(postCreationDto.likes,postCreationDto.title,postCreationDto.description);
         
         return await postDao.CreateAsync(post);
     }
