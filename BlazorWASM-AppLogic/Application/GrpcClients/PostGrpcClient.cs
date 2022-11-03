@@ -23,8 +23,6 @@ public class PostGrpcClient : IPostDao
 
 	    Post replyPost = new Post(reply.Id, reply.Likes, reply.Title, reply.Description, postedOn);
 
-	    Console.WriteLine(replyPost);
-
 	    return await Task.FromResult(replyPost);
 
     }
