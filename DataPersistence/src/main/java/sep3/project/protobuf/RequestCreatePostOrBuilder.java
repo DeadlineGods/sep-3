@@ -8,30 +8,24 @@ public interface RequestCreatePostOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 likes = 1;</code>
-   * @return The likes.
-   */
-  int getLikes();
-
-  /**
-   * <code>string title = 2;</code>
+   * <code>string title = 1;</code>
    * @return The title.
    */
   java.lang.String getTitle();
   /**
-   * <code>string title = 2;</code>
+   * <code>string title = 1;</code>
    * @return The bytes for title.
    */
   com.google.protobuf.ByteString
       getTitleBytes();
 
   /**
-   * <code>string description = 3;</code>
+   * <code>string description = 2;</code>
    * @return The description.
    */
   java.lang.String getDescription();
   /**
-   * <code>string description = 3;</code>
+   * <code>string description = 2;</code>
    * @return The bytes for description.
    */
   com.google.protobuf.ByteString

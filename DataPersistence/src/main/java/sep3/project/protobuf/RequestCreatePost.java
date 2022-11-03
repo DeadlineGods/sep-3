@@ -50,18 +50,13 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
-
-            likes_ = input.readInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
             title_ = s;
             break;
           }
-          case 26: {
+          case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
             description_ = s;
@@ -101,21 +96,10 @@ private static final long serialVersionUID = 0L;
             sep3.project.protobuf.RequestCreatePost.class, sep3.project.protobuf.RequestCreatePost.Builder.class);
   }
 
-  public static final int LIKES_FIELD_NUMBER = 1;
-  private int likes_;
-  /**
-   * <code>int32 likes = 1;</code>
-   * @return The likes.
-   */
-  @java.lang.Override
-  public int getLikes() {
-    return likes_;
-  }
-
-  public static final int TITLE_FIELD_NUMBER = 2;
+  public static final int TITLE_FIELD_NUMBER = 1;
   private volatile java.lang.Object title_;
   /**
-   * <code>string title = 2;</code>
+   * <code>string title = 1;</code>
    * @return The title.
    */
   @java.lang.Override
@@ -132,7 +116,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string title = 2;</code>
+   * <code>string title = 1;</code>
    * @return The bytes for title.
    */
   @java.lang.Override
@@ -150,10 +134,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int DESCRIPTION_FIELD_NUMBER = 3;
+  public static final int DESCRIPTION_FIELD_NUMBER = 2;
   private volatile java.lang.Object description_;
   /**
-   * <code>string description = 3;</code>
+   * <code>string description = 2;</code>
    * @return The description.
    */
   @java.lang.Override
@@ -170,7 +154,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string description = 3;</code>
+   * <code>string description = 2;</code>
    * @return The bytes for description.
    */
   @java.lang.Override
@@ -202,14 +186,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (likes_ != 0) {
-      output.writeInt32(1, likes_);
-    }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(title_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, title_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, title_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, description_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, description_);
     }
     unknownFields.writeTo(output);
   }
@@ -220,15 +201,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (likes_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, likes_);
-    }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(title_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, title_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, title_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, description_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, description_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -245,8 +222,6 @@ private static final long serialVersionUID = 0L;
     }
     sep3.project.protobuf.RequestCreatePost other = (sep3.project.protobuf.RequestCreatePost) obj;
 
-    if (getLikes()
-        != other.getLikes()) return false;
     if (!getTitle()
         .equals(other.getTitle())) return false;
     if (!getDescription()
@@ -262,8 +237,6 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + LIKES_FIELD_NUMBER;
-    hash = (53 * hash) + getLikes();
     hash = (37 * hash) + TITLE_FIELD_NUMBER;
     hash = (53 * hash) + getTitle().hashCode();
     hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
@@ -401,8 +374,6 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      likes_ = 0;
-
       title_ = "";
 
       description_ = "";
@@ -433,7 +404,6 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public sep3.project.protobuf.RequestCreatePost buildPartial() {
       sep3.project.protobuf.RequestCreatePost result = new sep3.project.protobuf.RequestCreatePost(this);
-      result.likes_ = likes_;
       result.title_ = title_;
       result.description_ = description_;
       onBuilt();
@@ -484,9 +454,6 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(sep3.project.protobuf.RequestCreatePost other) {
       if (other == sep3.project.protobuf.RequestCreatePost.getDefaultInstance()) return this;
-      if (other.getLikes() != 0) {
-        setLikes(other.getLikes());
-      }
       if (!other.getTitle().isEmpty()) {
         title_ = other.title_;
         onChanged();
@@ -524,40 +491,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int likes_ ;
-    /**
-     * <code>int32 likes = 1;</code>
-     * @return The likes.
-     */
-    @java.lang.Override
-    public int getLikes() {
-      return likes_;
-    }
-    /**
-     * <code>int32 likes = 1;</code>
-     * @param value The likes to set.
-     * @return This builder for chaining.
-     */
-    public Builder setLikes(int value) {
-      
-      likes_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 likes = 1;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearLikes() {
-      
-      likes_ = 0;
-      onChanged();
-      return this;
-    }
-
     private java.lang.Object title_ = "";
     /**
-     * <code>string title = 2;</code>
+     * <code>string title = 1;</code>
      * @return The title.
      */
     public java.lang.String getTitle() {
@@ -573,7 +509,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string title = 2;</code>
+     * <code>string title = 1;</code>
      * @return The bytes for title.
      */
     public com.google.protobuf.ByteString
@@ -590,7 +526,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string title = 2;</code>
+     * <code>string title = 1;</code>
      * @param value The title to set.
      * @return This builder for chaining.
      */
@@ -605,7 +541,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string title = 2;</code>
+     * <code>string title = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearTitle() {
@@ -615,7 +551,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string title = 2;</code>
+     * <code>string title = 1;</code>
      * @param value The bytes for title to set.
      * @return This builder for chaining.
      */
@@ -633,7 +569,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object description_ = "";
     /**
-     * <code>string description = 3;</code>
+     * <code>string description = 2;</code>
      * @return The description.
      */
     public java.lang.String getDescription() {
@@ -649,7 +585,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string description = 3;</code>
+     * <code>string description = 2;</code>
      * @return The bytes for description.
      */
     public com.google.protobuf.ByteString
@@ -666,7 +602,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string description = 3;</code>
+     * <code>string description = 2;</code>
      * @param value The description to set.
      * @return This builder for chaining.
      */
@@ -681,7 +617,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string description = 3;</code>
+     * <code>string description = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearDescription() {
@@ -691,7 +627,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string description = 3;</code>
+     * <code>string description = 2;</code>
      * @param value The bytes for description to set.
      * @return This builder for chaining.
      */

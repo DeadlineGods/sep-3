@@ -35,7 +35,7 @@ public class PostImpl extends PostGrpc.PostImplBase {
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 
-		System.out.println("Post created =>\n" + request.toString());
+//		System.out.println("Post created =>\n" + request.toString());
 	}
 
 }

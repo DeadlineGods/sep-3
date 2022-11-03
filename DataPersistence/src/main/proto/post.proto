@@ -8,8 +8,8 @@ service Post {
 }
 
 message RequestCreatePost {
-	int32 likes = 1;
-	string description = 3;
+	string title = 1;
+	string description = 2;
 }
 
 message ResponseCreatePost {
