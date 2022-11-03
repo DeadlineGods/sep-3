@@ -1,0 +1,63 @@
+﻿@page "/CreatePost"
+@inject NavigationManager navMgr
+
+
+<div class="card">
+    <h3>Create Post</h3>
+        <div class="form-group field">
+            <label>Title:</label>
+            <input type="text" @bind="postTitle"/>
+            <label>Body:</label>
+            <input type="text" @bind="postDescription"/>
+        </div>
+    <div class="button-row">
+            @if (!string.IsNullOrEmpty(msg))
+            {
+                <label style="color: red">@msg</label>
+            }
+            <button @onclick="Create" class="acceptbtn">Create</button>
+        </div>
+</div>
+
+@code {
+    private int likes = 0;
+    private string postTitle = "";
+    private string postDescription = "";
+    private string date;
+
+    private string msg = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    private async Task Create()
+    {
+
+    date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
+    msg = "";
+        if(string.IsNullOrEmpty(postTitle))
+    {
+        msg = "Title cannot be empty!";
+        return;
+    }
+
+    if (string.IsNullOrEmpty(postDescription))
+    {
+        msg = "Body cannot be empty!";
+        return;
+    }
+        try
+        {
+            PostCreationDto dto = new(likes, postTitle, postDescription, );
+            await postService.CreateAsync(dto);
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+}
+
+}
