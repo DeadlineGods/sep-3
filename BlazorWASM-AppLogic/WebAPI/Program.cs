@@ -1,4 +1,5 @@
 using Application.DAOsInterfaces;
+using Application.GrpcClients;
 using Application.Logic;
 using Application.LogicInterfaces;
 
@@ -15,6 +16,12 @@ builder.Services.AddScoped<IPostLogic, PostLogic>();
 builder.Services.AddScoped<IPostDao, PostGrpcClient>();
 
 var app = builder.Build();
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

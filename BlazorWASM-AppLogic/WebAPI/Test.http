@@ -1,0 +1,7 @@
+POST https://localhost:5196/Posts
+Content-Type: application/json
+
+{
+  "title": "Test Tile",
+  "description" : "Test Description"
+}

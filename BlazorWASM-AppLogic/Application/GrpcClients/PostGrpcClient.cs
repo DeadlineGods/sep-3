@@ -14,12 +14,12 @@ public class PostGrpcClient : IPostDao
 	    var reply = await client.CreatePostAsync(
 		    new RequestCreatePost
 		    {
-			    Title = "Hello there",
-			    Description = "Working"
+			    Title = post.title,
+			    Description = post.description
 		    });
 
 	    Console.WriteLine(reply.Title);
-	    return null;
+	    return await new Post(reply.Likes, reply.Title, reply.Description);
 
     }
 }
