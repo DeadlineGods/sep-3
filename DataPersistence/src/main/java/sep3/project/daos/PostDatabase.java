@@ -31,7 +31,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	private Connection getConnection() throws SQLException {
-		String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=slaughterhouse";
+		String url = "jdbc:postgresql://";
 
 		//Remember guys you have to have the same user and password in your postgres for this to work
 		String user = "postgres";
