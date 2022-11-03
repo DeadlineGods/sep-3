@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\HttpClients\\HttpClients.csproj",
-      "projectName": "HttpClients",
-      "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\HttpClients\\HttpClients.csproj",
+      "projectUniqueName": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj",
+      "projectName": "Domain",
+      "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\Darko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\HttpClients\\obj\\",
+      "outputPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Darko\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace;
+﻿namespace Domain.Models;
 
 public class Post
 {
@@ -6,11 +6,11 @@ public class Post
     public string title { get; set;}
 
     public string description { get; set;}
-    public Date postedOn { get; set;}
-    public Location location { get; set; };
+    public DateTime postedOn { get; set;}
+    public Location location { get; set; }
     public Tag tag { get; set; }
 
-    public Post(int likes, string title, string description, Date postedOn,Location location, Tag tag)
+    public Post(int likes, string title, string description, DateTime postedOn,Location location, Tag tag)
     {
         this.likes = likes;
         this.title = title;
