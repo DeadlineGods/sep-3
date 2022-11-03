@@ -1,5 +1,7 @@
 ﻿using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
+using Domain.DTOs;
+using Domain.Models;
 
 namespace Application.Logic;
 
@@ -16,13 +18,25 @@ public class PostLogic : IPostLogic
     {
         ValidatePost(postCreationDto);
 
-        Post post = new Post();
+        Post post = new Post()
+        {
+            title = postCreationDto.title,
+            description = postCreationDto.title,
+        };
         
         return await postDao.CreateAsync(post);
     }
 
     private void ValidatePost(PostCreationDto postCreationDto)
     {
-        throw new NotImplementedException();
+        if (postCreationDto.description.Length > 5000)
+        {
+            throw new Exception("Description has more characters than 5000");
+        }
+        
+        if (postCreationDto.title.Length > 150)
+        {
+            throw new Exception("Description has more characters than 150");
+        }
     }
 }

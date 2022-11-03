@@ -1,4 +1,6 @@
-﻿namespace Application.DAOsInterfaces;
+﻿using Domain.Models;
+
+namespace Application.DAOsInterfaces;
 
 public interface IPostDao
 {

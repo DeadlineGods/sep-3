@@ -1,4 +1,6 @@
 ﻿using Application.LogicInterfaces;
+using Domain.DTOs;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -20,7 +22,7 @@ public class PostsController : ControllerBase
         try
         {
             Post post = await postLogic.CreateAsync(postCreationDto);
-            return Created($"/posts/{post.Id}", post);
+            return Created($"/posts/{post.title}", post);
         }
         catch (Exception e)
         {
