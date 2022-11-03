@@ -11,6 +11,7 @@ public class PostDatabase implements PostPersistence {
 	public PostDatabase()
 	{
 	}
+
 	@Override
 	public void createPost(String title, String description) throws SQLException {
 		Connection connection = DBConnection.getConnection();
