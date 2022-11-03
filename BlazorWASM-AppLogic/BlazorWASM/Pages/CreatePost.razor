@@ -50,7 +50,7 @@
         {
             PostCreationDto dto = new(postTitle, postDescription);
             await postService.CreateAsync(dto);
-            navMgr.NavigateTo("/");
+            // navMgr.NavigateTo("/");
         }
         catch (Exception e)
         {

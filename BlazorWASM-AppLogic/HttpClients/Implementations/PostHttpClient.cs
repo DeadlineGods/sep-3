@@ -19,9 +19,9 @@ public class PostHttpClient : IPostService
         string subFormAsJson = JsonSerializer.Serialize(postCreationDto);
         StringContent content = new(subFormAsJson, Encoding.UTF8, "application/json");
 
-        HttpResponseMessage response = await client.PostAsync("http://localhost:5196/Posts", content);
+        HttpResponseMessage response = await client.PostAsync("http://localhost:5196/posts/create", content);
         string responseContent = await response.Content.ReadAsStringAsync();
-        
+
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(responseContent);
