@@ -1,4 +1,5 @@
 ﻿using Application.DAOsInterfaces;
+using Domain.DTOs;
 using Grpc.Net.Client;
 using GrpcClient;
 using Post = Domain.Models.Post;
@@ -25,5 +26,10 @@ public class PostGrpcClient : IPostDao
 
 	    return await Task.FromResult(replyPost);
 
+    }
+
+    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
+    {
+	    throw new NotImplementedException();
     }
 }

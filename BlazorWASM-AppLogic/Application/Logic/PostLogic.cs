@@ -27,6 +27,11 @@ public class PostLogic : IPostLogic
         return await postDao.CreateAsync(post);
     }
 
+    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
+    {
+	    return await postDao.GetAsync(parameters);
+    }
+
     private void ValidatePost(PostCreationDto postCreationDto)
     {
         if (postCreationDto.description.Length > 5000)
@@ -36,7 +41,7 @@ public class PostLogic : IPostLogic
 
         if (postCreationDto.title.Length > 150)
         {
-            throw new Exception("Description has more characters than 150");
+            throw new Exception("Title has more characters than 150");
         }
     }
 }
