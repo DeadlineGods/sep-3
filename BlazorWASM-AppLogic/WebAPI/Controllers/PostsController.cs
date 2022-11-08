@@ -19,8 +19,7 @@ public class PostsController : ControllerBase
     [HttpPost, Route("create")]
     public async Task<ActionResult<Post>> CreateAsync(PostCreationDto postCreationDto)
     {
-	    Console.WriteLine("here");
-        try
+	    try
         {
             Post post = await postLogic.CreateAsync(postCreationDto);
             return Created($"/posts/{post.title}", post);

@@ -18,7 +18,7 @@
     "Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Domain.csproj",
-      "msbuildProject": "../Domain/Domain.csproj"
+      "msbuildProject": "../../../../../../../../via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/HttpClients/HttpClients.csproj",
+      "projectUniqueName": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/HttpClients/HttpClients.csproj",
       "projectName": "HttpClients",
-      "projectPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/HttpClients/HttpClients.csproj",
+      "projectPath": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/HttpClients/HttpClients.csproj",
       "packagesPath": "/Users/antondurcak/.nuget/packages/",
-      "outputPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/HttpClients/obj/",
+      "outputPath": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/HttpClients/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/antondurcak/.nuget/NuGet/NuGet.Config"
@@ -51,8 +51,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj": {
-              "projectPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj"
+            "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj": {
+              "projectPath": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj"
             }
           }
         }

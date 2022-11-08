@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj",
+      "projectUniqueName": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj",
+      "projectPath": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj",
       "packagesPath": "/Users/antondurcak/.nuget/packages/",
-      "outputPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/obj/",
+      "outputPath": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/antondurcak/.nuget/NuGet/NuGet.Config"

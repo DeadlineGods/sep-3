@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "075IK+i0OYD455Ii1RQDJqaLp3Mbkv/Bn+tJA9r5qNQ5ny07hbx7I56Z64vyLJt2lGms2Kk+83hSjJHrYmzn0g==",
+  "dgSpecHash": "T1RIapecY8M0ERtI5f/CRNY5myY6wf9eaQCsgavuGkYIf6nRMSFUYZoR5/L1f0e4w9SXoCspKp5FQHVIfrx7PQ==",
   "success": true,
   "projectFilePath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Application/Application.csproj",
   "expectedPackageFiles": [

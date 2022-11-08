@@ -13,7 +13,7 @@ public class PostLogic : IPostLogic
     {
         this.postDao = postDao;
     }
-    
+
     public async Task<Post> CreateAsync(PostCreationDto postCreationDto)
     {
         ValidatePost(postCreationDto);
@@ -21,9 +21,9 @@ public class PostLogic : IPostLogic
         Post post = new Post()
         {
             title = postCreationDto.title,
-            description = postCreationDto.title,
+            description = postCreationDto.description,
         };
-        
+
         return await postDao.CreateAsync(post);
     }
 
@@ -33,7 +33,7 @@ public class PostLogic : IPostLogic
         {
             throw new Exception("Description has more characters than 5000");
         }
-        
+
         if (postCreationDto.title.Length > 150)
         {
             throw new Exception("Description has more characters than 150");
