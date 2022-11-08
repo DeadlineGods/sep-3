@@ -29,7 +29,7 @@ public class PostHttpClient : IPostService
         }
     }
 
-    public async Task<ICollection<Post>> GetAsync(int? id, int? userId, string? titleContains)
+    public async Task<ICollection<Post>> GetAsync(int? id = null, int? userId = null, string? titleContains = null)
     {
 	    string query = ConstructQuery(id, userId, titleContains);
 
