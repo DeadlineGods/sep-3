@@ -4,6 +4,8 @@ option csharp_namespace = "GrpcClient";
 
 service Post {
   rpc CreatePost(RequestCreatePost) returns(ResponseCreatePost);
+  rpc DeletePost(RequestDeletePost) returns(EmptyPost);
+
 }
 
 message RequestCreatePost {
@@ -17,4 +19,14 @@ message ResponseCreatePost {
   string title = 3;
   string description = 4;
   int64 postedOnMilliseconds = 5;
+}
+
+message RequestDeletePost
+{
+  int32 id =1;
+}
+
+message EmptyPost
+{
+
 }

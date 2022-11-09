@@ -7,4 +7,5 @@ import java.sql.SQLException;
 @Component
 public interface PostPersistence {
 	void createPost(String title, String description) throws SQLException;
+	void deletePost(int id) throws SQLException;
 }

@@ -45,6 +45,37 @@ public final class PostGrpc {
     return getCreatePostMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestDeletePost,
+      sep3.project.protobuf.EmptyPost> getDeletePostMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeletePost",
+      requestType = sep3.project.protobuf.RequestDeletePost.class,
+      responseType = sep3.project.protobuf.EmptyPost.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestDeletePost,
+      sep3.project.protobuf.EmptyPost> getDeletePostMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestDeletePost, sep3.project.protobuf.EmptyPost> getDeletePostMethod;
+    if ((getDeletePostMethod = PostGrpc.getDeletePostMethod) == null) {
+      synchronized (PostGrpc.class) {
+        if ((getDeletePostMethod = PostGrpc.getDeletePostMethod) == null) {
+          PostGrpc.getDeletePostMethod = getDeletePostMethod =
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestDeletePost, sep3.project.protobuf.EmptyPost>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeletePost"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.RequestDeletePost.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.EmptyPost.getDefaultInstance()))
+              .setSchemaDescriptor(new PostMethodDescriptorSupplier("DeletePost"))
+              .build();
+        }
+      }
+    }
+    return getDeletePostMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -100,6 +131,13 @@ public final class PostGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreatePostMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void deletePost(sep3.project.protobuf.RequestDeletePost request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.EmptyPost> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeletePostMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -109,6 +147,13 @@ public final class PostGrpc {
                 sep3.project.protobuf.RequestCreatePost,
                 sep3.project.protobuf.ResponseCreatePost>(
                   this, METHODID_CREATE_POST)))
+          .addMethod(
+            getDeletePostMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                sep3.project.protobuf.RequestDeletePost,
+                sep3.project.protobuf.EmptyPost>(
+                  this, METHODID_DELETE_POST)))
           .build();
     }
   }
@@ -134,6 +179,14 @@ public final class PostGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCreatePostMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void deletePost(sep3.project.protobuf.RequestDeletePost request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.EmptyPost> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeletePostMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -155,6 +208,13 @@ public final class PostGrpc {
     public sep3.project.protobuf.ResponseCreatePost createPost(sep3.project.protobuf.RequestCreatePost request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCreatePostMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sep3.project.protobuf.EmptyPost deletePost(sep3.project.protobuf.RequestDeletePost request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeletePostMethod(), getCallOptions(), request);
     }
   }
 
@@ -179,9 +239,18 @@ public final class PostGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCreatePostMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.EmptyPost> deletePost(
+        sep3.project.protobuf.RequestDeletePost request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeletePostMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_POST = 0;
+  private static final int METHODID_DELETE_POST = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -203,6 +272,10 @@ public final class PostGrpc {
         case METHODID_CREATE_POST:
           serviceImpl.createPost((sep3.project.protobuf.RequestCreatePost) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseCreatePost>) responseObserver);
+          break;
+        case METHODID_DELETE_POST:
+          serviceImpl.deletePost((sep3.project.protobuf.RequestDeletePost) request,
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.EmptyPost>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -266,6 +339,7 @@ public final class PostGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new PostFileDescriptorSupplier())
               .addMethod(getCreatePostMethod())
+              .addMethod(getDeletePostMethod())
               .build();
         }
       }

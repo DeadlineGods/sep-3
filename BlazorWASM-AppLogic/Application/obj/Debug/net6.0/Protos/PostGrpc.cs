@@ -49,6 +49,10 @@ namespace GrpcClient {
     static readonly grpc::Marshaller<global::GrpcClient.RequestCreatePost> __Marshaller_RequestCreatePost = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcClient.RequestCreatePost.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::GrpcClient.ResponseCreatePost> __Marshaller_ResponseCreatePost = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcClient.ResponseCreatePost.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::GrpcClient.RequestDeletePost> __Marshaller_RequestDeletePost = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcClient.RequestDeletePost.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::GrpcClient.EmptyPost> __Marshaller_EmptyPost = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcClient.EmptyPost.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::GrpcClient.RequestCreatePost, global::GrpcClient.ResponseCreatePost> __Method_CreatePost = new grpc::Method<global::GrpcClient.RequestCreatePost, global::GrpcClient.ResponseCreatePost>(
@@ -57,6 +61,14 @@ namespace GrpcClient {
         "CreatePost",
         __Marshaller_RequestCreatePost,
         __Marshaller_ResponseCreatePost);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::GrpcClient.RequestDeletePost, global::GrpcClient.EmptyPost> __Method_DeletePost = new grpc::Method<global::GrpcClient.RequestDeletePost, global::GrpcClient.EmptyPost>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "DeletePost",
+        __Marshaller_RequestDeletePost,
+        __Marshaller_EmptyPost);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -110,6 +122,26 @@ namespace GrpcClient {
       public virtual grpc::AsyncUnaryCall<global::GrpcClient.ResponseCreatePost> CreatePostAsync(global::GrpcClient.RequestCreatePost request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_CreatePost, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::GrpcClient.EmptyPost DeletePost(global::GrpcClient.RequestDeletePost request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return DeletePost(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::GrpcClient.EmptyPost DeletePost(global::GrpcClient.RequestDeletePost request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_DeletePost, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::GrpcClient.EmptyPost> DeletePostAsync(global::GrpcClient.RequestDeletePost request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return DeletePostAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::GrpcClient.EmptyPost> DeletePostAsync(global::GrpcClient.RequestDeletePost request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_DeletePost, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

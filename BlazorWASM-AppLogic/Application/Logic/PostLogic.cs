@@ -32,6 +32,11 @@ public class PostLogic : IPostLogic
 	    return await postDao.GetAsync(parameters);
     }
 
+    public async Task DeleteAsync(int id)
+    {
+        await postDao.DeleteAsync(id);
+    }
+
     private void ValidatePost(PostCreationDto postCreationDto)
     {
         if (postCreationDto.description.Length > 5000)

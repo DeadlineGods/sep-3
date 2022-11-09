@@ -32,4 +32,22 @@ public class PostDatabase implements PostPersistence {
 			connection.close();
 		}
 	}
+
+	@Override
+	public void deletePost(int id) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+
+		try
+		{
+			PreparedStatement statement = connection.prepareStatement(
+					"DELETE FROM post " +
+							"WHERE id = ?"
+			);
+			statement.setInt(1, id);
+			statement.execute();
+		}
+		finally {
+			connection.close();
+		}
+	}
 }

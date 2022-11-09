@@ -4,9 +4,7 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import sep3.project.daos.PostPersistence;
-import sep3.project.protobuf.PostGrpc;
-import sep3.project.protobuf.RequestCreatePost;
-import sep3.project.protobuf.ResponseCreatePost;
+import sep3.project.protobuf.*;
 
 import java.sql.SQLException;
 @GRpcService
@@ -38,4 +36,19 @@ public class PostImpl extends PostGrpc.PostImplBase {
 //		System.out.println("Post created =>\n" + request.toString());
 	}
 
+	@Override
+	public void deletePost(RequestDeletePost request, StreamObserver<EmptyPost> responseObserver) {
+		System.out.println("Received Request =>\n" + request.toString());
+		try
+		{
+			database.deletePost(request.getId());
+		}
+		catch (SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
+		EmptyPost response = EmptyPost.newBuilder().build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
 }

@@ -32,4 +32,25 @@ public class PostGrpcClient : IPostDao
     {
 	    throw new NotImplementedException();
     }
+    
+    public async Task DeleteAsync(int id)
+    {
+	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+	    var client = new GrpcClient.Post.PostClient(channel);
+	    try
+	    {
+			await client.DeletePostAsync(
+		    new RequestDeletePost
+		    {
+			    Id = id
+		    });
+	    }
+	    catch (Exception e)
+	    {
+		    Console.WriteLine(e);
+		    throw;
+	    }
+
+	    await Task.CompletedTask;
+    }
 }

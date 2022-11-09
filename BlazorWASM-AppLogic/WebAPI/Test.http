@@ -1,7 +1,10 @@
-POST http://localhost:5196/Posts
+POST http://localhost:5196/Posts/create
 Content-Type: application/json
 
 {
   "title": "Test Tile",
   "description" : "Test Description"
 }
+
+###
+DELETE http://localhost:5196/Posts/1
