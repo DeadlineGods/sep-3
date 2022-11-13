@@ -7,11 +7,11 @@ namespace ImageHosting.Controllers;
 [Route("api/files")]
 public class FileUploadingController : ControllerBase
 {
-    public readonly IWebHostEnvironment env;
+    private readonly IWebHostEnvironment _env;
 
     public FileUploadingController(IWebHostEnvironment env)
     {
-        this.env = env;
+        _env = env;
     }
 
     [HttpPost]
@@ -21,17 +21,24 @@ public class FileUploadingController : ControllerBase
         {
             if (objectFile.Files.Length > 0)
             {
-                string path = env.WebRootPath + "\\uploads\\";
+                string path = _env.WebRootPath + "\\StaticFile\\";
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
 
-                using (FileStream fileStream = System.IO.File.Create(path + objectFile.Files.FileName))
+                string fileName = Path.GetFileNameWithoutExtension(objectFile.Files.FileName);
+                string fileExtension = Path.GetExtension(objectFile.Files.FileName);
+                while (CheckIfNameExists(path, fileName))
+                {
+                    fileName += "_new";
+                }
+
+                using (FileStream fileStream = System.IO.File.Create(path + fileName + fileExtension))
                 {
                     objectFile.Files.CopyTo(fileStream);
                     fileStream.Flush();
-                    return "Uploaded.";
+                    return "https://localhost:7174/staticfile/" + fileName + fileExtension;
                 }
             }
             else
@@ -43,5 +50,20 @@ public class FileUploadingController : ControllerBase
         {
             return ex.Message;
         }
+    }
+
+    private bool CheckIfNameExists(string filePath, string targetFileName)
+    {
+        string[] fileEntries = Directory.GetFiles(filePath);
+        foreach (string fileNameFull in fileEntries)
+        {
+           string fileName =  Path.GetFileNameWithoutExtension(fileNameFull);
+           if (fileName.Equals(targetFileName))
+           {
+               return true;
+           }
+        }
+
+        return false;
     }
 }

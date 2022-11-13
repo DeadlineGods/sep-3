@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/5ndUkjwkjKzhYUEJBZg7qWbtKKLcnvbRdqK5JfGeWE4CnndsdUwwrcObLngUGguzYiqbIjNbai9SwsCVl17MQ==",
+  "dgSpecHash": "GJCQ0QJG5Yd2lNIoIxq8YTEHjqWzPLOyZd9XTX0iHlhMNFDitjsr8+p+UHO8/hOOMEv5U83nE414v4/hULFemg==",
   "success": true,
-  "projectFilePath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj",
+  "projectFilePath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

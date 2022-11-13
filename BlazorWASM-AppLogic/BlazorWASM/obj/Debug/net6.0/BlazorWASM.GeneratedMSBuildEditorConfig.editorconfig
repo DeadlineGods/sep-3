@@ -11,37 +11,37 @@ build_property.EnableTrimAnalyzer = true
 build_property.IncludeAllContentForSelfExtract = 
 build_property.RootNamespace = BlazorWASM
 build_property.RootNamespace = BlazorWASM
-build_property.ProjectDir = /Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM/
+build_property.ProjectDir = C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\BlazorWASM\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM
+build_property.MSBuildProjectDirectory = C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\BlazorWASM
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM/App.razor]
+[C:/Users/Darko/Desktop/VIA/Semester 3/SEP3/Project-git/sep-3/BlazorWASM-AppLogic/BlazorWASM/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM/Pages/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
+[C:/Users/Darko/Desktop/VIA/Semester 3/SEP3/Project-git/sep-3/BlazorWASM-AppLogic/BlazorWASM/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM/Shared/SurveyPrompt.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+[C:/Users/Darko/Desktop/VIA/Semester 3/SEP3/Project-git/sep-3/BlazorWASM-AppLogic/BlazorWASM/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM/_Imports.razor]
+[C:/Users/Darko/Desktop/VIA/Semester 3/SEP3/Project-git/sep-3/BlazorWASM-AppLogic/BlazorWASM/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM/Pages/CreatePost.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3JlYXRlUG9zdC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-7vz3ftkb0k
+[C:/Users/Darko/Desktop/VIA/Semester 3/SEP3/Project-git/sep-3/BlazorWASM-AppLogic/BlazorWASM/Pages/CreatePost.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlUG9zdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ceegisofnu
 
-[/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM/Shared/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-6v8oqhpdl4
+[C:/Users/Darko/Desktop/VIA/Semester 3/SEP3/Project-git/sep-3/BlazorWASM-AppLogic/BlazorWASM/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-jk00ermrez
 
-[/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/BlazorWASM/Shared/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-v7u2np63r8
+[C:/Users/Darko/Desktop/VIA/Semester 3/SEP3/Project-git/sep-3/BlazorWASM-AppLogic/BlazorWASM/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-69rflur3ak

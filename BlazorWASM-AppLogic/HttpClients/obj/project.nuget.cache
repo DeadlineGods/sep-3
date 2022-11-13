@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CxKaaydp8gkrtzuoAzrErGaD+Q6t7m1EhfM9DEns3Jq8VF1IA50O/TOJrYbVJ8Z9UqGeTyG4z/pylw9AdzxBTg==",
+  "dgSpecHash": "DkjFXpQwZJWBvP/Im0I/jyZRNROznxUFeVw+Xx7KsaI9gbyXNKnv7pQ8noKtaruuCQkJuXswt7hI0pncA4aNfw==",
   "success": true,
-  "projectFilePath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/HttpClients/HttpClients.csproj",
+  "projectFilePath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\HttpClients\\HttpClients.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
