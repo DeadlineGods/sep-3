@@ -1,16 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "3LIzPFpNMSxAPFzSd5oYeUwpZd4b8chsL4qhLVQcmZ9WI4EeQJiATIlDXd0gZFQXNG32MVa9TJcoiOe5xsIJvg==",
+  "dgSpecHash": "Dk4uQeCVdC2/zNiNu9ZPRmu9aXSgPLHk7WHic/YkwRFB79iA+t1kYMlqNqXZ6Kg57GjnHtWYjSkq20JqqZheHg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
+  "projectFilePath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV2\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Darko\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
-    "C:\\Users\\Darko\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
-    "C:\\Users\\Darko\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
-    "C:\\Users\\Darko\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
-    "C:\\Users\\Darko\\.nuget\\packages\\grpc.tools\\2.50.0\\grpc.tools.2.50.0.nupkg.sha512",
-    "C:\\Users\\Darko\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
-    "C:\\Users\\Darko\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+    "C:\\Users\\Dávid\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
+    "C:\\Users\\Dávid\\.nuget\\packages\\grpc.core.api\\2.49.0\\grpc.core.api.2.49.0.nupkg.sha512",
+    "C:\\Users\\Dávid\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
+    "C:\\Users\\Dávid\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
+    "C:\\Users\\Dávid\\.nuget\\packages\\grpc.tools\\2.50.0\\grpc.tools.2.50.0.nupkg.sha512",
+    "C:\\Users\\Dávid\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Dávid\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }
