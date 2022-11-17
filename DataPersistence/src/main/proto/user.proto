@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "sep3.project.protobuf";
+
+service User {
+  rpc CreateUser(RequestCreateUser) returns (ResponseCreateUser);
+}
+
+message UserData {
+  int64 id = 1;
+  string username = 2;
+  string firstName = 3;
+  string lastName = 4;
+  string email = 5;
+  string password = 6;
+  string phoneNumber = 7;
+}
+
+message RequestCreateUser {
+  string username = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+  string password = 5;
+  string phoneNumber = 6;
+}
+
+message ResponseCreateUser {
+  UserData userData = 1;
+}
