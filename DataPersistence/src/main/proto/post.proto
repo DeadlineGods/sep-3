@@ -3,8 +3,9 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "sep3.project.protobuf";
 
-service Post {
-	rpc CreatePost(RequestCreatePost) returns(ResponseCreatePost);
+service PostService {
+	rpc CreatePost(RequestCreatePost) returns(Post);
+	rpc GetPost(RequestGetPost) returns(ResponseGetPost);
 }
 
 message RequestCreatePost {
@@ -12,10 +13,21 @@ message RequestCreatePost {
 	string description = 2;
 }
 
-message ResponseCreatePost {
+message Post {
 	int32 id = 1;
 	int32 likes = 2;
 	string title = 3;
 	string description = 4;
 	int64 postedOnMilliseconds = 5;
 }
+
+message RequestGetPost {
+	optional int32 id = 1;
+	optional int32 userId = 2;
+	optional string title = 3;
+}
+
+message ResponseGetPost {
+	repeated Post posts = 1;
+}
+

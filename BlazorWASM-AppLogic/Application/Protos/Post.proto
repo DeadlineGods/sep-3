@@ -4,7 +4,7 @@ option csharp_namespace = "GrpcClient";
 
 service PostService {
   rpc CreatePost(RequestCreatePost) returns(Post);
-	rpc GetPost(RequestGetPost) returns(Post);
+	rpc GetPost(RequestGetPost) returns(ResponseGetPost);
 }
 
 message RequestCreatePost {
@@ -21,11 +21,9 @@ message Post {
 }
 
 message RequestGetPost {
-	int32 id = 1;
-	int32 likes = 2;
-	string title = 3;
-	string description = 4;
-	int64 postedOnMilliseconds = 5;
+	optional int32 id = 1;
+	optional int32 userId = 2;
+	optional string title = 3;
 }
 
 message ResponseGetPost {

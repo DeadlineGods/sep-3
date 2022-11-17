@@ -33,3 +33,8 @@
 /Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/Debug/net6.0/WebAPI.pdb
 /Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/Debug/net6.0/WebAPI.genruntimeconfig.cache
 /Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/Debug/net6.0/ref/WebAPI.dll
+/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/Debug/net6.0/staticwebassets/msbuild.WebAPI.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/Debug/net6.0/staticwebassets/msbuild.build.WebAPI.props
+/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/Debug/net6.0/staticwebassets/msbuild.buildMultiTargeting.WebAPI.props
+/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/Debug/net6.0/staticwebassets/msbuild.buildTransitive.WebAPI.props
+/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/Debug/net6.0/staticwebassets.pack.json

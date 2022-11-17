@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "s0I9HzCGqD/jhELehMENLsECLLGQtFiCwNJp61mx5X74k3zF6qaFj6qNvKhNtC1/OL0t9TH4nvetjaFPFkax+A==",
+  "dgSpecHash": "JHuoAuln6PzhxQXcVKG/cD+qbmCxqMpQEJ/va4NgXkO9JDuR4V6Lsi7qm6gEDohWSaurRA7Zkntw/JCcXtqypg==",
   "success": true,
   "projectFilePath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/WebAPI.csproj",
   "expectedPackageFiles": [

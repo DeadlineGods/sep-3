@@ -20,10 +20,20 @@ public final class PostOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_RequestCreatePost_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ResponseCreatePost_descriptor;
+    internal_static_Post_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ResponseCreatePost_fieldAccessorTable;
+      internal_static_Post_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RequestGetPost_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RequestGetPost_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ResponseGetPost_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ResponseGetPost_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -34,13 +44,17 @@ public final class PostOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\npost.proto\"7\n\021RequestCreatePost\022\r\n\005tit" +
-      "le\030\001 \001(\t\022\023\n\013description\030\002 \001(\t\"q\n\022Respons" +
-      "eCreatePost\022\n\n\002id\030\001 \001(\005\022\r\n\005likes\030\002 \001(\005\022\r" +
-      "\n\005title\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\034\n\024po" +
-      "stedOnMilliseconds\030\005 \001(\0032=\n\004Post\0225\n\nCrea" +
-      "tePost\022\022.RequestCreatePost\032\023.ResponseCre" +
-      "atePostB\031\n\025sep3.project.protobufP\001b\006prot" +
-      "o3"
+      "le\030\001 \001(\t\022\023\n\013description\030\002 \001(\t\"c\n\004Post\022\n\n" +
+      "\002id\030\001 \001(\005\022\r\n\005likes\030\002 \001(\005\022\r\n\005title\030\003 \001(\t\022" +
+      "\023\n\013description\030\004 \001(\t\022\034\n\024postedOnMillisec" +
+      "onds\030\005 \001(\003\"f\n\016RequestGetPost\022\017\n\002id\030\001 \001(\005" +
+      "H\000\210\001\001\022\023\n\006userId\030\002 \001(\005H\001\210\001\001\022\022\n\005title\030\003 \001(" +
+      "\tH\002\210\001\001B\005\n\003_idB\t\n\007_userIdB\010\n\006_title\"\'\n\017Re" +
+      "sponseGetPost\022\024\n\005posts\030\001 \003(\0132\005.Post2d\n\013P" +
+      "ostService\022\'\n\nCreatePost\022\022.RequestCreate" +
+      "Post\032\005.Post\022,\n\007GetPost\022\017.RequestGetPost\032" +
+      "\020.ResponseGetPostB\031\n\025sep3.project.protob" +
+      "ufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -52,12 +66,24 @@ public final class PostOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RequestCreatePost_descriptor,
         new java.lang.String[] { "Title", "Description", });
-    internal_static_ResponseCreatePost_descriptor =
+    internal_static_Post_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_ResponseCreatePost_fieldAccessorTable = new
+    internal_static_Post_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ResponseCreatePost_descriptor,
+        internal_static_Post_descriptor,
         new java.lang.String[] { "Id", "Likes", "Title", "Description", "PostedOnMilliseconds", });
+    internal_static_RequestGetPost_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_RequestGetPost_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RequestGetPost_descriptor,
+        new java.lang.String[] { "Id", "UserId", "Title", "Id", "UserId", "Title", });
+    internal_static_ResponseGetPost_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_ResponseGetPost_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ResponseGetPost_descriptor,
+        new java.lang.String[] { "Posts", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

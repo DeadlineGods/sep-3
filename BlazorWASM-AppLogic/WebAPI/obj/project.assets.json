@@ -5,10 +5,14 @@
       "Google.Protobuf/3.21.9": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Google.Protobuf.dll": {}
+          "lib/net5.0/Google.Protobuf.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net5.0/Google.Protobuf.dll": {}
+          "lib/net5.0/Google.Protobuf.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Grpc.Core.Api/2.49.0": {
@@ -17,10 +21,14 @@
           "System.Memory": "4.5.3"
         },
         "compile": {
-          "lib/netstandard2.1/Grpc.Core.Api.dll": {}
+          "lib/netstandard2.1/Grpc.Core.Api.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.1/Grpc.Core.Api.dll": {}
+          "lib/netstandard2.1/Grpc.Core.Api.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Grpc.Net.Client/2.49.0": {
@@ -30,10 +38,14 @@
           "Microsoft.Extensions.Logging.Abstractions": "3.0.3"
         },
         "compile": {
-          "lib/net6.0/Grpc.Net.Client.dll": {}
+          "lib/net6.0/Grpc.Net.Client.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Grpc.Net.Client.dll": {}
+          "lib/net6.0/Grpc.Net.Client.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Grpc.Net.Common/2.49.0": {
@@ -42,10 +54,14 @@
           "Grpc.Core.Api": "2.49.0"
         },
         "compile": {
-          "lib/net6.0/Grpc.Net.Common.dll": {}
+          "lib/net6.0/Grpc.Net.Common.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Grpc.Net.Common.dll": {}
+          "lib/net6.0/Grpc.Net.Common.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/3.0.0": {
@@ -62,19 +78,27 @@
       "Microsoft.Extensions.Logging.Abstractions/3.0.3": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.OpenApi/1.2.3": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Microsoft.OpenApi.dll": {}
+          "lib/netstandard2.0/Microsoft.OpenApi.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.OpenApi.dll": {}
+          "lib/netstandard2.0/Microsoft.OpenApi.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Swashbuckle.AspNetCore/6.2.3": {
@@ -95,10 +119,14 @@
           "Microsoft.OpenApi": "1.2.3"
         },
         "compile": {
-          "lib/net6.0/Swashbuckle.AspNetCore.Swagger.dll": {}
+          "lib/net6.0/Swashbuckle.AspNetCore.Swagger.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Swashbuckle.AspNetCore.Swagger.dll": {}
+          "lib/net6.0/Swashbuckle.AspNetCore.Swagger.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -110,19 +138,27 @@
           "Swashbuckle.AspNetCore.Swagger": "6.2.3"
         },
         "compile": {
-          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
+          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
+          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Swashbuckle.AspNetCore.SwaggerUI/6.2.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
+          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
+          "lib/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -431,12 +467,12 @@
     "Application/1.0.0": {
       "type": "project",
       "path": "../Application/Application.csproj",
-      "msbuildProject": "../../../../../../../../via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Application/Application.csproj"
+      "msbuildProject": "../Application/Application.csproj"
     },
     "Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Domain.csproj",
-      "msbuildProject": "../../../../../../../../via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Domain/Domain.csproj"
+      "msbuildProject": "../Domain/Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -451,11 +487,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/WebAPI.csproj",
+      "projectUniqueName": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/WebAPI.csproj",
+      "projectPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/WebAPI.csproj",
       "packagesPath": "/Users/antondurcak/.nuget/packages/",
-      "outputPath": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/",
+      "outputPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/WebAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/antondurcak/.nuget/NuGet/NuGet.Config"
@@ -470,8 +506,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Application/Application.csproj": {
-              "projectPath": "/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Application/Application.csproj"
+            "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Application/Application.csproj": {
+              "projectPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/Application/Application.csproj"
             }
           }
         }
@@ -510,7 +546,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/Users/antondurcak/.dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
       }
     }
   }
