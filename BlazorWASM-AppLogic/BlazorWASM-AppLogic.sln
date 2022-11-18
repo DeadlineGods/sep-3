@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClients", "HttpClients\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{DF38A139-50A0-4F38-A579-2B57991D534D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageHosting", "ImageHosting\ImageHosting.csproj", "{8957E785-F3C2-4F7C-91A7-DF4E9743DB3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{DF38A139-50A0-4F38-A579-2B57991D534D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF38A139-50A0-4F38-A579-2B57991D534D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF38A139-50A0-4F38-A579-2B57991D534D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8957E785-F3C2-4F7C-91A7-DF4E9743DB3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8957E785-F3C2-4F7C-91A7-DF4E9743DB3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8957E785-F3C2-4F7C-91A7-DF4E9743DB3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8957E785-F3C2-4F7C-91A7-DF4E9743DB3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

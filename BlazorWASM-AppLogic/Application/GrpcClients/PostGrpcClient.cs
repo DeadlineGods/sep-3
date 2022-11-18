@@ -25,7 +25,6 @@ public class PostGrpcClient : IPostDao
 	    Post replyPost = new Post(reply.Id, reply.Likes, reply.Title, reply.Description, postedOn);
 
 	    return await Task.FromResult(replyPost);
-
     }
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)

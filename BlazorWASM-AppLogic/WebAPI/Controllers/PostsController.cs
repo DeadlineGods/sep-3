@@ -22,7 +22,7 @@ public class PostsController : ControllerBase
 	    try
         {
             Post post = await postLogic.CreateAsync(postCreationDto);
-            return Created($"/posts/{post.title}", post);
+            return Created($"/posts/{post.Id}", post);
         }
         catch (Exception e)
         {
