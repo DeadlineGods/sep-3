@@ -2,9 +2,9 @@
 
 public class User
 {
-    private String userName{ get; set; }
+    public String userName{ get; set; }
     private String fullName{ get; set; }
-    private String password{ get; set; }
+    public String password{ get; set; }
     private String email{ get; set; }
     private String phoneNumber{ get; set; }
 
@@ -16,6 +16,7 @@ public class User
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+    
 
     
 
