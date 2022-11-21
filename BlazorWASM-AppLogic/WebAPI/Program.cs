@@ -2,6 +2,9 @@ using Application.DAOsInterfaces;
 using Application.GrpcClients;
 using Application.Logic;
 using Application.LogicInterfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,6 @@
-﻿namespace Domain.Models;
+﻿using System;
+
+namespace Domain.Models;
 
 public class User
 {
@@ -17,7 +19,7 @@ public class User
         this.phoneNumber = phoneNumber;
     }
 
-    
 
-    
+
+
 }
