@@ -1,0 +1,80 @@
+﻿@page "/Register"
+@using BlazorWasm.Services
+@using Domain.Models
+@inject IAuthService authService
+@inject NavigationManager navMgr
+
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="card">
+            <h3>Please register</h3>
+             <div class="field">
+                  <label>User name:</label>
+                  <input type="text" class="feedback-input-register" @bind="userName"/>
+              </div>
+                      
+            <div class="field">
+                    <label>Full name:</label>
+                    <input type="text" class="feedback-input-register" @bind="fullName"/>
+                </div>
+           
+            <div class="field">
+                <label style="text-align: center">Password:</label>
+                <input type="password" class="feedback-input-register" @bind="password"/>
+            </div>
+            <div class="field">
+                <label style="text-align: center">Email:</label>
+                <input type="email" class="feedback-input-register" @bind="email"/>
+            </div>
+            <div class="field">
+                <label style="text-align: center">Phone Number:</label>
+                <input type="text" class="feedback-input-register" @bind="phoneNumber"/>
+            </div>
+                        
+            
+            @if (!string.IsNullOrEmpty(errorLabel))
+            {
+                <div class="field">
+                    <label style="color: red">
+                        @errorLabel
+                    </label>
+                </div>
+            }
+            <div class="field">
+                <button class="button-35" role="button" @onclick="RegisterAsync">Register</button>
+            </div>
+        </div>
+    </NotAuthorized>
+    <Authorized>
+        <div class="card">
+            <h3>Hello, @context.User.Identity.Name</h3>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private string firstName;
+    private string fullName;
+    private string userName;
+    private string password;
+    private string email;
+    private string phoneNumber;
+
+    private string errorLabel;
+
+    private async Task RegisterAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            await authService.RegisterAsync(new User(userName,fullName,password,email,phoneNumber));
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+    
+}
