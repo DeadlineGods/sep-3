@@ -56,13 +56,13 @@ public final class UserOuterClass {
       "\002 \001(\t\022\020\n\010lastName\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\020" +
       "\n\010password\030\005 \001(\t\022\023\n\013phoneNumber\030\006 \001(\t\"1\n" +
       "\022ResponseCreateUser\022\033\n\010userData\030\001 \001(\0132\t." +
-      "UserData\"#\n\017RequestGetUsers\022\020\n\010username\030" +
-      "\001 \001(\t\"/\n\020ResponseGetUsers\022\033\n\010userData\030\001 " +
-      "\003(\0132\t.UserData2n\n\004User\0225\n\nCreateUser\022\022.R" +
-      "equestCreateUser\032\023.ResponseCreateUser\022/\n" +
-      "\010GetUsers\022\020.RequestGetUsers\032\021.ResponseGe" +
-      "tUsersB\031\n\025sep3.project.protobufP\001b\006proto" +
-      "3"
+      "UserData\"5\n\017RequestGetUsers\022\025\n\010username\030" +
+      "\001 \001(\tH\000\210\001\001B\013\n\t_username\"/\n\020ResponseGetUs" +
+      "ers\022\033\n\010userData\030\001 \003(\0132\t.UserData2n\n\004User" +
+      "\0225\n\nCreateUser\022\022.RequestCreateUser\032\023.Res" +
+      "ponseCreateUser\022/\n\010GetUsers\022\020.RequestGet" +
+      "Users\032\021.ResponseGetUsersB\031\n\025sep3.project" +
+      ".protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -91,7 +91,7 @@ public final class UserOuterClass {
     internal_static_RequestGetUsers_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RequestGetUsers_descriptor,
-        new java.lang.String[] { "Username", });
+        new java.lang.String[] { "Username", "Username", });
     internal_static_ResponseGetUsers_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_ResponseGetUsers_fieldAccessorTable = new

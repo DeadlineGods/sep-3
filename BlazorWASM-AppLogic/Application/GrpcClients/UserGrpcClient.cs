@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Security.AccessControl;
 using Application.DAOsInterfaces;
 using Domain.DTOs;
 using Domain.Models;
@@ -13,7 +14,6 @@ public class UserGrpcClient : IUserDao
 {
     public async Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
     {
-        
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
         var client = new GrpcClient.User.UserClient(channel);
         List<User> usersList = new List<User>();
@@ -22,14 +22,15 @@ public class UserGrpcClient : IUserDao
             {
                 Username = searchParameters.username
             });
-        for (int i = 0; i < reply.CalculateSize(); i++)
+        for (int i = 0; i < reply.UserData.Count; i++)
         {
             UserData userData = reply.UserData[i];
             User? user = new User(userData.Username, userData.FirstName, userData.Password, userData.Email,
                 userData.PhoneNumber);
             usersList.Add(user);
         }
-        
         return await Task.FromResult(usersList.AsEnumerable());
     }
+
+
 }

@@ -55,7 +55,7 @@ public class UserImpl extends UserGrpc.UserImplBase {
         responseObserver.onNext(response);
         responseObserver.onCompleted();
 
-        System.out.println("User with username: "+  request.toString() + " =v \n + response.toString()");
+        System.out.println("User with username: "+  request.toString() + " =v \n "+ response.toString());
 
     }
 }

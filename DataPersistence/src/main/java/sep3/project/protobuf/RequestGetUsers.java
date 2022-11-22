@@ -39,6 +39,7 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
+    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -51,7 +52,7 @@ private static final long serialVersionUID = 0L;
             break;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
-
+            bitField0_ |= 0x00000001;
             username_ = s;
             break;
           }
@@ -89,10 +90,19 @@ private static final long serialVersionUID = 0L;
             sep3.project.protobuf.RequestGetUsers.class, sep3.project.protobuf.RequestGetUsers.Builder.class);
   }
 
+  private int bitField0_;
   public static final int USERNAME_FIELD_NUMBER = 1;
   private volatile java.lang.Object username_;
   /**
-   * <code>string username = 1;</code>
+   * <code>optional string username = 1;</code>
+   * @return Whether the username field is set.
+   */
+  @java.lang.Override
+  public boolean hasUsername() {
+    return ((bitField0_ & 0x00000001) != 0);
+  }
+  /**
+   * <code>optional string username = 1;</code>
    * @return The username.
    */
   @java.lang.Override
@@ -109,7 +119,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string username = 1;</code>
+   * <code>optional string username = 1;</code>
    * @return The bytes for username.
    */
   @java.lang.Override
@@ -141,7 +151,7 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(username_)) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, username_);
     }
     unknownFields.writeTo(output);
@@ -153,7 +163,7 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(username_)) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, username_);
     }
     size += unknownFields.getSerializedSize();
@@ -171,8 +181,11 @@ private static final long serialVersionUID = 0L;
     }
     sep3.project.protobuf.RequestGetUsers other = (sep3.project.protobuf.RequestGetUsers) obj;
 
-    if (!getUsername()
-        .equals(other.getUsername())) return false;
+    if (hasUsername() != other.hasUsername()) return false;
+    if (hasUsername()) {
+      if (!getUsername()
+          .equals(other.getUsername())) return false;
+    }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -184,8 +197,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + USERNAME_FIELD_NUMBER;
-    hash = (53 * hash) + getUsername().hashCode();
+    if (hasUsername()) {
+      hash = (37 * hash) + USERNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getUsername().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -320,7 +335,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       username_ = "";
-
+      bitField0_ = (bitField0_ & ~0x00000001);
       return this;
     }
 
@@ -347,7 +362,13 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public sep3.project.protobuf.RequestGetUsers buildPartial() {
       sep3.project.protobuf.RequestGetUsers result = new sep3.project.protobuf.RequestGetUsers(this);
+      int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        to_bitField0_ |= 0x00000001;
+      }
       result.username_ = username_;
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -396,7 +417,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(sep3.project.protobuf.RequestGetUsers other) {
       if (other == sep3.project.protobuf.RequestGetUsers.getDefaultInstance()) return this;
-      if (!other.getUsername().isEmpty()) {
+      if (other.hasUsername()) {
+        bitField0_ |= 0x00000001;
         username_ = other.username_;
         onChanged();
       }
@@ -428,10 +450,18 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
+    private int bitField0_;
 
     private java.lang.Object username_ = "";
     /**
-     * <code>string username = 1;</code>
+     * <code>optional string username = 1;</code>
+     * @return Whether the username field is set.
+     */
+    public boolean hasUsername() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>optional string username = 1;</code>
      * @return The username.
      */
     public java.lang.String getUsername() {
@@ -447,7 +477,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string username = 1;</code>
+     * <code>optional string username = 1;</code>
      * @return The bytes for username.
      */
     public com.google.protobuf.ByteString
@@ -464,7 +494,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string username = 1;</code>
+     * <code>optional string username = 1;</code>
      * @param value The username to set.
      * @return This builder for chaining.
      */
@@ -473,23 +503,23 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
     throw new NullPointerException();
   }
-  
+  bitField0_ |= 0x00000001;
       username_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string username = 1;</code>
+     * <code>optional string username = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearUsername() {
-      
+      bitField0_ = (bitField0_ & ~0x00000001);
       username_ = getDefaultInstance().getUsername();
       onChanged();
       return this;
     }
     /**
-     * <code>string username = 1;</code>
+     * <code>optional string username = 1;</code>
      * @param value The bytes for username to set.
      * @return This builder for chaining.
      */
@@ -499,7 +529,7 @@ private static final long serialVersionUID = 0L;
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-      
+      bitField0_ |= 0x00000001;
       username_ = value;
       onChanged();
       return this;

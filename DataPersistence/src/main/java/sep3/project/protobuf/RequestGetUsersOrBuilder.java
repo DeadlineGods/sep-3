@@ -8,12 +8,17 @@ public interface RequestGetUsersOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string username = 1;</code>
+   * <code>optional string username = 1;</code>
+   * @return Whether the username field is set.
+   */
+  boolean hasUsername();
+  /**
+   * <code>optional string username = 1;</code>
    * @return The username.
    */
   java.lang.String getUsername();
   /**
-   * <code>string username = 1;</code>
+   * <code>optional string username = 1;</code>
    * @return The bytes for username.
    */
   com.google.protobuf.ByteString

@@ -32,7 +32,7 @@ message ResponseCreateUser {
 
 message RequestGetUsers
 {
-  string username = 1;
+  optional string username = 1;
 }
 
 message ResponseGetUsers{
