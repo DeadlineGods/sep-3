@@ -4,9 +4,7 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import sep3.project.daos.UserPersistence;
-import sep3.project.protobuf.RequestCreateUser;
-import sep3.project.protobuf.ResponseCreateUser;
-import sep3.project.protobuf.UserGrpc;
+import sep3.project.protobuf.*;
 
 import java.sql.SQLException;
 
@@ -38,5 +36,26 @@ public class UserImpl extends UserGrpc.UserImplBase {
         responseObserver.onCompleted();
 
         System.out.println("User Created =v \n" + response.toString());
+    }
+
+    @Override
+    public void getUsers(RequestGetUsers request, StreamObserver<ResponseGetUsers> responseObserver) {
+        System.out.println("Received Request =v \n" + request.toString());
+        ResponseGetUsers response = null;
+        try
+        {
+            response = database.Get(
+                    request.getUsername()
+            );
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+
+        System.out.println("User with username: "+  request.toString() + " =v \n + response.toString()");
+
     }
 }
