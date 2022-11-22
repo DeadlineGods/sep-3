@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain;
@@ -10,6 +11,7 @@ public class AuthService : IAuthService
 {
     private readonly IUserLogic userLogic;
     private IList<User> users;
+    private readonly IUserDao userDao;
 
     public AuthService(IUserLogic userLogic)
     {
@@ -28,7 +30,7 @@ public class AuthService : IAuthService
     {
         LoadUsersIntoList();
         User? existingUser = users.FirstOrDefault(user =>
-            user.userName.Equals(username, StringComparison.OrdinalIgnoreCase));
+            user.userName.ToLower().Equals(username.ToLower()));
 
         if (existingUser == null)
         {
