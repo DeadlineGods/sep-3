@@ -2,7 +2,7 @@ package sep3.project.daos;
 
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.persistance.DBConnection;
-import sep3.project.protobuf.Post;
+import sep3.project.protobuf.PostMessage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,9 +59,9 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public ArrayList<Post> getPost(int id, int userId, String titleContains) throws SQLException {
+	public ArrayList<PostMessage> getPost(int id, int userId, String titleContains) throws SQLException {
 		Connection connection = DBConnection.getConnection();
-		ArrayList<Post> posts = new ArrayList<>();
+		ArrayList<PostMessage> posts = new ArrayList<>();
 
 		try {
 			// get posts with id
@@ -141,8 +141,8 @@ public class PostDatabase implements PostPersistence {
 
 	}
 
-	private Post createPostFromQuery(ResultSet resultSet) throws SQLException {
-		return Post.newBuilder()
+	private PostMessage createPostFromQuery(ResultSet resultSet) throws SQLException {
+		return PostMessage.newBuilder()
 				.setId(resultSet.getInt("id"))
 				.setDescription(resultSet.getString("description"))
 				.setTitle(resultSet.getString("title"))

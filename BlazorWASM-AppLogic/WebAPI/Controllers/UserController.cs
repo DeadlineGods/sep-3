@@ -1,4 +1,5 @@
-﻿using Domain.DTOs;
+﻿using Application.LogicInterfaces;
+using Domain.DTOs;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,11 @@ namespace WebAPI.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    public UserController()
+    private readonly IUserLogic userLogic;
+    
+    public UserController(IUserLogic userLogic)
     {
-        
+        this.userLogic = userLogic;
     }
 
     [HttpPost]
@@ -18,7 +21,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            User user = null;
+            User user = await userLogic.CreateAsync(userCreationDto);
             return Created($"/users/{user.userName}", user);
         }
         catch (Exception e)

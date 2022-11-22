@@ -18,7 +18,7 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 	}
 
 	@Override
-	public void createPost(RequestCreatePost request, StreamObserver<Post> responseObserver) {
+	public void createPost(RequestCreatePost request, StreamObserver<PostMessage> responseObserver) {
 		System.out.println("Received Request =>\n" + request.toString());
 
 		try {
@@ -27,7 +27,7 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 			throw new RuntimeException(e);
 		}
 
-		Post response = Post.newBuilder()
+		PostMessage response = PostMessage.newBuilder()
 				.setTitle(request.getTitle())
 				.setDescription(request.getDescription())
 				.build();

@@ -3,9 +3,9 @@ syntax = "proto3";
 option csharp_namespace = "GrpcClient";
 
 service PostService {
-  rpc CreatePost(RequestCreatePost) returns(Post);
-	rpc GetPost(RequestGetPost) returns(ResponseGetPost);
-	rpc DeletePost(RequestDeletePost) returns(EmptyPost);
+  rpc CreatePost(RequestCreatePost) returns(PostMessage);
+  rpc GetPost(RequestGetPost) returns(ResponseGetPost);
+  rpc DeletePost(RequestDeletePost) returns(EmptyPost);
 }
 
 message RequestCreatePost {
@@ -13,22 +13,12 @@ message RequestCreatePost {
   string description = 2;
 }
 
-message Post {
+message PostMessage {
   int32 id = 1;
   int32 likes = 2;
   string title = 3;
   string description = 4;
   int64 postedOnMilliseconds = 5;
-}
-
-message RequestGetPost {
-	optional int32 id = 1;
-	optional int32 userId = 2;
-	optional string title = 3;
-}
-
-message ResponseGetPost {
-	repeated Post posts = 1;
 }
 
 message RequestDeletePost
@@ -40,3 +30,14 @@ message EmptyPost
 {
 
 }
+
+message RequestGetPost {
+  optional int32 id = 1;
+  optional int32 userId = 2;
+  optional string title = 3;
+}
+
+message ResponseGetPost {
+  repeated PostMessage posts = 1;
+}
+

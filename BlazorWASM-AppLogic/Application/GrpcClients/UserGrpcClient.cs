@@ -29,6 +29,8 @@ public class UserGrpcClient : IUserDao
 				PhoneNumber = user.phoneNumber
 			});
 
+		Console.WriteLine(CreateUser(reply));
+		
 		return await Task.FromResult(CreateUser(reply));
 	}
 

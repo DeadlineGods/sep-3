@@ -23,7 +23,6 @@ public class PostGrpcClient : IPostDao
 		    });
 
 	    return await Task.FromResult(CreatePost(reply));
-
     }
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
@@ -48,7 +47,7 @@ public class PostGrpcClient : IPostDao
 
     }
 
-    private Post CreatePost(GrpcClient.Post reply)
+    private Post CreatePost(GrpcClient.PostMessage reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(time.Ticks);

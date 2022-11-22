@@ -2,9 +2,6 @@ using Application.DAOsInterfaces;
 using Application.GrpcClients;
 using Application.Logic;
 using Application.LogicInterfaces;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
 builder.Services.AddScoped<IPostDao, PostGrpcClient>();
+builder.Services.AddScoped<IUserDao, UserGrpcClient>();
 
 var app = builder.Build();
 
