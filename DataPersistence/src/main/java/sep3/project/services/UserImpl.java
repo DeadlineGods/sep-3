@@ -4,9 +4,7 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import sep3.project.daos.UserPersistence;
-import sep3.project.protobuf.RequestCreateUser;
-import sep3.project.protobuf.UserData;
-import sep3.project.protobuf.UserServiceGrpc;
+import sep3.project.protobuf.*;
 
 import java.sql.SQLException;
 

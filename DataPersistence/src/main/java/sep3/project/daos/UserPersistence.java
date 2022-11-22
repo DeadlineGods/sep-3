@@ -1,7 +1,6 @@
 package sep3.project.daos;
 
 import org.springframework.stereotype.Component;
-import sep3.project.protobuf.ResponseCreateUser;
 import sep3.project.protobuf.ResponseGetUsers;
 import sep3.project.protobuf.UserData;
 

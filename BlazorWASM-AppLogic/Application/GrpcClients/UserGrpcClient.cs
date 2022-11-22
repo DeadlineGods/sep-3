@@ -18,7 +18,7 @@ public class UserGrpcClient : IUserDao
     public async Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
     {
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
-        var client = new GrpcClient.User.UserClient(channel);
+        var client = new UserService.UserServiceClient(channel);
         List<User> usersList = new List<User>();
         var reply = await client.GetUsersAsync(
             new RequestGetUsers
