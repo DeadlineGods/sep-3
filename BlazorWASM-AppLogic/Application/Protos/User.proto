@@ -1,7 +1,6 @@
-syntax = "proto3";
+﻿syntax = "proto3";
 
-option java_multiple_files = true;
-option java_package = "sep3.project.protobuf";
+option csharp_namespace = "GrpcClient";
 
 service User {
   rpc CreateUser(RequestCreateUser) returns (ResponseCreateUser);
@@ -39,5 +38,3 @@ message RequestGetUsers
 message ResponseGetUsers{
   repeated UserData userData = 1;
 }
-
-

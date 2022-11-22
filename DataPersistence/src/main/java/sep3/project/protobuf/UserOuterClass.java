@@ -29,6 +29,16 @@ public final class UserOuterClass {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ResponseCreateUser_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RequestGetUsers_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RequestGetUsers_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ResponseGetUsers_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ResponseGetUsers_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -46,9 +56,13 @@ public final class UserOuterClass {
       "\002 \001(\t\022\020\n\010lastName\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\020" +
       "\n\010password\030\005 \001(\t\022\023\n\013phoneNumber\030\006 \001(\t\"1\n" +
       "\022ResponseCreateUser\022\033\n\010userData\030\001 \001(\0132\t." +
-      "UserData2=\n\004User\0225\n\nCreateUser\022\022.Request" +
-      "CreateUser\032\023.ResponseCreateUserB\031\n\025sep3." +
-      "project.protobufP\001b\006proto3"
+      "UserData\"#\n\017RequestGetUsers\022\020\n\010username\030" +
+      "\001 \001(\t\"/\n\020ResponseGetUsers\022\033\n\010userData\030\001 " +
+      "\003(\0132\t.UserData2n\n\004User\0225\n\nCreateUser\022\022.R" +
+      "equestCreateUser\032\023.ResponseCreateUser\022/\n" +
+      "\010GetUsers\022\020.RequestGetUsers\032\021.ResponseGe" +
+      "tUsersB\031\n\025sep3.project.protobufP\001b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -71,6 +85,18 @@ public final class UserOuterClass {
     internal_static_ResponseCreateUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ResponseCreateUser_descriptor,
+        new java.lang.String[] { "UserData", });
+    internal_static_RequestGetUsers_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_RequestGetUsers_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RequestGetUsers_descriptor,
+        new java.lang.String[] { "Username", });
+    internal_static_ResponseGetUsers_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_ResponseGetUsers_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ResponseGetUsers_descriptor,
         new java.lang.String[] { "UserData", });
   }
 

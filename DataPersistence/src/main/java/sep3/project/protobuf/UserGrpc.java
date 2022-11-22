@@ -45,6 +45,37 @@ public final class UserGrpc {
     return getCreateUserMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetUsers,
+      sep3.project.protobuf.ResponseGetUsers> getGetUsersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetUsers",
+      requestType = sep3.project.protobuf.RequestGetUsers.class,
+      responseType = sep3.project.protobuf.ResponseGetUsers.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetUsers,
+      sep3.project.protobuf.ResponseGetUsers> getGetUsersMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetUsers, sep3.project.protobuf.ResponseGetUsers> getGetUsersMethod;
+    if ((getGetUsersMethod = UserGrpc.getGetUsersMethod) == null) {
+      synchronized (UserGrpc.class) {
+        if ((getGetUsersMethod = UserGrpc.getGetUsersMethod) == null) {
+          UserGrpc.getGetUsersMethod = getGetUsersMethod =
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestGetUsers, sep3.project.protobuf.ResponseGetUsers>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetUsers"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.RequestGetUsers.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.ResponseGetUsers.getDefaultInstance()))
+              .setSchemaDescriptor(new UserMethodDescriptorSupplier("GetUsers"))
+              .build();
+        }
+      }
+    }
+    return getGetUsersMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -100,6 +131,13 @@ public final class UserGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateUserMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getUsers(sep3.project.protobuf.RequestGetUsers request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUsersMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -109,6 +147,13 @@ public final class UserGrpc {
                 sep3.project.protobuf.RequestCreateUser,
                 sep3.project.protobuf.ResponseCreateUser>(
                   this, METHODID_CREATE_USER)))
+          .addMethod(
+            getGetUsersMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                sep3.project.protobuf.RequestGetUsers,
+                sep3.project.protobuf.ResponseGetUsers>(
+                  this, METHODID_GET_USERS)))
           .build();
     }
   }
@@ -134,6 +179,14 @@ public final class UserGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCreateUserMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getUsers(sep3.project.protobuf.RequestGetUsers request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetUsersMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -155,6 +208,13 @@ public final class UserGrpc {
     public sep3.project.protobuf.ResponseCreateUser createUser(sep3.project.protobuf.RequestCreateUser request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCreateUserMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sep3.project.protobuf.ResponseGetUsers getUsers(sep3.project.protobuf.RequestGetUsers request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetUsersMethod(), getCallOptions(), request);
     }
   }
 
@@ -179,9 +239,18 @@ public final class UserGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCreateUserMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetUsers> getUsers(
+        sep3.project.protobuf.RequestGetUsers request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetUsersMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_USER = 0;
+  private static final int METHODID_GET_USERS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -203,6 +272,10 @@ public final class UserGrpc {
         case METHODID_CREATE_USER:
           serviceImpl.createUser((sep3.project.protobuf.RequestCreateUser) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseCreateUser>) responseObserver);
+          break;
+        case METHODID_GET_USERS:
+          serviceImpl.getUsers((sep3.project.protobuf.RequestGetUsers) request,
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -266,6 +339,7 @@ public final class UserGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new UserFileDescriptorSupplier())
               .addMethod(getCreateUserMethod())
+              .addMethod(getGetUsersMethod())
               .build();
         }
       }
