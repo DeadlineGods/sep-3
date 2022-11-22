@@ -1,4 +1,7 @@
-﻿using Application.LogicInterfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -30,4 +33,42 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+
+
+    [HttpGet, Route("get")]
+    public async Task<ActionResult<Post>> GetAsync
+    (
+	    [FromQuery] int? id,
+	    [FromQuery] int? userId,
+	    [FromQuery] string? titleContains
+	) {
+	    try
+	    {
+		    SearchPostParameters parameters = new SearchPostParameters(id, userId, titleContains);
+            IEnumerable<Post> posts = await postLogic.GetAsync(parameters);
+            return Ok(posts);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    
+    [HttpDelete ("{id:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] int id)
+    {
+        try
+        {
+            await postLogic.DeleteAsync(id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
 }

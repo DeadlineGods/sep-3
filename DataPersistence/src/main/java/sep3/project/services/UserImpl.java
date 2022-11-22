@@ -4,12 +4,14 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import sep3.project.daos.UserPersistence;
-import sep3.project.protobuf.*;
+import sep3.project.protobuf.RequestCreateUser;
+import sep3.project.protobuf.UserData;
+import sep3.project.protobuf.UserServiceGrpc;
 
 import java.sql.SQLException;
 
 @GRpcService
-public class UserImpl extends UserGrpc.UserImplBase {
+public class UserImpl extends UserServiceGrpc.UserServiceImplBase {
     private final UserPersistence database;
 
     public UserImpl(@Qualifier("userDatabase") UserPersistence database) {
@@ -17,9 +19,9 @@ public class UserImpl extends UserGrpc.UserImplBase {
     }
 
     @Override
-    public void createUser(RequestCreateUser request, StreamObserver<ResponseCreateUser> responseObserver) {
+    public void createUser(RequestCreateUser request, StreamObserver<UserData> responseObserver) {
         System.out.println("Received Request =v \n" + request.toString());
-        ResponseCreateUser response = null;
+        UserData response = null;
         try {
             response = database.Create(
                     request.getUsername(),

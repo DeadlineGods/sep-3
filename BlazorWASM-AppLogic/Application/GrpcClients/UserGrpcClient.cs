@@ -1,5 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Security.AccessControl;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Application.DAOsInterfaces;
 using Domain.DTOs;
 using Domain.Models;
@@ -32,5 +35,32 @@ public class UserGrpcClient : IUserDao
         return await Task.FromResult(usersList.AsEnumerable());
     }
 
+    public async Task<User> CreateAsync(UserCreationDto user)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 
+        var client = new UserService.UserServiceClient(channel);
+
+        var reply = await client.CreateUserAsync(
+            new RequestCreateUser
+            {
+                Username = user.username,
+                FirstName = user.firstName,
+                LastName = user.lastName,
+                Email = user.email,
+                Password = user.password,
+                PhoneNumber = user.phoneNumber
+            });
+
+        Console.WriteLine(CreateUser(reply));
+		
+        return await Task.FromResult(CreateUser(reply));
+    }
+
+
+    private User CreateUser(UserData userData)
+    {
+        return new User(userData.Username, userData.FirstName + " " + userData.LastName, userData.Password,
+            userData.Email, userData.PhoneNumber);
+    }
 }

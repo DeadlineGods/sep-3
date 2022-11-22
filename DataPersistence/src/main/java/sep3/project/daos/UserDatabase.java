@@ -13,9 +13,9 @@ import java.util.List;
 @GRpcService
 public class UserDatabase implements UserPersistence {
     @Override
-    public ResponseCreateUser Create(String userName, String firstName, String lastName, String email, String password, String phoneNumber) throws SQLException {
+    public UserData Create(String userName, String firstName, String lastName, String email, String password, String phoneNumber) throws SQLException {
         Connection connection = DBConnection.getConnection();
-        ResponseCreateUser responseCreateUser = null;
+        UserData userData = null;
         try {
             long userId = 0;
             String sql = "INSERT INTO \"User\" (user_name, first_name, last_name, email, password, phone_number)  VALUES (?, ?, ?, ?, ?, ?)";
@@ -39,7 +39,7 @@ public class UserDatabase implements UserPersistence {
             }
 
             // Building a response
-            UserData userData = UserData.newBuilder()
+             userData = UserData.newBuilder()
                     .setId(userId)
                     .setUsername(userName)
                     .setFirstName(firstName)
@@ -48,15 +48,12 @@ public class UserDatabase implements UserPersistence {
                     .setPassword(password)
                     .setPhoneNumber(phoneNumber)
                     .build();
-            responseCreateUser = ResponseCreateUser.newBuilder()
-                    .setUserData(userData)
-                    .build();
 
         } finally {
             connection.close();
         }
 
-        return responseCreateUser;
+        return userData;
     }
 
     public ResponseGetUsers Get(String username) throws SQLException {

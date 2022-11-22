@@ -1,33 +1,29 @@
-﻿syntax = "proto3";
+syntax = "proto3";
 
 option csharp_namespace = "GrpcClient";
 
-service User {
-  rpc CreateUser(RequestCreateUser) returns (ResponseCreateUser);
+service UserService{
+	rpc CreateUser(RequestCreateUser) returns (UserData);
   rpc GetUsers(RequestGetUsers) returns (ResponseGetUsers);
 }
 
 message UserData {
-  int64 id = 1;
-  string username = 2;
-  string firstName = 3;
-  string lastName = 4;
-  string email = 5;
-  string password = 6;
-  string phoneNumber = 7;
+	int64 id = 1;
+	string username = 2;
+	string firstName = 3;
+	string lastName = 4;
+	string email = 5;
+	string password = 6;
+	string phoneNumber = 7;
 }
 
 message RequestCreateUser {
-  string username = 1;
-  string firstName = 2;
-  string lastName = 3;
-  string email = 4;
-  string password = 5;
-  string phoneNumber = 6;
-}
-
-message ResponseCreateUser {
-  UserData userData = 1;
+	string username = 1;
+	string firstName = 2;
+	string lastName = 3;
+	string email = 4;
+	string password = 5;
+	string phoneNumber = 6;
 }
 
 message RequestGetUsers
@@ -38,3 +34,9 @@ message RequestGetUsers
 message ResponseGetUsers{
   repeated UserData userData = 1;
 }
+
+
+//
+//message ResponseCreateUser {
+//	UserData userData = 1;
+//}

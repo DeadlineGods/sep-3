@@ -1,4 +1,6 @@
-﻿namespace Domain.Models;
+﻿using System;
+
+namespace Domain.Models;
 
 public abstract class Comment
 {

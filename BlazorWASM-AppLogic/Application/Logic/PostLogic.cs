@@ -1,4 +1,9 @@
-﻿using Application.DAOsInterfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System;
+using System.Threading.Tasks;
+using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
@@ -27,6 +32,16 @@ public class PostLogic : IPostLogic
         return await postDao.CreateAsync(post);
     }
 
+    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
+    {
+	    return await postDao.GetAsync(parameters);
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        await postDao.DeleteAsync(id);
+    }
+
     private void ValidatePost(PostCreationDto postCreationDto)
     {
         if (postCreationDto.description.Length > 5000)
@@ -36,7 +51,7 @@ public class PostLogic : IPostLogic
 
         if (postCreationDto.title.Length > 150)
         {
-            throw new Exception("Description has more characters than 150");
+            throw new Exception("Title has more characters than 150");
         }
     }
 }
