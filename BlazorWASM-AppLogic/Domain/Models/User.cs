@@ -4,11 +4,11 @@ namespace Domain.Models;
 
 public class User
 {
-    private String userName{ get; set; }
-    private String fullName{ get; set; }
-    private String password{ get; set; }
-    private String email{ get; set; }
-    private String phoneNumber{ get; set; }
+    public String userName{ get; set; }
+    public String fullName{ get; set; }
+    public String password{ get; set; }
+    public String email{ get; set; }
+    public String phoneNumber{ get; set; }
 
     public User(String userName, String fullname, String password, String email, String phoneNumber)
     {
