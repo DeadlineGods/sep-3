@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -33,7 +35,7 @@ public class PostHttpClient : IPostService
         }
     }
 
-    public async Task<ICollection<Post>> GetAsync(int? id, int? userId, string? titleContains)
+    public async Task<ICollection<Post>> GetAsync(int? id = null, int? userId = null, string? titleContains = null)
     {
 	    string query = ConstructQuery(id, userId, titleContains);
 
@@ -77,7 +79,7 @@ public class PostHttpClient : IPostService
 
 	    return query;
     }
-    
+
     public async Task DeleteAsync(int id)
     {
 	    HttpResponseMessage response = await client.DeleteAsync("https://localhost:7196/posts/{id}");
