@@ -18,18 +18,18 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 	}
 
 	@Override
-	public void createPost(RequestCreatePost request, StreamObserver<Post> responseObserver) {
+	public void createPost(RequestCreatePost request, StreamObserver<ResponseCreatePost> responseObserver) {
 		System.out.println("Received Request =>\n" + request.toString());
+		int id = 0;
 
 		try {
-			database.createPost(request.getTitle(), request.getDescription());
+			id = database.createPost(request.getTitle(), request.getDescription());
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 
-		Post response = Post.newBuilder()
-				.setTitle(request.getTitle())
-				.setDescription(request.getDescription())
+		ResponseCreatePost response = ResponseCreatePost.newBuilder()
+				.setId(id)
 				.build();
 
 		responseObserver.onNext(response);

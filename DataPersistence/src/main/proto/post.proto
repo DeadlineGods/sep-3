@@ -4,7 +4,7 @@ option java_multiple_files = true;
 option java_package = "sep3.project.protobuf";
 
 service PostService {
-	rpc CreatePost(RequestCreatePost) returns(Post);
+	rpc CreatePost(RequestCreatePost) returns(ResponseCreatePost);
 	rpc GetPost(RequestGetPost) returns(ResponseGetPost);
 	rpc DeletePost(RequestDeletePost) returns(EmptyPost);
 }
@@ -12,6 +12,10 @@ service PostService {
 message RequestCreatePost {
 	string title = 1;
 	string description = 2;
+}
+
+message ResponseCreatePost {
+	int32 id = 1;
 }
 
 message Post {

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 @Component
 public interface PostPersistence {
-	void createPost(String title, String description) throws SQLException;
+	int createPost(String title, String description) throws SQLException;
 	void deletePost(int id) throws SQLException;
 	ArrayList<Post> getPost(int id, int userId, String titleContains) throws SQLException;
 }

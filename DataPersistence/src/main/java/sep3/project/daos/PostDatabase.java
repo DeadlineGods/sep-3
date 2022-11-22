@@ -4,10 +4,7 @@ import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.Post;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 @GRpcService
@@ -24,20 +21,29 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public void createPost(String title, String description) throws SQLException {
+	public int createPost(String title, String description) throws SQLException {
+		int id = 0;
 
 		try {
 			PreparedStatement statement = connection.prepareStatement("" +
-					"INSERT INTO post(title, description) VALUES(?, ?)");
+					"INSERT INTO post(title, description) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, title);
 			statement.setString(2, description);
 
 			statement.execute();
+
+			// Getting newly created post ID
+			ResultSet rs = statement.getGeneratedKeys();
+			if (rs.next()) {
+				id = rs.getInt("id");
+			}
 		}
 		finally {
 			connection.close();
 		}
+
+		return id;
 	}
 
 	@Override
