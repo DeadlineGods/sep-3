@@ -1,6 +1,10 @@
-﻿namespace HttpClients.ClientInterfaces;
+﻿using Domain.DTOs;
+using Domain.Models;
 
-public class IUserService
+namespace HttpClients.ClientInterfaces;
+
+public interface IUserService
 {
-    
+    Task<User> Create(UserCreationDto dto);
+    Task<IEnumerable<User>> GetUsers(string? usernameContains = null);
 }
