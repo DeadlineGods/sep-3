@@ -4,6 +4,8 @@ using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain;
 using Domain.Models;
+using HttpClients.ClientInterfaces;
+using HttpClients.Implementations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Services;
@@ -14,6 +16,7 @@ public class AuthService : IAuthService
     private readonly IUserLogic userLogic;
     private IEnumerable<User> users;
     private readonly IUserDao userDao;
+    private IUserService userService = new UserHttpClient(new HttpClient());
 
     public AuthService(IUserLogic userLogic, IUserDao userDao)
     {
