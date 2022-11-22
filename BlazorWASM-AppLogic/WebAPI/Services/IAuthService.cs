@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.DTOs;
+using Domain.Models;
 
 namespace WebAPI.Services;
 
@@ -9,5 +10,5 @@ public interface IAuthService
     //Not used now
     
     //Task<User> GetUser(string username, string password);
-    //Task RegisterUser(User user);
+    Task<User> RegisterUser(UserCreationDto creationDto);
 }

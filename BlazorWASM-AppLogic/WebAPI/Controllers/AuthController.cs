@@ -42,11 +42,19 @@ public class AuthController : ControllerBase
     //TODO for future
     
     [HttpPost, Route("register")]
-    // public async Task<ActionResult> Register([FromBody] User user)
-    // {
-    //     await authService.RegisterUser(user);
-    //     return Ok();
-    // }
+    public async Task<ActionResult> Register([FromBody]UserCreationDto userDto)
+    {
+        try
+        {
+            User user = await authService.RegisterUser(userDto);
+
+            return Ok(user);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
     // [HttpGet("allowanon"), AllowAnonymous]
     // public ActionResult GetAsAnon()
     // {

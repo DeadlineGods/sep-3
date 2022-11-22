@@ -14,7 +14,7 @@ public class UserHttpClient : IUserService
     {
         this.client = client;
     }
-    public async Task<User> Create(UserCreationDto dto)
+    public async Task<User> Create(UserAuthDto dto)
     {
         HttpResponseMessage response = await client.PostAsJsonAsync("/users", dto);
         string result = await response.Content.ReadAsStringAsync();

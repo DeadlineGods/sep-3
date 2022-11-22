@@ -3,13 +3,16 @@ using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain;
 using Domain.Models;
+using HttpClients.ClientInterfaces;
+using HttpClients.Implementations;
 
 namespace WebAPI.Services;
 
 public class AuthService : IAuthService
 {
     private readonly IUserLogic userLogic;
-    private IList<User> users;
+    private IEnumerable<User> users;
+    private IUserService userService = new UserHttpClient(new HttpClient());
 
     public AuthService(IUserLogic userLogic)
     {
@@ -40,5 +43,31 @@ public class AuthService : IAuthService
             throw new Exception("Password mismatch");
         }
         return Task.FromResult(existingUser);
+    }
+
+    public async Task<User> RegisterUser(UserCreationDto dto)
+    {
+        users = await userService.GetUsers();
+
+        if (string.IsNullOrEmpty(dto.userName))
+        {
+            throw new ValidationException("Username cannot be null");
+        }
+
+        if (string.IsNullOrEmpty(dto.password))
+        {
+            throw new ValidationException("Password cannot be null");
+        }
+
+        User? existingUser = users.FirstOrDefault(u =>
+            u.userName.Equals(dto.userName, StringComparison.OrdinalIgnoreCase));
+
+        if (existingUser != null)
+        {
+            throw new Exception("This username is taken");
+        }
+
+     
+        return await userService.Create(new UserAuthDto(dto.userName,dto.fullName,dto.password,dto.email,dto.phoneNumber));
     }
 }

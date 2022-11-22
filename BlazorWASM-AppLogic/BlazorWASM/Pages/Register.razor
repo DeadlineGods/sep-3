@@ -1,5 +1,6 @@
 ﻿@page "/Register"
 @using BlazorWasm.Services
+@using Domain.DTOs
 @using Domain.Models
 @inject IAuthService authService
 @inject NavigationManager navMgr
@@ -67,7 +68,7 @@
         errorLabel = "";
         try
         {
-            await authService.RegisterAsync(new User(userName,fullName,password,email,phoneNumber));
+            await authService.RegisterAsync(new UserCreationDto(userName,fullName,password,email,phoneNumber));
             navMgr.NavigateTo("/");
         }
         catch (Exception e)
