@@ -22,8 +22,6 @@ public class PostGrpcClient : IPostDao
 			    Description = post.description
 		    });
 
-	    Console.WriteLine(reply.Id);
-
 	    return await Task.FromResult(new Post {Id = reply.Id});
 
     }
@@ -50,11 +48,11 @@ public class PostGrpcClient : IPostDao
 
     }
 
-    private Post CreatePost(GrpcClient.Post reply)
+    private Post CreatePost(PostData reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(time.Ticks);
-	    Console.WriteLine(reply.Id);
+
 	    return new Post(reply.Id, reply.Likes, reply.Title, reply.Description, postedOn);
     }
 

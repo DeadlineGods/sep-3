@@ -17,7 +17,7 @@ message ResponseCreatePost {
 	int32 id = 1;
 }
 
-message Post {
+message PostData {
 	int32 id = 1;
 	int32 likes = 2;
 	string title = 3;
@@ -27,7 +27,7 @@ message Post {
 
 message RequestDeletePost
 {
-	int32 id =1;
+  int32 id =1;
 }
 
 message EmptyPost
@@ -36,12 +36,12 @@ message EmptyPost
 }
 
 message RequestGetPost {
-	optional int32 id = 1;
-	optional int32 userId = 2;
-	optional string title = 3;
+  optional int32 id = 1;
+  optional int32 userId = 2;
+  optional string title = 3;
 }
 
 message ResponseGetPost {
-	repeated Post posts = 1;
+	repeated PostData posts = 1;
 }
 

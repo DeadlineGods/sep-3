@@ -26,24 +26,24 @@ namespace GrpcClient {
           string.Concat(
             "ChFQcm90b3MvUG9zdC5wcm90byI3ChFSZXF1ZXN0Q3JlYXRlUG9zdBINCgV0",
             "aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCSIgChJSZXNwb25zZUNy",
-            "ZWF0ZVBvc3QSCgoCaWQYASABKAUiYwoEUG9zdBIKCgJpZBgBIAEoBRINCgVs",
-            "aWtlcxgCIAEoBRINCgV0aXRsZRgDIAEoCRITCgtkZXNjcmlwdGlvbhgEIAEo",
-            "CRIcChRwb3N0ZWRPbk1pbGxpc2Vjb25kcxgFIAEoAyIfChFSZXF1ZXN0RGVs",
-            "ZXRlUG9zdBIKCgJpZBgBIAEoBSILCglFbXB0eVBvc3QiZgoOUmVxdWVzdEdl",
-            "dFBvc3QSDwoCaWQYASABKAVIAIgBARITCgZ1c2VySWQYAiABKAVIAYgBARIS",
-            "CgV0aXRsZRgDIAEoCUgCiAEBQgUKA19pZEIJCgdfdXNlcklkQggKBl90aXRs",
-            "ZSInCg9SZXNwb25zZUdldFBvc3QSFAoFcG9zdHMYASADKAsyBS5Qb3N0MqAB",
-            "CgtQb3N0U2VydmljZRI1CgpDcmVhdGVQb3N0EhIuUmVxdWVzdENyZWF0ZVBv",
-            "c3QaEy5SZXNwb25zZUNyZWF0ZVBvc3QSLAoHR2V0UG9zdBIPLlJlcXVlc3RH",
-            "ZXRQb3N0GhAuUmVzcG9uc2VHZXRQb3N0EiwKCkRlbGV0ZVBvc3QSEi5SZXF1",
-            "ZXN0RGVsZXRlUG9zdBoKLkVtcHR5UG9zdEINqgIKR3JwY0NsaWVudGIGcHJv",
-            "dG8z"));
+            "ZWF0ZVBvc3QSCgoCaWQYASABKAUiZwoIUG9zdERhdGESCgoCaWQYASABKAUS",
+            "DQoFbGlrZXMYAiABKAUSDQoFdGl0bGUYAyABKAkSEwoLZGVzY3JpcHRpb24Y",
+            "BCABKAkSHAoUcG9zdGVkT25NaWxsaXNlY29uZHMYBSABKAMiHwoRUmVxdWVz",
+            "dERlbGV0ZVBvc3QSCgoCaWQYASABKAUiCwoJRW1wdHlQb3N0ImYKDlJlcXVl",
+            "c3RHZXRQb3N0Eg8KAmlkGAEgASgFSACIAQESEwoGdXNlcklkGAIgASgFSAGI",
+            "AQESEgoFdGl0bGUYAyABKAlIAogBAUIFCgNfaWRCCQoHX3VzZXJJZEIICgZf",
+            "dGl0bGUiKwoPUmVzcG9uc2VHZXRQb3N0EhgKBXBvc3RzGAEgAygLMgkuUG9z",
+            "dERhdGEyoAEKC1Bvc3RTZXJ2aWNlEjUKCkNyZWF0ZVBvc3QSEi5SZXF1ZXN0",
+            "Q3JlYXRlUG9zdBoTLlJlc3BvbnNlQ3JlYXRlUG9zdBIsCgdHZXRQb3N0Eg8u",
+            "UmVxdWVzdEdldFBvc3QaEC5SZXNwb25zZUdldFBvc3QSLAoKRGVsZXRlUG9z",
+            "dBISLlJlcXVlc3REZWxldGVQb3N0GgouRW1wdHlQb3N0Qg2qAgpHcnBjQ2xp",
+            "ZW50YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestCreatePost), global::GrpcClient.RequestCreatePost.Parser, new[]{ "Title", "Description" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.ResponseCreatePost), global::GrpcClient.ResponseCreatePost.Parser, new[]{ "Id" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.Post), global::GrpcClient.Post.Parser, new[]{ "Id", "Likes", "Title", "Description", "PostedOnMilliseconds" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.PostData), global::GrpcClient.PostData.Parser, new[]{ "Id", "Likes", "Title", "Description", "PostedOnMilliseconds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestDeletePost), global::GrpcClient.RequestDeletePost.Parser, new[]{ "Id" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.EmptyPost), global::GrpcClient.EmptyPost.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestGetPost), global::GrpcClient.RequestGetPost.Parser, new[]{ "Id", "UserId", "Title" }, new[]{ "Id", "UserId", "Title" }, null, null, null),
@@ -469,16 +469,16 @@ namespace GrpcClient {
 
   }
 
-  public sealed partial class Post : pb::IMessage<Post>
+  public sealed partial class PostData : pb::IMessage<PostData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<Post> _parser = new pb::MessageParser<Post>(() => new Post());
+    private static readonly pb::MessageParser<PostData> _parser = new pb::MessageParser<PostData>(() => new PostData());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<Post> Parser { get { return _parser; } }
+    public static pb::MessageParser<PostData> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -494,7 +494,7 @@ namespace GrpcClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Post() {
+    public PostData() {
       OnConstruction();
     }
 
@@ -502,7 +502,7 @@ namespace GrpcClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Post(Post other) : this() {
+    public PostData(PostData other) : this() {
       id_ = other.id_;
       likes_ = other.likes_;
       title_ = other.title_;
@@ -513,8 +513,8 @@ namespace GrpcClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public Post Clone() {
-      return new Post(this);
+    public PostData Clone() {
+      return new PostData(this);
     }
 
     /// <summary>Field number for the "id" field.</summary>
@@ -580,12 +580,12 @@ namespace GrpcClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as Post);
+      return Equals(other as PostData);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(Post other) {
+    public bool Equals(PostData other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -710,7 +710,7 @@ namespace GrpcClient {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(Post other) {
+    public void MergeFrom(PostData other) {
       if (other == null) {
         return;
       }
@@ -1496,12 +1496,12 @@ namespace GrpcClient {
 
     /// <summary>Field number for the "posts" field.</summary>
     public const int PostsFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::GrpcClient.Post> _repeated_posts_codec
-        = pb::FieldCodec.ForMessage(10, global::GrpcClient.Post.Parser);
-    private readonly pbc::RepeatedField<global::GrpcClient.Post> posts_ = new pbc::RepeatedField<global::GrpcClient.Post>();
+    private static readonly pb::FieldCodec<global::GrpcClient.PostData> _repeated_posts_codec
+        = pb::FieldCodec.ForMessage(10, global::GrpcClient.PostData.Parser);
+    private readonly pbc::RepeatedField<global::GrpcClient.PostData> posts_ = new pbc::RepeatedField<global::GrpcClient.PostData>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::GrpcClient.Post> Posts {
+    public pbc::RepeatedField<global::GrpcClient.PostData> Posts {
       get { return posts_; }
     }
 
