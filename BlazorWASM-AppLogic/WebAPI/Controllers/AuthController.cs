@@ -40,19 +40,27 @@ public class AuthController : ControllerBase
         }
     }
     //TODO for future
-    /*
+    
     [HttpPost, Route("register")]
-    public async Task<ActionResult> Register([FromBody] User user)
+    public async Task<ActionResult> Register([FromBody]UserCreationDto userDto)
     {
-        await authService.RegisterUser(user);
-        return Ok();
+        try
+        {
+            User user = await authService.RegisterUser(userDto);
+
+            return Ok(user);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
-    [HttpGet("allowanon"), AllowAnonymous]
-    public ActionResult GetAsAnon()
-    {
-        return Ok("This was accepted as anonymous");
-    }
-    */
+    // [HttpGet("allowanon"), AllowAnonymous]
+    // public ActionResult GetAsAnon()
+    // {
+    //     return Ok("This was accepted as anonymous");
+    // }
+    //
     private List<Claim> GenerateClaims(User user)
     {
         var claims = new[]
