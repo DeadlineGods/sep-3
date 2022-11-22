@@ -1,21 +1,28 @@
-﻿@page "/PostDetails"
+﻿@page "/posts/{id:int}"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
 @inject IPostService postService
 @inject NavigationManager navMgr
 
-<div class="post-card">
-    <div>@post.title</div>
-    <div>@post.postedOn</div>
-    <div>@post.location</div>
-    <div>@post.description</div>
-    <div><!--image--></div>
-    <div>@post.likes</div>
-    <div>@post.tags</div>
-</div>
+@if (post != null)
+{
+	<div class="post-card">
+		<div>@post.title</div>
+		<div>@post.postedOn</div>
+		<div>@post.location</div>
+		<div>@post.description</div>
+		<div><!--image--></div>
+		<div>@post.likes</div>
+		<div>@post.tags</div>
+	</div>
+}
+else
+{
+	<NotFound></NotFound>
+}
 
 @code {
-    private Post post;
+    private Post? post;
 
     [Parameter]
     public int Id { get; set; }
@@ -24,13 +31,13 @@
     {
         try
         {
-            post = (Post)await postService.GetAsync(Id, null, null);
+	        IEnumerable<Post> posts = await postService.GetAsync(Id);
+	        post = posts.FirstOrDefault();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw;
         }
     }
-    
+
 }

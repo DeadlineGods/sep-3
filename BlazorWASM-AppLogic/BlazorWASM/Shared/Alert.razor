@@ -1,0 +1,19 @@
+@if (Show)
+{
+    <div class="alert alert-@Type  w-50 m-auto position-absolute translate-middle text-center" style="display:block">
+
+            @ChildContent
+
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    [Parameter]
+    public bool Show { get; set; }
+    [Parameter]
+    public string Type { get; set; }
+}
