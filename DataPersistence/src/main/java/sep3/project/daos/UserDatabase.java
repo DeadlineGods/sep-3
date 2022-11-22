@@ -2,8 +2,6 @@ package sep3.project.daos;
 
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.persistance.DBConnection;
-import sep3.project.protobuf.ResponseCreateUser;
-import sep3.project.protobuf.UserData;
 
 import java.sql.*;
 
