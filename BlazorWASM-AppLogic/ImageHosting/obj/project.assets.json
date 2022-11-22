@@ -208,19 +208,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Windows\\.nuget\\packages": {}
+    "C:\\Users\\natal\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV6\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
+      "projectUniqueName": "C:\\Users\\natal\\RiderProjects\\SEP3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
       "projectName": "ImageHosting",
-      "projectPath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV6\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
-      "packagesPath": "C:\\Windows\\.nuget\\packages",
-      "outputPath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV6\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
+      "projectPath": "C:\\Users\\natal\\RiderProjects\\SEP3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
+      "packagesPath": "C:\\Users\\natal\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\natal\\RiderProjects\\SEP3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dávid\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\natal\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -268,7 +268,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\natal\\.dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
