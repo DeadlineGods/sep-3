@@ -53,21 +53,13 @@ public class PostGrpcClient : IPostDao
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(time.Ticks);
 
-	    Post replyPost = new Post(reply.Id, reply.Likes, reply.Title, reply.Description, postedOn);
-
-	    return await Task.FromResult(replyPost);
-
-    }
-
-    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
-    {
-	    throw new NotImplementedException();
+	    return new Post(reply.Id, reply.Likes, reply.Title, reply.Description, postedOn);
     }
 
     public async Task DeleteAsync(int id)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
-	    var client = new GrpcClient.Post.PostClient(channel);
+	    var client = new PostService.PostServiceClient(channel);
 	    try
 	    {
 			await client.DeletePostAsync(
