@@ -9,19 +9,14 @@ import java.util.ArrayList;
 
 @GRpcService
 public class PostDatabase implements PostPersistence {
-
-	private Connection connection;
 	public PostDatabase()
 	{
-		try {
-			connection = DBConnection.getConnection();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+
 	}
 
 	@Override
 	public int createPost(String title, String description) throws SQLException {
+		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
 		try {
@@ -67,26 +62,27 @@ public class PostDatabase implements PostPersistence {
 	@Override
 	public ArrayList<PostData> getPost(int id, int userId, String titleContains) throws SQLException {
 		Connection connection = DBConnection.getConnection();
+
 		ArrayList<PostData> posts = new ArrayList<>();
 
 		try {
 			// get posts with id
 			if (id != 0) {
-				ResultSet resultSet = getById(id);
+				ResultSet resultSet = getById(connection, id);
 				while (resultSet.next()) {
 					posts.add(createPostFromQuery(resultSet));
 				}
 			}
 			// get posts which title contains @titleContains
 			if (! titleContains.equals("")) {
-				ResultSet resultSet = getByTitle(titleContains);
+				ResultSet resultSet = getByTitle(connection, titleContains);
 				while (resultSet.next()) {
 					posts.add(createPostFromQuery(resultSet));
 				}
 			}
 
 			if (id == 0 && userId == 0 && titleContains.equals("")) {
-				ResultSet resultSet = getAll();
+				ResultSet resultSet = getAll(connection);
 				while (resultSet.next()) {
 					posts.add(createPostFromQuery(resultSet));
 				}
@@ -103,7 +99,7 @@ public class PostDatabase implements PostPersistence {
 		return posts;
 	}
 
-	private ResultSet getAll() {
+	private ResultSet getAll(Connection connection) {
 		PreparedStatement statement = null;
 
 		try {
@@ -116,7 +112,7 @@ public class PostDatabase implements PostPersistence {
 		}
 	}
 
-	private ResultSet getByTitle(String titleContains) {
+	private ResultSet getByTitle(Connection connection, String titleContains) {
 		PreparedStatement statement = null;
 
 		try {
@@ -131,7 +127,7 @@ public class PostDatabase implements PostPersistence {
 		}
 	}
 
-	private ResultSet getById(int id) {
+	private ResultSet getById(Connection connection, int id) {
 		PreparedStatement statement = null;
 
 		try {

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\natal\\RiderProjects\\SEP3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {}
+    "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/ImageHosting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\natal\\RiderProjects\\SEP3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {
+    "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/ImageHosting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\natal\\RiderProjects\\SEP3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
+        "projectUniqueName": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/ImageHosting.csproj",
         "projectName": "ImageHosting",
-        "projectPath": "C:\\Users\\natal\\RiderProjects\\SEP3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
-        "packagesPath": "C:\\Users\\natal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\natal\\RiderProjects\\SEP3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
+        "projectPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/ImageHosting.csproj",
+        "packagesPath": "/Users/antondurcak/.nuget/packages/",
+        "outputPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\natal\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/antondurcak/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -62,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\natal\\.dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }
