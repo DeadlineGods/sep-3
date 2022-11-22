@@ -1,4 +1,4 @@
-POST http://localhost:5196/Posts/create
+POST http://localhost:5196/Posts
 Content-Type: application/json
 
 {
@@ -7,4 +7,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5196/Posts/1
+POST http://localhost:5196/Auth/login
+Content-Type: application/json
+
+{
+  "username" : "natalia",
+  "password" : "123"
+}

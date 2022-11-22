@@ -4,6 +4,7 @@ option csharp_namespace = "GrpcClient";
 
 service UserService{
 	rpc CreateUser(RequestCreateUser) returns (UserData);
+  rpc GetUsers(RequestGetUsers) returns (ResponseGetUsers);
 }
 
 message UserData {
@@ -24,6 +25,17 @@ message RequestCreateUser {
 	string password = 5;
 	string phoneNumber = 6;
 }
+
+message RequestGetUsers
+{
+  optional string username = 1;
+}
+
+message ResponseGetUsers{
+  repeated UserData userData = 1;
+}
+
+
 //
 //message ResponseCreateUser {
 //	UserData userData = 1;

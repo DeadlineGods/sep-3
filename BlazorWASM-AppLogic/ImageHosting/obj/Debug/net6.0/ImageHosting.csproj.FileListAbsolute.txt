@@ -59,3 +59,31 @@ C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic
 C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.pdb
 C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.genruntimeconfig.cache
 C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ref\ImageHosting.dll
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\appsettings.json
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\ImageHosting.staticwebassets.runtime.json
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\ImageHosting.exe
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\ImageHosting.deps.json
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\ImageHosting.runtimeconfig.json
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\ImageHosting.dll
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\ImageHosting.pdb
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.csproj.AssemblyReference.cache
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.AssemblyInfoInputs.cache
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.AssemblyInfo.cs
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.csproj.CoreCompileInputs.cache
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\scopedcss\bundle\ImageHosting.styles.css
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.csproj.CopyComplete
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.dll
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\refint\ImageHosting.dll
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.pdb
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.genruntimeconfig.cache
+C:\Users\natal\RiderProjects\SEP3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ref\ImageHosting.dll

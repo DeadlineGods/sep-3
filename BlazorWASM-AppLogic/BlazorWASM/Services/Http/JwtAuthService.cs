@@ -27,7 +27,7 @@ public class JwtAuthService : IAuthService
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
 
         // TODO change port
-        HttpResponseMessage response = await client.PostAsync("https://localhost:7130/auth/login", content);
+        HttpResponseMessage response = await client.PostAsync("https://localhost:7196/auth/login", content);
         string responseContent = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
