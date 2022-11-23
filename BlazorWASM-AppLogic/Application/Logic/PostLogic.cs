@@ -27,6 +27,7 @@ public class PostLogic : IPostLogic
         {
             title = postCreationDto.title,
             description = postCreationDto.description,
+            tags = postCreationDto.tags
         };
 
         return await postDao.CreateAsync(post);

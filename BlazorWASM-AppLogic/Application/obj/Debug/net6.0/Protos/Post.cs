@@ -24,24 +24,24 @@ namespace GrpcClient {
     static PostReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFQcm90b3MvUG9zdC5wcm90byI3ChFSZXF1ZXN0Q3JlYXRlUG9zdBINCgV0",
-            "aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCSIgChJSZXNwb25zZUNy",
-            "ZWF0ZVBvc3QSCgoCaWQYASABKAUiZwoIUG9zdERhdGESCgoCaWQYASABKAUS",
-            "DQoFbGlrZXMYAiABKAUSDQoFdGl0bGUYAyABKAkSEwoLZGVzY3JpcHRpb24Y",
-            "BCABKAkSHAoUcG9zdGVkT25NaWxsaXNlY29uZHMYBSABKAMiHwoRUmVxdWVz",
-            "dERlbGV0ZVBvc3QSCgoCaWQYASABKAUiCwoJRW1wdHlQb3N0ImYKDlJlcXVl",
-            "c3RHZXRQb3N0Eg8KAmlkGAEgASgFSACIAQESEwoGdXNlcklkGAIgASgFSAGI",
-            "AQESEgoFdGl0bGUYAyABKAlIAogBAUIFCgNfaWRCCQoHX3VzZXJJZEIICgZf",
-            "dGl0bGUiKwoPUmVzcG9uc2VHZXRQb3N0EhgKBXBvc3RzGAEgAygLMgkuUG9z",
-            "dERhdGEyoAEKC1Bvc3RTZXJ2aWNlEjUKCkNyZWF0ZVBvc3QSEi5SZXF1ZXN0",
-            "Q3JlYXRlUG9zdBoTLlJlc3BvbnNlQ3JlYXRlUG9zdBIsCgdHZXRQb3N0Eg8u",
-            "UmVxdWVzdEdldFBvc3QaEC5SZXNwb25zZUdldFBvc3QSLAoKRGVsZXRlUG9z",
-            "dBISLlJlcXVlc3REZWxldGVQb3N0GgouRW1wdHlQb3N0Qg2qAgpHcnBjQ2xp",
-            "ZW50YgZwcm90bzM="));
+            "ChFQcm90b3MvUG9zdC5wcm90byJFChFSZXF1ZXN0Q3JlYXRlUG9zdBINCgV0",
+            "aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCRIMCgR0YWdzGAMgAygJ",
+            "IiAKElJlc3BvbnNlQ3JlYXRlUG9zdBIKCgJpZBgBIAEoBSJnCghQb3N0RGF0",
+            "YRIKCgJpZBgBIAEoBRINCgVsaWtlcxgCIAEoBRINCgV0aXRsZRgDIAEoCRIT",
+            "CgtkZXNjcmlwdGlvbhgEIAEoCRIcChRwb3N0ZWRPbk1pbGxpc2Vjb25kcxgF",
+            "IAEoAyIfChFSZXF1ZXN0RGVsZXRlUG9zdBIKCgJpZBgBIAEoBSILCglFbXB0",
+            "eVBvc3QiZgoOUmVxdWVzdEdldFBvc3QSDwoCaWQYASABKAVIAIgBARITCgZ1",
+            "c2VySWQYAiABKAVIAYgBARISCgV0aXRsZRgDIAEoCUgCiAEBQgUKA19pZEIJ",
+            "CgdfdXNlcklkQggKBl90aXRsZSIrCg9SZXNwb25zZUdldFBvc3QSGAoFcG9z",
+            "dHMYASADKAsyCS5Qb3N0RGF0YTKgAQoLUG9zdFNlcnZpY2USNQoKQ3JlYXRl",
+            "UG9zdBISLlJlcXVlc3RDcmVhdGVQb3N0GhMuUmVzcG9uc2VDcmVhdGVQb3N0",
+            "EiwKB0dldFBvc3QSDy5SZXF1ZXN0R2V0UG9zdBoQLlJlc3BvbnNlR2V0UG9z",
+            "dBIsCgpEZWxldGVQb3N0EhIuUmVxdWVzdERlbGV0ZVBvc3QaCi5FbXB0eVBv",
+            "c3RCDaoCCkdycGNDbGllbnRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestCreatePost), global::GrpcClient.RequestCreatePost.Parser, new[]{ "Title", "Description" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestCreatePost), global::GrpcClient.RequestCreatePost.Parser, new[]{ "Title", "Description", "Tags" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.ResponseCreatePost), global::GrpcClient.ResponseCreatePost.Parser, new[]{ "Id" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.PostData), global::GrpcClient.PostData.Parser, new[]{ "Id", "Likes", "Title", "Description", "PostedOnMilliseconds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestDeletePost), global::GrpcClient.RequestDeletePost.Parser, new[]{ "Id" }, null, null, null, null),
@@ -90,6 +90,7 @@ namespace GrpcClient {
     public RequestCreatePost(RequestCreatePost other) : this() {
       title_ = other.title_;
       description_ = other.description_;
+      tags_ = other.tags_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -123,6 +124,17 @@ namespace GrpcClient {
       }
     }
 
+    /// <summary>Field number for the "tags" field.</summary>
+    public const int TagsFieldNumber = 3;
+    private static readonly pb::FieldCodec<string> _repeated_tags_codec
+        = pb::FieldCodec.ForString(26);
+    private readonly pbc::RepeatedField<string> tags_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<string> Tags {
+      get { return tags_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -140,6 +152,7 @@ namespace GrpcClient {
       }
       if (Title != other.Title) return false;
       if (Description != other.Description) return false;
+      if(!tags_.Equals(other.tags_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -149,6 +162,7 @@ namespace GrpcClient {
       int hash = 1;
       if (Title.Length != 0) hash ^= Title.GetHashCode();
       if (Description.Length != 0) hash ^= Description.GetHashCode();
+      hash ^= tags_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -175,6 +189,7 @@ namespace GrpcClient {
         output.WriteRawTag(18);
         output.WriteString(Description);
       }
+      tags_.WriteTo(output, _repeated_tags_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -193,6 +208,7 @@ namespace GrpcClient {
         output.WriteRawTag(18);
         output.WriteString(Description);
       }
+      tags_.WriteTo(ref output, _repeated_tags_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -209,6 +225,7 @@ namespace GrpcClient {
       if (Description.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
       }
+      size += tags_.CalculateSize(_repeated_tags_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -227,6 +244,7 @@ namespace GrpcClient {
       if (other.Description.Length != 0) {
         Description = other.Description;
       }
+      tags_.Add(other.tags_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -250,6 +268,10 @@ namespace GrpcClient {
             Description = input.ReadString();
             break;
           }
+          case 26: {
+            tags_.AddEntriesFrom(input, _repeated_tags_codec);
+            break;
+          }
         }
       }
     #endif
@@ -271,6 +293,10 @@ namespace GrpcClient {
           }
           case 18: {
             Description = input.ReadString();
+            break;
+          }
+          case 26: {
+            tags_.AddEntriesFrom(ref input, _repeated_tags_codec);
             break;
           }
         }

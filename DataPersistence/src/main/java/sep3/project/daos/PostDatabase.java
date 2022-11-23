@@ -15,7 +15,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public int createPost(String title, String description) throws SQLException {
+	public int createPost(String title, String description, String[] tags) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
@@ -33,6 +33,9 @@ public class PostDatabase implements PostPersistence {
 			if (rs.next()) {
 				id = rs.getInt("id");
 			}
+
+			addTags(connection, tags, id);
+
 		}
 		finally {
 			connection.close();
@@ -97,6 +100,41 @@ public class PostDatabase implements PostPersistence {
 		}
 
 		return posts;
+	}
+
+	private void addTags(Connection connection, String[] tags, int id) throws SQLException {
+		PreparedStatement statement = null;
+		for (String tag : tags) {
+
+			// first insert into TAG table
+			if (! containsTag(connection, tag)) {
+				statement = connection.prepareStatement("" +
+						"INSERT INTO tag(name) VALUES(?)");
+
+				statement.setString(1, tag);
+
+				statement.execute();
+			}
+
+			// then insert also into join table, because tag_name is foreign key
+			statement = connection.prepareStatement("" +
+					"INSERT INTO posttag(post_id, tag_name) VALUES(?, ?)");
+
+			statement.setInt(1, id);
+			statement.setString(2, tag);
+
+			statement.execute();
+
+		}
+	}
+
+	private boolean containsTag(Connection connection, String tag) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement("SELECT name from tag where name = ?");
+
+		statement.setString(1, tag);
+		ResultSet resultSet = statement.executeQuery();
+
+		return resultSet.next();
 	}
 
 	private ResultSet getAll(Connection connection) {

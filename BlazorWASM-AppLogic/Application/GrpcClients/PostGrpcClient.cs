@@ -15,12 +15,19 @@ public class PostGrpcClient : IPostDao
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
-	    var reply = await client.CreatePostAsync(
-		    new RequestCreatePost
-		    {
-			    Title = post.title,
-			    Description = post.description
-		    });
+	    var request = new RequestCreatePost
+	    {
+		    Title = post.title,
+		    Description = post.description
+	    };
+	    
+	    //add tags
+	    foreach (var tag in post.tags)
+	    {
+		    request.Tags.Add(tag);
+	    }
+
+	    var reply = await client.CreatePostAsync(request);
 
 	    return await Task.FromResult(new Post {Id = reply.Id});
 
