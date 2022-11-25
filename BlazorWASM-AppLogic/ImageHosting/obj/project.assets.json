@@ -224,19 +224,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/antondurcak/.nuget/packages/": {}
+    "C:\\Users\\IZO21\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/ImageHosting.csproj",
+      "projectUniqueName": "C:\\Users\\IZO21\\RiderProjects\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
       "projectName": "ImageHosting",
-      "projectPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/ImageHosting.csproj",
-      "packagesPath": "/Users/antondurcak/.nuget/packages/",
-      "outputPath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/obj/",
+      "projectPath": "C:\\Users\\IZO21\\RiderProjects\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
+      "packagesPath": "C:\\Users\\IZO21\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\IZO21\\RiderProjects\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/antondurcak/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\IZO21\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -284,7 +284,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
