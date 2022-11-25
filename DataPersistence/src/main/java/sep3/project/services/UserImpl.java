@@ -45,7 +45,8 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase {
         try
         {
             response = database.Get(
-                    request.getUsername()
+                    request.getUsername(),
+                    request.getUserid()
             );
         }
         catch (SQLException e) {

@@ -55,38 +55,95 @@ public class UserDatabase implements UserPersistence {
         return userData;
     }
 
-    public ResponseGetUsers Get(String username) throws SQLException {
+    public ResponseGetUsers Get(String username, long userId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         List<UserData> usersList = new ArrayList<>();
         ResponseGetUsers response = null;
         try
         {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"user\" WHERE username = ?");
-            statement.setString(1,username);
-
-            statement.execute();
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                UserData userData = null;
-                userData = UserData.newBuilder()
-                        .setId(resultSet.getLong("userid"))
-                        .setUsername(resultSet.getString("username"))
-                        .setFirstName(resultSet.getString("firstname"))
-                        .setLastName(resultSet.getString("lastname"))
-                        .setEmail(resultSet.getString("email"))
-                        .setPassword(resultSet.getString("password"))
-                        .setPhoneNumber(resultSet.getString("phonenumber"))
-                        .build();
-
-            usersList.add(userData);
+            // get user with id
+            if (userId != 0) {
+                ResultSet resultSet = getById(connection, userId);
+                while (resultSet.next()) {
+                    usersList.add(getUserFromQuery(resultSet));
+                }
+            }
+            // get user with username
+            if (!username.equals("")) {
+                ResultSet resultSet = getByUsername(connection, username);
+                while (resultSet.next()) {
+                    usersList.add(getUserFromQuery(resultSet));
+                }
+            }
+            // get user with id
+            if (userId == 0 && username.equals("")) {
+                ResultSet resultSet = getAll(connection);
+                while (resultSet.next()) {
+                    usersList.add(getUserFromQuery(resultSet));
+                }
             }
             response = ResponseGetUsers.newBuilder().addAllUserData(usersList).build();
+        }
+        catch (Exception e){
+            throw new SQLException(e);
         }
         finally {
             connection.close();
         }
         return response;
 
+    }
+    private ResultSet getAll(Connection connection) {
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement("SELECT * FROM user");
+
+            return statement.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private ResultSet getByUsername(Connection connection, String username) {
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(
+                    "SELECT * FROM user WHERE username = ?");
+
+            statement.setString(1,username);
+            return statement.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private ResultSet getById(Connection connection, long id) {
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(
+                    "SELECT * FROM user WHERE userid = ?");
+
+            statement.setLong(1, id);
+            return statement.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    private UserData getUserFromQuery(ResultSet resultSet) throws SQLException {
+        return UserData.newBuilder()
+                .setId(resultSet.getLong("userid"))
+                .setUsername(resultSet.getString("username"))
+                .setFirstName(resultSet.getString("firstname"))
+                .setLastName(resultSet.getString("lastname"))
+                .setEmail(resultSet.getString("email"))
+                .setPassword(resultSet.getString("password"))
+                .setPhoneNumber(resultSet.getString("phonenumber"))
+                .build();
     }
 }
