@@ -19,7 +19,7 @@ public class PostLogic : IPostLogic
         this.postDao = postDao;
     }
 
-    public async Task<Post> CreateAsync(PostCreationDto postCreationDto)
+    public async Task<int> CreateAsync(PostCreationDto postCreationDto)
     {
         ValidatePost(postCreationDto);
 
