@@ -6,33 +6,36 @@ namespace Domain.Models;
 public class Post
 {
     public int Id{ get; set; }
-    public int likes { get; set; } = 0;
-    public string title { get; set; }
-    public string description { get; set; }
-    public DateTime postedOn { get; set; }
-    public Location? location { get; set; }
-    public IList<string> tags { get; set; }
+    public User Owner { get; set; }
+    public int Likes { get; set; } = 0;
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public DateTime PostedOn { get; set; }
+    public Location? Location { get; set; }
+    public IList<string> Tags { get; set; }
 
     public Post() { }
 
-    public Post(int likes, string title, string description, DateTime postedOn,Location location, IList<string> tags, int Id)
+    public Post(int id, User owner, int likes, string title, string description, DateTime postedOn, Location? location, IList<string> tags)
     {
-        this.likes = likes;
-        this.title = title;
-        this.description = description;
-        this.postedOn = postedOn;
-        this.location = location;
-        this.tags = tags;
-        this.Id = Id;
+	    Id = id;
+	    Owner = owner;
+	    Likes = likes;
+	    Title = title;
+	    Description = description;
+	    PostedOn = postedOn;
+	    Location = location;
+	    Tags = tags;
     }
 
-    public Post(int id, int likes, string title, string description, DateTime postedOn)
+    public Post(int id, User owner, int likes, string title, string description, DateTime postedOn)
     {
-	    this.Id = id;
-	    this.likes = likes;
-	    this.title = title;
-	    this.description = description;
-	    this.postedOn = postedOn;
+	    Id = id;
+	    Likes = likes;
+	    Title = title;
+	    Description = description;
+	    PostedOn = postedOn;
+	    Owner = owner;
     }
 
 

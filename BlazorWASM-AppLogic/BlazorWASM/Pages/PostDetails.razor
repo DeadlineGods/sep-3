@@ -7,18 +7,19 @@
 @if (post != null)
 {
 	<div class="post-card">
-		<div>@post.title</div>
-		<div>@post.postedOn</div>
-		<div>@post.location</div>
-		<div>@post.description</div>
+		<div>@post.Title</div>
+		<div>@post.PostedOn</div>
+		<div>@post.Location</div>
+		<div>@post.Description</div>
 		<div><!--image--></div>
-		<div>@post.likes</div>
-		<div>@post.tags</div>
+		<div>@post.Owner.UserName</div>
+		<div>@post.Likes</div>
+		<div>@post.Tags</div>
 	</div>
 }
 else
 {
-	<NotFound></NotFound>
+	<NotFound/>
 }
 
 @code {
@@ -29,7 +30,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
+	    try
         {
 	        IEnumerable<Post> posts = await postService.GetAsync(Id);
 	        post = posts.FirstOrDefault();

@@ -24,8 +24,8 @@ public class PostsController : ControllerBase
     {
 	    try
         {
-            Post post = await postLogic.CreateAsync(postCreationDto);
-            return Created($"/posts/{post.Id}", post);
+            int id = await postLogic.CreateAsync(postCreationDto);
+            return Ok(id);
         }
         catch (Exception e)
         {
@@ -54,8 +54,8 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
-    
+
+
     [HttpDelete ("{id:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] int id)
     {

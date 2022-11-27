@@ -18,20 +18,18 @@ else
 {
     @foreach (var post in posts)
     {
-
         <div class="post-card">
             <a href="PostDetails/@post.Id">
-                <div>@post.title</div>
-                <div>@post.postedOn</div>
-                <div>@post.location</div>
-                <div>@post.description</div>
+                <div>@post.Title</div>
+                <div>@post.PostedOn</div>
+                <div>@post.Location</div>
+                <div>@post.Description</div>
                 <div><!--image--></div>
-                <div>@post.likes</div>
-                <div>@post.tags</div>
+                <div>@post.Owner.UserName</div>
+                <div>@post.Likes</div>
+                <div>@post.Tags</div>
             </a>
         </div>
-
-
     }
 }
 @if (!string.IsNullOrEmpty(msg))
@@ -42,7 +40,9 @@ else
 @code {
     private IEnumerable<Post>? posts;
     private string msg;
-    [Parameter] public string? Id { get; set; }
+
+    [Parameter]
+    public string? Id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,4 +56,5 @@ else
             msg = e.Message;
         }
     }
+
 }

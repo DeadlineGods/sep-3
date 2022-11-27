@@ -1,19 +1,39 @@
 ﻿@page "/posts/create"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
+@using System.Security.AccessControl
+@using System.Xml
+@using System.Collections
 @inject NavigationManager navMgr
 @inject IPostService postService
 
+<Alert Type="success" Show="@showAlert">
+	<p>Successfully created post!</p>
+	<button @onclick="@NavigateToPost">show me</button>
+	<button @onclick="(() => showAlert = false)">close</button>
+</Alert>
 
 <div class="card">
     <h3>Create Post</h3>
-    <div class="form-group field">
-        <label>Title:</label>
-        <input type="text" @bind="postTitle"/>
-        <label>Body:</label>
-        <input type="text" @bind="postDescription"/>
-    </div>
-    <div class="button-row">
+	<div class="form-group field">
+		<label>Title:</label>
+		<input type="text" @bind="postTitle"/>
+		<label>Body:</label>
+		<input type="text" @bind="postDescription"/>
+		<label>Tags</label>
+		<input type="text" @bind="newTag"/>
+		<button @onclick="@AddTag">add</button>
+	</div>
+
+	@foreach (string tag in postTags)
+	{
+		<div class="row">
+			@tag
+			<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+		</div>
+	}
+
+	<div class="button-row">
         @if (!string.IsNullOrEmpty(msg))
         {
             <label style="color: red">@msg</label>
@@ -25,9 +45,13 @@
 @code {
     private string postTitle = "";
     private string postDescription = "";
-	private IList<string> tags = new List<string>();
+	private IList<string> postTags = new List<string>();
+	private string newTag = "";
+	private bool showAlert;
 
-    private string msg = "";
+	private int id;
+
+	private string msg = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -35,23 +59,19 @@
 
     private async Task Create()
     {
-        msg = "";
-        if (string.IsNullOrEmpty(postTitle))
+	    if(!Validate())
+		    return;
+	    
+	    try
         {
-            msg = "Title cannot be empty!";
-            return;
-        }
+	        // TODO the user id is hardcoded in please change it with JWT to match the logged in user
+            PostCreationDto dto = new(postTitle, 5L, postDescription, postTags);
+            id = await postService.CreateAsync(dto);
 
-        if (string.IsNullOrEmpty(postDescription))
-        {
-            msg = "Body cannot be empty!";
-            return;
-        }
-        try
-        {
-            PostCreationDto dto = new(postTitle, postDescription, tags);
-            await postService.CreateAsync(dto);
-            // navMgr.NavigateTo("/");
+	        showAlert = true;
+	        postTitle = "";
+	        postDescription = "";
+
         }
         catch (Exception e)
         {
@@ -59,5 +79,43 @@
             msg = e.Message;
         }
     }
+
+	private bool Validate()
+	{
+		msg = "";
+		if (string.IsNullOrEmpty(postTitle))
+		{
+			msg = "Title cannot be empty!";
+			return false;
+		}
+
+		if (string.IsNullOrEmpty(postDescription))
+		{
+			msg = "Body cannot be empty!";
+			return false;
+		}
+
+		return true;
+	}
+
+	private void AddTag()
+	{
+		if (newTag.Equals("") || postTags.Contains(newTag))
+		{
+			return;
+		}
+		postTags.Add(newTag);
+		newTag = "";
+	}
+
+	private void RemoveTag(string tag)
+	{
+		postTags.Remove(tag);
+	}
+
+	private void NavigateToPost()
+	{
+		navMgr.NavigateTo("posts/" + id);
+	}
 
 }

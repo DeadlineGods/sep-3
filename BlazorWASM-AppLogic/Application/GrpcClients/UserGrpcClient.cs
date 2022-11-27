@@ -28,8 +28,7 @@ public class UserGrpcClient : IUserDao
         for (int i = 0; i < reply.UserData.Count; i++)
         {
             UserData userData = reply.UserData[i];
-            User? user = new User(userData.Username, userData.FirstName, userData.Password, userData.Email,
-                userData.PhoneNumber);
+            User? user = ConstructUser(userData);
             usersList.Add(user);
         }
         return await Task.FromResult(usersList.AsEnumerable());
@@ -51,16 +50,30 @@ public class UserGrpcClient : IUserDao
                 Password = user.password,
                 PhoneNumber = user.phoneNumber
             });
+        
+        return await Task.FromResult(ConstructUser(reply));
+    }
 
-        Console.WriteLine(CreateUser(reply));
-		
-        return await Task.FromResult(CreateUser(reply));
+    public async Task<User> GetByIdAsync(long replyOwnerId)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+
+        var client = new UserService.UserServiceClient(channel);
+
+        var reply = await client.GetByIdUserAsync(
+            new RequestGerByIdUser
+            {
+                Id = replyOwnerId
+            }
+        );
+        
+        return await Task.FromResult(ConstructUser(reply));
     }
 
 
-    private User CreateUser(UserData userData)
+    private User ConstructUser(UserData userData)
     {
-        return new User(userData.Username, userData.FirstName + " " + userData.LastName, userData.Password,
+        return new User(userData.Id, userData.Username, userData.FirstName + " " + userData.LastName, userData.Password,
             userData.Email, userData.PhoneNumber);
     }
 }
