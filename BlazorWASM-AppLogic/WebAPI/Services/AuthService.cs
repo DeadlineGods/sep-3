@@ -46,7 +46,7 @@ public class AuthService : IAuthService
             throw new Exception("User not found");
         }
 
-        if (!existingUser.password.Equals(password))
+        if (!existingUser.Password.Equals(password))
         {
             throw new Exception("Password mismatch");
         }
@@ -68,7 +68,7 @@ public class AuthService : IAuthService
         }
 
         User? existingUser = users.FirstOrDefault(u =>
-            u.userName.Equals(dto.username, StringComparison.OrdinalIgnoreCase));
+            u.UserName.Equals(dto.username, StringComparison.OrdinalIgnoreCase));
 
         if (existingUser != null)
         {

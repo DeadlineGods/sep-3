@@ -4,14 +4,16 @@ namespace Domain.DTOs;
 
 public class PostCreationDto
 {
-    public string title { get; }
-    public string description { get; }
-    public IList<string> tags { get; }
+    public string Title { get; }
+    public string Description { get; }
+    public long UserId { get; }
+    public IList<string> Tags { get; }
 
-    public PostCreationDto(string title, string description, IList<string> tags)
+    public PostCreationDto(string title, long userId, string description, IList<string> tags)
     {
-        this.title = title;
-        this.description = description;
-        this.tags = tags;
+        Title = title;
+        Description = description;
+        Tags = tags;
+        UserId = userId;
     }
 }

@@ -34,14 +34,12 @@ public class PostHttpClient : IPostService
             throw new Exception(responseContent);
         }
 
-        Console.WriteLine(responseContent);
         return Int32.Parse(responseContent);
     }
 
     public async Task<ICollection<Post>> GetAsync(int? id, int? userId, string? titleContains)
     {
 	    string query = ConstructQuery(id, userId, titleContains);
-
 	    HttpResponseMessage response = await client.GetAsync("https://localhost:7196/posts/get" + query);
 
 	    string content = await response.Content.ReadAsStringAsync();

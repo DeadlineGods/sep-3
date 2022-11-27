@@ -59,22 +59,13 @@
 
     private async Task Create()
     {
-
-        msg = "";
-        if (string.IsNullOrEmpty(postTitle))
+	    if(!Validate())
+		    return;
+	    
+	    try
         {
-            msg = "Title cannot be empty!";
-            return;
-        }
-
-        if (string.IsNullOrEmpty(postDescription))
-        {
-            msg = "Body cannot be empty!";
-            return;
-        }
-        try
-        {
-            PostCreationDto dto = new(postTitle, postDescription, postTags);
+	        // TODO the user id is hardcoded in please change it with JWT to match the logged in user
+            PostCreationDto dto = new(postTitle, 5L, postDescription, postTags);
             id = await postService.CreateAsync(dto);
 
 	        showAlert = true;
@@ -88,6 +79,24 @@
             msg = e.Message;
         }
     }
+
+	private bool Validate()
+	{
+		msg = "";
+		if (string.IsNullOrEmpty(postTitle))
+		{
+			msg = "Title cannot be empty!";
+			return false;
+		}
+
+		if (string.IsNullOrEmpty(postDescription))
+		{
+			msg = "Body cannot be empty!";
+			return false;
+		}
+
+		return true;
+	}
 
 	private void AddTag()
 	{

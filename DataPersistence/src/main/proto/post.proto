@@ -12,7 +12,8 @@ service PostService {
 message RequestCreatePost {
 	string title = 1;
 	string description = 2;
-	repeated string tags = 3;
+	int64 userId = 3;
+	repeated string tags = 4;
 }
 
 message ResponseCreatePost {
@@ -21,10 +22,11 @@ message ResponseCreatePost {
 
 message PostData {
 	int32 id = 1;
-	int32 likes = 2;
-	string title = 3;
-	string description = 4;
-	int64 postedOnMilliseconds = 5;
+	int64 userId = 2;
+	int32 likes = 3;
+	string title = 4;
+	string description = 5;
+	int64 postedOnMilliseconds = 6;
 }
 
 message RequestDeletePost
@@ -39,7 +41,7 @@ message EmptyPost
 
 message RequestGetPost {
 	optional int32 id = 1;
-	optional int32 userId = 2;
+	optional int64 userId = 2;
 	optional string title = 3;
 }
 

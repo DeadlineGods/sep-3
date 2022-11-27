@@ -58,4 +58,24 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase {
         System.out.println("User with username: "+  request.toString() + " =v \n "+ response.toString());
 
     }
+
+    @Override
+    public void getByIdUser(RequestGerByIdUser request, StreamObserver<UserData> responseObserver) {
+        System.out.println("Received Request =v \n" + request.toString());
+        UserData response = null;
+        try
+        {
+            response = database.GetById(
+                    request.getId()
+            );
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+
+        System.out.println("User with id: "+  request.toString() + " =v \n "+ response.toString());
+    }
 }

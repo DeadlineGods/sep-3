@@ -13,21 +13,30 @@ namespace Application.Logic;
 public class PostLogic : IPostLogic
 {
     private readonly IPostDao postDao;
+    private readonly IUserDao userDao;
 
-    public PostLogic(IPostDao postDao)
+    public PostLogic(IPostDao postDao, IUserDao userDao)
     {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     public async Task<int> CreateAsync(PostCreationDto postCreationDto)
     {
         ValidatePost(postCreationDto);
+        
+        User existingOwner = await userDao.GetByIdAsync(postCreationDto.UserId);
+        if (existingOwner == null)
+        {
+            throw new Exception($"User with id = {postCreationDto.UserId} does not exist");
+        }
 
         Post post = new Post()
         {
-            title = postCreationDto.title,
-            description = postCreationDto.description,
-            tags = postCreationDto.tags
+            Title = postCreationDto.Title,
+            Description = postCreationDto.Description,
+            Tags = postCreationDto.Tags,
+            Owner = existingOwner
         };
 
         return await postDao.CreateAsync(post);
@@ -45,12 +54,12 @@ public class PostLogic : IPostLogic
 
     private void ValidatePost(PostCreationDto postCreationDto)
     {
-        if (postCreationDto.description.Length > 5000)
+        if (postCreationDto.Description.Length > 5000)
         {
             throw new Exception("Description has more characters than 5000");
         }
 
-        if (postCreationDto.title.Length > 150)
+        if (postCreationDto.Title.Length > 150)
         {
             throw new Exception("Title has more characters than 150");
         }

@@ -55,13 +55,44 @@ public class UserDatabase implements UserPersistence {
         return userData;
     }
 
+    @Override
+    public UserData GetById(long userId) throws SQLException  {
+        Connection connection = DBConnection.getConnection();
+        UserData userData = null;
+        try
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"User\" WHERE id = ?");
+            statement.setLong(1, userId);
+
+            statement.execute();
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                userData = UserData.newBuilder()
+                        .setId(resultSet.getLong("id"))
+                        .setUsername(resultSet.getString("user_name"))
+                        .setFirstName(resultSet.getString("first_name"))
+                        .setLastName(resultSet.getString("last_name"))
+                        .setEmail(resultSet.getString("email"))
+                        .setPassword(resultSet.getString("password"))
+                        .setPhoneNumber(resultSet.getString("phone_number"))
+                        .build();
+
+            }
+        }
+        finally {
+            connection.close();
+        }
+        return userData;
+    }
+
     public ResponseGetUsers Get(String username) throws SQLException {
         Connection connection = DBConnection.getConnection();
         List<UserData> usersList = new ArrayList<>();
         ResponseGetUsers response = null;
         try
         {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"user\" WHERE username = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"User\" WHERE username = ?");
             statement.setString(1,username);
 
             statement.execute();
@@ -70,13 +101,13 @@ public class UserDatabase implements UserPersistence {
             while (resultSet.next()) {
                 UserData userData = null;
                 userData = UserData.newBuilder()
-                        .setId(resultSet.getLong("userid"))
-                        .setUsername(resultSet.getString("username"))
-                        .setFirstName(resultSet.getString("firstname"))
-                        .setLastName(resultSet.getString("lastname"))
+                        .setId(resultSet.getLong("id"))
+                        .setUsername(resultSet.getString("user_name"))
+                        .setFirstName(resultSet.getString("first_name"))
+                        .setLastName(resultSet.getString("last_name"))
                         .setEmail(resultSet.getString("email"))
                         .setPassword(resultSet.getString("password"))
-                        .setPhoneNumber(resultSet.getString("phonenumber"))
+                        .setPhoneNumber(resultSet.getString("phone_number"))
                         .build();
 
             usersList.add(userData);
@@ -87,6 +118,5 @@ public class UserDatabase implements UserPersistence {
             connection.close();
         }
         return response;
-
     }
 }

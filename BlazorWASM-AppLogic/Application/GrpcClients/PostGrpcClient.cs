@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.DAOsInterfaces;
+using Application.LogicInterfaces;
 using Domain.DTOs;
+using Domain.Models;
 using Grpc.Net.Client;
 using GrpcClient;
 using Post = Domain.Models.Post;
@@ -11,18 +13,27 @@ namespace Application.GrpcClients;
 
 public class PostGrpcClient : IPostDao
 {
+	private readonly IUserDao userDao;
+
+	public PostGrpcClient(IUserDao userDao)
+	{
+		this.userDao = userDao;
+	}
+	
     public async Task<int> CreateAsync(Post post)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
+	    
 	    var request = new RequestCreatePost
 	    {
-		    Title = post.title,
-		    Description = post.description
+		    Title = post.Title,
+		    Description = post.Description,
+		    UserId = post.Owner.Id
 	    };
 
 	    //add tags
-	    foreach (var tag in post.tags)
+	    foreach (var tag in post.Tags)
 	    {
 		    Console.WriteLine(tag);
 		    request.Tags.Add(tag);
@@ -49,19 +60,11 @@ public class PostGrpcClient : IPostDao
 	    IList<Post> posts = new List<Post>();
 	    foreach (var replyPost in reply.Posts)
 	    {
-			posts.Add(CreatePost(replyPost));
+			posts.Add(await ConstructPost(replyPost));
 	    }
 
 	    return await Task.FromResult(posts);
 
-    }
-
-    private Post CreatePost(PostData reply)
-    {
-	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
-	    DateTime postedOn = new DateTime(time.Ticks);
-
-	    return new Post(reply.Id, reply.Likes, reply.Title, reply.Description, postedOn);
     }
 
     public async Task DeleteAsync(int id)
@@ -83,5 +86,15 @@ public class PostGrpcClient : IPostDao
 	    }
 
 	    await Task.CompletedTask;
+    }
+    
+    
+    private async Task<Post> ConstructPost(PostData reply)
+    {
+	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
+	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
+	    User user = await userDao.GetByIdAsync(reply.UserId);
+	    
+	    return new Post(reply.Id, user, reply.Likes, reply.Title, reply.Description, postedOn);
     }
 }
