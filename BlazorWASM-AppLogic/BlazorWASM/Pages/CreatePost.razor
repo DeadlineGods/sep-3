@@ -22,7 +22,9 @@
 		<input type="text" @bind="postDescription"/>
 		<label>Tags</label>
 		<input type="text" @bind="newTag"/>
-		<button @onclick="@AddTag">add</button>
+		<button @onclick="@AddTag">add </button>
+		
+
 	</div>
 
 	@foreach (string tag in postTags)
@@ -48,7 +50,6 @@
 	private IList<string> postTags = new List<string>();
 	private string newTag = "";
 	private bool showAlert;
-
 	private int id;
 
 	private string msg = "";
@@ -65,7 +66,7 @@
 	    try
         {
 	        // TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            PostCreationDto dto = new(postTitle, 5L, postDescription, postTags);
+            PostCreationDto dto = new(postTitle, 1, postDescription, postTags);
             id = await postService.CreateAsync(dto);
 
 	        showAlert = true;

@@ -32,8 +32,11 @@ else
     {
 	    try
         {
+	        Console.WriteLine("I am here");
+
 	        IEnumerable<Post> posts = await postService.GetAsync(Id);
 	        post = posts.FirstOrDefault();
+	        Console.WriteLine(post);
         }
         catch (Exception e)
         {

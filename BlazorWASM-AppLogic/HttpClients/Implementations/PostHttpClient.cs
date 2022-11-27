@@ -40,7 +40,7 @@ public class PostHttpClient : IPostService
     public async Task<ICollection<Post>> GetAsync(int? id, int? userId, string? titleContains)
     {
 	    string query = ConstructQuery(id, userId, titleContains);
-	    HttpResponseMessage response = await client.GetAsync("https://localhost:7196/posts/get" + query);
+	    HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Posts/get" + query);
 
 	    string content = await response.Content.ReadAsStringAsync();
 	    if (!response.IsSuccessStatusCode)
@@ -48,6 +48,7 @@ public class PostHttpClient : IPostService
 		    throw new Exception(content);
 	    }
 
+	    Console.WriteLine(content);
 	    ICollection<Post> posts = JsonSerializer.Deserialize<ICollection<Post>>(content, new JsonSerializerOptions
 	    {
 		    PropertyNameCaseInsensitive = true

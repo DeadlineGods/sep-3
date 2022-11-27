@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Domain.Models;
 
@@ -11,6 +12,10 @@ public class User
     private String Email{ get; set; }
     private String PhoneNumber{ get; set; }
 
+    [JsonConstructor]
+    public User() {}
+    
+    
     public User(long id, String userName, String fullname, String password, String email, String phoneNumber)
     {
         Id = id;
