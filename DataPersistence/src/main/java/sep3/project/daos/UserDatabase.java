@@ -8,6 +8,7 @@ import sep3.project.protobuf.UserData;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @GRpcService
 public class UserDatabase implements UserPersistence {
@@ -61,23 +62,30 @@ public class UserDatabase implements UserPersistence {
         ResponseGetUsers response = null;
         try
         {
-            // get user with id
-            if (userId != 0) {
+            // get users with id
+            if (userId!=0 && username.equals("")) {
                 ResultSet resultSet = getById(connection, userId);
                 while (resultSet.next()) {
                     usersList.add(getUserFromQuery(resultSet));
                 }
             }
-            // get user with username
-            if (!username.equals("")) {
+            // get users which title contains @titleContains
+            else if (userId==0&& !username.equals("")) {
                 ResultSet resultSet = getByUsername(connection, username);
                 while (resultSet.next()) {
                     usersList.add(getUserFromQuery(resultSet));
                 }
             }
-            // get user with id
-            if (userId == 0 && username.equals("")) {
+            else if(userId==0 && username.equals(""))
+            {
                 ResultSet resultSet = getAll(connection);
+                while (resultSet.next()) {
+                    usersList.add(getUserFromQuery(resultSet));
+                }
+            }
+
+            else {
+                ResultSet resultSet = getByUsernameAndId(connection, userId, username);
                 while (resultSet.next()) {
                     usersList.add(getUserFromQuery(resultSet));
                 }
@@ -97,7 +105,7 @@ public class UserDatabase implements UserPersistence {
         PreparedStatement statement = null;
 
         try {
-            statement = connection.prepareStatement("SELECT * FROM user");
+            statement = connection.prepareStatement("SELECT * FROM \"User\"");
 
             return statement.executeQuery();
 
@@ -111,7 +119,7 @@ public class UserDatabase implements UserPersistence {
 
         try {
             statement = connection.prepareStatement(
-                    "SELECT * FROM user WHERE username = ?");
+                    "SELECT * FROM \"User\" WHERE lower(user_name) LIKE '%' || ? || '%'");
 
             statement.setString(1,username);
             return statement.executeQuery();
@@ -124,26 +132,40 @@ public class UserDatabase implements UserPersistence {
         PreparedStatement statement = null;
 
         try {
+            int i = (int) id;
             statement = connection.prepareStatement(
-                    "SELECT * FROM user WHERE userid = ?");
-
-            statement.setLong(1, id);
+                    "SELECT * FROM \"User\" WHERE id = ?");
+            statement.setLong(1, i);
             return statement.executeQuery();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    private ResultSet getByUsernameAndId(Connection connection, long id,String username) {
+        PreparedStatement statement = null;
 
+        try {
+            int i = (int) id;
+            statement = connection.prepareStatement(
+                    "SELECT * FROM \"User\" WHERE id = ? AND lower(user_name) LIKE '%' || ? || '%'");
+            statement.setLong(1, i);
+            statement.setString(2, username);
+            return statement.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     private UserData getUserFromQuery(ResultSet resultSet) throws SQLException {
         return UserData.newBuilder()
-                .setId(resultSet.getLong("userid"))
-                .setUsername(resultSet.getString("username"))
-                .setFirstName(resultSet.getString("firstname"))
-                .setLastName(resultSet.getString("lastname"))
+                .setId(resultSet.getLong("id"))
+                .setUsername(resultSet.getString("user_name"))
+                .setFirstName(resultSet.getString("first_name"))
+                .setLastName(resultSet.getString("last_name"))
                 .setEmail(resultSet.getString("email"))
                 .setPassword(resultSet.getString("password"))
-                .setPhoneNumber(resultSet.getString("phonenumber"))
+                .setPhoneNumber(resultSet.getString("phone_number"))
                 .build();
     }
 }
