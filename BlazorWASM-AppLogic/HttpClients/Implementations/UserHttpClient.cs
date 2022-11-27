@@ -30,13 +30,20 @@ public class UserHttpClient : IUserService
         return user;
     }
 
-    public async Task<IEnumerable<User>> GetUsers(string? usernameContains = null)
+    public async Task<IEnumerable<User>> GetUsers(string? usernameContains, long? userid)
     {
-        string uri = "/users";
+        string uri = "https://localhost:7196/users";
         if (!string.IsNullOrEmpty(usernameContains))
         {
             uri += $"?username={usernameContains}";
         }
+
+        if (userid != null)
+        {
+            uri += string.IsNullOrEmpty(uri) ? "?" : "&";
+            uri += $"userid={userid}";
+        }
+
         HttpResponseMessage response = await client.GetAsync(uri);
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)

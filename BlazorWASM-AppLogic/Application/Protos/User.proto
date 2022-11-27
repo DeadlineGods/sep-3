@@ -29,6 +29,7 @@ message RequestCreateUser {
 message RequestGetUsers
 {
   optional string username = 1;
+	optional int64 userid=2;
 }
 
 message ResponseGetUsers{

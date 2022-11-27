@@ -23,7 +23,9 @@ public class UserGrpcClient : IUserDao
         var reply = await client.GetUsersAsync(
             new RequestGetUsers
             {
-                Username = searchParameters.username
+                Username = searchParameters.username ?? "",
+                Userid = searchParameters.userId ?? 0
+                
             });
         for (int i = 0; i < reply.UserData.Count; i++)
         {
