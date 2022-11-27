@@ -1,8 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-<<<<<<< HEAD
     "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV7\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {}
   },
   "projects": {
@@ -17,29 +15,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dávid\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
-    "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/ImageHosting.csproj": {}
-=======
-    "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {}
->>>>>>> e95793ec6e7b8c17b502a85ac743e4bb8640164d
-  },
-  "projects": {
-    "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
-        "projectName": "ImageHosting",
-        "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
-        "packagesPath": "C:\\Users\\Darko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-<<<<<<< HEAD
-          "/Users/antondurcak/.nuget/NuGet/NuGet.Config"
->>>>>>> 291840ad7c1c93a830a7e791c9b94ae1fed0a83c
-=======
-          "C:\\Users\\Darko\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> e95793ec6e7b8c17b502a85ac743e4bb8640164d
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -87,15 +62,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
->>>>>>> 291840ad7c1c93a830a7e791c9b94ae1fed0a83c
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
->>>>>>> e95793ec6e7b8c17b502a85ac743e4bb8640164d
         }
       }
     }

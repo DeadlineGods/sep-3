@@ -8,25 +8,9 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ImageHosting
 build_property.RootNamespace = ImageHosting
-<<<<<<< HEAD
-<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\Dávid\Desktop\ALL\SCHOOL-DENMARK\3rd Semester\SEP\Sep Project\Implementation\SepV7\sep-3\BlazorWASM-AppLogic\ImageHosting\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Users\Dávid\Desktop\ALL\SCHOOL-DENMARK\3rd Semester\SEP\Sep Project\Implementation\SepV7\sep-3\BlazorWASM-AppLogic\ImageHosting
-=======
-build_property.ProjectDir = /Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/
-build_property.RazorLangVersion = 6.0
-build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting
->>>>>>> 291840ad7c1c93a830a7e791c9b94ae1fed0a83c
-=======
-build_property.ProjectDir = C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\ImageHosting\
-build_property.RazorLangVersion = 6.0
-build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\ImageHosting
->>>>>>> e95793ec6e7b8c17b502a85ac743e4bb8640164d
 build_property._RazorSourceGeneratorDebug = 
