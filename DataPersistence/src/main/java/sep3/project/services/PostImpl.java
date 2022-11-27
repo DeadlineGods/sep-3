@@ -23,7 +23,8 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 		int id = 0;
 
 		try {
-			id = database.createPost(request.getTitle(), request.getDescription());
+			// create post in database and return id of new created post
+			id = database.createPost(request.getTitle(), request.getDescription(), request.getTagsList().toArray(new String[0]));
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -35,7 +36,6 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 
-//		System.out.println("Post created =>\n" + request.toString());
 	}
 
 	@Override
@@ -44,6 +44,7 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 		ArrayList list;
 
 		try {
+			// get posts from database
 			list = database.getPost(request.getId(), request.getUserId(), request.getTitle());
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

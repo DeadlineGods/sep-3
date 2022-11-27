@@ -1,4 +1,4 @@
-﻿@page "/CreatePost"
+﻿@page "/posts/create"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
 @inject NavigationManager navMgr
@@ -25,6 +25,7 @@
 @code {
     private string postTitle = "";
     private string postDescription = "";
+	private IList<string> tags = new List<string>();
 
     private string msg = "";
 
@@ -48,7 +49,7 @@
         }
         try
         {
-            PostCreationDto dto = new(postTitle, postDescription);
+            PostCreationDto dto = new(postTitle, postDescription, tags);
             await postService.CreateAsync(dto);
             // navMgr.NavigateTo("/");
         }

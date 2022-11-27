@@ -9,19 +9,14 @@ import java.util.ArrayList;
 
 @GRpcService
 public class PostDatabase implements PostPersistence {
-
-	private Connection connection;
 	public PostDatabase()
 	{
-		try {
-			connection = DBConnection.getConnection();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+
 	}
 
 	@Override
-	public int createPost(String title, String description) throws SQLException {
+	public int createPost(String title, String description, String[] tags) throws SQLException {
+		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
 		try {
@@ -38,6 +33,9 @@ public class PostDatabase implements PostPersistence {
 			if (rs.next()) {
 				id = rs.getInt("id");
 			}
+
+			addTags(connection, tags, id);
+
 		}
 		finally {
 			connection.close();
@@ -67,26 +65,27 @@ public class PostDatabase implements PostPersistence {
 	@Override
 	public ArrayList<PostData> getPost(int id, int userId, String titleContains) throws SQLException {
 		Connection connection = DBConnection.getConnection();
+
 		ArrayList<PostData> posts = new ArrayList<>();
 
 		try {
 			// get posts with id
 			if (id != 0) {
-				ResultSet resultSet = getById(id);
+				ResultSet resultSet = getById(connection, id);
 				while (resultSet.next()) {
 					posts.add(createPostFromQuery(resultSet));
 				}
 			}
 			// get posts which title contains @titleContains
 			if (! titleContains.equals("")) {
-				ResultSet resultSet = getByTitle(titleContains);
+				ResultSet resultSet = getByTitle(connection, titleContains);
 				while (resultSet.next()) {
 					posts.add(createPostFromQuery(resultSet));
 				}
 			}
 
 			if (id == 0 && userId == 0 && titleContains.equals("")) {
-				ResultSet resultSet = getAll();
+				ResultSet resultSet = getAll(connection);
 				while (resultSet.next()) {
 					posts.add(createPostFromQuery(resultSet));
 				}
@@ -103,7 +102,42 @@ public class PostDatabase implements PostPersistence {
 		return posts;
 	}
 
-	private ResultSet getAll() {
+	private void addTags(Connection connection, String[] tags, int id) throws SQLException {
+		PreparedStatement statement = null;
+		for (String tag : tags) {
+
+			// first insert into TAG table
+			if (! containsTag(connection, tag)) {
+				statement = connection.prepareStatement("" +
+						"INSERT INTO tag(name) VALUES(?)");
+
+				statement.setString(1, tag);
+
+				statement.execute();
+			}
+
+			// then insert also into join table, because tag_name is foreign key
+			statement = connection.prepareStatement("" +
+					"INSERT INTO posttag(post_id, tag_name) VALUES(?, ?)");
+
+			statement.setInt(1, id);
+			statement.setString(2, tag);
+
+			statement.execute();
+
+		}
+	}
+
+	private boolean containsTag(Connection connection, String tag) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement("SELECT name from tag where name = ?");
+
+		statement.setString(1, tag);
+		ResultSet resultSet = statement.executeQuery();
+
+		return resultSet.next();
+	}
+
+	private ResultSet getAll(Connection connection) {
 		PreparedStatement statement = null;
 
 		try {
@@ -116,7 +150,7 @@ public class PostDatabase implements PostPersistence {
 		}
 	}
 
-	private ResultSet getByTitle(String titleContains) {
+	private ResultSet getByTitle(Connection connection, String titleContains) {
 		PreparedStatement statement = null;
 
 		try {
@@ -131,7 +165,7 @@ public class PostDatabase implements PostPersistence {
 		}
 	}
 
-	private ResultSet getById(int id) {
+	private ResultSet getById(Connection connection, int id) {
 		PreparedStatement statement = null;
 
 		try {

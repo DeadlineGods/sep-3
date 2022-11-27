@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "pOuyfZoSdSuOLaNJIZ1jdgH2icPb+ge8AY766J0PtBRS6aggSK/8tKnKvQiYUjKLa9+b5z2DM+3BK7sG9+qCxQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV7\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
@@ -10,6 +11,18 @@
     "C:\\Windows\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Windows\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
     "C:\\Windows\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+=======
+  "dgSpecHash": "YVqjUolHOAc6sizuFZZPGc7Iaxe4aaAouRdwNw1eaOiVnPpYNkqNdRgOHRSp+lQn3tqOB/ha0jYdUDlcBGXLVw==",
+  "success": true,
+  "projectFilePath": "/Users/antondurcak/Documents/VIA/Semester III/SEP/SepProject/Code/sep-3/BlazorWASM-AppLogic/ImageHosting/ImageHosting.csproj",
+  "expectedPackageFiles": [
+    "/Users/antondurcak/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/swashbuckle.aspnetcore.swagger/6.2.3/swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.2.3/swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "/Users/antondurcak/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.2.3/swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+>>>>>>> 291840ad7c1c93a830a7e791c9b94ae1fed0a83c
   ],
   "logs": []
 }

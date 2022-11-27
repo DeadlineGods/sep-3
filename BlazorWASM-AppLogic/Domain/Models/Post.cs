@@ -11,11 +11,11 @@ public class Post
     public string description { get; set; }
     public DateTime postedOn { get; set; }
     public Location? location { get; set; }
-    public ICollection<Tag>? tags { get; set; }
+    public IList<string> tags { get; set; }
 
     public Post() { }
 
-    public Post(int likes, string title, string description, DateTime postedOn,Location location, ICollection<Tag> tags, int Id)
+    public Post(int likes, string title, string description, DateTime postedOn,Location location, IList<string> tags, int Id)
     {
         this.likes = likes;
         this.title = title;
