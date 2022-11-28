@@ -24,14 +24,14 @@ public class AuthService : IAuthService
         users = new List<User>();
     }
 
-    private async void LoadUsersIntoList()
+    private async void LoadUsersIntoListAsync()
     {
         SearchUserParametersDto dto = new SearchUserParametersDto(null,null);
         IEnumerable<User> tempUsers = await userLogic.GetAsync(dto);
         users = tempUsers.ToList();
     }
 
-    public Task<User> ValidateUser(string username, string password)
+    public Task<User> ValidateUserAsync(string username, string password)
     {
         SearchUserParametersDto dto = new SearchUserParametersDto(username);
 
@@ -64,7 +64,7 @@ public class AuthService : IAuthService
         return Task.FromResult(existingUser);
     }
 
-    public async Task<User> RegisterUser(UserCreationDto dto)
+    public async Task<User> RegisterUserAsync(UserCreationDto dto)
     {
         users = await userLogic.GetAsync(new SearchUserParametersDto());
 

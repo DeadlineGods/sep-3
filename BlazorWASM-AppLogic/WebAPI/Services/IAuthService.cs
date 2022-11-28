@@ -5,10 +5,10 @@ namespace WebAPI.Services;
 
 public interface IAuthService
 {
-    Task<User> ValidateUser(string username, string password);
+    Task<User> ValidateUserAsync(string username, string password);
 
     //Not used now
     
     //Task<User> GetUser(string username, string password);
-    Task<User> RegisterUser(UserCreationDto creationDto);
+    Task<User> RegisterUserAsync(UserCreationDto creationDto);
 }
