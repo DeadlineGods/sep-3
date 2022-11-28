@@ -65,20 +65,21 @@ public class UserDatabase implements UserPersistence {
         ResponseGetUsers response = null;
         try
         {
-            // get users with id
+            // get users by id only
             if (userId!=0 && username.equals("")) {
                 ResultSet resultSet = getById(connection, userId);
                 while (resultSet.next()) {
                     usersList.add(getUserFromQuery(resultSet));
                 }
             }
-            // get users which title contains @titleContains
+            // get users by username only
             else if (userId==0&& !username.equals("")) {
                 ResultSet resultSet = getByUsername(connection, username);
                 while (resultSet.next()) {
                     usersList.add(getUserFromQuery(resultSet));
                 }
             }
+            // get all users
             else if(userId==0 && username.equals(""))
             {
                 ResultSet resultSet = getAll(connection);
@@ -86,7 +87,7 @@ public class UserDatabase implements UserPersistence {
                     usersList.add(getUserFromQuery(resultSet));
                 }
             }
-
+            // get users by both id and username
             else {
                 ResultSet resultSet = getByUsernameAndId(connection, userId, username);
                 while (resultSet.next()) {
