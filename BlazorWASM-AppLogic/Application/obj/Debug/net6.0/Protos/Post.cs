@@ -24,26 +24,27 @@ namespace GrpcClient {
     static PostReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFQcm90b3MvUG9zdC5wcm90byJFChFSZXF1ZXN0Q3JlYXRlUG9zdBINCgV0",
-            "aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCRIMCgR0YWdzGAMgAygJ",
-            "IiAKElJlc3BvbnNlQ3JlYXRlUG9zdBIKCgJpZBgBIAEoBSJnCghQb3N0RGF0",
-            "YRIKCgJpZBgBIAEoBRINCgVsaWtlcxgCIAEoBRINCgV0aXRsZRgDIAEoCRIT",
-            "CgtkZXNjcmlwdGlvbhgEIAEoCRIcChRwb3N0ZWRPbk1pbGxpc2Vjb25kcxgF",
-            "IAEoAyIfChFSZXF1ZXN0RGVsZXRlUG9zdBIKCgJpZBgBIAEoBSILCglFbXB0",
-            "eVBvc3QiZgoOUmVxdWVzdEdldFBvc3QSDwoCaWQYASABKAVIAIgBARITCgZ1",
-            "c2VySWQYAiABKAVIAYgBARISCgV0aXRsZRgDIAEoCUgCiAEBQgUKA19pZEIJ",
-            "CgdfdXNlcklkQggKBl90aXRsZSIrCg9SZXNwb25zZUdldFBvc3QSGAoFcG9z",
-            "dHMYASADKAsyCS5Qb3N0RGF0YTKgAQoLUG9zdFNlcnZpY2USNQoKQ3JlYXRl",
-            "UG9zdBISLlJlcXVlc3RDcmVhdGVQb3N0GhMuUmVzcG9uc2VDcmVhdGVQb3N0",
-            "EiwKB0dldFBvc3QSDy5SZXF1ZXN0R2V0UG9zdBoQLlJlc3BvbnNlR2V0UG9z",
-            "dBIsCgpEZWxldGVQb3N0EhIuUmVxdWVzdERlbGV0ZVBvc3QaCi5FbXB0eVBv",
-            "c3RCDaoCCkdycGNDbGllbnRiBnByb3RvMw=="));
+            "ChFQcm90b3MvUG9zdC5wcm90byJVChFSZXF1ZXN0Q3JlYXRlUG9zdBINCgV0",
+            "aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCRIOCgZ1c2VySWQYAyAB",
+            "KAMSDAoEdGFncxgEIAMoCSIgChJSZXNwb25zZUNyZWF0ZVBvc3QSCgoCaWQY",
+            "ASABKAUidwoIUG9zdERhdGESCgoCaWQYASABKAUSDgoGdXNlcklkGAIgASgD",
+            "Eg0KBWxpa2VzGAMgASgFEg0KBXRpdGxlGAQgASgJEhMKC2Rlc2NyaXB0aW9u",
+            "GAUgASgJEhwKFHBvc3RlZE9uTWlsbGlzZWNvbmRzGAYgASgDIh8KEVJlcXVl",
+            "c3REZWxldGVQb3N0EgoKAmlkGAEgASgFIgsKCUVtcHR5UG9zdCJmCg5SZXF1",
+            "ZXN0R2V0UG9zdBIPCgJpZBgBIAEoBUgAiAEBEhMKBnVzZXJJZBgCIAEoA0gB",
+            "iAEBEhIKBXRpdGxlGAMgASgJSAKIAQFCBQoDX2lkQgkKB191c2VySWRCCAoG",
+            "X3RpdGxlIisKD1Jlc3BvbnNlR2V0UG9zdBIYCgVwb3N0cxgBIAMoCzIJLlBv",
+            "c3REYXRhMqABCgtQb3N0U2VydmljZRI1CgpDcmVhdGVQb3N0EhIuUmVxdWVz",
+            "dENyZWF0ZVBvc3QaEy5SZXNwb25zZUNyZWF0ZVBvc3QSLAoHR2V0UG9zdBIP",
+            "LlJlcXVlc3RHZXRQb3N0GhAuUmVzcG9uc2VHZXRQb3N0EiwKCkRlbGV0ZVBv",
+            "c3QSEi5SZXF1ZXN0RGVsZXRlUG9zdBoKLkVtcHR5UG9zdEINqgIKR3JwY0Ns",
+            "aWVudGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestCreatePost), global::GrpcClient.RequestCreatePost.Parser, new[]{ "Title", "Description", "Tags" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestCreatePost), global::GrpcClient.RequestCreatePost.Parser, new[]{ "Title", "Description", "UserId", "Tags" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.ResponseCreatePost), global::GrpcClient.ResponseCreatePost.Parser, new[]{ "Id" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.PostData), global::GrpcClient.PostData.Parser, new[]{ "Id", "Likes", "Title", "Description", "PostedOnMilliseconds" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.PostData), global::GrpcClient.PostData.Parser, new[]{ "Id", "UserId", "Likes", "Title", "Description", "PostedOnMilliseconds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestDeletePost), global::GrpcClient.RequestDeletePost.Parser, new[]{ "Id" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.EmptyPost), global::GrpcClient.EmptyPost.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestGetPost), global::GrpcClient.RequestGetPost.Parser, new[]{ "Id", "UserId", "Title" }, new[]{ "Id", "UserId", "Title" }, null, null, null),
@@ -90,6 +91,7 @@ namespace GrpcClient {
     public RequestCreatePost(RequestCreatePost other) : this() {
       title_ = other.title_;
       description_ = other.description_;
+      userId_ = other.userId_;
       tags_ = other.tags_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -124,10 +126,22 @@ namespace GrpcClient {
       }
     }
 
+    /// <summary>Field number for the "userId" field.</summary>
+    public const int UserIdFieldNumber = 3;
+    private long userId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long UserId {
+      get { return userId_; }
+      set {
+        userId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "tags" field.</summary>
-    public const int TagsFieldNumber = 3;
+    public const int TagsFieldNumber = 4;
     private static readonly pb::FieldCodec<string> _repeated_tags_codec
-        = pb::FieldCodec.ForString(26);
+        = pb::FieldCodec.ForString(34);
     private readonly pbc::RepeatedField<string> tags_ = new pbc::RepeatedField<string>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -152,6 +166,7 @@ namespace GrpcClient {
       }
       if (Title != other.Title) return false;
       if (Description != other.Description) return false;
+      if (UserId != other.UserId) return false;
       if(!tags_.Equals(other.tags_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -162,6 +177,7 @@ namespace GrpcClient {
       int hash = 1;
       if (Title.Length != 0) hash ^= Title.GetHashCode();
       if (Description.Length != 0) hash ^= Description.GetHashCode();
+      if (UserId != 0L) hash ^= UserId.GetHashCode();
       hash ^= tags_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -189,6 +205,10 @@ namespace GrpcClient {
         output.WriteRawTag(18);
         output.WriteString(Description);
       }
+      if (UserId != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(UserId);
+      }
       tags_.WriteTo(output, _repeated_tags_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -208,6 +228,10 @@ namespace GrpcClient {
         output.WriteRawTag(18);
         output.WriteString(Description);
       }
+      if (UserId != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(UserId);
+      }
       tags_.WriteTo(ref output, _repeated_tags_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -224,6 +248,9 @@ namespace GrpcClient {
       }
       if (Description.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
+      }
+      if (UserId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserId);
       }
       size += tags_.CalculateSize(_repeated_tags_codec);
       if (_unknownFields != null) {
@@ -243,6 +270,9 @@ namespace GrpcClient {
       }
       if (other.Description.Length != 0) {
         Description = other.Description;
+      }
+      if (other.UserId != 0L) {
+        UserId = other.UserId;
       }
       tags_.Add(other.tags_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -268,7 +298,11 @@ namespace GrpcClient {
             Description = input.ReadString();
             break;
           }
-          case 26: {
+          case 24: {
+            UserId = input.ReadInt64();
+            break;
+          }
+          case 34: {
             tags_.AddEntriesFrom(input, _repeated_tags_codec);
             break;
           }
@@ -295,7 +329,11 @@ namespace GrpcClient {
             Description = input.ReadString();
             break;
           }
-          case 26: {
+          case 24: {
+            UserId = input.ReadInt64();
+            break;
+          }
+          case 34: {
             tags_.AddEntriesFrom(ref input, _repeated_tags_codec);
             break;
           }
@@ -530,6 +568,7 @@ namespace GrpcClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PostData(PostData other) : this() {
       id_ = other.id_;
+      userId_ = other.userId_;
       likes_ = other.likes_;
       title_ = other.title_;
       description_ = other.description_;
@@ -555,8 +594,20 @@ namespace GrpcClient {
       }
     }
 
+    /// <summary>Field number for the "userId" field.</summary>
+    public const int UserIdFieldNumber = 2;
+    private long userId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long UserId {
+      get { return userId_; }
+      set {
+        userId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "likes" field.</summary>
-    public const int LikesFieldNumber = 2;
+    public const int LikesFieldNumber = 3;
     private int likes_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -568,7 +619,7 @@ namespace GrpcClient {
     }
 
     /// <summary>Field number for the "title" field.</summary>
-    public const int TitleFieldNumber = 3;
+    public const int TitleFieldNumber = 4;
     private string title_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -580,7 +631,7 @@ namespace GrpcClient {
     }
 
     /// <summary>Field number for the "description" field.</summary>
-    public const int DescriptionFieldNumber = 4;
+    public const int DescriptionFieldNumber = 5;
     private string description_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -592,7 +643,7 @@ namespace GrpcClient {
     }
 
     /// <summary>Field number for the "postedOnMilliseconds" field.</summary>
-    public const int PostedOnMillisecondsFieldNumber = 5;
+    public const int PostedOnMillisecondsFieldNumber = 6;
     private long postedOnMilliseconds_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -619,6 +670,7 @@ namespace GrpcClient {
         return true;
       }
       if (Id != other.Id) return false;
+      if (UserId != other.UserId) return false;
       if (Likes != other.Likes) return false;
       if (Title != other.Title) return false;
       if (Description != other.Description) return false;
@@ -631,6 +683,7 @@ namespace GrpcClient {
     public override int GetHashCode() {
       int hash = 1;
       if (Id != 0) hash ^= Id.GetHashCode();
+      if (UserId != 0L) hash ^= UserId.GetHashCode();
       if (Likes != 0) hash ^= Likes.GetHashCode();
       if (Title.Length != 0) hash ^= Title.GetHashCode();
       if (Description.Length != 0) hash ^= Description.GetHashCode();
@@ -657,20 +710,24 @@ namespace GrpcClient {
         output.WriteRawTag(8);
         output.WriteInt32(Id);
       }
-      if (Likes != 0) {
+      if (UserId != 0L) {
         output.WriteRawTag(16);
+        output.WriteInt64(UserId);
+      }
+      if (Likes != 0) {
+        output.WriteRawTag(24);
         output.WriteInt32(Likes);
       }
       if (Title.Length != 0) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteString(Title);
       }
       if (Description.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteString(Description);
       }
       if (PostedOnMilliseconds != 0L) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(48);
         output.WriteInt64(PostedOnMilliseconds);
       }
       if (_unknownFields != null) {
@@ -687,20 +744,24 @@ namespace GrpcClient {
         output.WriteRawTag(8);
         output.WriteInt32(Id);
       }
-      if (Likes != 0) {
+      if (UserId != 0L) {
         output.WriteRawTag(16);
+        output.WriteInt64(UserId);
+      }
+      if (Likes != 0) {
+        output.WriteRawTag(24);
         output.WriteInt32(Likes);
       }
       if (Title.Length != 0) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteString(Title);
       }
       if (Description.Length != 0) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(42);
         output.WriteString(Description);
       }
       if (PostedOnMilliseconds != 0L) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(48);
         output.WriteInt64(PostedOnMilliseconds);
       }
       if (_unknownFields != null) {
@@ -715,6 +776,9 @@ namespace GrpcClient {
       int size = 0;
       if (Id != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      }
+      if (UserId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserId);
       }
       if (Likes != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Likes);
@@ -742,6 +806,9 @@ namespace GrpcClient {
       }
       if (other.Id != 0) {
         Id = other.Id;
+      }
+      if (other.UserId != 0L) {
+        UserId = other.UserId;
       }
       if (other.Likes != 0) {
         Likes = other.Likes;
@@ -775,18 +842,22 @@ namespace GrpcClient {
             break;
           }
           case 16: {
+            UserId = input.ReadInt64();
+            break;
+          }
+          case 24: {
             Likes = input.ReadInt32();
             break;
           }
-          case 26: {
+          case 34: {
             Title = input.ReadString();
             break;
           }
-          case 34: {
+          case 42: {
             Description = input.ReadString();
             break;
           }
-          case 40: {
+          case 48: {
             PostedOnMilliseconds = input.ReadInt64();
             break;
           }
@@ -810,18 +881,22 @@ namespace GrpcClient {
             break;
           }
           case 16: {
+            UserId = input.ReadInt64();
+            break;
+          }
+          case 24: {
             Likes = input.ReadInt32();
             break;
           }
-          case 26: {
+          case 34: {
             Title = input.ReadString();
             break;
           }
-          case 34: {
+          case 42: {
             Description = input.ReadString();
             break;
           }
-          case 40: {
+          case 48: {
             PostedOnMilliseconds = input.ReadInt64();
             break;
           }
@@ -1248,11 +1323,11 @@ namespace GrpcClient {
 
     /// <summary>Field number for the "userId" field.</summary>
     public const int UserIdFieldNumber = 2;
-    private int userId_;
+    private long userId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int UserId {
-      get { if ((_hasBits0 & 2) != 0) { return userId_; } else { return 0; } }
+    public long UserId {
+      get { if ((_hasBits0 & 2) != 0) { return userId_; } else { return 0L; } }
       set {
         _hasBits0 |= 2;
         userId_ = value;
@@ -1347,7 +1422,7 @@ namespace GrpcClient {
       }
       if (HasUserId) {
         output.WriteRawTag(16);
-        output.WriteInt32(UserId);
+        output.WriteInt64(UserId);
       }
       if (HasTitle) {
         output.WriteRawTag(26);
@@ -1369,7 +1444,7 @@ namespace GrpcClient {
       }
       if (HasUserId) {
         output.WriteRawTag(16);
-        output.WriteInt32(UserId);
+        output.WriteInt64(UserId);
       }
       if (HasTitle) {
         output.WriteRawTag(26);
@@ -1389,7 +1464,7 @@ namespace GrpcClient {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
       }
       if (HasUserId) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UserId);
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(UserId);
       }
       if (HasTitle) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Title);
@@ -1435,7 +1510,7 @@ namespace GrpcClient {
             break;
           }
           case 16: {
-            UserId = input.ReadInt32();
+            UserId = input.ReadInt64();
             break;
           }
           case 26: {
@@ -1462,7 +1537,7 @@ namespace GrpcClient {
             break;
           }
           case 16: {
-            UserId = input.ReadInt32();
+            UserId = input.ReadInt64();
             break;
           }
           case 26: {

@@ -35,8 +35,17 @@ public class AuthService : IAuthService
     {
         Console.Write("siema");
         SearchUserParametersDto dto = new SearchUserParametersDto(username, null);
+        if (string.IsNullOrEmpty(username))
+        {
+            throw new Exception("Username cannot be null");
+        }
         IEnumerable<User> tempUsers = userLogic.GetAsync(dto).Result;
         List<User?> users = new List<User?>();
+        if (!tempUsers.Any())
+        {
+            throw new Exception("User with username: " + dto.username + " is not existing");
+        }
+        
         users = tempUsers.ToList();
         User? existingUser = users[0];
 
@@ -44,7 +53,7 @@ public class AuthService : IAuthService
         {
             throw new Exception("User not found");
         }
-
+        
         if (!existingUser.password.Equals(password))
         {
             throw new Exception("Password mismatch");

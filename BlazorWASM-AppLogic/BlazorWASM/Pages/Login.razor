@@ -31,6 +31,7 @@
     <Authorized>
         <div class="card">
             <h3>Hello, @context.User.Identity.Name</h3>
+            
         </div>
     </Authorized>
 </AuthorizeView>
@@ -46,7 +47,7 @@
         try
         {
             await authService.LoginAsync(userName, password);
-            navMgr.NavigateTo("/");
+            navMgr.NavigateTo("/posts/all");
         }
         catch (Exception e)
         {

@@ -25,6 +25,7 @@ builder.Services.AddScoped<IPostDao, PostGrpcClient>();
 builder.Services.AddScoped<IUserDao, UserGrpcClient>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.RequireHttpsMetadata = false;

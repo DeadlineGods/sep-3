@@ -12,6 +12,10 @@ import java.util.Objects;
 
 @GRpcService
 public class UserDatabase implements UserPersistence {
+
+    public UserDatabase() {
+    }
+
     @Override
     public UserData Create(String userName, String firstName, String lastName, String email, String password, String phoneNumber) throws SQLException {
         Connection connection = DBConnection.getConnection();
