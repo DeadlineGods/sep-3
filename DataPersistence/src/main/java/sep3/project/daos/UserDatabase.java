@@ -11,6 +11,10 @@ import java.util.List;
 
 @GRpcService
 public class UserDatabase implements UserPersistence {
+
+    public UserDatabase() {
+    }
+
     @Override
     public UserData Create(String userName, String firstName, String lastName, String email, String password, String phoneNumber) throws SQLException {
         Connection connection = DBConnection.getConnection();
@@ -67,6 +71,7 @@ public class UserDatabase implements UserPersistence {
             statement.execute();
 
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
                 UserData userData = null;
                 userData = UserData.newBuilder()
@@ -82,8 +87,7 @@ public class UserDatabase implements UserPersistence {
             usersList.add(userData);
             }
             response = ResponseGetUsers.newBuilder().addAllUserData(usersList).build();
-        }
-        finally {
+        } finally {
             connection.close();
         }
         return response;

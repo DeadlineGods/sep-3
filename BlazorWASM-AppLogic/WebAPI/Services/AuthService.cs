@@ -15,29 +15,29 @@ public class AuthService : IAuthService
 {
     private readonly IUserLogic userLogic;
     private IEnumerable<User> users;
-    private readonly IUserDao userDao;
     private IUserService userService = new UserHttpClient(new HttpClient());
 
-    public AuthService(IUserLogic userLogic, IUserDao userDao)
+    public AuthService(IUserLogic userLogic)
     {
         this.userLogic = userLogic;
         users = new List<User>();
     }
-
-    private async void LoadUsersIntoList()
-    {
-        Console.Write("xxxxxxxxxxxxxxxxxxxx");
-        SearchUserParametersDto dto = new SearchUserParametersDto(null);
-        IEnumerable<User> tempUsers = await userLogic.GetAsync(dto);
-        users = tempUsers.ToList();
-    }
+    
 
     public  Task<User> ValidateUser(string username, string password)
     {
-        Console.Write("siema");
         SearchUserParametersDto dto = new SearchUserParametersDto(username);
+        if (string.IsNullOrEmpty(username))
+        {
+            throw new Exception("Username cannot be null");
+        }
         IEnumerable<User> tempUsers = userLogic.GetAsync(dto).Result;
         List<User?> users = new List<User?>();
+        if (!tempUsers.Any())
+        {
+            throw new Exception("User with username: " + dto.username + " is not existing");
+        }
+        
         users = tempUsers.ToList();
         User? existingUser = users[0];
 
@@ -45,7 +45,7 @@ public class AuthService : IAuthService
         {
             throw new Exception("User not found");
         }
-
+        
         if (!existingUser.password.Equals(password))
         {
             throw new Exception("Password mismatch");

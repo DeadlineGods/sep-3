@@ -25,6 +25,7 @@ public class UserGrpcClient : IUserDao
             {
                 Username = searchParameters.username
             });
+        
         for (int i = 0; i < reply.UserData.Count; i++)
         {
             UserData userData = reply.UserData[i];

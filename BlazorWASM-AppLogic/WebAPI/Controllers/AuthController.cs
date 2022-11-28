@@ -55,12 +55,7 @@ public class AuthController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    // [HttpGet("allowanon"), AllowAnonymous]
-    // public ActionResult GetAsAnon()
-    // {
-    //     return Ok("This was accepted as anonymous");
-    // }
-    //
+    
     private List<Claim> GenerateClaims(User user)
     {
         var claims = new[]
