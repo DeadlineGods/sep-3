@@ -10,6 +10,4 @@ import java.sql.SQLException;
 public interface UserPersistence {
     ResponseGetUsers Get(String username, long userId) throws SQLException;
     UserData Create(String userName, String firstName, String lastName, String email, String password, String phoneNumber) throws SQLException;
-
-    UserData GetById(long userId) throws SQLException ;
 }

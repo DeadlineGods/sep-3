@@ -8,7 +8,6 @@ import sep3.project.protobuf.UserData;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @GRpcService
 public class UserDatabase implements UserPersistence {

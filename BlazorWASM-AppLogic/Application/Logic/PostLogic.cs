@@ -25,7 +25,9 @@ public class PostLogic : IPostLogic
     {
         ValidatePost(postCreationDto);
         
-        User existingOwner = await userDao.GetByIdAsync(postCreationDto.UserId);
+        SearchUserParametersDto dto = new SearchUserParametersDto(null, postCreationDto.UserId);
+        IEnumerable<User> users = await userDao.GetAsync(dto);
+        User existingOwner = users.FirstOrDefault();
         if (existingOwner == null)
         {
             throw new Exception($"User with id = {postCreationDto.UserId} does not exist");

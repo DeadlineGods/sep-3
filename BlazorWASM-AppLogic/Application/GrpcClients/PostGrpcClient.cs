@@ -95,8 +95,9 @@ public class PostGrpcClient : IPostDao
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
-	    User user = await userDao.GetByIdAsync(reply.UserId);
+	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
+	    IEnumerable<User> users = await userDao.GetAsync(dto);
 	    
-	    return new Post(reply.Id, user, reply.Likes, reply.Title, reply.Description, postedOn);
+	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.Description, postedOn);
     }
 }
