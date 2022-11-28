@@ -11,7 +11,7 @@ public class UserLogic : IUserLogic
 
 	public UserLogic(IUserDao dao)
 	{
-		this.Dao = dao;
+		Dao = dao;
 	}
 
 	public async Task<User> CreateAsync(UserCreationDto dto)

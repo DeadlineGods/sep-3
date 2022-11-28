@@ -1,48 +1,46 @@
 ﻿@page "/posts/create"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
-@using System.Security.AccessControl
-@using System.Xml
-@using System.Collections
+@inject AuthenticationStateProvider AuthenticationStateProvider;
 @inject NavigationManager navMgr
 @inject IPostService postService
 
-<Alert Type="success" Show="@showAlert">
-	<p>Successfully created post!</p>
-	<button @onclick="@NavigateToPost">show me</button>
-	<button @onclick="(() => showAlert = false)">close</button>
-</Alert>
+	<Alert Type="success" Show="@showAlert">
+		<p>Successfully created post!</p>
+		<button @onclick="@NavigateToPost">show me</button>
+		<button @onclick="(() => showAlert = false)">close</button>
+	</Alert>
 
-<div class="card">
-    <h3>Create Post</h3>
-	<div class="form-group field">
-		<label>Title:</label>
-		<input type="text" @bind="postTitle"/>
-		<label>Body:</label>
-		<input type="text" @bind="postDescription"/>
-		<label>Tags</label>
-		<input type="text" @bind="newTag"/>
-		<button @onclick="@AddTag">add </button>
-		
+	<div class="card">
+		<h3>Create Post</h3>
+		<div class="form-group field">
+			<label>Title:</label>
+			<input type="text" @bind="postTitle"/>
+			<label>Body:</label>
+			<input type="text" @bind="postDescription"/>
+			<label>Tags</label>
+			<input type="text" @bind="newTag"/>
+			<button @onclick="@AddTag">add </button>
 
-	</div>
 
-	@foreach (string tag in postTags)
-	{
-		<div class="row">
-			@tag
-			<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
 		</div>
-	}
 
-	<div class="button-row">
-        @if (!string.IsNullOrEmpty(msg))
-        {
-            <label style="color: red">@msg</label>
-        }
-        <button @onclick="Create" class="acceptbtn">Create</button>
-    </div>
-</div>
+		@foreach (string tag in postTags)
+		{
+			<div class="row">
+				@tag
+				<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+			</div>
+		}
+
+		<div class="button-row">
+			@if (!string.IsNullOrEmpty(msg))
+			{
+				<label style="color: red">@msg</label>
+			}
+			<button @onclick="Create" class="acceptbtn">Create</button>
+		</div>
+	</div>
 
 @code {
     private string postTitle = "";
@@ -62,16 +60,19 @@
     {
 	    if(!Validate())
 		    return;
-	    
+
 	    try
-        {
+	    {
+		    int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+
 	        // TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            PostCreationDto dto = new(postTitle, 1, postDescription, postTags);
+            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, postTags);
             id = await postService.CreateAsync(dto);
 
 	        showAlert = true;
 	        postTitle = "";
 	        postDescription = "";
+	        postTags = new List<string>();
 
         }
         catch (Exception e)

@@ -73,7 +73,7 @@ public class UserDatabase implements UserPersistence {
                 }
             }
             // get users by username only
-            else if (userId==0&& !username.equals("")) {
+            else if (userId==0 && !username.equals("")) {
                 ResultSet resultSet = getByUsername(connection, username);
                 while (resultSet.next()) {
                     usersList.add(getUserFromQuery(resultSet));
@@ -123,7 +123,7 @@ public class UserDatabase implements UserPersistence {
 
         try {
             statement = connection.prepareStatement(
-                    "SELECT * FROM \"User\" WHERE lower(user_name) LIKE '%' || ? || '%'");
+                    "SELECT * FROM \"User\" WHERE user_name = ?");
 
             statement.setString(1,username);
             return statement.executeQuery();
