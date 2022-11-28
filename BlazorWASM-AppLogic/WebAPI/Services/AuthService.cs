@@ -32,7 +32,7 @@ public class AuthService : IAuthService
         users = tempUsers.ToList();
     }
 
-    public  Task<User> ValidateUser(string username, string password)
+    public  Task<User> ValidateUserAsync(string username, string password)
     {
         Console.Write("siema");
         SearchUserParametersDto dto = new SearchUserParametersDto(username);

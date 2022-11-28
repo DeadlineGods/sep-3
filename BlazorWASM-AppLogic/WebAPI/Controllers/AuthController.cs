@@ -29,7 +29,7 @@ public class AuthController : ControllerBase
     {
         try
         {
-            User user = await authService.ValidateUser(userLoginDto.username, userLoginDto.password);
+            User user = await authService.ValidateUserAsync(userLoginDto.username, userLoginDto.password);
             string token = GenerateJwt(user);
     
             return Ok(token);

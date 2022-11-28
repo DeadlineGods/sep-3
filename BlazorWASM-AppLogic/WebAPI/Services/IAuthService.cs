@@ -5,7 +5,7 @@ namespace WebAPI.Services;
 
 public interface IAuthService
 {
-    Task<User> ValidateUser(string username, string password);
+    Task<User> ValidateUserAsync(string username, string password);
 
     //Not used now
     
