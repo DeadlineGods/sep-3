@@ -2,9 +2,6 @@ package sep3.project.daos;
 
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.persistance.DBConnection;
-import sep3.project.protobuf.Post;
-import sep3.project.protobuf.PostData;
-import sep3.project.protobuf.ResponseGetUsers;
 
 import java.sql.*;
 import java.util.ArrayList;
