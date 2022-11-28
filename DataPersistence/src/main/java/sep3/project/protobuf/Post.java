@@ -58,22 +58,23 @@ public final class Post {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\npost.proto\"E\n\021RequestCreatePost\022\r\n\005tit" +
-      "le\030\001 \001(\t\022\023\n\013description\030\002 \001(\t\022\014\n\004tags\030\003 " +
-      "\003(\t\" \n\022ResponseCreatePost\022\n\n\002id\030\001 \001(\005\"g\n" +
-      "\010PostData\022\n\n\002id\030\001 \001(\005\022\r\n\005likes\030\002 \001(\005\022\r\n\005" +
-      "title\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\034\n\024post" +
-      "edOnMilliseconds\030\005 \001(\003\"\037\n\021RequestDeleteP" +
-      "ost\022\n\n\002id\030\001 \001(\005\"\013\n\tEmptyPost\"f\n\016RequestG" +
-      "etPost\022\017\n\002id\030\001 \001(\005H\000\210\001\001\022\023\n\006userId\030\002 \001(\005H" +
-      "\001\210\001\001\022\022\n\005title\030\003 \001(\tH\002\210\001\001B\005\n\003_idB\t\n\007_user" +
-      "IdB\010\n\006_title\"+\n\017ResponseGetPost\022\030\n\005posts" +
-      "\030\001 \003(\0132\t.PostData2\240\001\n\013PostService\0225\n\nCre" +
-      "atePost\022\022.RequestCreatePost\032\023.ResponseCr" +
-      "eatePost\022,\n\007GetPost\022\017.RequestGetPost\032\020.R" +
-      "esponseGetPost\022,\n\nDeletePost\022\022.RequestDe" +
-      "letePost\032\n.EmptyPostB\031\n\025sep3.project.pro" +
-      "tobufP\001b\006proto3"
+      "\n\npost.proto\"U\n\021RequestCreatePost\022\r\n\005tit" +
+      "le\030\001 \001(\t\022\023\n\013description\030\002 \001(\t\022\016\n\006userId\030" +
+      "\003 \001(\003\022\014\n\004tags\030\004 \003(\t\" \n\022ResponseCreatePos" +
+      "t\022\n\n\002id\030\001 \001(\005\"w\n\010PostData\022\n\n\002id\030\001 \001(\005\022\016\n" +
+      "\006userId\030\002 \001(\003\022\r\n\005likes\030\003 \001(\005\022\r\n\005title\030\004 " +
+      "\001(\t\022\023\n\013description\030\005 \001(\t\022\034\n\024postedOnMill" +
+      "iseconds\030\006 \001(\003\"\037\n\021RequestDeletePost\022\n\n\002i" +
+      "d\030\001 \001(\005\"\013\n\tEmptyPost\"f\n\016RequestGetPost\022\017" +
+      "\n\002id\030\001 \001(\005H\000\210\001\001\022\023\n\006userId\030\002 \001(\003H\001\210\001\001\022\022\n\005" +
+      "title\030\003 \001(\tH\002\210\001\001B\005\n\003_idB\t\n\007_userIdB\010\n\006_t" +
+      "itle\"+\n\017ResponseGetPost\022\030\n\005posts\030\001 \003(\0132\t" +
+      ".PostData2\240\001\n\013PostService\0225\n\nCreatePost\022" +
+      "\022.RequestCreatePost\032\023.ResponseCreatePost" +
+      "\022,\n\007GetPost\022\017.RequestGetPost\032\020.ResponseG" +
+      "etPost\022,\n\nDeletePost\022\022.RequestDeletePost" +
+      "\032\n.EmptyPostB\031\n\025sep3.project.protobufP\001b" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -84,7 +85,7 @@ public final class Post {
     internal_static_RequestCreatePost_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RequestCreatePost_descriptor,
-        new java.lang.String[] { "Title", "Description", "Tags", });
+        new java.lang.String[] { "Title", "Description", "UserId", "Tags", });
     internal_static_ResponseCreatePost_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ResponseCreatePost_fieldAccessorTable = new
@@ -96,7 +97,7 @@ public final class Post {
     internal_static_PostData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PostData_descriptor,
-        new java.lang.String[] { "Id", "Likes", "Title", "Description", "PostedOnMilliseconds", });
+        new java.lang.String[] { "Id", "UserId", "Likes", "Title", "Description", "PostedOnMilliseconds", });
     internal_static_RequestDeletePost_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_RequestDeletePost_fieldAccessorTable = new

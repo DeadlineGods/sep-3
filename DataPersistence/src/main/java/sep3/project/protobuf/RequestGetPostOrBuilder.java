@@ -19,15 +19,15 @@ public interface RequestGetPostOrBuilder extends
   int getId();
 
   /**
-   * <code>optional int32 userId = 2;</code>
+   * <code>optional int64 userId = 2;</code>
    * @return Whether the userId field is set.
    */
   boolean hasUserId();
   /**
-   * <code>optional int32 userId = 2;</code>
+   * <code>optional int64 userId = 2;</code>
    * @return The userId.
    */
-  int getUserId();
+  long getUserId();
 
   /**
    * <code>optional string title = 3;</code>

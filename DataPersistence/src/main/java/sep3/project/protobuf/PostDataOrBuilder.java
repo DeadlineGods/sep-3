@@ -14,37 +14,43 @@ public interface PostDataOrBuilder extends
   int getId();
 
   /**
-   * <code>int32 likes = 2;</code>
+   * <code>int64 userId = 2;</code>
+   * @return The userId.
+   */
+  long getUserId();
+
+  /**
+   * <code>int32 likes = 3;</code>
    * @return The likes.
    */
   int getLikes();
 
   /**
-   * <code>string title = 3;</code>
+   * <code>string title = 4;</code>
    * @return The title.
    */
   java.lang.String getTitle();
   /**
-   * <code>string title = 3;</code>
+   * <code>string title = 4;</code>
    * @return The bytes for title.
    */
   com.google.protobuf.ByteString
       getTitleBytes();
 
   /**
-   * <code>string description = 4;</code>
+   * <code>string description = 5;</code>
    * @return The description.
    */
   java.lang.String getDescription();
   /**
-   * <code>string description = 4;</code>
+   * <code>string description = 5;</code>
    * @return The bytes for description.
    */
   com.google.protobuf.ByteString
       getDescriptionBytes();
 
   /**
-   * <code>int64 postedOnMilliseconds = 5;</code>
+   * <code>int64 postedOnMilliseconds = 6;</code>
    * @return The postedOnMilliseconds.
    */
   long getPostedOnMilliseconds();

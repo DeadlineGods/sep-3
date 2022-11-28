@@ -96,7 +96,7 @@ public class UserDatabase implements UserPersistence {
         ResponseGetUsers response = null;
         try
         {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"User\" WHERE username = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"User\" WHERE user_name = ?");
             statement.setString(1,username);
 
             statement.execute();
