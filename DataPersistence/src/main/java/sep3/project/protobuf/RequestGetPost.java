@@ -57,7 +57,7 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
             bitField0_ |= 0x00000002;
-            userId_ = input.readInt32();
+            userId_ = input.readInt64();
             break;
           }
           case 26: {
@@ -121,9 +121,9 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int USERID_FIELD_NUMBER = 2;
-  private int userId_;
+  private long userId_;
   /**
-   * <code>optional int32 userId = 2;</code>
+   * <code>optional int64 userId = 2;</code>
    * @return Whether the userId field is set.
    */
   @java.lang.Override
@@ -131,11 +131,11 @@ private static final long serialVersionUID = 0L;
     return ((bitField0_ & 0x00000002) != 0);
   }
   /**
-   * <code>optional int32 userId = 2;</code>
+   * <code>optional int64 userId = 2;</code>
    * @return The userId.
    */
   @java.lang.Override
-  public int getUserId() {
+  public long getUserId() {
     return userId_;
   }
 
@@ -203,7 +203,7 @@ private static final long serialVersionUID = 0L;
       output.writeInt32(1, id_);
     }
     if (((bitField0_ & 0x00000002) != 0)) {
-      output.writeInt32(2, userId_);
+      output.writeInt64(2, userId_);
     }
     if (((bitField0_ & 0x00000004) != 0)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, title_);
@@ -223,7 +223,7 @@ private static final long serialVersionUID = 0L;
     }
     if (((bitField0_ & 0x00000002) != 0)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, userId_);
+        .computeInt64Size(2, userId_);
     }
     if (((bitField0_ & 0x00000004) != 0)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, title_);
@@ -275,7 +275,8 @@ private static final long serialVersionUID = 0L;
     }
     if (hasUserId()) {
       hash = (37 * hash) + USERID_FIELD_NUMBER;
-      hash = (53 * hash) + getUserId();
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUserId());
     }
     if (hasTitle()) {
       hash = (37 * hash) + TITLE_FIELD_NUMBER;
@@ -416,7 +417,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       id_ = 0;
       bitField0_ = (bitField0_ & ~0x00000001);
-      userId_ = 0;
+      userId_ = 0L;
       bitField0_ = (bitField0_ & ~0x00000002);
       title_ = "";
       bitField0_ = (bitField0_ & ~0x00000004);
@@ -589,9 +590,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int userId_ ;
+    private long userId_ ;
     /**
-     * <code>optional int32 userId = 2;</code>
+     * <code>optional int64 userId = 2;</code>
      * @return Whether the userId field is set.
      */
     @java.lang.Override
@@ -599,31 +600,31 @@ private static final long serialVersionUID = 0L;
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>optional int32 userId = 2;</code>
+     * <code>optional int64 userId = 2;</code>
      * @return The userId.
      */
     @java.lang.Override
-    public int getUserId() {
+    public long getUserId() {
       return userId_;
     }
     /**
-     * <code>optional int32 userId = 2;</code>
+     * <code>optional int64 userId = 2;</code>
      * @param value The userId to set.
      * @return This builder for chaining.
      */
-    public Builder setUserId(int value) {
+    public Builder setUserId(long value) {
       bitField0_ |= 0x00000002;
       userId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional int32 userId = 2;</code>
+     * <code>optional int64 userId = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearUserId() {
       bitField0_ = (bitField0_ & ~0x00000002);
-      userId_ = 0;
+      userId_ = 0L;
       onChanged();
       return this;
     }

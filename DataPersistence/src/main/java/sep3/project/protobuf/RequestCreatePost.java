@@ -18,6 +18,7 @@ private static final long serialVersionUID = 0L;
   private RequestCreatePost() {
     title_ = "";
     description_ = "";
+    imgUrl_ = "";
     tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
@@ -64,7 +65,18 @@ private static final long serialVersionUID = 0L;
             description_ = s;
             break;
           }
-          case 26: {
+          case 24: {
+
+            userId_ = input.readInt64();
+            break;
+          }
+          case 34: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            imgUrl_ = s;
+            break;
+          }
+          case 42: {
             java.lang.String s = input.readStringRequireUtf8();
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
               tags_ = new com.google.protobuf.LazyStringArrayList();
@@ -186,10 +198,59 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TAGS_FIELD_NUMBER = 3;
+  public static final int USERID_FIELD_NUMBER = 3;
+  private long userId_;
+  /**
+   * <code>int64 userId = 3;</code>
+   * @return The userId.
+   */
+  @java.lang.Override
+  public long getUserId() {
+    return userId_;
+  }
+
+  public static final int IMGURL_FIELD_NUMBER = 4;
+  private volatile java.lang.Object imgUrl_;
+  /**
+   * <code>string imgUrl = 4;</code>
+   * @return The imgUrl.
+   */
+  @java.lang.Override
+  public java.lang.String getImgUrl() {
+    java.lang.Object ref = imgUrl_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      imgUrl_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string imgUrl = 4;</code>
+   * @return The bytes for imgUrl.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getImgUrlBytes() {
+    java.lang.Object ref = imgUrl_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      imgUrl_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int TAGS_FIELD_NUMBER = 5;
   private com.google.protobuf.LazyStringList tags_;
   /**
-   * <code>repeated string tags = 3;</code>
+   * <code>repeated string tags = 5;</code>
    * @return A list containing the tags.
    */
   public com.google.protobuf.ProtocolStringList
@@ -197,14 +258,14 @@ private static final long serialVersionUID = 0L;
     return tags_;
   }
   /**
-   * <code>repeated string tags = 3;</code>
+   * <code>repeated string tags = 5;</code>
    * @return The count of tags.
    */
   public int getTagsCount() {
     return tags_.size();
   }
   /**
-   * <code>repeated string tags = 3;</code>
+   * <code>repeated string tags = 5;</code>
    * @param index The index of the element to return.
    * @return The tags at the given index.
    */
@@ -212,7 +273,7 @@ private static final long serialVersionUID = 0L;
     return tags_.get(index);
   }
   /**
-   * <code>repeated string tags = 3;</code>
+   * <code>repeated string tags = 5;</code>
    * @param index The index of the value to return.
    * @return The bytes of the tags at the given index.
    */
@@ -241,8 +302,14 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, description_);
     }
+    if (userId_ != 0L) {
+      output.writeInt64(3, userId_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(imgUrl_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, imgUrl_);
+    }
     for (int i = 0; i < tags_.size(); i++) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, tags_.getRaw(i));
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, tags_.getRaw(i));
     }
     unknownFields.writeTo(output);
   }
@@ -258,6 +325,13 @@ private static final long serialVersionUID = 0L;
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, description_);
+    }
+    if (userId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(3, userId_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(imgUrl_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, imgUrl_);
     }
     {
       int dataSize = 0;
@@ -286,6 +360,10 @@ private static final long serialVersionUID = 0L;
         .equals(other.getTitle())) return false;
     if (!getDescription()
         .equals(other.getDescription())) return false;
+    if (getUserId()
+        != other.getUserId()) return false;
+    if (!getImgUrl()
+        .equals(other.getImgUrl())) return false;
     if (!getTagsList()
         .equals(other.getTagsList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
@@ -303,6 +381,11 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getTitle().hashCode();
     hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
     hash = (53 * hash) + getDescription().hashCode();
+    hash = (37 * hash) + USERID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getUserId());
+    hash = (37 * hash) + IMGURL_FIELD_NUMBER;
+    hash = (53 * hash) + getImgUrl().hashCode();
     if (getTagsCount() > 0) {
       hash = (37 * hash) + TAGS_FIELD_NUMBER;
       hash = (53 * hash) + getTagsList().hashCode();
@@ -444,6 +527,10 @@ private static final long serialVersionUID = 0L;
 
       description_ = "";
 
+      userId_ = 0L;
+
+      imgUrl_ = "";
+
       tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       bitField0_ = (bitField0_ & ~0x00000001);
       return this;
@@ -475,6 +562,8 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       result.title_ = title_;
       result.description_ = description_;
+      result.userId_ = userId_;
+      result.imgUrl_ = imgUrl_;
       if (((bitField0_ & 0x00000001) != 0)) {
         tags_ = tags_.getUnmodifiableView();
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -534,6 +623,13 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getDescription().isEmpty()) {
         description_ = other.description_;
+        onChanged();
+      }
+      if (other.getUserId() != 0L) {
+        setUserId(other.getUserId());
+      }
+      if (!other.getImgUrl().isEmpty()) {
+        imgUrl_ = other.imgUrl_;
         onChanged();
       }
       if (!other.tags_.isEmpty()) {
@@ -728,6 +824,113 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private long userId_ ;
+    /**
+     * <code>int64 userId = 3;</code>
+     * @return The userId.
+     */
+    @java.lang.Override
+    public long getUserId() {
+      return userId_;
+    }
+    /**
+     * <code>int64 userId = 3;</code>
+     * @param value The userId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setUserId(long value) {
+      
+      userId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 userId = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearUserId() {
+      
+      userId_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object imgUrl_ = "";
+    /**
+     * <code>string imgUrl = 4;</code>
+     * @return The imgUrl.
+     */
+    public java.lang.String getImgUrl() {
+      java.lang.Object ref = imgUrl_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        imgUrl_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string imgUrl = 4;</code>
+     * @return The bytes for imgUrl.
+     */
+    public com.google.protobuf.ByteString
+        getImgUrlBytes() {
+      java.lang.Object ref = imgUrl_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        imgUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string imgUrl = 4;</code>
+     * @param value The imgUrl to set.
+     * @return This builder for chaining.
+     */
+    public Builder setImgUrl(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      imgUrl_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string imgUrl = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearImgUrl() {
+      
+      imgUrl_ = getDefaultInstance().getImgUrl();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string imgUrl = 4;</code>
+     * @param value The bytes for imgUrl to set.
+     * @return This builder for chaining.
+     */
+    public Builder setImgUrlBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      imgUrl_ = value;
+      onChanged();
+      return this;
+    }
+
     private com.google.protobuf.LazyStringList tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     private void ensureTagsIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
@@ -736,7 +939,7 @@ private static final long serialVersionUID = 0L;
        }
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @return A list containing the tags.
      */
     public com.google.protobuf.ProtocolStringList
@@ -744,14 +947,14 @@ private static final long serialVersionUID = 0L;
       return tags_.getUnmodifiableView();
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @return The count of tags.
      */
     public int getTagsCount() {
       return tags_.size();
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @param index The index of the element to return.
      * @return The tags at the given index.
      */
@@ -759,7 +962,7 @@ private static final long serialVersionUID = 0L;
       return tags_.get(index);
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @param index The index of the value to return.
      * @return The bytes of the tags at the given index.
      */
@@ -768,7 +971,7 @@ private static final long serialVersionUID = 0L;
       return tags_.getByteString(index);
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @param index The index to set the value at.
      * @param value The tags to set.
      * @return This builder for chaining.
@@ -784,7 +987,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @param value The tags to add.
      * @return This builder for chaining.
      */
@@ -799,7 +1002,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @param values The tags to add.
      * @return This builder for chaining.
      */
@@ -812,7 +1015,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @return This builder for chaining.
      */
     public Builder clearTags() {
@@ -822,7 +1025,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated string tags = 3;</code>
+     * <code>repeated string tags = 5;</code>
      * @param value The bytes of the tags to add.
      * @return This builder for chaining.
      */

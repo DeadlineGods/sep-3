@@ -83,10 +83,9 @@
         try
         {
             string imgUrl = await imageUploadService.UploadAsync(filesBase64);
-            Console.WriteLine(imgUrl);
-            return;
+            
     // TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            PostCreationDto dto = new(postTitle, 1, postDescription, imgUrl, postTags);
+            PostCreationDto dto = new(postTitle, 5, postDescription, imgUrl, postTags);
             id = await postService.CreateAsync(dto);
 
             showAlert = true;

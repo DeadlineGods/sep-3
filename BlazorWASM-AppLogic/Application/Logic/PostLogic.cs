@@ -36,7 +36,8 @@ public class PostLogic : IPostLogic
             Title = postCreationDto.Title,
             Description = postCreationDto.Description,
             Tags = postCreationDto.Tags,
-            Owner = existingOwner
+            Owner = existingOwner,
+            ImgUrl = postCreationDto.ImgUrl
         };
 
         return await postDao.CreateAsync(post);

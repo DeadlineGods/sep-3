@@ -15,17 +15,18 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public int createPost(String title, long userId, String description, String[] tags) throws SQLException {
+	public int createPost(String title, long userId, String description, String[] tags, String image_url) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
 		try {
 			PreparedStatement statement = connection.prepareStatement("" +
-					"INSERT INTO post(title, user_id, description) VALUES(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					"INSERT INTO post(title, user_id, description, image_url) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, title);
 			statement.setLong(2, userId);
 			statement.setString(3, description);
+			statement.setString(4, image_url);
 
 			statement.execute();
 
@@ -188,6 +189,7 @@ public class PostDatabase implements PostPersistence {
 				.setUserId(resultSet.getLong("user_id"))
 				.setDescription(resultSet.getString("description"))
 				.setTitle(resultSet.getString("title"))
+				.setImgUrl(resultSet.getString("image_url"))
 				.setPostedOnMilliseconds(resultSet.getTimestamp("posted_on").getTime())
 				.build();
 	}

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.DAOsInterfaces;
-using Application.LogicInterfaces;
+﻿using Application.DAOsInterfaces;
 using Domain.DTOs;
 using Domain.Models;
 using Grpc.Net.Client;
@@ -24,13 +20,13 @@ public class PostGrpcClient : IPostDao
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
-	   
 	    
 	    var request = new RequestCreatePost
 	    {
 		    Title = post.Title,
 		    Description = post.Description,
-		    UserId = post.Owner.Id
+		    UserId = post.Owner.Id,
+		    ImgUrl = post.ImgUrl
 	    };
 
 	    //add tags
@@ -39,12 +35,10 @@ public class PostGrpcClient : IPostDao
 		    Console.WriteLine(tag);
 		    request.Tags.Add(tag);
 	    }
-	  
-	    
+
 	    var reply = await client.CreatePostAsync(request);
 		    
 	    return await Task.FromResult(reply.Id);
-
     }
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
@@ -97,6 +91,6 @@ public class PostGrpcClient : IPostDao
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
 	    User user = await userDao.GetByIdAsync(reply.UserId);
 	    
-	    return new Post(reply.Id, user, reply.Likes, reply.Title, reply.Description, postedOn);
+	    return new Post(reply.Id, user, reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn);
     }
 }

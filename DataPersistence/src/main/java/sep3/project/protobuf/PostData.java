@@ -18,6 +18,7 @@ private static final long serialVersionUID = 0L;
   private PostData() {
     title_ = "";
     description_ = "";
+    imgUrl_ = "";
   }
 
   @java.lang.Override
@@ -57,22 +58,33 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
 
-            likes_ = input.readInt32();
+            userId_ = input.readInt64();
             break;
           }
-          case 26: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 24: {
 
-            title_ = s;
+            likes_ = input.readInt32();
             break;
           }
           case 34: {
             java.lang.String s = input.readStringRequireUtf8();
 
+            title_ = s;
+            break;
+          }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
             description_ = s;
             break;
           }
-          case 40: {
+          case 50: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            imgUrl_ = s;
+            break;
+          }
+          case 56: {
 
             postedOnMilliseconds_ = input.readInt64();
             break;
@@ -122,10 +134,21 @@ private static final long serialVersionUID = 0L;
     return id_;
   }
 
-  public static final int LIKES_FIELD_NUMBER = 2;
+  public static final int USERID_FIELD_NUMBER = 2;
+  private long userId_;
+  /**
+   * <code>int64 userId = 2;</code>
+   * @return The userId.
+   */
+  @java.lang.Override
+  public long getUserId() {
+    return userId_;
+  }
+
+  public static final int LIKES_FIELD_NUMBER = 3;
   private int likes_;
   /**
-   * <code>int32 likes = 2;</code>
+   * <code>int32 likes = 3;</code>
    * @return The likes.
    */
   @java.lang.Override
@@ -133,10 +156,10 @@ private static final long serialVersionUID = 0L;
     return likes_;
   }
 
-  public static final int TITLE_FIELD_NUMBER = 3;
+  public static final int TITLE_FIELD_NUMBER = 4;
   private volatile java.lang.Object title_;
   /**
-   * <code>string title = 3;</code>
+   * <code>string title = 4;</code>
    * @return The title.
    */
   @java.lang.Override
@@ -153,7 +176,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string title = 3;</code>
+   * <code>string title = 4;</code>
    * @return The bytes for title.
    */
   @java.lang.Override
@@ -171,10 +194,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int DESCRIPTION_FIELD_NUMBER = 4;
+  public static final int DESCRIPTION_FIELD_NUMBER = 5;
   private volatile java.lang.Object description_;
   /**
-   * <code>string description = 4;</code>
+   * <code>string description = 5;</code>
    * @return The description.
    */
   @java.lang.Override
@@ -191,7 +214,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string description = 4;</code>
+   * <code>string description = 5;</code>
    * @return The bytes for description.
    */
   @java.lang.Override
@@ -209,10 +232,48 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int POSTEDONMILLISECONDS_FIELD_NUMBER = 5;
+  public static final int IMGURL_FIELD_NUMBER = 6;
+  private volatile java.lang.Object imgUrl_;
+  /**
+   * <code>string imgUrl = 6;</code>
+   * @return The imgUrl.
+   */
+  @java.lang.Override
+  public java.lang.String getImgUrl() {
+    java.lang.Object ref = imgUrl_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      imgUrl_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string imgUrl = 6;</code>
+   * @return The bytes for imgUrl.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getImgUrlBytes() {
+    java.lang.Object ref = imgUrl_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      imgUrl_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int POSTEDONMILLISECONDS_FIELD_NUMBER = 7;
   private long postedOnMilliseconds_;
   /**
-   * <code>int64 postedOnMilliseconds = 5;</code>
+   * <code>int64 postedOnMilliseconds = 7;</code>
    * @return The postedOnMilliseconds.
    */
   @java.lang.Override
@@ -237,17 +298,23 @@ private static final long serialVersionUID = 0L;
     if (id_ != 0) {
       output.writeInt32(1, id_);
     }
+    if (userId_ != 0L) {
+      output.writeInt64(2, userId_);
+    }
     if (likes_ != 0) {
-      output.writeInt32(2, likes_);
+      output.writeInt32(3, likes_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(title_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, title_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, title_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, description_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, description_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(imgUrl_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, imgUrl_);
     }
     if (postedOnMilliseconds_ != 0L) {
-      output.writeInt64(5, postedOnMilliseconds_);
+      output.writeInt64(7, postedOnMilliseconds_);
     }
     unknownFields.writeTo(output);
   }
@@ -262,19 +329,26 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, id_);
     }
+    if (userId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(2, userId_);
+    }
     if (likes_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, likes_);
+        .computeInt32Size(3, likes_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(title_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, title_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, title_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, description_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, description_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(imgUrl_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, imgUrl_);
     }
     if (postedOnMilliseconds_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(5, postedOnMilliseconds_);
+        .computeInt64Size(7, postedOnMilliseconds_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -293,12 +367,16 @@ private static final long serialVersionUID = 0L;
 
     if (getId()
         != other.getId()) return false;
+    if (getUserId()
+        != other.getUserId()) return false;
     if (getLikes()
         != other.getLikes()) return false;
     if (!getTitle()
         .equals(other.getTitle())) return false;
     if (!getDescription()
         .equals(other.getDescription())) return false;
+    if (!getImgUrl()
+        .equals(other.getImgUrl())) return false;
     if (getPostedOnMilliseconds()
         != other.getPostedOnMilliseconds()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
@@ -314,12 +392,17 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + getId();
+    hash = (37 * hash) + USERID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getUserId());
     hash = (37 * hash) + LIKES_FIELD_NUMBER;
     hash = (53 * hash) + getLikes();
     hash = (37 * hash) + TITLE_FIELD_NUMBER;
     hash = (53 * hash) + getTitle().hashCode();
     hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
     hash = (53 * hash) + getDescription().hashCode();
+    hash = (37 * hash) + IMGURL_FIELD_NUMBER;
+    hash = (53 * hash) + getImgUrl().hashCode();
     hash = (37 * hash) + POSTEDONMILLISECONDS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getPostedOnMilliseconds());
@@ -458,11 +541,15 @@ private static final long serialVersionUID = 0L;
       super.clear();
       id_ = 0;
 
+      userId_ = 0L;
+
       likes_ = 0;
 
       title_ = "";
 
       description_ = "";
+
+      imgUrl_ = "";
 
       postedOnMilliseconds_ = 0L;
 
@@ -493,9 +580,11 @@ private static final long serialVersionUID = 0L;
     public sep3.project.protobuf.PostData buildPartial() {
       sep3.project.protobuf.PostData result = new sep3.project.protobuf.PostData(this);
       result.id_ = id_;
+      result.userId_ = userId_;
       result.likes_ = likes_;
       result.title_ = title_;
       result.description_ = description_;
+      result.imgUrl_ = imgUrl_;
       result.postedOnMilliseconds_ = postedOnMilliseconds_;
       onBuilt();
       return result;
@@ -548,6 +637,9 @@ private static final long serialVersionUID = 0L;
       if (other.getId() != 0) {
         setId(other.getId());
       }
+      if (other.getUserId() != 0L) {
+        setUserId(other.getUserId());
+      }
       if (other.getLikes() != 0) {
         setLikes(other.getLikes());
       }
@@ -557,6 +649,10 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getDescription().isEmpty()) {
         description_ = other.description_;
+        onChanged();
+      }
+      if (!other.getImgUrl().isEmpty()) {
+        imgUrl_ = other.imgUrl_;
         onChanged();
       }
       if (other.getPostedOnMilliseconds() != 0L) {
@@ -622,9 +718,40 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private long userId_ ;
+    /**
+     * <code>int64 userId = 2;</code>
+     * @return The userId.
+     */
+    @java.lang.Override
+    public long getUserId() {
+      return userId_;
+    }
+    /**
+     * <code>int64 userId = 2;</code>
+     * @param value The userId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setUserId(long value) {
+      
+      userId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 userId = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearUserId() {
+      
+      userId_ = 0L;
+      onChanged();
+      return this;
+    }
+
     private int likes_ ;
     /**
-     * <code>int32 likes = 2;</code>
+     * <code>int32 likes = 3;</code>
      * @return The likes.
      */
     @java.lang.Override
@@ -632,7 +759,7 @@ private static final long serialVersionUID = 0L;
       return likes_;
     }
     /**
-     * <code>int32 likes = 2;</code>
+     * <code>int32 likes = 3;</code>
      * @param value The likes to set.
      * @return This builder for chaining.
      */
@@ -643,7 +770,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int32 likes = 2;</code>
+     * <code>int32 likes = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearLikes() {
@@ -655,7 +782,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object title_ = "";
     /**
-     * <code>string title = 3;</code>
+     * <code>string title = 4;</code>
      * @return The title.
      */
     public java.lang.String getTitle() {
@@ -671,7 +798,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string title = 3;</code>
+     * <code>string title = 4;</code>
      * @return The bytes for title.
      */
     public com.google.protobuf.ByteString
@@ -688,7 +815,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string title = 3;</code>
+     * <code>string title = 4;</code>
      * @param value The title to set.
      * @return This builder for chaining.
      */
@@ -703,7 +830,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string title = 3;</code>
+     * <code>string title = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearTitle() {
@@ -713,7 +840,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string title = 3;</code>
+     * <code>string title = 4;</code>
      * @param value The bytes for title to set.
      * @return This builder for chaining.
      */
@@ -731,7 +858,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object description_ = "";
     /**
-     * <code>string description = 4;</code>
+     * <code>string description = 5;</code>
      * @return The description.
      */
     public java.lang.String getDescription() {
@@ -747,7 +874,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string description = 4;</code>
+     * <code>string description = 5;</code>
      * @return The bytes for description.
      */
     public com.google.protobuf.ByteString
@@ -764,7 +891,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string description = 4;</code>
+     * <code>string description = 5;</code>
      * @param value The description to set.
      * @return This builder for chaining.
      */
@@ -779,7 +906,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string description = 4;</code>
+     * <code>string description = 5;</code>
      * @return This builder for chaining.
      */
     public Builder clearDescription() {
@@ -789,7 +916,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string description = 4;</code>
+     * <code>string description = 5;</code>
      * @param value The bytes for description to set.
      * @return This builder for chaining.
      */
@@ -805,9 +932,85 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.lang.Object imgUrl_ = "";
+    /**
+     * <code>string imgUrl = 6;</code>
+     * @return The imgUrl.
+     */
+    public java.lang.String getImgUrl() {
+      java.lang.Object ref = imgUrl_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        imgUrl_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string imgUrl = 6;</code>
+     * @return The bytes for imgUrl.
+     */
+    public com.google.protobuf.ByteString
+        getImgUrlBytes() {
+      java.lang.Object ref = imgUrl_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        imgUrl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string imgUrl = 6;</code>
+     * @param value The imgUrl to set.
+     * @return This builder for chaining.
+     */
+    public Builder setImgUrl(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      imgUrl_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string imgUrl = 6;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearImgUrl() {
+      
+      imgUrl_ = getDefaultInstance().getImgUrl();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string imgUrl = 6;</code>
+     * @param value The bytes for imgUrl to set.
+     * @return This builder for chaining.
+     */
+    public Builder setImgUrlBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      imgUrl_ = value;
+      onChanged();
+      return this;
+    }
+
     private long postedOnMilliseconds_ ;
     /**
-     * <code>int64 postedOnMilliseconds = 5;</code>
+     * <code>int64 postedOnMilliseconds = 7;</code>
      * @return The postedOnMilliseconds.
      */
     @java.lang.Override
@@ -815,7 +1018,7 @@ private static final long serialVersionUID = 0L;
       return postedOnMilliseconds_;
     }
     /**
-     * <code>int64 postedOnMilliseconds = 5;</code>
+     * <code>int64 postedOnMilliseconds = 7;</code>
      * @param value The postedOnMilliseconds to set.
      * @return This builder for chaining.
      */
@@ -826,7 +1029,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int64 postedOnMilliseconds = 5;</code>
+     * <code>int64 postedOnMilliseconds = 7;</code>
      * @return This builder for chaining.
      */
     public Builder clearPostedOnMilliseconds() {

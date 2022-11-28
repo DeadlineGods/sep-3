@@ -34,6 +34,11 @@ public final class User {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ResponseGetUsers_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RequestGerByIdUser_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RequestGerByIdUser_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -52,11 +57,13 @@ public final class User {
       "\n\010password\030\005 \001(\t\022\023\n\013phoneNumber\030\006 \001(\t\"5\n" +
       "\017RequestGetUsers\022\025\n\010username\030\001 \001(\tH\000\210\001\001B" +
       "\013\n\t_username\"/\n\020ResponseGetUsers\022\033\n\010user" +
-      "Data\030\001 \003(\0132\t.UserData2k\n\013UserService\022+\n\n" +
-      "CreateUser\022\022.RequestCreateUser\032\t.UserDat" +
-      "a\022/\n\010GetUsers\022\020.RequestGetUsers\032\021.Respon" +
-      "seGetUsersB\031\n\025sep3.project.protobufP\001b\006p" +
-      "roto3"
+      "Data\030\001 \003(\0132\t.UserData\" \n\022RequestGerByIdU" +
+      "ser\022\n\n\002id\030\001 \001(\0032\232\001\n\013UserService\022+\n\nCreat" +
+      "eUser\022\022.RequestCreateUser\032\t.UserData\022/\n\010" +
+      "GetUsers\022\020.RequestGetUsers\032\021.ResponseGet" +
+      "Users\022-\n\013GetByIdUser\022\023.RequestGerByIdUse" +
+      "r\032\t.UserDataB\031\n\025sep3.project.protobufP\001b" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -86,6 +93,12 @@ public final class User {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ResponseGetUsers_descriptor,
         new java.lang.String[] { "UserData", });
+    internal_static_RequestGerByIdUser_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_RequestGerByIdUser_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RequestGerByIdUser_descriptor,
+        new java.lang.String[] { "Id", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
