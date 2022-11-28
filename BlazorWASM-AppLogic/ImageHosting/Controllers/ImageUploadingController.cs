@@ -16,7 +16,7 @@ public class ImageUploadingController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<string>> Post([FromBody] ImageFile file)
+    public async Task<ActionResult<string>> PostAsync([FromBody] ImageFile file)
     {
         var buf = Convert.FromBase64String(file.base64data);
         string randomName = Path.GetRandomFileName();

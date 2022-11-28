@@ -56,7 +56,7 @@ public class PostGrpcClient : IPostDao
 	    IList<Post> posts = new List<Post>();
 	    foreach (var replyPost in reply.Posts)
 	    {
-			posts.Add(await ConstructPost(replyPost));
+			posts.Add(await ConstructPostAsync(replyPost));
 	    }
 
 	    return await Task.FromResult(posts);
@@ -85,7 +85,7 @@ public class PostGrpcClient : IPostDao
     }
     
     
-    private async Task<Post> ConstructPost(PostData reply)
+    private async Task<Post> ConstructPostAsync(PostData reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;

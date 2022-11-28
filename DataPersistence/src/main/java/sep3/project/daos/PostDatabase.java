@@ -15,7 +15,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public int createPost(String title, long userId, String description, String[] tags, String image_url) throws SQLException {
+	public int createPost(String title, long userId, String description, String[] tags, String imageUrl) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
@@ -26,7 +26,7 @@ public class PostDatabase implements PostPersistence {
 			statement.setString(1, title);
 			statement.setLong(2, userId);
 			statement.setString(3, description);
-			statement.setString(4, image_url);
+			statement.setString(4, imageUrl);
 
 			statement.execute();
 

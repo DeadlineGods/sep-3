@@ -24,7 +24,7 @@ public class AuthService : IAuthService
         users = new List<User>();
     }
 
-    private async void LoadUsersIntoList()
+    private async void LoadUsersIntoListAsync()
     {
         Console.Write("xxxxxxxxxxxxxxxxxxxx");
         SearchUserParametersDto dto = new SearchUserParametersDto(null);
@@ -62,9 +62,9 @@ public class AuthService : IAuthService
         return Task.FromResult(existingUser);
     }
 
-    public async Task<User> RegisterUser(UserCreationDto dto)
+    public async Task<User> RegisterUserAsync(UserCreationDto dto)
     {
-        users = await userService.GetUsers();
+        users = await userService.GetUsersAsync();
 
         if (string.IsNullOrEmpty(dto.username))
         {
@@ -85,6 +85,6 @@ public class AuthService : IAuthService
         }
 
      
-        return await userService.Create(new UserAuthDto(dto.username,dto.firstName,dto.lastName,dto.password,dto.email,dto.phoneNumber));
+        return await userService.CreateAsync(new UserAuthDto(dto.username,dto.firstName,dto.lastName,dto.password,dto.email,dto.phoneNumber));
     }
 }

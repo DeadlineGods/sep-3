@@ -28,7 +28,7 @@
         <label>Tags</label>
         <input type="text" @bind="newTag"/>
         <button @onclick="@AddTag">add </button>
-        <InputFile OnChange="@OnChange" accept="image/png, image/jpeg"></InputFile>
+        <InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
     </div>
 
     @foreach (string tag in postTags)
@@ -44,7 +44,7 @@
         {
             <label style="color: red">@msg</label>
         }
-        <button @onclick="Create" class="acceptbtn">Create</button>
+        <button @onclick="CreateAsync" class="acceptbtn">Create</button>
     </div>
 </div>
 
@@ -59,7 +59,7 @@
 
     private string msg = "";
 
-    private async Task OnChange(InputFileChangeEventArgs e)
+    private async Task OnChangeAsync(InputFileChangeEventArgs e)
     {
         var files = e.GetMultipleFiles();
         foreach (var file in files)
@@ -75,7 +75,7 @@
     }
 
 
-    private async Task Create()
+    private async Task CreateAsync()
     {
         if (!Validate())
             return;

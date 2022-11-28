@@ -25,7 +25,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost, Route("login")]
-    public async Task<ActionResult> Login([FromBody] UserLoginDto userLoginDto)
+    public async Task<ActionResult> LoginAsync([FromBody] UserLoginDto userLoginDto)
     {
         try
         {
@@ -42,11 +42,11 @@ public class AuthController : ControllerBase
     //TODO for future
     
     [HttpPost, Route("register")]
-    public async Task<ActionResult> Register([FromBody]UserCreationDto userDto)
+    public async Task<ActionResult> RegisterAsync([FromBody]UserCreationDto userDto)
     {
         try
         {
-            User user = await authService.RegisterUser(userDto);
+            User user = await authService.RegisterUserAsync(userDto);
 
             return Ok(user);
         }

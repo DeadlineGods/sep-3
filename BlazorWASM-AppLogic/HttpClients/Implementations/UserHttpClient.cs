@@ -14,7 +14,7 @@ public class UserHttpClient : IUserService
     {
         this.client = client;
     }
-    public async Task<User> Create(UserAuthDto dto)
+    public async Task<User> CreateAsync(UserAuthDto dto)
     {
         HttpResponseMessage response = await client.PostAsJsonAsync("/users", dto);
         string result = await response.Content.ReadAsStringAsync();
@@ -30,7 +30,7 @@ public class UserHttpClient : IUserService
         return user;
     }
 
-    public async Task<IEnumerable<User>> GetUsers(string? usernameContains = null)
+    public async Task<IEnumerable<User>> GetUsersAsync(string? usernameContains = null)
     {
         string uri = "/users";
         if (!string.IsNullOrEmpty(usernameContains))
