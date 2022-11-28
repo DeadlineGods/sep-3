@@ -115,3 +115,5 @@ C:\Users\IZO21\RiderProjects\sep-3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\ne
 C:\Users\IZO21\RiderProjects\sep-3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.pdb
 C:\Users\IZO21\RiderProjects\sep-3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ImageHosting.genruntimeconfig.cache
 C:\Users\IZO21\RiderProjects\sep-3\BlazorWASM-AppLogic\ImageHosting\obj\Debug\net6.0\ref\ImageHosting.dll
+C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\Shared.dll
+C:\Users\Darko\Desktop\VIA\Semester 3\SEP3\Project-git\sep-3\BlazorWASM-AppLogic\ImageHosting\bin\Debug\net6.0\Shared.pdb

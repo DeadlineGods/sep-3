@@ -30,7 +30,7 @@ public class UserHttpClient : IUserService
         return user;
     }
 
-    public async Task<IEnumerable<User>> GetUsersAsync(string? usernameContains = null)
+    public async Task<IEnumerable<User>> GetUsersAsync(string? usernameContains, long? userid)
     {
         string uri = "https://localhost:7196/users";
         if (!string.IsNullOrEmpty(usernameContains))

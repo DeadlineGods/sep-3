@@ -92,6 +92,6 @@ public class PostGrpcClient : IPostDao
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
 	    
-	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.Description, postedOn);
+	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn);
     }
 }

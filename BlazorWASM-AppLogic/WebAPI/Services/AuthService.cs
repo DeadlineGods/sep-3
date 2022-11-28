@@ -63,7 +63,7 @@ public class AuthService : IAuthService
 
     public async Task<User> RegisterUserAsync(UserCreationDto dto)
     {
-        users = await userService.GetUsersAsync();
+        users = await userService.GetUsersAsync(dto.username, null);
 
         if (string.IsNullOrEmpty(dto.username))
         {

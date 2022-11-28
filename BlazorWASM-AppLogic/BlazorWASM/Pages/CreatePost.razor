@@ -49,7 +49,7 @@
 </div>
 
 @code {
-    private ImageFile filesBase64 = new ImageFile();
+    private ImageFile? filesBase64 = null;
     private string postTitle = "";
     private string postDescription = "";
     private IList<string> postTags = new List<string>();
@@ -61,17 +61,29 @@
 
     private async Task OnChangeAsync(InputFileChangeEventArgs e)
     {
+        msg = "";
+        filesBase64 = null;
+
         var files = e.GetMultipleFiles();
         foreach (var file in files)
         {
+            
             var buf = new byte[file.Size];
-            using (var stream = file.OpenReadStream())
+            try
             {
-                await stream.ReadAsync(buf);
+                using (var stream = file.OpenReadStream(5_000_000))
+                {
+                    await stream.ReadAsync(buf);
+                }
             }
+            catch (Exception exception)
+            {
+                msg = "Image must be smaller than 5mb";
+                Console.WriteLine(exception);
+            }
+           
             filesBase64 = (new ImageFile {base64data = Convert.ToBase64String(buf), contentType = file.ContentType, fileName = file.Name});
         }
-        Console.WriteLine();
     }
 
 
@@ -114,7 +126,7 @@
             return false;
         }
 
-        if (filesBase64 == null)
+        if (filesBase64 == null || filesBase64.base64data.Equals(""))
         {
             msg = "Please upload an image";
             return false;
