@@ -7,7 +7,7 @@ namespace Application.DAOsInterfaces;
 
 public interface IPostDao
 {
-    Task<Post> CreateAsync(Post post);
+    Task<int> CreateAsync(Post post);
     Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters);
     Task DeleteAsync(int id);
 }

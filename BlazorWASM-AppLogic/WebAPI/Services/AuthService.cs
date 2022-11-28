@@ -15,17 +15,26 @@ public class AuthService : IAuthService
 {
     private readonly IUserLogic userLogic;
     private IEnumerable<User> users;
+    private readonly IUserDao userDao;
     private IUserService userService = new UserHttpClient(new HttpClient());
 
-    public AuthService(IUserLogic userLogic)
+    public AuthService(IUserLogic userLogic, IUserDao userDao)
     {
         this.userLogic = userLogic;
         users = new List<User>();
     }
-    
+
+    private async void LoadUsersIntoList()
+    {
+        Console.Write("xxxxxxxxxxxxxxxxxxxx");
+        SearchUserParametersDto dto = new SearchUserParametersDto(null);
+        IEnumerable<User> tempUsers = await userLogic.GetAsync(dto);
+        users = tempUsers.ToList();
+    }
 
     public  Task<User> ValidateUser(string username, string password)
     {
+        Console.Write("siema");
         SearchUserParametersDto dto = new SearchUserParametersDto(username);
         if (string.IsNullOrEmpty(username))
         {

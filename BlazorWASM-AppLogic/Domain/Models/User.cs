@@ -1,22 +1,29 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Domain.Models;
 
 public class User
 {
-    public String userName{ get; set; }
-    private String fullName{ get; set; }
-    public String password{ get; set; }
-    private String email{ get; set; }
-    private String phoneNumber{ get; set; }
+    public long Id { get; set; }
+    public String UserName{ get; set; }
+    private String FullName{ get; set; }
+    public String Password{ get; set; }
+    private String Email{ get; set; }
+    private String PhoneNumber{ get; set; }
 
-    public User(String userName, String fullname, String password, String email, String phoneNumber)
+    [JsonConstructor]
+    public User() {}
+    
+    
+    public User(long id, String userName, String fullname, String password, String email, String phoneNumber)
     {
-        this.userName = userName;
-        this.fullName = fullname;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        Id = id;
+        UserName = userName;
+        FullName = fullname;
+        Password = password;
+        Email = email;
+        PhoneNumber = phoneNumber;
     }
 
     
