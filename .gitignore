@@ -45,3 +45,5 @@ build/
 /BlazorWASM-AppLogic/.idea/
 /BlazorWASM-AppLogic/ImageHosting/bin/
 /BlazorWASM-AppLogic/ImageHosting/obj/
+/BlazorWASM-AppLogic/Shared/bin/
+/BlazorWASM-AppLogic/Shared/obj/

@@ -72,6 +72,16 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shared.dll": {}
+        }
       }
     }
   },
@@ -200,27 +210,33 @@
         "swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "Shared/1.0.0": {
+      "type": "project",
+      "path": "../Shared/Shared.csproj",
+      "msbuildProject": "../Shared/Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Shared >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
   "packageFolders": {
-    "C:\\Windows\\.nuget\\packages": {}
+    "C:\\Users\\Darko\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV7\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
+      "projectUniqueName": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
       "projectName": "ImageHosting",
-      "projectPath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV7\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
-      "packagesPath": "C:\\Windows\\.nuget\\packages",
-      "outputPath": "C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV7\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
+      "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
+      "packagesPath": "C:\\Users\\Darko\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dávid\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Darko\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -231,7 +247,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Shared\\Shared.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -271,13 +291,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Dávid\\Desktop\\ALL\\SCHOOL-DENMARK\\3rd Semester\\SEP\\Sep Project\\Implementation\\SepV7\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

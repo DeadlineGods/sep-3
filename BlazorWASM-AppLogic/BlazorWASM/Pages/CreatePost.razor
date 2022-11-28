@@ -4,38 +4,42 @@
 @using System.Security.AccessControl
 @using System.Xml
 @using System.Collections
+@using System.Net
+@using global::Shared
 @inject NavigationManager navMgr
 @inject IPostService postService
+@inject IImageUploadService imageUploadService
+@inject HttpClient Http
+
 
 <Alert Type="success" Show="@showAlert">
-	<p>Successfully created post!</p>
-	<button @onclick="@NavigateToPost">show me</button>
-	<button @onclick="(() => showAlert = false)">close</button>
+    <p>Successfully created post!</p>
+    <button @onclick="@NavigateToPost">show me</button>
+    <button @onclick="(() => showAlert = false)">close</button>
 </Alert>
 
 <div class="card">
     <h3>Create Post</h3>
-	<div class="form-group field">
-		<label>Title:</label>
-		<input type="text" @bind="postTitle"/>
-		<label>Body:</label>
-		<input type="text" @bind="postDescription"/>
-		<label>Tags</label>
-		<input type="text" @bind="newTag"/>
-		<button @onclick="@AddTag">add </button>
-		
+    <div class="form-group field">
+        <label>Title:</label>
+        <input type="text" @bind="postTitle"/>
+        <label>Body:</label>
+        <input type="text" @bind="postDescription"/>
+        <label>Tags</label>
+        <input type="text" @bind="newTag"/>
+        <button @onclick="@AddTag">add </button>
+        <InputFile OnChange="@OnChange" accept="image/png, image/jpeg"></InputFile>
+    </div>
 
-	</div>
+    @foreach (string tag in postTags)
+    {
+        <div class="row">
+            @tag
+            <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+        </div>
+    }
 
-	@foreach (string tag in postTags)
-	{
-		<div class="row">
-			@tag
-			<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-		</div>
-	}
-
-	<div class="button-row">
+    <div class="button-row">
         @if (!string.IsNullOrEmpty(msg))
         {
             <label style="color: red">@msg</label>
@@ -45,34 +49,49 @@
 </div>
 
 @code {
+    private ImageFile filesBase64 = new ImageFile();
     private string postTitle = "";
     private string postDescription = "";
-	private IList<string> postTags = new List<string>();
-	private string newTag = "";
-	private bool showAlert;
-	private int id;
+    private IList<string> postTags = new List<string>();
+    private string newTag = "";
+    private bool showAlert;
+    private int id;
 
-	private string msg = "";
+    private string msg = "";
 
-    protected override async Task OnInitializedAsync()
+    private async Task OnChange(InputFileChangeEventArgs e)
     {
+        var files = e.GetMultipleFiles();
+        foreach (var file in files)
+        {
+            var buf = new byte[file.Size];
+            using (var stream = file.OpenReadStream())
+            {
+                await stream.ReadAsync(buf);
+            }
+            filesBase64 = (new ImageFile {base64data = Convert.ToBase64String(buf), contentType = file.ContentType, fileName = file.Name});
+        }
+        Console.WriteLine();
     }
+
 
     private async Task Create()
     {
-	    if(!Validate())
-		    return;
-	    
-	    try
+        if (!Validate())
+            return;
+
+        try
         {
-	        // TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            PostCreationDto dto = new(postTitle, 1, postDescription, postTags);
+            string imgUrl = await imageUploadService.UploadAsync(filesBase64);
+            Console.WriteLine(imgUrl);
+            return;
+    // TODO the user id is hardcoded in please change it with JWT to match the logged in user
+            PostCreationDto dto = new(postTitle, 1, postDescription, imgUrl, postTags);
             id = await postService.CreateAsync(dto);
 
-	        showAlert = true;
-	        postTitle = "";
-	        postDescription = "";
-
+            showAlert = true;
+            postTitle = "";
+            postDescription = "";
         }
         catch (Exception e)
         {
@@ -81,42 +100,48 @@
         }
     }
 
-	private bool Validate()
-	{
-		msg = "";
-		if (string.IsNullOrEmpty(postTitle))
-		{
-			msg = "Title cannot be empty!";
-			return false;
-		}
+    private bool Validate()
+    {
+        msg = "";
+        if (string.IsNullOrEmpty(postTitle))
+        {
+            msg = "Title cannot be empty!";
+            return false;
+        }
 
-		if (string.IsNullOrEmpty(postDescription))
-		{
-			msg = "Body cannot be empty!";
-			return false;
-		}
+        if (string.IsNullOrEmpty(postDescription))
+        {
+            msg = "Body cannot be empty!";
+            return false;
+        }
 
-		return true;
-	}
+        if (filesBase64 == null)
+        {
+            msg = "Please upload an image";
+            return false;
+        }
 
-	private void AddTag()
-	{
-		if (newTag.Equals("") || postTags.Contains(newTag))
-		{
-			return;
-		}
-		postTags.Add(newTag);
-		newTag = "";
-	}
+        return true;
+    }
 
-	private void RemoveTag(string tag)
-	{
-		postTags.Remove(tag);
-	}
+    private void AddTag()
+    {
+        if (newTag.Equals("") || postTags.Contains(newTag))
+        {
+            return;
+        }
+        postTags.Add(newTag);
+        newTag = "";
+    }
 
-	private void NavigateToPost()
-	{
-		navMgr.NavigateTo("posts/" + id);
-	}
+    private void RemoveTag(string tag)
+    {
+        postTags.Remove(tag);
+    }
+
+    private void NavigateToPost()
+    {
+        navMgr.NavigateTo("posts/" + id);
+    }
 
 }
