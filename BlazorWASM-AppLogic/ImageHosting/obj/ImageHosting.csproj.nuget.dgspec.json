@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {}
+    "D:\\GitFork\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {
+    "D:\\GitFork\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
+        "projectUniqueName": "D:\\GitFork\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
         "projectName": "ImageHosting",
-        "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
-        "packagesPath": "C:\\Users\\Darko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
+        "projectPath": "D:\\GitFork\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\ImageHosting.csproj",
+        "packagesPath": "C:\\Users\\mateu\\.nuget\\packages\\",
+        "outputPath": "D:\\GitFork\\sep-3\\BlazorWASM-AppLogic\\ImageHosting\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Darko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\mateu\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -25,11 +25,7 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {
-              "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Shared\\Shared.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -62,59 +58,6 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Shared\\Shared.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Shared\\Shared.csproj",
-        "projectName": "Shared",
-        "projectPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Shared\\Shared.csproj",
-        "packagesPath": "C:\\Users\\Darko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Darko\\Desktop\\VIA\\Semester 3\\SEP3\\Project-git\\sep-3\\BlazorWASM-AppLogic\\Shared\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Darko\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net6.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

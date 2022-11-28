@@ -56,6 +56,11 @@ private static final long serialVersionUID = 0L;
             username_ = s;
             break;
           }
+          case 16: {
+            bitField0_ |= 0x00000002;
+            userid_ = input.readInt64();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -137,6 +142,25 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int USERID_FIELD_NUMBER = 2;
+  private long userid_;
+  /**
+   * <code>optional int64 userid = 2;</code>
+   * @return Whether the userid field is set.
+   */
+  @java.lang.Override
+  public boolean hasUserid() {
+    return ((bitField0_ & 0x00000002) != 0);
+  }
+  /**
+   * <code>optional int64 userid = 2;</code>
+   * @return The userid.
+   */
+  @java.lang.Override
+  public long getUserid() {
+    return userid_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -154,6 +178,9 @@ private static final long serialVersionUID = 0L;
     if (((bitField0_ & 0x00000001) != 0)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, username_);
     }
+    if (((bitField0_ & 0x00000002) != 0)) {
+      output.writeInt64(2, userid_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -165,6 +192,10 @@ private static final long serialVersionUID = 0L;
     size = 0;
     if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, username_);
+    }
+    if (((bitField0_ & 0x00000002) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(2, userid_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -186,6 +217,11 @@ private static final long serialVersionUID = 0L;
       if (!getUsername()
           .equals(other.getUsername())) return false;
     }
+    if (hasUserid() != other.hasUserid()) return false;
+    if (hasUserid()) {
+      if (getUserid()
+          != other.getUserid()) return false;
+    }
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -200,6 +236,11 @@ private static final long serialVersionUID = 0L;
     if (hasUsername()) {
       hash = (37 * hash) + USERNAME_FIELD_NUMBER;
       hash = (53 * hash) + getUsername().hashCode();
+    }
+    if (hasUserid()) {
+      hash = (37 * hash) + USERID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getUserid());
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -336,6 +377,8 @@ private static final long serialVersionUID = 0L;
       super.clear();
       username_ = "";
       bitField0_ = (bitField0_ & ~0x00000001);
+      userid_ = 0L;
+      bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
 
@@ -368,6 +411,10 @@ private static final long serialVersionUID = 0L;
         to_bitField0_ |= 0x00000001;
       }
       result.username_ = username_;
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.userid_ = userid_;
+        to_bitField0_ |= 0x00000002;
+      }
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -421,6 +468,9 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000001;
         username_ = other.username_;
         onChanged();
+      }
+      if (other.hasUserid()) {
+        setUserid(other.getUserid());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -531,6 +581,45 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       bitField0_ |= 0x00000001;
       username_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long userid_ ;
+    /**
+     * <code>optional int64 userid = 2;</code>
+     * @return Whether the userid field is set.
+     */
+    @java.lang.Override
+    public boolean hasUserid() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>optional int64 userid = 2;</code>
+     * @return The userid.
+     */
+    @java.lang.Override
+    public long getUserid() {
+      return userid_;
+    }
+    /**
+     * <code>optional int64 userid = 2;</code>
+     * @param value The userid to set.
+     * @return This builder for chaining.
+     */
+    public Builder setUserid(long value) {
+      bitField0_ |= 0x00000002;
+      userid_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int64 userid = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearUserid() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      userid_ = 0L;
       onChanged();
       return this;
     }

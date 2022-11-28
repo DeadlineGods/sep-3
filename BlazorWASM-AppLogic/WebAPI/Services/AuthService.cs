@@ -26,8 +26,7 @@ public class AuthService : IAuthService
 
     private async void LoadUsersIntoListAsync()
     {
-        Console.Write("xxxxxxxxxxxxxxxxxxxx");
-        SearchUserParametersDto dto = new SearchUserParametersDto(null);
+        SearchUserParametersDto dto = new SearchUserParametersDto(null,null);
         IEnumerable<User> tempUsers = await userLogic.GetAsync(dto);
         users = tempUsers.ToList();
     }
@@ -35,7 +34,7 @@ public class AuthService : IAuthService
     public  Task<User> ValidateUserAsync(string username, string password)
     {
         Console.Write("siema");
-        SearchUserParametersDto dto = new SearchUserParametersDto(username);
+        SearchUserParametersDto dto = new SearchUserParametersDto(username, null);
         if (string.IsNullOrEmpty(username))
         {
             throw new Exception("Username cannot be null");

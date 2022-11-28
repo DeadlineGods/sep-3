@@ -23,7 +23,9 @@ public class UserGrpcClient : IUserDao
         var reply = await client.GetUsersAsync(
             new RequestGetUsers
             {
-                Username = searchParameters.username
+                Username = searchParameters.username ?? "",
+                Userid = searchParameters.userId ?? 0
+                
             });
         
         for (int i = 0; i < reply.UserData.Count; i++)
@@ -54,24 +56,6 @@ public class UserGrpcClient : IUserDao
         
         return await Task.FromResult(ConstructUser(reply));
     }
-
-    public async Task<User> GetByIdAsync(long replyOwnerId)
-    {
-        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
-
-        var client = new UserService.UserServiceClient(channel);
-
-        var reply = await client.GetByIdUserAsync(
-            new RequestGerByIdUser
-            {
-                Id = replyOwnerId
-            }
-        );
-        
-        return await Task.FromResult(ConstructUser(reply));
-    }
-
-
     private User ConstructUser(UserData userData)
     {
         return new User(userData.Id, userData.Username, userData.FirstName + " " + userData.LastName, userData.Password,

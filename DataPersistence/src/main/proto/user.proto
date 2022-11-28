@@ -6,7 +6,6 @@ option java_package = "sep3.project.protobuf";
 service UserService{
   rpc CreateUser(RequestCreateUser) returns (UserData);
   rpc GetUsers(RequestGetUsers) returns (ResponseGetUsers);
-  rpc GetByIdUser(RequestGerByIdUser) returns (UserData);
 }
 
 message UserData {
@@ -31,17 +30,9 @@ message RequestCreateUser {
 message RequestGetUsers
 {
   optional string username = 1;
+  optional int64 userid = 2;
 }
 
 message ResponseGetUsers{
   repeated UserData userData = 1;
 }
-
-message RequestGerByIdUser {
-  int64 id = 1;
-}
-
-//
-//message ResponseCreateUser {
-//	UserData userData = 1;
-//}

@@ -7,5 +7,4 @@ public interface IUserDao
 {
     public Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters);
     Task<User> CreateAsync(UserCreationDto user);
-    Task<User> GetByIdAsync(long replyOwnerId);
 }

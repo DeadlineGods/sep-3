@@ -23,4 +23,15 @@ public interface RequestGetUsersOrBuilder extends
    */
   com.google.protobuf.ByteString
       getUsernameBytes();
+
+  /**
+   * <code>optional int64 userid = 2;</code>
+   * @return Whether the userid field is set.
+   */
+  boolean hasUserid();
+  /**
+   * <code>optional int64 userid = 2;</code>
+   * @return The userid.
+   */
+  long getUserid();
 }
