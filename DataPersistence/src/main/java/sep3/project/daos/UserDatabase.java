@@ -96,7 +96,7 @@ public class UserDatabase implements UserPersistence {
         PreparedStatement statement = null;
 
         try {
-            statement = connection.prepareStatement( "SELECT * FROM \"User\" WHERE id IN (SELECT id FROM likepost WHERE id = ?");
+            statement = connection.prepareStatement( "SELECT * FROM \"User\" WHERE id IN (SELECT user_id FROM likepost WHERE post_id = ?)");
             statement.setInt(1, postId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -121,6 +121,29 @@ public class UserDatabase implements UserPersistence {
             connection.close();
         }
         return response;
+    }
+
+    @Override
+    public ResponseCountLikes CountLikes(int postId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        ResponseCountLikes response = null;
+        PreparedStatement statement = null;
+        try
+        {
+            statement = connection.prepareStatement("SELECT COUNT(post_id) FROM likepost WHERE post_id = ?");
+            statement.setInt(1, postId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                response = ResponseCountLikes.newBuilder()
+                        .setLikesNo(resultSet.getInt("count")).build();
+            }
+            return response;
+        }
+        finally {
+            connection.close();
+        }
     }
 
     public ResponseGetUsers Get(String username, long userId) throws SQLException {

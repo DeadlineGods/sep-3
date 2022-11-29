@@ -81,9 +81,39 @@ public class UserGrpcClient : IUserDao
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 
         var client = new UserService.UserServiceClient(channel);
-        //var reply = await client.
-        return null;
+        List<User> usersList = new List<User>();
+
+        var reply = await client.GetLikesAsync(
+            new RequestGetLikes
+            {
+                PostId = postId
+            });
+        
+        for (int i = 0; i < reply.User.Count; i++)
+        {
+            UserData userData = reply.User[i];
+            User? user = ConstructUser(userData);
+            usersList.Add(user);
+        }
+        return await Task.FromResult(usersList.AsEnumerable());
+        
     }
+
+    public async Task<int> CountLikesAsync(int postId)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+
+        var client = new UserService.UserServiceClient(channel);
+        var reply = client.CountLikes
+        (new RequestCountLikes()
+        {
+            PostId = postId
+        });
+        return await Task.FromResult(reply.LikesNo);
+
+
+    }
+
 
     private User ConstructUser(UserData userData)
     {
