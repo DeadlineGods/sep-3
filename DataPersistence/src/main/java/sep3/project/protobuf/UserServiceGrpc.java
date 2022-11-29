@@ -107,6 +107,37 @@ public final class UserServiceGrpc {
     return getGetUsersMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetLikes,
+      sep3.project.protobuf.ResponseGetLikes> getGetLikesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetLikes",
+      requestType = sep3.project.protobuf.RequestGetLikes.class,
+      responseType = sep3.project.protobuf.ResponseGetLikes.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetLikes,
+      sep3.project.protobuf.ResponseGetLikes> getGetLikesMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetLikes, sep3.project.protobuf.ResponseGetLikes> getGetLikesMethod;
+    if ((getGetLikesMethod = UserServiceGrpc.getGetLikesMethod) == null) {
+      synchronized (UserServiceGrpc.class) {
+        if ((getGetLikesMethod = UserServiceGrpc.getGetLikesMethod) == null) {
+          UserServiceGrpc.getGetLikesMethod = getGetLikesMethod =
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestGetLikes, sep3.project.protobuf.ResponseGetLikes>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetLikes"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.RequestGetLikes.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.ResponseGetLikes.getDefaultInstance()))
+              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("GetLikes"))
+              .build();
+        }
+      }
+    }
+    return getGetLikesMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -176,6 +207,13 @@ public final class UserServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUsersMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getLikes(sep3.project.protobuf.RequestGetLikes request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetLikes> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetLikesMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -199,6 +237,13 @@ public final class UserServiceGrpc {
                 sep3.project.protobuf.RequestGetUsers,
                 sep3.project.protobuf.ResponseGetUsers>(
                   this, METHODID_GET_USERS)))
+          .addMethod(
+            getGetLikesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                sep3.project.protobuf.RequestGetLikes,
+                sep3.project.protobuf.ResponseGetLikes>(
+                  this, METHODID_GET_LIKES)))
           .build();
     }
   }
@@ -240,6 +285,14 @@ public final class UserServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetUsersMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getLikes(sep3.project.protobuf.RequestGetLikes request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetLikes> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetLikesMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -275,6 +328,13 @@ public final class UserServiceGrpc {
     public sep3.project.protobuf.ResponseGetUsers getUsers(sep3.project.protobuf.RequestGetUsers request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetUsersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sep3.project.protobuf.ResponseGetLikes getLikes(sep3.project.protobuf.RequestGetLikes request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetLikesMethod(), getCallOptions(), request);
     }
   }
 
@@ -315,11 +375,20 @@ public final class UserServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetUsersMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetLikes> getLikes(
+        sep3.project.protobuf.RequestGetLikes request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetLikesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_USER = 0;
   private static final int METHODID_LIKE_POST = 1;
   private static final int METHODID_GET_USERS = 2;
+  private static final int METHODID_GET_LIKES = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -349,6 +418,10 @@ public final class UserServiceGrpc {
         case METHODID_GET_USERS:
           serviceImpl.getUsers((sep3.project.protobuf.RequestGetUsers) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers>) responseObserver);
+          break;
+        case METHODID_GET_LIKES:
+          serviceImpl.getLikes((sep3.project.protobuf.RequestGetLikes) request,
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetLikes>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -414,6 +487,7 @@ public final class UserServiceGrpc {
               .addMethod(getCreateUserMethod())
               .addMethod(getLikePostMethod())
               .addMethod(getGetUsersMethod())
+              .addMethod(getGetLikesMethod())
               .build();
         }
       }

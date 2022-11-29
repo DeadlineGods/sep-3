@@ -2,9 +2,7 @@ package sep3.project.daos;
 
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.persistance.DBConnection;
-import sep3.project.protobuf.ResponseGetUsers;
-import sep3.project.protobuf.ResponseLikePost;
-import sep3.project.protobuf.UserData;
+import sep3.project.protobuf.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -88,6 +86,41 @@ public class UserDatabase implements UserPersistence {
         }
 
         return responseLikePost;
+    }
+
+    @Override
+    public ResponseGetLikes GetLikes(int postId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        List<UserData> usersList = new ArrayList<>();
+        ResponseGetLikes response = null;
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement( "SELECT * FROM \"User\" WHERE id IN (SELECT id FROM likepost WHERE id = ?");
+            statement.setInt(1, postId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                UserData userData = null;
+                userData = UserData.newBuilder()
+                        .setId(resultSet.getInt("id"))
+                        .setUsername(resultSet.getString("user_name"))
+                        .setFirstName(resultSet.getString("first_name"))
+                        .setLastName(resultSet.getString("last_name"))
+                        .setEmail(resultSet.getString("email"))
+                        .setPassword(resultSet.getString("password"))
+                        .setPhoneNumber(resultSet.getString("phone_number"))
+                        .build();
+
+                usersList.add(userData);
+            }
+            response = ResponseGetLikes.newBuilder().addAllUser(usersList).build();
+        }
+        finally {
+            connection.close();
+        }
+        return response;
     }
 
     public ResponseGetUsers Get(String username, long userId) throws SQLException {
