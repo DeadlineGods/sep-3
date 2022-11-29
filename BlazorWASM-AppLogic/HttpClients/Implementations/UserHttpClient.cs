@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Domain.DTOs;
 using Domain.Models;
@@ -56,5 +57,20 @@ public class UserHttpClient : IUserService
             PropertyNameCaseInsensitive = true
         })!;
         return users;
+    }
+
+    public async Task<Like> LikePost(LikePostDto dto)
+    {
+        HttpResponseMessage response = await client.PostAsJsonAsync("/likes", dto);
+        string result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+        Like like = JsonSerializer.Deserialize<Like>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return like;
     }
 }

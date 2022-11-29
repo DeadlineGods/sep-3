@@ -3,6 +3,7 @@ package sep3.project.daos;
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.ResponseGetUsers;
+import sep3.project.protobuf.ResponseLikePost;
 import sep3.project.protobuf.UserData;
 
 import java.sql.*;
@@ -57,6 +58,36 @@ public class UserDatabase implements UserPersistence {
         }
 
         return userData;
+    }
+
+    @Override
+    public ResponseLikePost LikePost(int postId, long userId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        ResponseLikePost responseLikePost = null;
+        try {
+            String sql = "INSERT INTO \"LikePost\" (user_id, post_id)  VALUES (?, ?)";
+
+            PreparedStatement ps = connection.prepareStatement(sql,
+                    Statement.RETURN_GENERATED_KEYS);
+
+            ps.setLong(1, userId);
+            ps.setInt(2, postId);
+
+            ps.execute();
+
+            // Getting newly created like
+
+            // Building a response
+            responseLikePost = responseLikePost.newBuilder()
+                    .setPostId(postId)
+                    .setUserId(userId)
+                    .build();
+
+        } finally {
+            connection.close();
+        }
+
+        return responseLikePost;
     }
 
     public ResponseGetUsers Get(String username, long userId) throws SQLException {

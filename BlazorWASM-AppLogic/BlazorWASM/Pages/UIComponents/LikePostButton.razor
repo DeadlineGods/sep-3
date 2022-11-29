@@ -1,0 +1,27 @@
+﻿@using BlazorWasm.Services
+@namespace Login
+@inject NavigationManager navMgr
+@inject IAuthService authService
+
+
+<button onclick="@ToggleLike" 
+        class="btn @(liked == true ? "btn-primary" : "btn-secondary")">
+    <i class="fas fa-thumbs-up fa-lg"></i>
+</button>
+
+
+
+@code {
+
+    [Parameter] EventCallback<bool> OnLikeToggled { get; set; }
+
+    bool liked = false;
+
+    async Task ToggleLike()
+    {
+        liked = !liked;
+        await OnLikeToggled.InvokeAsync(liked);
+    }
+    
+
+}

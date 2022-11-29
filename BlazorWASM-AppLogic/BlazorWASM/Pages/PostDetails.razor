@@ -1,7 +1,12 @@
 ﻿@page "/posts/{id:int}"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@using System.Security.Claims
+@using BlazorWasm.Services
 @inject IPostService postService
+@inject IAuthService authService
+@inject IUserService userService
 @inject NavigationManager navMgr
 
 @if (post != null)
@@ -15,6 +20,16 @@
 		<div>@post.Owner.UserName</div>
 		<div>@post.Likes</div>
 		<div>@post.Tags</div>
+		<div>
+			@if (postLiked)
+			{
+				<LikePostButton OnLikeToggled="@PostLikeClicked"/>
+			}
+			@if (!postLiked)
+			{
+				<LikePostButton OnLikeToggled="@PostLikeClicked"/>
+			}
+		</div>
 	</div>
 }
 else
@@ -24,8 +39,12 @@ else
 
 @code {
     private Post? post;
+	bool postLiked;
+	private string userId;
+	private bool isSucceed;
 
-    [Parameter]
+
+	[Parameter]
     public int Id { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -37,11 +56,39 @@ else
 	        IEnumerable<Post> posts = await postService.GetAsync(Id);
 	        post = posts.FirstOrDefault();
 	        Console.WriteLine(post);
+	        //postLiked = await userService.IsPostLiked(Id);
+
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
         }
     }
+
+	async Task PostLikeClicked(bool isLiked)
+	{
+		
+		try
+		{
+			if (isLiked)
+			{
+				postLiked = isLiked;
+			}
+			else if (!isLiked)
+			{
+				ClaimsPrincipal context = await authService.GetAuthAsync();
+				var claims = context.Identities.First().Claims.ToList();
+				string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+				LikePostDto dto = new LikePostDto(Id, int.Parse(id));
+				await userService.LikePost(dto);
+				isSucceed = true;
+			}
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
+	}
 
 }

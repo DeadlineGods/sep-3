@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -91,4 +92,34 @@ public class PostHttpClient : IPostService
 		    throw new Exception(content);
 	    }
     }
+
+    /*
+    public async Task<bool> IsPostLiked(int id)
+    {
+	    string query = "";
+	    query = string.IsNullOrEmpty(query) ? "?" : "&";
+	    query += $"id={id}";
+	    HttpResponseMessage response = await client.IsPostLikedAsync($"https://localhost:7196/posts/{query}");
+	    string content = await response.Content.ReadAsStringAsync();
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(content);
+	    }
+
+	    bool isLiked = response.IsSuccessStatusCode;
+	    return isLiked;
+    }
+
+    public async Task LikePostAsync(int id)
+    {
+	    string query = "";
+	    query = string.IsNullOrEmpty(query) ? "?" : "&";
+	    query += $"id={id}";
+	    HttpResponseMessage response = await client.LikePostAsync($"https://localhost:7196/posts/like{query}");
+	    string content = await response.Content.ReadAsStringAsync();
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(content);
+	    }
+    }*/
 }

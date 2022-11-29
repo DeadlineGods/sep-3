@@ -37,7 +37,23 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase {
 
         System.out.println("User Created =v \n" + response.toString());
     }
+    @Override
+    public void likePost(RequestLikePost request, StreamObserver<ResponseLikePost> responseObserver) {
+        System.out.println("Received Request =v \n" + request.toString());
+        ResponseLikePost response = null;
+        try {
+            response = database.LikePost(
+                    request.getPostId(),
+                    request.getUserId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+
+        System.out.println("User Created =v \n" + response.toString());
+    }
     @Override
     public void getUsers(RequestGetUsers request, StreamObserver<ResponseGetUsers> responseObserver) {
         System.out.println("Received Request =v \n" + request.toString());

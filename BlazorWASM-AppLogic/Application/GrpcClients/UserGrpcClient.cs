@@ -8,12 +8,15 @@ using Domain.DTOs;
 using Domain.Models;
 using Grpc.Net.Client;
 using GrpcClient;
+
 using User = Domain.Models.User;
+using Post = Domain.Models.Post;
 
 
 namespace Application.GrpcClients;
 
 public class UserGrpcClient : IUserDao
+
 {
     public async Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
     {
@@ -56,9 +59,31 @@ public class UserGrpcClient : IUserDao
         
         return await Task.FromResult(ConstructUser(reply));
     }
+
+    public async Task<Like> LikePost(LikePostDto likeDto)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+
+        var client = new UserService.UserServiceClient(channel);
+
+        var reply = await client.LikePostAsync(
+            new RequestLikePost
+            {
+                PostId = likeDto.postId,
+                UserId = likeDto.userId
+            });
+        ResponseLikePost responseLikePost;
+        return await Task.FromResult(ConstructLike(reply));
+    }
+
     private User ConstructUser(UserData userData)
     {
         return new User(userData.Id, userData.Username, userData.FirstName + " " + userData.LastName, userData.Password,
             userData.Email, userData.PhoneNumber);
+    }
+
+    private Like ConstructLike(ResponseLikePost response)
+    {
+        return new Like(response.PostId, response.UserId);
     }
 }

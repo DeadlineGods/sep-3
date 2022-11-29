@@ -23,6 +23,14 @@ public class UserLogic : IUserLogic
 		return created;
 	}
 
+	public async Task<Like> LikePost(LikePostDto dto)
+	{
+		if (dto.postId == 0 && dto.userId == 0)
+			throw new Exception("Post or user doesn't exist.");
+		Like likePost = await Dao.LikePost(dto);
+		return likePost;
+	}
+
 	private static void Validate(UserCreationDto userToCreate)
 	{
 		string userName = userToCreate.username;
