@@ -57,7 +57,7 @@ public class PostDatabase implements PostPersistence {
 		try
 		{
 			PreparedStatement statement = connection.prepareStatement(
-					"DELETE FROM post " +
+					"DELETE FROM Post " +
 							"WHERE id = ?"
 			);
 			statement.setInt(1, id);
@@ -150,7 +150,7 @@ public class PostDatabase implements PostPersistence {
 			// first insert into TAG table
 			if (! containsTag(connection, tag)) {
 				statement = connection.prepareStatement("" +
-						"INSERT INTO tag(name) VALUES(?)");
+						"INSERT INTO Tag_list(tag_name) VALUES(?)");
 
 				statement.setString(1, tag);
 
@@ -159,7 +159,7 @@ public class PostDatabase implements PostPersistence {
 
 			// then insert also into join table, because tag_name is foreign key
 			statement = connection.prepareStatement("" +
-					"INSERT INTO posttag(post_id, tag_name) VALUES(?, ?)");
+					"INSERT INTO Post_tag(post_id, tag_name) VALUES(?, ?)");
 
 			statement.setInt(1, id);
 			statement.setString(2, tag);
@@ -169,7 +169,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	private boolean containsTag(Connection connection, String tag) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement("SELECT name from tag where name = ?");
+		PreparedStatement statement = connection.prepareStatement("SELECT tag_name from Tag_list where tag_name = ?");
 
 		statement.setString(1, tag);
 		ResultSet resultSet = statement.executeQuery();
@@ -181,7 +181,7 @@ public class PostDatabase implements PostPersistence {
 		PreparedStatement statement = null;
 
 		try {
-			statement = connection.prepareStatement("SELECT * FROM \"post\"");
+			statement = connection.prepareStatement("SELECT * FROM Post");
 
 			return statement.executeQuery();
 
@@ -195,7 +195,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE lower(title) LIKE '%' || ? || '%'");
+					"SELECT * FROM \"Post\" WHERE lower(title) LIKE '%' || ? || '%'");
 
 			statement.setString(1, titleContains);
 			return statement.executeQuery();
@@ -210,7 +210,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE id = ?");
+					"SELECT * FROM \"Post\" WHERE id = ?");
 
 			statement.setInt(1, id);
 			return statement.executeQuery();
@@ -225,7 +225,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE user_id = ?");
+					"SELECT * FROM \"Post\" WHERE user_id = ?");
 
 			statement.setLong(1, userId);
 			return statement.executeQuery();
@@ -239,7 +239,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE user_id = ? AND id=?");
+					"SELECT * FROM \"Post\" WHERE user_id = ? AND id=?");
 			statement.setLong(1, userId);
 			statement.setInt(2, id);
 			return statement.executeQuery();
