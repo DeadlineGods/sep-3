@@ -1,0 +1,31 @@
+.story-modal{
+    max-width: 990px !important;
+    min-height: 87vh;
+    display: flex;
+
+    .story-modal-media{
+        max-width: 660px;
+    }
+    .story-content{
+        height: 70vh;
+    }
+}
+@media (max-width: 1024px) {
+
+    .story-modal {
+        min-height: 100vh;
+        flex-direction: column;
+        width: 100% !important;
+
+        .story-modal-media {
+            max-width: 660px;
+            min-height: 420px;
+            position: relative;
+
+            img {
+                position: absolute;
+            }
+        }
+    }
+
+}

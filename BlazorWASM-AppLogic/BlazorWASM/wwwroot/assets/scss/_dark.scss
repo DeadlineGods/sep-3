@@ -1,0 +1,59 @@
+
+/* transparent */
+.dark .header_dropdown.profile_dropdown ul a:hover { background-color:transparent;}
+
+/* level 1 */
+.dark body , .dark .main_content , .dark .dark-tabs { background-color:#08090f !important}
+
+/* level 2 */
+.dark header , .dark  .sidebar ,
+.dark .mdropdown,  .dark  .xdropdown, 
+.dark  .header_dropdown  { 
+    background-color: #111827 ; //#12141e;
+}
+
+/* level 2 */
+.dark .header_dropdown .bg-gradient-to-t , .dark .dark-tabs a , .dark .sidebar_header  { background: #1f2937 !important; }
+
+
+/* level 4 */
+.dark .header_dropdown ul li a:hover { background: #323948;}
+
+
+/* borders */
+.dark .sidebar hr , 
+.dark header ,
+.dark .sidebar .sidebar_header , 
+.dark .header_dropdown .border-b , 
+.dark .header_dropdown a.see-all{ border-color: #1f2937 }
+
+
+/* borders transparent */
+.dark .profile_dropdown { border-color:  transparent;}
+
+
+/* Text */
+.dark .sidebar .sidebar_inner ul li a  , 
+.dark .sidebar .sidebar_inner ul li a i,
+.dark .sidebar .text-gray-800 ,
+.dark .sidebar a.text-xl ,
+.dark .sidebar h3,
+.dark header .header_inner .right-side .header-links-item svg ,
+.dark header .header_inner .left-side .triger ,
+.dark .header_dropdown ul li a , 
+.dark .header_dropdown a.see-all ,
+.dark .header_dropdown h4 ,  
+.dark h1 ,.dark  h2 ,.dark  h3 ,.dark  h4 ,.dark  h5 ,.dark  h6 , .dark  a , 
+.dark .dark-tabs a{ color: #eeeeee !important}
+
+
+/* sidebar link active */ 
+.dark .sidebar .sidebar_inner ul li.active a { color: $primary-color !important }
+
+
+/* change default logo */
+.dark .sidebar .sidebar_header , 
+.dark header .header_inner .left-side #logo {
+    img {display: none;}
+    img.logo_inverse {display: block !important;}
+}
