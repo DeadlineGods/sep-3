@@ -15,29 +15,30 @@ public class PostGrpcClient : IPostDao
 	{
 		this.userDao = userDao;
 	}
-	
+
     public async Task<int> CreateAsync(Post post)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
-	    
+
 	    var request = new RequestCreatePost
 	    {
 		    Title = post.Title,
 		    Description = post.Description,
 		    UserId = post.Owner.Id,
-		    ImgUrl = post.ImgUrl
+		    ImgUrl = post.ImgUrl,
+		    Latitude = post.Coordinate.latitude,
+		    Longitude = post.Coordinate.longitude,
 	    };
 
 	    //add tags
 	    foreach (var tag in post.Tags)
 	    {
-		    Console.WriteLine(tag);
 		    request.Tags.Add(tag);
 	    }
 
 	    var reply = await client.CreatePostAsync(request);
-		    
+
 	    return await Task.FromResult(reply.Id);
     }
 
@@ -83,15 +84,15 @@ public class PostGrpcClient : IPostDao
 
 	    await Task.CompletedTask;
     }
-    
-    
+
+
     private async Task<Post> ConstructPostAsync(PostData reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
-	    
+
 	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn);
     }
 }

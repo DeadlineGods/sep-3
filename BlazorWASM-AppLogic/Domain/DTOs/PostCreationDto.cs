@@ -9,13 +9,15 @@ public class PostCreationDto
     public long UserId { get; }
     public string ImgUrl { get; }
     public IList<string> Tags { get; }
+    public Coordinate Coordinates { get; set; }
 
-    public PostCreationDto(string title, long userId, string description, string imgUrl, IList<string> tags)
+    public PostCreationDto(string title, long userId, string description, string imgUrl, IList<string> tags, Coordinate coordinates)
     {
         Title = title;
         Description = description;
         Tags = tags;
         UserId = userId;
         ImgUrl = imgUrl;
+        Coordinates = coordinates;
     }
 }
