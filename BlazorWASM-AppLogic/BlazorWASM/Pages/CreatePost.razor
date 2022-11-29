@@ -5,12 +5,12 @@
 @using System.Xml
 @using System.Collections
 @using System.Net
+@using UIComponents;
 @using global::Shared
 @inject AuthenticationStateProvider AuthenticationStateProvider;
 @inject NavigationManager navMgr
 @inject IPostService postService
 @inject IImageUploadService imageUploadService
-@inject HttpClient Http
 
 
 	<Alert Type="success" Show="@showAlert">
@@ -19,18 +19,19 @@
 		<button @onclick="(() => showAlert = false)">close</button>
 	</Alert>
 
-<div class="card">
-    <h3>Create Post</h3>
-    <div class="form-group field">
-        <label>Title:</label>
-        <input type="text" @bind="postTitle"/>
-        <label>Body:</label>
-        <input type="text" @bind="postDescription"/>
-        <label>Tags</label>
-        <input type="text" @bind="newTag"/>
-        <button @onclick="@AddTag">add </button>
-        <InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
-    </div>
+	<div class="card">
+	    <h3>Create Post</h3>
+		<div class="form-group field">
+			<label>Title:</label>
+			<input type="text" @bind="postTitle"/>
+			<label>Body:</label>
+			<input type="text" @bind="postDescription"/>
+			<label>Tags</label>
+			<input type="text" @bind="newTag"/>
+			<button @onclick="@AddTag">add </button>
+			<InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
+		</div>
+		<MapComponent></MapComponent>
 
     @foreach (string tag in postTags)
     {
