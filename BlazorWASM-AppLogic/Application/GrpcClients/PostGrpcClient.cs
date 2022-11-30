@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.DAOsInterfaces;
-using Application.LogicInterfaces;
+﻿using Application.DAOsInterfaces;
 using Domain.DTOs;
 using Domain.Models;
 using Grpc.Net.Client;
@@ -19,31 +15,30 @@ public class PostGrpcClient : IPostDao
 	{
 		this.userDao = userDao;
 	}
-	
+
     public async Task<int> CreateAsync(Post post)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
-	   
-	    
+
 	    var request = new RequestCreatePost
 	    {
 		    Title = post.Title,
 		    Description = post.Description,
-		    UserId = post.Owner.Id
+		    UserId = post.Owner.Id,
+		    ImgUrl = post.ImgUrl,
+		    Latitude = post.Coordinate.latitude,
+		    Longitude = post.Coordinate.longitude,
 	    };
 	    //add tags
 	    foreach (var tag in post.Tags)
 	    {
-		    Console.WriteLine(tag);
 		    request.Tags.Add(tag);
 	    }
-	  
-	    
-	    var reply = await client.CreatePostAsync(request);
-		    
-	    return await Task.FromResult(reply.Id);
 
+	    var reply = await client.CreatePostAsync(request);
+
+	    return await Task.FromResult(reply.Id);
     }
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
@@ -61,7 +56,7 @@ public class PostGrpcClient : IPostDao
 	    IList<Post> posts = new List<Post>();
 	    foreach (var replyPost in reply.Posts)
 	    {
-			posts.Add(await ConstructPost(replyPost));
+			posts.Add(await ConstructPostAsync(replyPost));
 	    }
 
 	    return await Task.FromResult(posts);
@@ -88,15 +83,15 @@ public class PostGrpcClient : IPostDao
 
 	    await Task.CompletedTask;
     }
-    
-    
-    private async Task<Post> ConstructPost(PostData reply)
+
+
+    private async Task<Post> ConstructPostAsync(PostData reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
-	    
-	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.Description, postedOn);
+
+	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn);
     }
 }

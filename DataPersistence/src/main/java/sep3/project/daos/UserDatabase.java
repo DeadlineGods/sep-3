@@ -2,7 +2,8 @@ package sep3.project.daos;
 
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.persistance.DBConnection;
-import sep3.project.protobuf.*;
+import sep3.project.protobuf.ResponseGetUsers;
+import sep3.project.protobuf.UserData;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -108,7 +109,7 @@ public class UserDatabase implements UserPersistence {
                 }
             }
             // get users by username only
-            else if (userId==0&& !username.equals("")) {
+            else if (userId==0 && !username.equals("")) {
                 ResultSet resultSet = getByUsername(connection, username);
                 while (resultSet.next()) {
                     usersList.add(getUserFromQuery(resultSet));

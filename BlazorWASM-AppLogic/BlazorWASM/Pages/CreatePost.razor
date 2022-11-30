@@ -7,19 +7,24 @@
 @using System.Net
 
 @inject AuthenticationStateProvider AuthenticationStateProvider;
+@using Domain.Models
+@using global::Shared
+@using UIComponents
+@inject AuthenticationStateProvider AuthenticationStateProvider;
 @inject NavigationManager navMgr
 @inject IPostService postService
 @inject HttpClient Http
 
+@inject IImageUploadService imageUploadService
 
-<Alert Type="success" Show="@showAlert">
-	<p>Successfully created post!</p>
-	<button @onclick="@NavigateToPost">show me</button>
-	<button @onclick="(() => showAlert = false)">close</button>
-</Alert>
+	<Alert Type="success" Show="@showAlert">
+		<p>Successfully created post!</p>
+		<button @onclick="@NavigateToPost">show me</button>
+		<button @onclick="(() => showAlert = false)">close</button>
+	</Alert>
 
 <div class="card">
-    <h3>Create Post</h3>
+	<h3>Create Post</h3>
 	<div class="form-group field">
 		<label>Title:</label>
 		<input type="text" @bind="postTitle"/>
@@ -28,8 +33,7 @@
 		<label>Tags</label>
 		<input type="text" @bind="newTag"/>
 		<button @onclick="@AddTag">add </button>
-
-
+		<InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
 	</div>
 
 	@foreach (string tag in postTags)
@@ -41,30 +45,36 @@
 	}
 
 	<div class="button-row">
-        @if (!string.IsNullOrEmpty(msg))
-        {
-            <label style="color: red">@msg</label>
-        }
-        <button @onclick="Create" class="acceptbtn">Create</button>
-    </div>
+		@if (!string.IsNullOrEmpty(msg))
+		{
+			<label style="color: red">@msg</label>
+		}
+		<button @onclick="CreateAsync" class="acceptbtn">Create</button>
+	</div>
 </div>
+<MapComponent @ref="Map"></MapComponent>
+
 
 @code {
+    private ImageFile? filesBase64 = null;
     private string postTitle = "";
     private string postDescription = "";
-	private IList<string> postTags = new List<string>();
-	private string newTag = "";
-	private bool showAlert;
-	private int id;
+    private IList<string> postTags = new List<string>();
+    private string newTag = "";
+    private bool showAlert;
+    private int id;
 
-	private string msg = "";
+	private MapComponent Map;
 
-    protected override async Task OnInitializedAsync()
+    private string msg = "";
+
+
+	private async Task OnChangeAsync(InputFileChangeEventArgs e)
     {
         msg = "";
-        
+        filesBase64 = null;
 
-        /*var files = e.GetMultipleFiles();
+        var files = e.GetMultipleFiles();
         foreach (var file in files)
         {
 
@@ -82,18 +92,29 @@
                 Console.WriteLine(exception);
             }
 
-        }*/
+            filesBase64 = (new ImageFile {base64data = Convert.ToBase64String(buf), contentType = file.ContentType, fileName = file.Name});
+        }
     }
 
-    private async Task Create()
-    {
-	    if(!Validate())
-		    return;
 
-	    try
+    private async Task CreateAsync()
+    {
+        if (!Validate())
+            return;
+
+        try
         {
-	        // TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            PostCreationDto dto = new(postTitle, 1, postDescription, postTags);
+	        // get image
+            string imgUrl = await imageUploadService.UploadAsync(filesBase64);
+
+	        Coordinate coordinates = await Map.GetCoordinates();
+
+	        // get user id
+			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
+            int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+
+            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, coordinates);
+
             id = await postService.CreateAsync(dto);
 
 	        showAlert = true;
@@ -109,20 +130,26 @@
         }
     }
 
-	private bool Validate()
-	{
-		msg = "";
-		if (string.IsNullOrEmpty(postTitle))
-		{
-			msg = "Title cannot be empty!";
-			return false;
-		}
+    private bool Validate()
+    {
+        msg = "";
+        if (string.IsNullOrEmpty(postTitle))
+        {
+            msg = "Title cannot be empty!";
+            return false;
+        }
 
-		if (string.IsNullOrEmpty(postDescription))
-		{
-			msg = "Body cannot be empty!";
-			return false;
-		}
+        if (string.IsNullOrEmpty(postDescription))
+        {
+            msg = "Body cannot be empty!";
+            return false;
+        }
+
+        if (filesBase64 == null || filesBase64.base64data.Equals(""))
+        {
+            msg = "Please upload an image";
+            return false;
+        }
 
         return true;
     }

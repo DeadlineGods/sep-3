@@ -11,7 +11,7 @@ public class UserLogic : IUserLogic
 
 	public UserLogic(IUserDao userDao, IPostDao postDao)
 	{
-		UserDao = userDao;
+		Dao = dao;
 	}
 
 	public async Task<User> CreateAsync(UserCreationDto dto)

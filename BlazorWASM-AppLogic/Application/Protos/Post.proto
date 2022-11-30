@@ -12,7 +12,10 @@ message RequestCreatePost {
 	string title = 1;
 	string description = 2;
 	int64 userId = 3;
-	repeated string tags = 4;
+	string imgUrl = 4;
+	repeated string tags = 5;
+	float latitude = 6;
+	float longitude = 7;
 }
 
 message ResponseCreatePost {
@@ -25,7 +28,8 @@ message PostData {
 	int32 likes = 3;
 	string title = 4;
 	string description = 5;
-	int64 postedOnMilliseconds = 6;
+	string imgUrl = 6;
+	int64 postedOnMilliseconds = 7;
 }
 
 message RequestDeletePost

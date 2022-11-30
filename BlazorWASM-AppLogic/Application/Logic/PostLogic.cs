@@ -22,7 +22,7 @@ public class PostLogic : IPostLogic
     public async Task<int> CreateAsync(PostCreationDto postCreationDto)
     {
         ValidatePost(postCreationDto);
-        
+
         SearchUserParametersDto dto = new SearchUserParametersDto(null, postCreationDto.UserId);
         IEnumerable<User> users = await UserDao.GetAsync(dto);
         User existingOwner = users.FirstOrDefault();
@@ -36,7 +36,9 @@ public class PostLogic : IPostLogic
             Title = postCreationDto.Title,
             Description = postCreationDto.Description,
             Tags = postCreationDto.Tags,
-            Owner = existingOwner
+            Owner = existingOwner,
+            ImgUrl = postCreationDto.ImgUrl,
+            Coordinate = postCreationDto.Coordinates
         };
 
         return await PostDao.CreateAsync(post);

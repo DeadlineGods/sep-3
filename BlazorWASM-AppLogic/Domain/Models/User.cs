@@ -7,15 +7,15 @@ public class User
 {
     public long Id { get; set; }
     public String UserName{ get; set; }
-    private String FullName{ get; set; }
+    public String FullName{ get; set; }
     public String Password{ get; set; }
-    private String Email{ get; set; }
-    private String PhoneNumber{ get; set; }
+    public String Email{ get; set; }
+    public String PhoneNumber{ get; set; }
 
     [JsonConstructor]
     public User() {}
-    
-    
+
+
     public User(long id, String userName, String fullname, String password, String email, String phoneNumber)
     {
         Id = id;
@@ -26,7 +26,7 @@ public class User
         PhoneNumber = phoneNumber;
     }
 
-    
 
-    
+
+
 }
