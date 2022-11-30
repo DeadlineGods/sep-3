@@ -46,7 +46,7 @@ public class PostLogic : IPostLogic
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
     {
-	    return await postDao.GetAsync(parameters);
+        return await postDao.GetAsync(parameters);
     }
 
     public async Task DeleteAsync(int id)

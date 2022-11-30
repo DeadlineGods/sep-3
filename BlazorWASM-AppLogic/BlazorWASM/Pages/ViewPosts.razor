@@ -1,12 +1,7 @@
 ﻿@page "/posts/all"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
-@using System.Security.Claims
-@using BlazorWasm.Services
 @using Domain.DTOs
-@inject IUserService userService;
-@inject IPostService postService;
-@using System.Collections
 @inject IPostService postService
 @inject NavigationManager navMgr
 @inject IUserService userService
@@ -27,8 +22,6 @@ else
 
     @foreach (var post in posts)
     {
-
-        int i = returnInt(post.Id);
         <div class="post-card">
             <a href="PostDetails/@post.Id">
                 <div>@post.Title</div>
@@ -37,11 +30,8 @@ else
                 <div>@post.Description</div>
                 <div><!--image--></div>
                 <div>@post.Owner.UserName</div>
-                <div>@Convert(@post.Id);</div>
-                <div>@returnInt(post.Id)</div>
                 <div>@post.Likes</div>
                 <div>@post.Tags</div>
-                <div>@i</div>
             </a>
             @if (likedPosts.Contains(post.Id))
             {
@@ -114,39 +104,12 @@ else
             Console.WriteLine($"Post id: {postId}, user id: {userID}");
             await userService.LikePost(dto);
             likedPosts.Add(postId);
-
-     async Task<int> CountLikes(int id)
-    {
-        Console.WriteLine("XDd");
-        count = await userService.CountLikes(id);
-
-        return count;
-    }
-
-    async Task<int> returnInt(int id)
-    {
-        int x = (await userService.CountLikes(id));
-        return x;
-    }
-
-    private int Convert(int id )
-    {
-        CountLikes(id);
-        int countInt = this.count;
-        return countInt;
-    }
-
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             throw;
         }
-    }
-
-    int returnInt(int id)
-    {
-        return id;
     }
 
 }
