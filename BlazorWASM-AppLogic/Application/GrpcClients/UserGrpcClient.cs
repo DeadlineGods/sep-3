@@ -1,16 +1,9 @@
-using System.Collections;
-using System.Security.AccessControl;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Application.DAOsInterfaces;
 using Domain.DTOs;
-using Domain.Models;
 using Grpc.Net.Client;
 using GrpcClient;
 
 using User = Domain.Models.User;
-using Post = Domain.Models.Post;
 
 
 namespace Application.GrpcClients;
@@ -60,23 +53,6 @@ public class UserGrpcClient : IUserDao
         return await Task.FromResult(ConstructUser(reply));
     }
 
-    
-    
-    public async Task<Like> LikePost(LikePostDto likeDto)
-    {   
-        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
-
-        var client = new UserService.UserServiceClient(channel);
-
-        var reply = await client.LikePostAsync(
-            new RequestLikePost
-            {
-                PostId = likeDto.postId,
-                UserId = likeDto.userId
-            });
-        return await Task.FromResult(ConstructLike(reply));
-    }
-
     public async Task<IEnumerable<User>> GetLikes(int postId)
     {
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
@@ -84,7 +60,7 @@ public class UserGrpcClient : IUserDao
         var client = new UserService.UserServiceClient(channel);
         List<User> usersList = new List<User>();
 
-        var reply = await client.GetLikesAsync(
+        var reply = await client.GetUsersWhoLikedAsync(
             new RequestGetLikes
             {
                 PostId = postId
@@ -100,20 +76,7 @@ public class UserGrpcClient : IUserDao
         
     }
 
-    public async Task<int> CountLikesAsync(int postId)
-    {
-        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 
-        var client = new UserService.UserServiceClient(channel);
-        var reply = client.CountLikes
-        (new RequestCountLikes()
-        {
-            PostId = postId
-        });
-        return await Task.FromResult(reply.LikesNo);
-
-
-    }
 
 
     private User ConstructUser(UserData userData)
@@ -121,9 +84,5 @@ public class UserGrpcClient : IUserDao
         return new User(userData.Id, userData.Username, userData.FirstName + " " + userData.LastName, userData.Password,
             userData.Email, userData.PhoneNumber);
     }
-
-    private Like ConstructLike(ResponseLikePost response)
-    {
-        return new Like(response.PostId, response.UserId);
-    }
+    
 }

@@ -58,72 +58,6 @@ public class UserDatabase implements UserPersistence {
         return userData;
     }
 
-    @Override
-    public ResponseLikePost LikePost(int postId, long userId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
-        ResponseLikePost responseLikePost = null;
-        try {
-            String sql = "INSERT INTO \"likepost\" (user_id, post_id)  VALUES (?, ?)";
-
-            PreparedStatement ps = connection.prepareStatement(sql,
-                    Statement.RETURN_GENERATED_KEYS);
-
-            ps.setLong(1, userId);
-            ps.setInt(2, postId);
-
-            ps.execute();
-
-            // Getting newly created like
-
-            // Building a response
-            responseLikePost = responseLikePost.newBuilder()
-                    .setPostId(postId)
-                    .setUserId(userId)
-                    .build();
-
-        } finally {
-            connection.close();
-        }
-
-        return responseLikePost;
-    }
-
-    @Override
-    public void UnLikePost(int postId, long userId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
-        try {
-            String sql = "DELETE FROM likepost WHERE post_id = ? AND user_id = ?";
-
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ps.setInt(1, postId);
-            ps.setLong(2, userId);
-
-            ps.execute();
-        } finally {
-            connection.close();
-        }
-    }
-
-    @Override
-    public ResponseIsPostLiked IsPostLiked(int postId, long userId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
-        ResponseIsPostLiked response = null;
-        try {
-            String sql = "";
-
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ps.setInt(1, postId);
-            ps.setLong(2, userId);
-
-            ps.execute();
-        } finally {
-            connection.close();
-        }
-
-
-    }
 
     @Override
     public ResponseGetLikes GetLikes(int postId) throws SQLException {
@@ -158,29 +92,6 @@ public class UserDatabase implements UserPersistence {
             connection.close();
         }
         return response;
-    }
-
-    @Override
-    public ResponseCountLikes CountLikes(int postId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
-        ResponseCountLikes response = null;
-        PreparedStatement statement = null;
-        try
-        {
-            statement = connection.prepareStatement("SELECT COUNT(post_id) FROM likepost WHERE post_id = ?");
-            statement.setInt(1, postId);
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next())
-            {
-                response = ResponseCountLikes.newBuilder()
-                        .setLikesNo(resultSet.getInt("count")).build();
-            }
-            return response;
-        }
-        finally {
-            connection.close();
-        }
     }
 
     public ResponseGetUsers Get(String username, long userId) throws SQLException {

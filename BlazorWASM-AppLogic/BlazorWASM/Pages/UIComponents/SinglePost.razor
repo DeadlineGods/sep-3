@@ -1,0 +1,103 @@
+﻿@using Domain.Models
+@namespace UIComponents
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@using System.Security.Claims
+@using BlazorWasm.Services
+@inject NavigationManager navMgr
+@inject ILikeService likeService
+@inject IAuthService authService
+
+<div class="post-card">
+    <a href="PostDetails/@Post.Id">
+        <div>@Post.Title</div>
+        <div>@Post.PostedOn</div>
+        <div>@Post.Location</div>
+        <div>@Post.Description</div>
+        <div><!--image--></div>
+        <div>@Post.Owner.UserName</div>
+        <div>@Post.Likes</div>
+    </a>
+
+    @if (isLiked)
+    {
+        <div class="field">
+            <button @onclick="@(() => UnlikePostAsync(Post.Id))" class="like-button" role="button">
+                Like
+                <img class="icon" src="img/like_pressed.svg"/>
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="field">
+            <button @onclick="@(() => LikePostAsync(Post.Id))" class="like-button" role="button">
+                Like
+                <img class="icon" src="img/like_notpressed.svg"/>
+            </button>
+        </div>  
+    }
+</div>
+
+@code {
+    [Parameter] 
+    public Post? Post { get; set; }
+    private long userId;
+    private bool isLiked = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ClaimsPrincipal context = await authService.GetAuthAsync();
+        var claims = context.Identities.First().Claims.ToList();
+        string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+        userId = long.Parse(id);
+
+       isLiked = await IsLikedAsync(Post.Id);
+    }
+    
+    private async Task LikePostAsync(int postId)
+    {
+        try
+        {
+            LikePostDto dto = new LikePostDto(postId, userId);
+            await likeService.LikePostAsync(dto);
+            Post.Likes += 1;
+            isLiked = !isLiked;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private async Task UnlikePostAsync(int postId)
+    {
+        try
+        {
+            UnLikePostDto dto = new UnLikePostDto(postId, userId);
+            await likeService.UnLikePostAsync(dto);
+            Post.Likes -= 1;
+            isLiked = !isLiked;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private async Task<bool> IsLikedAsync(int postId)
+    {
+        try
+        {
+            IsPostLikedDto dto = new(postId, userId);
+            return await likeService.IsPostLikedAsync(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+}

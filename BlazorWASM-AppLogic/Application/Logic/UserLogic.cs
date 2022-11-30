@@ -7,41 +7,28 @@ namespace Application.Logic;
 
 public class UserLogic : IUserLogic
 {
-	private readonly IUserDao Dao;
+	private readonly IUserDao UserDao;
 
-	public UserLogic(IUserDao dao)
+	public UserLogic(IUserDao userDao, IPostDao postDao)
 	{
-		this.Dao = dao;
+		UserDao = userDao;
 	}
 
 	public async Task<User> CreateAsync(UserCreationDto dto)
 	{
 		Validate(dto);
 
-		User created = await Dao.CreateAsync(dto);
+		User created = await UserDao.CreateAsync(dto);
 
 		return created;
 	}
-
-	public async Task<Like> LikePost(LikePostDto dto)
-	{
-		if (dto.postId == 0 && dto.userId == 0)
-			throw new Exception("Post or user doesn't exist.");
-		long l1 = dto.userId;
-		if ( string.IsNullOrEmpty(dto.postId.ToString()) || string.IsNullOrEmpty(dto.userId.ToString()))
-			throw new Exception("Ids cant be null");
-		Like likePost = await Dao.LikePost(dto);
-		
-		Console.WriteLine("problem here");
-		return likePost;
-	}
-
+	
 	public async Task<IEnumerable<User>> GetLikes(int postId)
 	{
 		IEnumerable<User> users = new List<User>();
 		try
 		{
-			users = await Dao.GetLikes(postId);
+			users = await UserDao.GetLikes(postId);
 		}
 		catch (Exception e)
 		{
@@ -51,23 +38,7 @@ public class UserLogic : IUserLogic
 
 		return users;
 	}
-
-	public async Task<int> CountLikesAsync(int postId)
-	{
-		int count = 0;
-		try
-		{
-			count = await Dao.CountLikesAsync(postId);
-		}
-		catch (Exception e)
-		{
-			Console.WriteLine("Not found");
-			throw;
-		}
-
-		return count;
-	}
-
+	
 	private static void Validate(UserCreationDto userToCreate)
 	{
 		string userName = userToCreate.username;
@@ -87,7 +58,7 @@ public class UserLogic : IUserLogic
 		IEnumerable<User> userWithUsername = new List<User>();
 		try
 		{
-			userWithUsername = await Dao.GetAsync(searchParameters);
+			userWithUsername = await UserDao.GetAsync(searchParameters);
 		}
 		catch (Exception e)
 		{

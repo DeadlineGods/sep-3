@@ -21,7 +21,8 @@
 
 	<ItemGroup>
 		<Protobuf Include="Protos\Post.proto" GrpcServices="Client" />
-		<Protobuf Include="Protos\User.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\User.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\Like.proto" GrpcServices="Client" />
 	</ItemGroup>
 
 </Project>

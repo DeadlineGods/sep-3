@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using System.Threading.Tasks;
+﻿
 using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
@@ -12,13 +8,15 @@ namespace Application.Logic;
 
 public class PostLogic : IPostLogic
 {
-    private readonly IPostDao postDao;
-    private readonly IUserDao userDao;
+    private readonly IPostDao PostDao;
+    private readonly IUserDao UserDao;
+    private readonly ILikeDao LikeDao;
 
-    public PostLogic(IPostDao postDao, IUserDao userDao)
+    public PostLogic(IPostDao postDao, IUserDao userDao, ILikeDao likeDao)
     {
-        this.postDao = postDao;
-        this.userDao = userDao;
+       PostDao = postDao;
+       UserDao = userDao;
+       LikeDao = likeDao;
     }
 
     public async Task<int> CreateAsync(PostCreationDto postCreationDto)
@@ -26,7 +24,7 @@ public class PostLogic : IPostLogic
         ValidatePost(postCreationDto);
         
         SearchUserParametersDto dto = new SearchUserParametersDto(null, postCreationDto.UserId);
-        IEnumerable<User> users = await userDao.GetAsync(dto);
+        IEnumerable<User> users = await UserDao.GetAsync(dto);
         User existingOwner = users.FirstOrDefault();
         if (existingOwner == null)
         {
@@ -41,15 +39,15 @@ public class PostLogic : IPostLogic
             Owner = existingOwner
         };
 
-        return await postDao.CreateAsync(post);
+        return await PostDao.CreateAsync(post);
     }
 
-    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
+    public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
-        IEnumerable<Post> posts = await postDao.GetAsync(parameters);
+        IEnumerable<Post> posts = await PostDao.GetAsync(parametersDto);
         foreach (var post in posts)
         {
-            post.Likes = await userDao.CountLikesAsync(post.Id);
+            post.Likes = await LikeDao.CountLikesAsync(post.Id);
         }
 
         return posts;
@@ -57,7 +55,7 @@ public class PostLogic : IPostLogic
 
     public async Task DeleteAsync(int id)
     {
-        await postDao.DeleteAsync(id);
+        await PostDao.DeleteAsync(id);
     }
 
     private void ValidatePost(PostCreationDto postCreationDto)

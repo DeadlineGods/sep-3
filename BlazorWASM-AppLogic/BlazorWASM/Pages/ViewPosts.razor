@@ -1,15 +1,8 @@
 ﻿@page "/posts/all"
+@using UIComponents
 @using Domain.Models
 @using HttpClients.ClientInterfaces
-@using Domain.DTOs
-@using System.Security.Claims
-@using BlazorWasm.Services
 @inject IPostService postService
-@inject NavigationManager navMgr
-@inject IUserService userService
-@inject IAuthService authService
-
-
 
 @if (posts == null)
 {
@@ -18,31 +11,12 @@
 else if (!posts.Any())
 {
     <p>No posts to display</p>
-    
 }
 else
 {
-    
     @foreach (var post in posts)
     {
-
-        <div class="post-card">
-            <a href="PostDetails/@post.Id">
-                <div>@post.Title</div>
-                <div>@post.PostedOn</div>
-                <div>@post.Location</div>
-                <div>@post.Description</div>
-                <div><!--image--></div>
-                <div>@post.Owner.UserName</div>
-                <div>@post.Likes</div>
-            </a>
-            
-            <div class="field">
-                    <button @onclick="@(() => LikePost(post.Id))" class="like-button" role="button">Like
-                        <img class="icon" src="img/like_pressed.svg"/>
-                    </button>
-                </div>
-        </div>
+        <SinglePost Post="post"/>
     }
 }
 @if (!string.IsNullOrEmpty(msg))
@@ -52,44 +26,22 @@ else
 
 @code {
     private IEnumerable<Post>? posts;
-    private IEnumerable<User>? users;
     private string msg;
-    private int count;
+    private bool isLiked;
+
     [Parameter]
     public string? Id { get; set; }
-    private long userId;
-
+    
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            ClaimsPrincipal context = await authService.GetAuthAsync();
-            var claims = context.Identities.First().Claims.ToList();
-            string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-            Console.WriteLine("User id: " + long.Parse(id));
-            userId=long.Parse(id);
-            
             posts = await postService.GetAsync();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
-        }
-    }
-
-    async Task LikePost(int postId)
-    {
-        try
-        {
-            LikePostDto dto = new LikePostDto(postId, userId);
-            Console.WriteLine($"Post id: {postId}, user id: {userId}");
-            await userService.LikePost(dto);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
         }
     }
 }

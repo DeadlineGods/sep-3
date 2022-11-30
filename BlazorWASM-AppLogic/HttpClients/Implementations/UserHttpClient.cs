@@ -58,27 +58,7 @@ public class UserHttpClient : IUserService
         })!;
         return users;
     }
-
-    public async Task<Like> LikePost(LikePostDto dto)
-    {
-        Console.WriteLine(dto.ToString() + "    ids:  " + dto.postId + " " + dto.userId);
-        if (dto.ToString().Equals(""))
-        {
-            throw new Exception("XD empty");
-        }
-        HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7196/Like", dto);
-        string result = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(result);
-        }
-        Like like = JsonSerializer.Deserialize<Like>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-        return like;
-    }
-
+    
     public async Task<IEnumerable<User>> GetLikes(int postId)
     {
         HttpResponseMessage response = await client.GetAsync("User/Like");
@@ -92,21 +72,5 @@ public class UserHttpClient : IUserService
             PropertyNameCaseInsensitive = true
         })!;
         return users;
-    }
-
-    public async Task<int> CountLikes(int postId)
-    {
-        HttpResponseMessage response = await client.GetAsync("User/likes/count");
-        string result = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(result);
-        }
-
-        int count = JsonSerializer.Deserialize<int>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-        return count;
     }
 }
