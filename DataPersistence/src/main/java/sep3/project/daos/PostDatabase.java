@@ -300,6 +300,4 @@ public class PostDatabase implements PostPersistence {
 				.setPostedOnMilliseconds(resultSet.getTimestamp("posted_on").getTime())
 				.build();
 	}
-
-
 }
