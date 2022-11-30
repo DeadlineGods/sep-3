@@ -1,7 +1,11 @@
 ﻿@page "/posts/all"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
-@inject IPostService postService
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using Domain.DTOs
+@inject IUserService userService;
+@inject IPostService postService;
 @inject NavigationManager navMgr
 
 
@@ -16,8 +20,10 @@ else if (!posts.Any())
 }
 else
 {
+    
     @foreach (var post in posts)
     {
+        int i = returnInt(post.Id);
         <div class="post-card">
             <a href="PostDetails/@post.Id">
                 <div>@post.Title</div>
@@ -28,7 +34,26 @@ else
                 <div>@post.Owner.UserName</div>
                 <div>@post.Likes</div>
                 <div>@post.Tags</div>
+                <div>@i</div>
             </a>
+            @if (likedPosts.Contains(post.Id))
+            {
+                <div class="field">
+                    <button class="like-button" role="button">Like
+                        <img class="icon" src="img/like_pressed.svg"/>
+                    </button>
+                </div>
+            }
+            @if(!likedPosts.Contains(post.Id))
+            {
+                
+                <div class="field">
+                    <button class="like-button" role="button"
+                            @onclick="() => LikePost(post.Id)">Like
+                        <img class="icon" src="img/like_notpressed.svg"/>
+                    </button>
+                </div>
+            }
         </div>
     }
 }
@@ -40,14 +65,16 @@ else
 @code {
     private IEnumerable<Post>? posts;
     private string msg;
-
-    [Parameter]
-    public string? Id { get; set; }
+    private string userId;
+    List<int> likedPosts;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            likedPosts = new List<int>();
+            likedPosts.Clear();
+            //likedPosts = await userService.getLikedPostsAsync();  
             posts = await postService.GetAsync();
         }
         catch (Exception e)
@@ -55,6 +82,38 @@ else
             Console.WriteLine(e);
             msg = e.Message;
         }
+    }
+    
+    async Task LikePost(int postId)
+    {
+		
+        try
+        {
+            /*
+            ClaimsPrincipal context = await authService.GetAuthAsync();
+                var claims = context.Identities.First().Claims.ToList();
+                string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+            Console.WriteLine("User id: " + long.Parse(id));
+            LikePostDto dto = new LikePostDto(Id, long.Parse(id));
+            */
+            
+            long userID = 1;
+            LikePostDto dto = new LikePostDto(postId, userID);
+            Console.WriteLine($"Post id: {postId}, user id: {userID}");
+            await userService.LikePost(dto);
+            likedPosts.Add(postId);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    int returnInt(int id)
+    {
+        return id;
     }
 
 }

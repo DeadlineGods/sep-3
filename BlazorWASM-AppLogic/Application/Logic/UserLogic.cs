@@ -27,7 +27,12 @@ public class UserLogic : IUserLogic
 	{
 		if (dto.postId == 0 && dto.userId == 0)
 			throw new Exception("Post or user doesn't exist.");
+		long l1 = dto.userId;
+		if ( string.IsNullOrEmpty(dto.postId.ToString()) || string.IsNullOrEmpty(dto.userId.ToString()))
+			throw new Exception("Ids cant be null");
 		Like likePost = await Dao.LikePost(dto);
+		
+		Console.WriteLine("problem here");
 		return likePost;
 	}
 

@@ -49,18 +49,5 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpPost, Route("Like")]
-    public async Task<ActionResult<Like>> LikePostAsync(LikePostDto dto)
-    {
-        try
-        {
-            Like like = await userLogic.LikePost(dto);
-            return Created($"/likes/{like.likedBy}&{like.likedPost}", like);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, e.Message);
-        }
-    }
+    
 }

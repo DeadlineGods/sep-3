@@ -61,7 +61,12 @@ public class UserHttpClient : IUserService
 
     public async Task<Like> LikePost(LikePostDto dto)
     {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/likes", dto);
+        Console.WriteLine(dto.ToString() + "    id:  " + dto.postId + dto.userId);
+        if (dto.ToString().Equals(""))
+        {
+            throw new Exception("XD empty");
+        }
+        HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7196/Like", dto);
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {

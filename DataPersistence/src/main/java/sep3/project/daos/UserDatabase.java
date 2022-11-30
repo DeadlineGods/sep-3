@@ -65,7 +65,7 @@ public class UserDatabase implements UserPersistence {
         Connection connection = DBConnection.getConnection();
         ResponseLikePost responseLikePost = null;
         try {
-            String sql = "INSERT INTO \"LikePost\" (user_id, post_id)  VALUES (?, ?)";
+            String sql = "INSERT INTO \"likepost\" (user_id, post_id)  VALUES (?, ?)";
 
             PreparedStatement ps = connection.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);

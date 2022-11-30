@@ -60,8 +60,10 @@ public class UserGrpcClient : IUserDao
         return await Task.FromResult(ConstructUser(reply));
     }
 
+    
+    
     public async Task<Like> LikePost(LikePostDto likeDto)
-    {
+    {   
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 
         var client = new UserService.UserServiceClient(channel);
@@ -72,7 +74,6 @@ public class UserGrpcClient : IUserDao
                 PostId = likeDto.postId,
                 UserId = likeDto.userId
             });
-        ResponseLikePost responseLikePost;
         return await Task.FromResult(ConstructLike(reply));
     }
 
