@@ -32,7 +32,6 @@ public class PostGrpcClient : IPostDao
 		    Description = post.Description,
 		    UserId = post.Owner.Id
 	    };
-
 	    //add tags
 	    foreach (var tag in post.Tags)
 	    {

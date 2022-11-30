@@ -6,7 +6,10 @@
 @using Domain.DTOs
 @inject IUserService userService;
 @inject IPostService postService;
+@using System.Collections
+@inject IPostService postService
 @inject NavigationManager navMgr
+@inject IUserService userService
 
 
 
@@ -17,12 +20,14 @@
 else if (!posts.Any())
 {
     <p>No posts to display</p>
+
 }
 else
 {
-    
+
     @foreach (var post in posts)
     {
+
         int i = returnInt(post.Id);
         <div class="post-card">
             <a href="PostDetails/@post.Id">
@@ -32,6 +37,8 @@ else
                 <div>@post.Description</div>
                 <div><!--image--></div>
                 <div>@post.Owner.UserName</div>
+                <div>@Convert(@post.Id);</div>
+                <div>@returnInt(post.Id)</div>
                 <div>@post.Likes</div>
                 <div>@post.Tags</div>
                 <div>@i</div>
@@ -46,7 +53,7 @@ else
             }
             @if(!likedPosts.Contains(post.Id))
             {
-                
+
                 <div class="field">
                     <button class="like-button" role="button"
                             @onclick="() => LikePost(post.Id)">Like
@@ -64,7 +71,11 @@ else
 
 @code {
     private IEnumerable<Post>? posts;
+    private IEnumerable<User>? users;
     private string msg;
+    private int count;
+    [Parameter]
+    public string? Id { get; set; }
     private string userId;
     List<int> likedPosts;
 
@@ -74,8 +85,9 @@ else
         {
             likedPosts = new List<int>();
             likedPosts.Clear();
-            //likedPosts = await userService.getLikedPostsAsync();  
+            //likedPosts = await userService.getLikedPostsAsync();
             posts = await postService.GetAsync();
+
         }
         catch (Exception e)
         {
@@ -83,10 +95,10 @@ else
             msg = e.Message;
         }
     }
-    
+
     async Task LikePost(int postId)
     {
-		
+
         try
         {
             /*
@@ -96,12 +108,33 @@ else
             Console.WriteLine("User id: " + long.Parse(id));
             LikePostDto dto = new LikePostDto(Id, long.Parse(id));
             */
-            
+
             long userID = 1;
             LikePostDto dto = new LikePostDto(postId, userID);
             Console.WriteLine($"Post id: {postId}, user id: {userID}");
             await userService.LikePost(dto);
             likedPosts.Add(postId);
+
+     async Task<int> CountLikes(int id)
+    {
+        Console.WriteLine("XDd");
+        count = await userService.CountLikes(id);
+
+        return count;
+    }
+
+    async Task<int> returnInt(int id)
+    {
+        int x = (await userService.CountLikes(id));
+        return x;
+    }
+
+    private int Convert(int id )
+    {
+        CountLikes(id);
+        int countInt = this.count;
+        return countInt;
+    }
 
         }
         catch (Exception e)

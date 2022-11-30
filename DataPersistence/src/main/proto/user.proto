@@ -7,6 +7,8 @@ service UserService{
   rpc CreateUser(RequestCreateUser) returns (UserData);
   rpc LikePost(RequestLikePost) returns (ResponseLikePost);
   rpc GetUsers(RequestGetUsers) returns (ResponseGetUsers);
+  rpc GetLikes(RequestGetLikes) returns (ResponseGetLikes);
+  rpc CountLikes(RequestCountLikes) returns(ResponseCountLikes);
 }
 
 message UserData {
@@ -45,4 +47,25 @@ message RequestGetUsers
 
 message ResponseGetUsers{
   repeated UserData userData = 1;
+}
+
+message RequestGetLikes
+{
+  int32 postId = 1;
+}
+
+
+message ResponseGetLikes
+{
+  repeated UserData user = 1;
+}
+
+message RequestCountLikes
+{
+  int32 postId = 1;
+}
+
+message ResponseCountLikes
+{
+  int32 likesNo = 1;
 }

@@ -78,4 +78,35 @@ public class UserHttpClient : IUserService
         })!;
         return like;
     }
+
+    public async Task<IEnumerable<User>> GetLikes(int postId)
+    {
+        HttpResponseMessage response = await client.GetAsync("User/Like");
+        string result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+        IEnumerable<User> users = JsonSerializer.Deserialize<IEnumerable<User>>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return users;
+    }
+
+    public async Task<int> CountLikes(int postId)
+    {
+        HttpResponseMessage response = await client.GetAsync("User/likes/count");
+        string result = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+
+        int count = JsonSerializer.Deserialize<int>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        return count;
+    }
 }

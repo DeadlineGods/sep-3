@@ -4,8 +4,13 @@
 @using System.Security.AccessControl
 @using System.Xml
 @using System.Collections
+@using System.Net
+
+@inject AuthenticationStateProvider AuthenticationStateProvider;
 @inject NavigationManager navMgr
 @inject IPostService postService
+@inject HttpClient Http
+
 
 <Alert Type="success" Show="@showAlert">
 	<p>Successfully created post!</p>
@@ -23,7 +28,7 @@
 		<label>Tags</label>
 		<input type="text" @bind="newTag"/>
 		<button @onclick="@AddTag">add </button>
-		
+
 
 	</div>
 
@@ -56,13 +61,35 @@
 
     protected override async Task OnInitializedAsync()
     {
+        msg = "";
+        
+
+        /*var files = e.GetMultipleFiles();
+        foreach (var file in files)
+        {
+
+            var buf = new byte[file.Size];
+            try
+            {
+                using (var stream = file.OpenReadStream(5_000_000))
+                {
+                    await stream.ReadAsync(buf);
+                }
+            }
+            catch (Exception exception)
+            {
+                msg = "Image must be smaller than 5mb";
+                Console.WriteLine(exception);
+            }
+
+        }*/
     }
 
     private async Task Create()
     {
 	    if(!Validate())
 		    return;
-	    
+
 	    try
         {
 	        // TODO the user id is hardcoded in please change it with JWT to match the logged in user
@@ -72,6 +99,7 @@
 	        showAlert = true;
 	        postTitle = "";
 	        postDescription = "";
+	        postTags = new List<string>();
 
         }
         catch (Exception e)
@@ -96,27 +124,27 @@
 			return false;
 		}
 
-		return true;
-	}
+        return true;
+    }
 
-	private void AddTag()
-	{
-		if (newTag.Equals("") || postTags.Contains(newTag))
-		{
-			return;
-		}
-		postTags.Add(newTag);
-		newTag = "";
-	}
+    private void AddTag()
+    {
+        if (newTag.Equals("") || postTags.Contains(newTag))
+        {
+            return;
+        }
+        postTags.Add(newTag);
+        newTag = "";
+    }
 
-	private void RemoveTag(string tag)
-	{
-		postTags.Remove(tag);
-	}
+    private void RemoveTag(string tag)
+    {
+        postTags.Remove(tag);
+    }
 
-	private void NavigateToPost()
-	{
-		navMgr.NavigateTo("posts/" + id);
-	}
+    private void NavigateToPost()
+    {
+        navMgr.NavigateTo("posts/" + id);
+    }
 
 }

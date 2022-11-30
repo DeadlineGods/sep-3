@@ -36,6 +36,38 @@ public class UserLogic : IUserLogic
 		return likePost;
 	}
 
+	public async Task<IEnumerable<User>> GetLikes(int postId)
+	{
+		IEnumerable<User> users = new List<User>();
+		try
+		{
+			users = await Dao.GetLikes(postId);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine("Not found");
+			throw;
+		}
+
+		return users;
+	}
+
+	public async Task<int> CountLikesAsync(int postId)
+	{
+		int count = 0;
+		try
+		{
+			count = await Dao.CountLikesAsync(postId);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine("Not found");
+			throw;
+		}
+
+		return count;
+	}
+
 	private static void Validate(UserCreationDto userToCreate)
 	{
 		string userName = userToCreate.username;

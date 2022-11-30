@@ -37,6 +37,43 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase {
 
         System.out.println("User Created =v \n" + response.toString());
     }
+
+    @Override
+    public void getLikes(RequestGetLikes request, StreamObserver<ResponseGetLikes> responseObserver) {
+        System.out.println("Received Request =v \n" + request.toString());
+        ResponseGetLikes response = null;
+        try
+        {
+            response = database.GetLikes(request.getPostId());
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+
+        System.out.println("Users which liked post with id" + request.getPostId() +  "=> \n" + response.toString());
+
+    }
+
+    @Override
+    public void countLikes(RequestCountLikes request, StreamObserver<ResponseCountLikes> responseObserver) {
+        System.out.println("Received Request =v \n" + request.toString());
+        ResponseCountLikes response = null;
+        try
+        {
+            response = database.CountLikes(request.getPostId());
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+        System.out.println("Post with id" + request.getPostId() +  " has => \n" + response.toString() + " likes");
+
+    }
+
     @Override
     public void likePost(RequestLikePost request, StreamObserver<ResponseLikePost> responseObserver) {
         System.out.println("Received Request =v \n" + request.toString());
