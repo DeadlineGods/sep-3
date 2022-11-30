@@ -9,9 +9,9 @@ public class UserLogic : IUserLogic
 {
 	private readonly IUserDao UserDao;
 
-	public UserLogic(IUserDao userDao, IPostDao postDao)
+	public UserLogic(IUserDao userDao)
 	{
-		Dao = dao;
+		UserDao = userDao;
 	}
 
 	public async Task<User> CreateAsync(UserCreationDto dto)

@@ -1,18 +1,14 @@
 ﻿@page "/posts/create"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
-@using System.Security.AccessControl
-@using System.Xml
-@using System.Collections
-@using System.Net
-
-@inject AuthenticationStateProvider AuthenticationStateProvider;
 @using Domain.Models
 @using global::Shared
 @using UIComponents
-@inject AuthenticationStateProvider AuthenticationStateProvider;
+@using System.Security.Claims
+@using BlazorWasm.Services
 @inject NavigationManager navMgr
 @inject IPostService postService
+@inject IAuthService authService
 @inject HttpClient Http
 
 @inject IImageUploadService imageUploadService
@@ -110,10 +106,12 @@
 	        Coordinate coordinates = await Map.GetCoordinates();
 
 	        // get user id
-			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+	        ClaimsPrincipal context = await authService.GetAuthAsync();
+	        var claims = context.Identities.First().Claims.ToList();
+	        string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+	        long userId = long.Parse(userIdAsStrubg);
 
-            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, coordinates);
+            PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, postTags, coordinates);
 
             id = await postService.CreateAsync(dto);
 

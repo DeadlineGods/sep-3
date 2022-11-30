@@ -12,9 +12,9 @@
     <a href="PostDetails/@Post.Id">
         <div>@Post.Title</div>
         <div>@Post.PostedOn</div>
-        <div>@Post.Location</div>
+        <div>@Post.Coordinate</div>
         <div>@Post.Description</div>
-        <div><!--image--></div>
+		<img src="@Post.ImgUrl" alt="thumbnail"/>
         <div>@Post.Owner.UserName</div>
         <div>@Post.Likes</div>
     </a>
