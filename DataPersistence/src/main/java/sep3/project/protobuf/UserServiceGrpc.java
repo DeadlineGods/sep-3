@@ -76,6 +76,68 @@ public final class UserServiceGrpc {
     return getLikePostMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestUnLikePost,
+      sep3.project.protobuf.UserEmpty> getUnLikePostMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UnLikePost",
+      requestType = sep3.project.protobuf.RequestUnLikePost.class,
+      responseType = sep3.project.protobuf.UserEmpty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestUnLikePost,
+      sep3.project.protobuf.UserEmpty> getUnLikePostMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestUnLikePost, sep3.project.protobuf.UserEmpty> getUnLikePostMethod;
+    if ((getUnLikePostMethod = UserServiceGrpc.getUnLikePostMethod) == null) {
+      synchronized (UserServiceGrpc.class) {
+        if ((getUnLikePostMethod = UserServiceGrpc.getUnLikePostMethod) == null) {
+          UserServiceGrpc.getUnLikePostMethod = getUnLikePostMethod =
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestUnLikePost, sep3.project.protobuf.UserEmpty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UnLikePost"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.RequestUnLikePost.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.UserEmpty.getDefaultInstance()))
+              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("UnLikePost"))
+              .build();
+        }
+      }
+    }
+    return getUnLikePostMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestIsPostLiked,
+      sep3.project.protobuf.ResponseIsPostLiked> getIsPostLikedMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "IsPostLiked",
+      requestType = sep3.project.protobuf.RequestIsPostLiked.class,
+      responseType = sep3.project.protobuf.ResponseIsPostLiked.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestIsPostLiked,
+      sep3.project.protobuf.ResponseIsPostLiked> getIsPostLikedMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestIsPostLiked, sep3.project.protobuf.ResponseIsPostLiked> getIsPostLikedMethod;
+    if ((getIsPostLikedMethod = UserServiceGrpc.getIsPostLikedMethod) == null) {
+      synchronized (UserServiceGrpc.class) {
+        if ((getIsPostLikedMethod = UserServiceGrpc.getIsPostLikedMethod) == null) {
+          UserServiceGrpc.getIsPostLikedMethod = getIsPostLikedMethod =
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestIsPostLiked, sep3.project.protobuf.ResponseIsPostLiked>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "IsPostLiked"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.RequestIsPostLiked.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.ResponseIsPostLiked.getDefaultInstance()))
+              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("IsPostLiked"))
+              .build();
+        }
+      }
+    }
+    return getIsPostLikedMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetUsers,
       sep3.project.protobuf.ResponseGetUsers> getGetUsersMethod;
 
@@ -233,6 +295,20 @@ public final class UserServiceGrpc {
 
     /**
      */
+    public void unLikePost(sep3.project.protobuf.RequestUnLikePost request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.UserEmpty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUnLikePostMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void isPostLiked(sep3.project.protobuf.RequestIsPostLiked request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseIsPostLiked> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getIsPostLikedMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void getUsers(sep3.project.protobuf.RequestGetUsers request,
         io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUsersMethod(), responseObserver);
@@ -268,6 +344,20 @@ public final class UserServiceGrpc {
                 sep3.project.protobuf.RequestLikePost,
                 sep3.project.protobuf.ResponseLikePost>(
                   this, METHODID_LIKE_POST)))
+          .addMethod(
+            getUnLikePostMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                sep3.project.protobuf.RequestUnLikePost,
+                sep3.project.protobuf.UserEmpty>(
+                  this, METHODID_UN_LIKE_POST)))
+          .addMethod(
+            getIsPostLikedMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                sep3.project.protobuf.RequestIsPostLiked,
+                sep3.project.protobuf.ResponseIsPostLiked>(
+                  this, METHODID_IS_POST_LIKED)))
           .addMethod(
             getGetUsersMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -325,6 +415,22 @@ public final class UserServiceGrpc {
 
     /**
      */
+    public void unLikePost(sep3.project.protobuf.RequestUnLikePost request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.UserEmpty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUnLikePostMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void isPostLiked(sep3.project.protobuf.RequestIsPostLiked request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseIsPostLiked> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getIsPostLikedMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void getUsers(sep3.project.protobuf.RequestGetUsers request,
         io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -374,6 +480,20 @@ public final class UserServiceGrpc {
     public sep3.project.protobuf.ResponseLikePost likePost(sep3.project.protobuf.RequestLikePost request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getLikePostMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sep3.project.protobuf.UserEmpty unLikePost(sep3.project.protobuf.RequestUnLikePost request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUnLikePostMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sep3.project.protobuf.ResponseIsPostLiked isPostLiked(sep3.project.protobuf.RequestIsPostLiked request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getIsPostLikedMethod(), getCallOptions(), request);
     }
 
     /**
@@ -430,6 +550,22 @@ public final class UserServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.UserEmpty> unLikePost(
+        sep3.project.protobuf.RequestUnLikePost request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUnLikePostMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseIsPostLiked> isPostLiked(
+        sep3.project.protobuf.RequestIsPostLiked request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getIsPostLikedMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetUsers> getUsers(
         sep3.project.protobuf.RequestGetUsers request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -455,9 +591,11 @@ public final class UserServiceGrpc {
 
   private static final int METHODID_CREATE_USER = 0;
   private static final int METHODID_LIKE_POST = 1;
-  private static final int METHODID_GET_USERS = 2;
-  private static final int METHODID_GET_LIKES = 3;
-  private static final int METHODID_COUNT_LIKES = 4;
+  private static final int METHODID_UN_LIKE_POST = 2;
+  private static final int METHODID_IS_POST_LIKED = 3;
+  private static final int METHODID_GET_USERS = 4;
+  private static final int METHODID_GET_LIKES = 5;
+  private static final int METHODID_COUNT_LIKES = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -483,6 +621,14 @@ public final class UserServiceGrpc {
         case METHODID_LIKE_POST:
           serviceImpl.likePost((sep3.project.protobuf.RequestLikePost) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseLikePost>) responseObserver);
+          break;
+        case METHODID_UN_LIKE_POST:
+          serviceImpl.unLikePost((sep3.project.protobuf.RequestUnLikePost) request,
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.UserEmpty>) responseObserver);
+          break;
+        case METHODID_IS_POST_LIKED:
+          serviceImpl.isPostLiked((sep3.project.protobuf.RequestIsPostLiked) request,
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseIsPostLiked>) responseObserver);
           break;
         case METHODID_GET_USERS:
           serviceImpl.getUsers((sep3.project.protobuf.RequestGetUsers) request,
@@ -559,6 +705,8 @@ public final class UserServiceGrpc {
               .setSchemaDescriptor(new UserServiceFileDescriptorSupplier())
               .addMethod(getCreateUserMethod())
               .addMethod(getLikePostMethod())
+              .addMethod(getUnLikePostMethod())
+              .addMethod(getIsPostLikedMethod())
               .addMethod(getGetUsersMethod())
               .addMethod(getGetLikesMethod())
               .addMethod(getCountLikesMethod())

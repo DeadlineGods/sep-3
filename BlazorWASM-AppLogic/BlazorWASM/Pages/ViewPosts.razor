@@ -2,9 +2,12 @@
 @using Domain.Models
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
+@using System.Security.Claims
+@using BlazorWasm.Services
 @inject IPostService postService
 @inject NavigationManager navMgr
 @inject IUserService userService
+@inject IAuthService authService
 
 
 
@@ -31,27 +34,14 @@ else
                 <div>@post.Description</div>
                 <div><!--image--></div>
                 <div>@post.Owner.UserName</div>
-                <div>@Convert(@post.Id);</div>
-                <div>@returnInt(post.Id)</div>
+                <div>@post.Likes</div>
             </a>
-            @if (likedPosts.Contains(post.Id))
-            {
-                <div class="field">
-                    <button class="like-button" role="button">Like
+            
+            <div class="field">
+                    <button @onclick="@(() => LikePost(post.Id))" class="like-button" role="button">Like
                         <img class="icon" src="img/like_pressed.svg"/>
                     </button>
                 </div>
-            }
-            @if(!likedPosts.Contains(post.Id))
-            {
-
-                <div class="field">
-                    <button class="like-button" role="button"
-                            @onclick="() => LikePost(post.Id)">Like
-                        <img class="icon" src="img/like_notpressed.svg"/>
-                    </button>
-                </div>
-            }
         </div>
     }
 }
@@ -67,18 +57,19 @@ else
     private int count;
     [Parameter]
     public string? Id { get; set; }
-    private string userId;
-    List<int> likedPosts;
+    private long userId;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            likedPosts = new List<int>();
-            likedPosts.Clear();
-            //likedPosts = await userService.getLikedPostsAsync();
+            ClaimsPrincipal context = await authService.GetAuthAsync();
+            var claims = context.Identities.First().Claims.ToList();
+            string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+            Console.WriteLine("User id: " + long.Parse(id));
+            userId=long.Parse(id);
+            
             posts = await postService.GetAsync();
-
         }
         catch (Exception e)
         {
@@ -88,25 +79,12 @@ else
     }
 
     async Task LikePost(int postId)
-
-    private async Task<int> CountLikes(int id)
     {
-
         try
         {
-            /*
-            ClaimsPrincipal context = await authService.GetAuthAsync();
-                var claims = context.Identities.First().Claims.ToList();
-                string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-            Console.WriteLine("User id: " + long.Parse(id));
-            LikePostDto dto = new LikePostDto(Id, long.Parse(id));
-            */
-
-            long userID = 1;
-            LikePostDto dto = new LikePostDto(postId, userID);
-            Console.WriteLine($"Post id: {postId}, user id: {userID}");
+            LikePostDto dto = new LikePostDto(postId, userId);
+            Console.WriteLine($"Post id: {postId}, user id: {userId}");
             await userService.LikePost(dto);
-            likedPosts.Add(postId);
         }
         catch (Exception e)
         {
@@ -114,10 +92,4 @@ else
             throw;
         }
     }
-
-        count = await userService.CountLikes(id);
-        
-        return count;
-    }
-
 }

@@ -6,6 +6,8 @@ option java_package = "sep3.project.protobuf";
 service UserService{
   rpc CreateUser(RequestCreateUser) returns (UserData);
   rpc LikePost(RequestLikePost) returns (ResponseLikePost);
+  rpc UnLikePost(RequestUnLikePost) returns (UserEmpty);
+  rpc IsPostLiked(RequestIsPostLiked) returns (ResponseIsPostLiked);
   rpc GetUsers(RequestGetUsers) returns (ResponseGetUsers);
   rpc GetLikes(RequestGetLikes) returns (ResponseGetLikes);
   rpc CountLikes(RequestCountLikes) returns(ResponseCountLikes);
@@ -68,4 +70,22 @@ message RequestCountLikes
 message ResponseCountLikes
 {
   int32 likesNo = 1;
+}
+
+message UserEmpty {
+
+}
+
+message RequestUnLikePost {
+  int32 postId=1;
+  int64 userId=2;
+}
+
+message RequestIsPostLiked {
+  int32 postId=1;
+  int64 userId=2;
+}
+
+message ResponseIsPostLiked {
+  bool isLiked = 1;
 }

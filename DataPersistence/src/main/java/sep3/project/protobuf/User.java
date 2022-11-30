@@ -64,6 +64,26 @@ public final class User {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ResponseCountLikes_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_UserEmpty_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_UserEmpty_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RequestUnLikePost_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RequestUnLikePost_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RequestIsPostLiked_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RequestIsPostLiked_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ResponseIsPostLiked_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ResponseIsPostLiked_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -89,15 +109,21 @@ public final class User {
       "RequestGetLikes\022\016\n\006postId\030\001 \001(\005\"+\n\020Respo" +
       "nseGetLikes\022\027\n\004user\030\001 \003(\0132\t.UserData\"#\n\021" +
       "RequestCountLikes\022\016\n\006postId\030\001 \001(\005\"%\n\022Res" +
-      "ponseCountLikes\022\017\n\007likesNo\030\001 \001(\0052\204\002\n\013Use" +
+      "ponseCountLikes\022\017\n\007likesNo\030\001 \001(\005\"\013\n\tUser" +
+      "Empty\"3\n\021RequestUnLikePost\022\016\n\006postId\030\001 \001" +
+      "(\005\022\016\n\006userId\030\002 \001(\003\"4\n\022RequestIsPostLiked" +
+      "\022\016\n\006postId\030\001 \001(\005\022\016\n\006userId\030\002 \001(\003\"&\n\023Resp" +
+      "onseIsPostLiked\022\017\n\007isLiked\030\001 \001(\0102\354\002\n\013Use" +
       "rService\022+\n\nCreateUser\022\022.RequestCreateUs" +
       "er\032\t.UserData\022/\n\010LikePost\022\020.RequestLikeP" +
-      "ost\032\021.ResponseLikePost\022/\n\010GetUsers\022\020.Req" +
-      "uestGetUsers\032\021.ResponseGetUsers\022/\n\010GetLi" +
-      "kes\022\020.RequestGetLikes\032\021.ResponseGetLikes" +
-      "\0225\n\nCountLikes\022\022.RequestCountLikes\032\023.Res" +
-      "ponseCountLikesB\031\n\025sep3.project.protobuf" +
-      "P\001b\006proto3"
+      "ost\032\021.ResponseLikePost\022,\n\nUnLikePost\022\022.R" +
+      "equestUnLikePost\032\n.UserEmpty\0228\n\013IsPostLi" +
+      "ked\022\023.RequestIsPostLiked\032\024.ResponseIsPos" +
+      "tLiked\022/\n\010GetUsers\022\020.RequestGetUsers\032\021.R" +
+      "esponseGetUsers\022/\n\010GetLikes\022\020.RequestGet" +
+      "Likes\032\021.ResponseGetLikes\0225\n\nCountLikes\022\022" +
+      ".RequestCountLikes\032\023.ResponseCountLikesB" +
+      "\031\n\025sep3.project.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -163,6 +189,30 @@ public final class User {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ResponseCountLikes_descriptor,
         new java.lang.String[] { "LikesNo", });
+    internal_static_UserEmpty_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_UserEmpty_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_UserEmpty_descriptor,
+        new java.lang.String[] { });
+    internal_static_RequestUnLikePost_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_RequestUnLikePost_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RequestUnLikePost_descriptor,
+        new java.lang.String[] { "PostId", "UserId", });
+    internal_static_RequestIsPostLiked_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_RequestIsPostLiked_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RequestIsPostLiked_descriptor,
+        new java.lang.String[] { "PostId", "UserId", });
+    internal_static_ResponseIsPostLiked_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_ResponseIsPostLiked_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ResponseIsPostLiked_descriptor,
+        new java.lang.String[] { "IsLiked", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

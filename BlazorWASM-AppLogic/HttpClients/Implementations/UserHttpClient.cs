@@ -61,7 +61,7 @@ public class UserHttpClient : IUserService
 
     public async Task<Like> LikePost(LikePostDto dto)
     {
-        Console.WriteLine(dto.ToString() + "    id:  " + dto.postId + dto.userId);
+        Console.WriteLine(dto.ToString() + "    ids:  " + dto.postId + " " + dto.userId);
         if (dto.ToString().Equals(""))
         {
             throw new Exception("XD empty");

@@ -89,6 +89,43 @@ public class UserDatabase implements UserPersistence {
     }
 
     @Override
+    public void UnLikePost(int postId, long userId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        try {
+            String sql = "DELETE FROM likepost WHERE post_id = ? AND user_id = ?";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, postId);
+            ps.setLong(2, userId);
+
+            ps.execute();
+        } finally {
+            connection.close();
+        }
+    }
+
+    @Override
+    public ResponseIsPostLiked IsPostLiked(int postId, long userId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        ResponseIsPostLiked response = null;
+        try {
+            String sql = "";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, postId);
+            ps.setLong(2, userId);
+
+            ps.execute();
+        } finally {
+            connection.close();
+        }
+
+
+    }
+
+    @Override
     public ResponseGetLikes GetLikes(int postId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         List<UserData> usersList = new ArrayList<>();
@@ -210,7 +247,7 @@ public class UserDatabase implements UserPersistence {
 
         try {
             statement = connection.prepareStatement(
-                    "SELECT * FROM \"User\" WHERE lower(user_name) LIKE '%' || ? || '%'");
+                    "SELECT * FROM \"User\" WHERE user_name LIKE '%' || ? || '%'");
 
             statement.setString(1,username);
             return statement.executeQuery();
