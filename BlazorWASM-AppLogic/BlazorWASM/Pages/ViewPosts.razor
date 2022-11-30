@@ -19,10 +19,10 @@ else if (!posts.Any())
 }
 else
 {
-    int countIntH = 22;
+    
     @foreach (var post in posts)
     {
-        
+
         <div class="post-card">
             <a href="PostDetails/@post.Id">
                 <div>@post.Title</div>
@@ -32,7 +32,7 @@ else
                 <div><!--image--></div>
                 <div>@post.Owner.UserName</div>
                 <div>@Convert(@post.Id);</div>
-                <div></div>
+                <div>@returnInt(post.Id)</div>
             </a>
         </div>
     }
@@ -64,12 +64,18 @@ else
         }
     }
 
-    async Task<int> CountLikes(int id)
+     async Task<int> CountLikes(int id)
     {
         Console.WriteLine("XDd");
         count = await userService.CountLikes(id);
 
         return count;
+    }
+    
+    async Task<int> returnInt(int id)
+    {
+        int x = (await userService.CountLikes(id));
+        return x;
     }
 
     private int Convert(int id )
