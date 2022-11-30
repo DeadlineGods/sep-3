@@ -46,7 +46,13 @@ public class PostLogic : IPostLogic
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
     {
-        return await postDao.GetAsync(parameters);
+        IEnumerable<Post> posts = await postDao.GetAsync(parameters);
+        foreach (var post in posts)
+        {
+            post.Likes = await userDao.CountLikesAsync(post.Id);
+        }
+
+        return posts;
     }
 
     public async Task DeleteAsync(int id)

@@ -15,13 +15,14 @@
 else if (!posts.Any())
 {
     <p>No posts to display</p>
-
+    
 }
 else
 {
-
+    
     @foreach (var post in posts)
     {
+
         <div class="post-card">
             <a href="PostDetails/@post.Id">
                 <div>@post.Title</div>
@@ -30,8 +31,8 @@ else
                 <div>@post.Description</div>
                 <div><!--image--></div>
                 <div>@post.Owner.UserName</div>
-                <div>@post.Likes</div>
-                <div>@post.Tags</div>
+                <div>@Convert(@post.Id);</div>
+                <div>@returnInt(post.Id)</div>
             </a>
             @if (likedPosts.Contains(post.Id))
             {
@@ -87,6 +88,8 @@ else
     }
 
     async Task LikePost(int postId)
+
+    private async Task<int> CountLikes(int id)
     {
 
         try
@@ -110,6 +113,11 @@ else
             Console.WriteLine(e);
             throw;
         }
+    }
+
+        count = await userService.CountLikes(id);
+        
+        return count;
     }
 
 }
