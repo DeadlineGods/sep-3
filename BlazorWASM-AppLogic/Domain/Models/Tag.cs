@@ -7,7 +7,7 @@ public class Tag
     public String tagName{ get; set; }
     public int? postId { get; set; }
 
-    public Tag(String tagName)
+    public Tag(string tagName)
     {
         this.tagName = tagName;
     }

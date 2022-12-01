@@ -2,17 +2,17 @@ using Application.DAOsInterfaces;
 using Domain.DTOs;
 using Domain.Models;
 using Grpc.Net.Client;
+using GrpcClient;
+using Tags = Domain.Models.Tag;
 
 namespace Application.GrpcClients;
 
 public class TagGrpcClient : ITagDao
 {
-    private readonly ITagDao tagDao;
     private readonly IPostDao postDao;
 
-    public TagGrpcClient(ITagDao tagDao, IPostDao postDao)
+    public TagGrpcClient(IPostDao postDao)
     {
-        this.tagDao = tagDao;
         this.postDao = postDao;
     }
 
