@@ -450,7 +450,12 @@
                                             <img src="assets/images/avatars/avatar-2.jpg" class="bg-gray-200 border border-white rounded-full w-8 h-8">
                                         </div>
                                     </a>
-                                    <span class="block capitalize font-semibold dark:text-gray-100"> @post.Owner.UserName </span>
+                                    <div class="preTitle">
+                                        <span class="block capitalize font-semibold dark:text-gray-100"> @post.Owner.UserName </span>
+                                        <span class="block capitalize font-normal dark:text-gray-100"> @post.Owner.UserName </span>
+                                    </div>
+                                    
+                                    
                                 </div>
                               <div>
                                 <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
@@ -490,10 +495,14 @@
                                 </div>
                               </div>
                             </div>
-    
+                            <div class="titleBox">
+                                <h3>Lorem</h3>
+                            </div>
                             <div uk-lightbox>
                                 <a href="assets/images/post/img4.jpg">  
-                                    <img src="assets/images/post/img4.jpg" alt="">
+                                    @* <img src="assets/images/post/img4.jpg" alt=""> *@
+                                    <img src="@post.ImgUrl" alt="thumbnail"/>
+
                                 </a>
                             </div>
                             
@@ -534,6 +543,9 @@
                                         Liked <strong> Johnson</strong> and <strong> 209 Others </strong>
                                     </div>
                                 </div>
+                                 <div class="p-3 ">
+                                    @post.Description
+                                 </div>
 
                                 <div class="border-t pt-4 space-y-4 dark:border-gray-600">
                                     <div class="flex">
