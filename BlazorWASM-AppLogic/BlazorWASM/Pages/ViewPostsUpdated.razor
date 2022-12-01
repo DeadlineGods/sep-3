@@ -452,7 +452,7 @@
                                     </a>
                                     <div class="preTitle">
                                         <span class="block capitalize font-semibold dark:text-gray-100"> @post.Owner.UserName </span>
-                                        <span class="block capitalize font-normal dark:text-gray-100"> @post.Owner.UserName </span>
+                                        <span class="block capitalize font-normal dark:text-gray-100">  @post.Location</span>
                                     </div>
                                     
                                     
@@ -495,8 +495,10 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="titleBox">
-                                <h3>Lorem</h3>
+                            <div class="titleDateBox flex justify-between">
+                                <h3 class="ml-4">@post.Title</h3>
+                                <p class="text-xs mr-4" >@post.PostedOn</p>
+
                             </div>
                             <div uk-lightbox>
                                 <a href="assets/images/post/img4.jpg">  
@@ -540,13 +542,22 @@
                                         <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
                                     </div>
                                     <div class="dark:text-gray-100">
-                                        Liked <strong> Johnson</strong> and <strong> 209 Others </strong>
+                                        Liked by <strong>@post.Likes</strong> people
                                     </div>
                                 </div>
                                  <div class="p-3 ">
                                     @post.Description
                                  </div>
-
+                                 <div class="lg:m-0 -mx-5 flex justify-between py-4 relative space-x-3  dark-tabs"  style="">
+                                                    <div class="flex flex-wrap lg:pl-0 pl-5 space-x-3">
+                                                       <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Shop</a>
+                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> headphones  </a>
+                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Parfums </a>
+                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Fruits </a>
+                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Mobiles  </a>
+                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Laptops </a>
+                                                    </div>
+                                                </div>
                                 <div class="border-t pt-4 space-y-4 dark:border-gray-600">
                                     <div class="flex">
                                         <div class="w-10 h-10 rounded-full relative flex-shrink-0">
