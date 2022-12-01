@@ -58,7 +58,7 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 	}
 	@Override
 	public void deletePost(RequestDeletePost request, StreamObserver<EmptyPost> responseObserver) {
-		System.out.println("Received Request =>\n" + request.toString());
+		System.out.println("Received Request to delete=>\n" + request.toString());
 		try
 		{
 			database.deletePost(request.getId());
