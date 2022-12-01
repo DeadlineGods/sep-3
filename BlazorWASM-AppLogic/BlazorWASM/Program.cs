@@ -21,6 +21,7 @@ builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri(builder.H
 builder.Services.AddScoped<IPostService, PostHttpClient>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
 builder.Services.AddScoped<IImageUploadService, ImageUploadHttpClient>();
+builder.Services.AddScoped<ITagService, TagHttpClient>();
     
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 

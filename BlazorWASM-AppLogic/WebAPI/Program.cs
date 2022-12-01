@@ -22,8 +22,15 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
 builder.Services.AddScoped<IPostDao, PostGrpcClient>();
 
+/*
+builder.Services.AddScoped<ITagDao, TagGrpcClient>();
+builder.Services.AddScoped<ITagLogic, TagLogic>();
+
+
 builder.Services.AddScoped<IUserDao, UserGrpcClient>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
+*/
+
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
