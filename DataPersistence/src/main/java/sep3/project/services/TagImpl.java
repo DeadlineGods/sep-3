@@ -30,6 +30,7 @@ public class TagImpl extends TagServiceGrpc.TagServiceImplBase {
             throw new RuntimeException(e);
         }
 
+
         ResponseGetPostTag tags = ResponseGetPostTag.newBuilder()
                 .addAllTags(list).build();
 
