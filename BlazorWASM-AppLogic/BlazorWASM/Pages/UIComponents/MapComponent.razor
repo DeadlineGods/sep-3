@@ -1,0 +1,30 @@
+@using Domain.Models
+@using System.Text.Json
+@namespace UIComponents
+@inject IJSRuntime JSRuntime
+
+<div id="map" style="height:500px;width:100%;"></div>
+
+@code {
+	// [Parameter]
+	// public EventCallback<Coordinate> GetCoordinates { get; set; }
+	// public Coordinate/ Coordinate { get; set; }
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("initialize", null);
+		}
+
+	}
+
+	public async Task<Coordinate> GetCoordinates()
+	{
+		string data = await JSRuntime.InvokeAsync<string>("getData");
+
+		Coordinate? coordinates = JsonSerializer.Deserialize<Coordinate>(data);
+		Console.WriteLine(coordinates.latitude);
+		return coordinates;
+	}
+}

@@ -5,6 +5,7 @@ import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.PostData;
 import sep3.project.protobuf.ResponseGetUsers;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -16,18 +17,20 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public int createPost(String title, long userId, String description, String[] tags, String imageUrl) throws SQLException {
+	public int createPost(String title, long userId, String description, String[] tags, String imageUrl, float lat, float lng) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
 		try {
 			PreparedStatement statement = connection.prepareStatement("" +
-					"INSERT INTO post(title, user_id, description, image_url) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					"INSERT INTO post(title, user_id, description, image_url, latitude, longitude) VALUES(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, title);
 			statement.setLong(2, userId);
 			statement.setString(3, description);
 			statement.setString(4, imageUrl);
+			statement.setBigDecimal(5, BigDecimal.valueOf(lat));
+			statement.setBigDecimal(6, BigDecimal.valueOf(lng));
 
 			statement.execute();
 
@@ -54,7 +57,7 @@ public class PostDatabase implements PostPersistence {
 		try
 		{
 			PreparedStatement statement = connection.prepareStatement(
-					"DELETE FROM post " +
+					"DELETE FROM Post " +
 							"WHERE id = ?"
 			);
 			statement.setInt(1, id);
@@ -147,7 +150,7 @@ public class PostDatabase implements PostPersistence {
 			// first insert into TAG table
 			if (! containsTag(connection, tag)) {
 				statement = connection.prepareStatement("" +
-						"INSERT INTO tag(name) VALUES(?)");
+						"INSERT INTO Tag_list(tag_name) VALUES(?)");
 
 				statement.setString(1, tag);
 
@@ -156,7 +159,7 @@ public class PostDatabase implements PostPersistence {
 
 			// then insert also into join table, because tag_name is foreign key
 			statement = connection.prepareStatement("" +
-					"INSERT INTO posttag(post_id, tag_name) VALUES(?, ?)");
+					"INSERT INTO Post_tag(post_id, tag_name) VALUES(?, ?)");
 
 			statement.setInt(1, id);
 			statement.setString(2, tag);
@@ -166,7 +169,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	private boolean containsTag(Connection connection, String tag) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement("SELECT name from tag where name = ?");
+		PreparedStatement statement = connection.prepareStatement("SELECT tag_name from Tag_list where tag_name = ?");
 
 		statement.setString(1, tag);
 		ResultSet resultSet = statement.executeQuery();
@@ -178,7 +181,7 @@ public class PostDatabase implements PostPersistence {
 		PreparedStatement statement = null;
 
 		try {
-			statement = connection.prepareStatement("SELECT * FROM \"post\"");
+			statement = connection.prepareStatement("SELECT * FROM Post");
 
 			return statement.executeQuery();
 
@@ -192,7 +195,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE lower(title) LIKE '%' || ? || '%'");
+					"SELECT * FROM \"Post\" WHERE lower(title) LIKE '%' || ? || '%'");
 
 			statement.setString(1, titleContains);
 			return statement.executeQuery();
@@ -207,7 +210,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE id = ?");
+					"SELECT * FROM \"Post\" WHERE id = ?");
 
 			statement.setInt(1, id);
 			return statement.executeQuery();
@@ -222,7 +225,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE user_id = ?");
+					"SELECT * FROM \"Post\" WHERE user_id = ?");
 
 			statement.setLong(1, userId);
 			return statement.executeQuery();
@@ -236,7 +239,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE user_id = ? AND id=?");
+					"SELECT * FROM \"Post\" WHERE user_id = ? AND id=?");
 			statement.setLong(1, userId);
 			statement.setInt(2, id);
 			return statement.executeQuery();

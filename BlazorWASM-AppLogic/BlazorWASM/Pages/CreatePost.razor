@@ -1,17 +1,13 @@
 ﻿@page "/posts/create"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
-@using System.Security.AccessControl
-@using System.Xml
-@using System.Collections
-@using System.Net
+@using Domain.Models
 @using global::Shared
+@using UIComponents
 @inject AuthenticationStateProvider AuthenticationStateProvider;
 @inject NavigationManager navMgr
 @inject IPostService postService
 @inject IImageUploadService imageUploadService
-@inject HttpClient Http
-
 
 	<Alert Type="success" Show="@showAlert">
 		<p>Successfully created post!</p>
@@ -20,34 +16,36 @@
 	</Alert>
 
 <div class="card">
-    <h3>Create Post</h3>
-    <div class="form-group field">
-        <label>Title:</label>
-        <input type="text" @bind="postTitle"/>
-        <label>Body:</label>
-        <input type="text" @bind="postDescription"/>
-        <label>Tags</label>
-        <input type="text" @bind="newTag"/>
-        <button @onclick="@AddTag">add </button>
-        <InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
-    </div>
+	<h3>Create Post</h3>
+	<div class="form-group field">
+		<label>Title:</label>
+		<input type="text" @bind="postTitle"/>
+		<label>Body:</label>
+		<input type="text" @bind="postDescription"/>
+		<label>Tags</label>
+		<input type="text" @bind="newTag"/>
+		<button @onclick="@AddTag">add </button>
+		<InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
+	</div>
 
-    @foreach (string tag in postTags)
-    {
-        <div class="row">
-            @tag
-            <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-        </div>
-    }
+	@foreach (string tag in postTags)
+	{
+		<div class="row">
+			@tag
+			<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+		</div>
+	}
 
-    <div class="button-row">
-        @if (!string.IsNullOrEmpty(msg))
-        {
-            <label style="color: red">@msg</label>
-        }
-        <button @onclick="CreateAsync" class="acceptbtn">Create</button>
-    </div>
+	<div class="button-row">
+		@if (!string.IsNullOrEmpty(msg))
+		{
+			<label style="color: red">@msg</label>
+		}
+		<button @onclick="CreateAsync" class="acceptbtn">Create</button>
+	</div>
 </div>
+<MapComponent @ref="Map"></MapComponent>
+
 
 @code {
     private ImageFile? filesBase64 = null;
@@ -58,9 +56,12 @@
     private bool showAlert;
     private int id;
 
+	private MapComponent Map;
+
     private string msg = "";
 
-    private async Task OnChangeAsync(InputFileChangeEventArgs e)
+
+	private async Task OnChangeAsync(InputFileChangeEventArgs e)
     {
         msg = "";
         filesBase64 = null;
@@ -95,11 +96,17 @@
 
         try
         {
+	        // get image
             string imgUrl = await imageUploadService.UploadAsync(filesBase64);
+
+	        Coordinate coordinates = await Map.GetCoordinates();
+
+	        // get user id
+			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
             int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
 
-    // TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags);
+            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, coordinates);
+
             id = await postService.CreateAsync(dto);
 
 	        showAlert = true;
