@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
@@ -55,9 +56,20 @@ public class PostLogic : IPostLogic
         return posts;
     }
 
-    public async Task DeleteAsync(int id)
+
+
+    public async Task DeleteAsync(int post_id, int user_id)
     {
-        await postDao.DeleteAsync(id);
+        SearchPostParameters parameters = new SearchPostParameters(post_id);
+        IEnumerable<Post> posts = await GetAsync(parameters);
+        foreach (var post in posts)
+        {
+            if (post.Owner.Id == user_id)
+            {
+                await postDao.DeleteAsync(post_id);
+            }
+        }
+        
     }
 
     private void ValidatePost(PostCreationDto postCreationDto)

@@ -22,9 +22,9 @@ else
     
     @foreach (var post in posts)
     {
-
+        Id = post.Id;
         <div class="post-card">
-            <a href="PostDetails/@post.Id">
+            <a href="/posts/@post.Id">
                 <div>@post.Title</div>
                 <div>@post.PostedOn</div>
                 <div>@post.Location</div>
@@ -32,6 +32,10 @@ else
                 <div><!--image--></div>
                 <div>@post.Owner.UserName</div>
                 <div>@post.Likes</div>
+                <div>
+
+                </div>
+                
                 
             </a>
         </div>
@@ -48,7 +52,8 @@ else
     private string msg;
     private int count;
     [Parameter]
-    public string? Id { get; set; }
+    public int Id { get; set; }
+    
 
     protected override async Task OnInitializedAsync()
     {
@@ -63,13 +68,8 @@ else
             msg = e.Message;
         }
     }
+    
+    
 
-
-    private async Task<int> CountLikes(int id)
-    {
-        count = await userService.CountLikes(id);
-        
-        return count;
-    }
 
 }

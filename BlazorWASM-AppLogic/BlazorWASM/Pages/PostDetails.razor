@@ -1,4 +1,4 @@
-﻿@page "/posts/{id:int}"
+﻿@page "/posts/{Id:int}"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
@@ -11,6 +11,7 @@
 
 @if (post != null)
 {
+	userId = post.Owner.Id;
 	<div class="post-card">
 		<div>@post.Title</div>
 		<div>@post.PostedOn</div>
@@ -30,6 +31,16 @@
 				<LikePostButton OnLikeToggled="@PostLikeClicked"/>
 			}
 		</div>
+		<div>
+			        <AuthorizeView>
+                        <Authorized>
+                            @if (post.Owner.UserName == @context.User.Identity.Name)
+                            {
+                                <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+                            }
+                        </Authorized>
+                    </AuthorizeView>
+		</div>
 	</div>
 }
 else
@@ -40,7 +51,7 @@ else
 @code {
     private Post? post;
 	bool postLiked;
-	private string userId;
+	private long userId;
 	private bool isSucceed;
 
 
@@ -51,7 +62,7 @@ else
     {
 	    try
         {
-	        Console.WriteLine("I am here");
+	        
 
 	        IEnumerable<Post> posts = await postService.GetAsync(Id);
 	        post = posts.FirstOrDefault();
@@ -83,6 +94,20 @@ else
 				await userService.LikePost(dto);
 				isSucceed = true;
 			}
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
+	}
+	
+	private async Task Delete()
+	{
+		try
+		{
+			await postService.DeleteAsync(Id, post.Owner.Id);
+			navMgr.NavigateTo("/");
 		}
 		catch (Exception e)
 		{

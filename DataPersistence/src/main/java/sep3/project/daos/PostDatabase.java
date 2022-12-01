@@ -52,6 +52,53 @@ public class PostDatabase implements PostPersistence {
 
 		try
 		{
+			//deleting sub_comments
+			PreparedStatement statement_sub_comments = connection.prepareStatement(
+					"DELETE FROM sub_comment WHERE parent_comment IN " +
+							"(SELECT id FROM comment WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?))"
+			);
+			statement_sub_comments.setInt(1, id);
+			statement_sub_comments.execute();
+			//deleting comments
+			PreparedStatement statement_comments = connection.prepareStatement(
+					"DELETE FROM comment WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?)"
+			);
+			statement_comments.setInt(1, id);
+			statement_comments.execute();
+
+			//deleting likes
+			PreparedStatement statement_likes = connection.prepareStatement(
+					"DELETE FROM likepost WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?)"
+			);
+			statement_likes.setInt(1, id);
+			statement_likes.execute();
+
+			//deleting reports
+			PreparedStatement statement_reports = connection.prepareStatement(
+					"DELETE FROM report WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?)"
+			);
+			statement_reports.setInt(1, id);
+			statement_reports.execute();
+
+			//deleting post_tags
+			PreparedStatement statement_tags = connection.prepareStatement(
+					"DELETE FROM post_tag WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?)"
+			);
+
+			// deleting ban_post
+			PreparedStatement statement_ban = connection.prepareStatement(
+					"DELETE FROM ban_post WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?);"
+			);
+			statement_ban.setInt(1, id);
+			statement_ban.execute();
+
+			//deleting post
 			PreparedStatement statement = connection.prepareStatement(
 					"DELETE FROM post " +
 							"WHERE id = ?"

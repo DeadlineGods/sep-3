@@ -56,12 +56,13 @@ public class PostsController : ControllerBase
     }
 
 
-    [HttpDelete ("{id:int}")]
-    public async Task<ActionResult> DeleteAsync([FromRoute] int id)
+   
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] int id,[FromQuery] int user_id)
     {
         try
         {
-            await postLogic.DeleteAsync(id);
+            await postLogic.DeleteAsync(id, user_id);
             return Ok();
         }
         catch (Exception e)

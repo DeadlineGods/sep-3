@@ -82,14 +82,16 @@ public class PostHttpClient : IPostService
 	    return query;
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id, long user_id)
     {
-	    HttpResponseMessage response = await client.DeleteAsync("https://localhost:7196/posts/{id}");
+
+	    HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7196/posts/{id}?user_id={user_id}");
 	    string content = await response.Content.ReadAsStringAsync();
 	    if (!response.IsSuccessStatusCode)
 	    {
 		    throw new Exception(content);
 	    }
+
     }
 
     /*

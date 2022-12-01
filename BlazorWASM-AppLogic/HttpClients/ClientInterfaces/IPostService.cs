@@ -10,5 +10,5 @@ public interface IPostService
 {
     Task<int> CreateAsync(PostCreationDto postCreationDto);
     Task<ICollection<Post>> GetAsync(int? id = null, int? userId = null, string? titleContains = null);
-    Task DeleteAsync(int id);
+    Task DeleteAsync(int id, long user_id);
 }
