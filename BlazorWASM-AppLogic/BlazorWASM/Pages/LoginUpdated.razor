@@ -6,31 +6,7 @@
 
 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Favicon -->
-    <link href="assets/images/favicon.png" rel="icon" type="image/png">
-    
-    <!-- Basic Page Needs
-    ================================================== -->
-    <title>Instello Sharing Photos</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Instello - Sharing Photos platform HTML Template">
 
-    <!-- icons
-    ================================================== -->
-    <link rel="stylesheet" href="assets/css/icons.css">
-
-    <!-- CSS 
-    ================================================== -->
-    <link rel="stylesheet" href="assets/css/uikit.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/tailwind-dark.css">
-
-</head>
 
 <body class="bg-gray-100">
 <AuthorizeView>
@@ -73,7 +49,15 @@
                     </div>
                     <a href="#"> Forgot Your Password? </a>
                 </div>
-                <button type=""   @onclick="LoginAsync" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
+                  @if (!string.IsNullOrEmpty(errorLabel))
+                            {
+                                <div class="field">
+                                    <label style="color: red">
+                                        @errorLabel
+                                    </label>
+                                </div>
+                            }
+                <button  @onclick="LoginAsync"  @onclick:preventDefault="true"  class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
                 <div class="text-center mt-5 space-x-2">
                     <p class="text-base"> Not registered? <a href="form-register.html" class=""> Create a account </a></p>
                 </div>
@@ -113,14 +97,15 @@
 
     private async Task LoginAsync()
     {
-        Console.WriteLine("HERE");
+        //Console.WriteLine("HERE");
 
         errorLabel = "";
         try
         {
             await authService.LoginAsync(userName, password);
-            navMgr.NavigateTo("/Register");
-            Console.WriteLine("HERE");
+            navMgr.NavigateTo("/posts/all");
+            
+     //Console.WriteLine("HERE");
 
         }
         catch (Exception e)
