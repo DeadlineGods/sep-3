@@ -25,6 +25,9 @@ builder.Services.AddScoped<IPostDao, PostGrpcClient>();
 builder.Services.AddScoped<IUserDao, UserGrpcClient>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 
+builder.Services.AddScoped<ILocationDao, LocationGrpcClient>();
+builder.Services.AddScoped<ILocationLogic, LocationLogic>();
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {

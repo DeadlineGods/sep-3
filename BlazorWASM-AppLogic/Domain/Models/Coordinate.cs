@@ -10,4 +10,5 @@ public class Coordinate
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
 }
