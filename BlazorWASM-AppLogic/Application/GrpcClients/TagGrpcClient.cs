@@ -3,7 +3,6 @@ using Domain.DTOs;
 using Domain.Models;
 using Grpc.Net.Client;
 using GrpcClient;
-using Tags = Domain.Models.Tag;
 
 namespace Application.GrpcClients;
 
@@ -17,35 +16,34 @@ public class TagGrpcClient : ITagDao
     }
 
     
-    public async Task<IEnumerable<Tag>> GetAsync(SearchTagParameters searchParameters)
+    public async Task<IEnumerable<Tag>> GetPostTagAsync(SearchPostTagParameters searchParameters)
     {
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
-        /*
-        var client = new TagService.TagServiceClient(channel);
         
-        var reply = await client.GetTagAsync(
+        var client = new TagService.TagServiceClient(channel);
+
+        var reply = await client.GetPostTagAsync(
             new RequestGetPostTag
             {
-                PostId = parameters.PostId ?? 0,
-                TagContains = parameters.TagContains ?? ""
+                PostId = searchParameters.postId ?? 0,
+                TagContains = searchParameters.TagContains ?? ""
             });
 
         IList<Tag> tags = new List<Tag>();
         foreach (var replyTag in reply.Tags)
         {
-            tags.Add(await ConstructTagAsync(replyTag));
+            tags.Add(await ConstructPostTagAsync(replyTag));
         }
-        */
-        IList<Tag> tags = new List<Tag>();
+        
         return await Task.FromResult(tags);
     }
     
-    /*
-    private async Task<Tag> ConstructTagAsync(PostTagData reply)
+    
+    private async Task<Tag> ConstructPostTagAsync(PostTagData reply)
     {
         SearchPostParameters dto = new SearchPostParameters(reply.PostId, null, null);
         IEnumerable<Post> posts = await postDao.GetAsync(dto);
 
         return new Tag( reply.TagContains, posts.FirstOrDefault().Id);
-    }*/
+    }
 }

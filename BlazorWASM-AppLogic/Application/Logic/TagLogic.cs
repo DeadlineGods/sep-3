@@ -14,8 +14,8 @@ public class TagLogic : ITagLogic
         this.tagDao = tagDao;
     }
 
-    public async Task<IEnumerable<Tag>> GetAsync(SearchTagParameters searchParameters)
+    public async Task<IEnumerable<Tag>> GetPostTagAsync(SearchPostTagParameters searchParameters)
     {
-        return await tagDao.GetAsync(searchParameters);
+        return await tagDao.GetPostTagAsync(searchParameters);
     }
 }

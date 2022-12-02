@@ -17,15 +17,15 @@ public class TagController:ControllerBase
     }
     
     [HttpGet,Route("get")]
-    public async Task<ActionResult<Tag>> GetAsync
+    public async Task<ActionResult<Tag>> GetPostTagAsync
     (
         [FromQuery] string? TagContains,
         [FromQuery] int? postId
     ) {
         try
         {
-            SearchTagParameters parameters = new SearchTagParameters(TagContains, postId);
-            IEnumerable<Tag> tags = await tagLogic.GetAsync(parameters);
+            SearchPostTagParameters parameters = new SearchPostTagParameters(TagContains, postId);
+            IEnumerable<Tag> tags = await tagLogic.GetPostTagAsync(parameters);
             return Ok(tags);
         }
         catch (Exception e)
