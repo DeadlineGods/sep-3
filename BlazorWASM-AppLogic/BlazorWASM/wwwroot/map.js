@@ -1,16 +1,17 @@
 let map, infoWindow, marker;
-let exportPosition
+let exportPosition = { lat: -34.397, lng: 150.644 }
 
 function initialize() {
+
 	map = new google.maps.Map(document.getElementById("map"), {
-		center: { lat: -34.397, lng: 150.644 },
+		center: exportPosition,
 		zoom: 6,
 	});
 
 	marker = new google.maps.Marker({
 		// The below line is equivalent to writing:
 		// position: new google.maps.LatLng(-34.397, 150.644)
-		position: { lat: -34.397, lng: 150.644 },
+		position: exportPosition,
 		map: map,
 	});
 
@@ -32,7 +33,8 @@ function initialize() {
 	map.addListener("click", (e) => {
 		marker.setPosition(e.latLng)
 		map.panTo(e.latLng);
-		exportPosition = e.latLng
+		exportPosition.lat = e.latLng.lat()
+		exportPosition.lng = e.latLng.lng()
 	});
 
 	// uncomment for automatic location
