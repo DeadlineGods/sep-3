@@ -8,19 +8,11 @@
 @inject IAuthService authService
 @inject IUserService userService
 @inject NavigationManager navMgr
+@using UIComponents
 
 @if (post != null)
 {
-	<div class="post-card">
-		<div>@post.Title</div>
-		<div>@post.PostedOn</div>
-		<div>@post.Description</div>
-		<img src="@post.ImgUrl" alt="thumbnail"/>
-		<div>@post.Owner.UserName</div>
-		<div>@post.Likes</div>
-		<div>@post.Tags</div>
-		
-	</div>
+	<SinglePost Post="post"/>
 }
 else
 {
@@ -29,9 +21,6 @@ else
 
 @code {
     private Post? post;
-	
-
-
 	[Parameter]
     public int Id { get; set; }
 
@@ -39,13 +28,8 @@ else
     {
 	    try
         {
-	        Console.WriteLine("I am here");
-
 	        IEnumerable<Post> posts = await postService.GetAsync(Id);
 	        post = posts.FirstOrDefault();
-	        Console.WriteLine(post);
-	        //postLiked = await userService.IsPostLiked(Id);
-
         }
         catch (Exception e)
         {

@@ -60,7 +60,7 @@ public class LikeHttpClient : ILikeService
 
     public async Task<int> CountLikesAsync(int postId)
     {
-        HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Like/likes");
+        HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Like/likes/?postId="+postId);
         string result = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {

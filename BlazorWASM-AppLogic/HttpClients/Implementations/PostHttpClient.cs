@@ -48,7 +48,6 @@ public class PostHttpClient : IPostService
 		    throw new Exception(content);
 	    }
 
-	    Console.WriteLine(content);
 	    ICollection<Post> posts = JsonSerializer.Deserialize<ICollection<Post>>(content, new JsonSerializerOptions
 	    {
 		    PropertyNameCaseInsensitive = true

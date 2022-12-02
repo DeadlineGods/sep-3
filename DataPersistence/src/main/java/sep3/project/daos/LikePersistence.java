@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 @Component
 public interface LikePersistence {
+
     ResponseLikePost LikePost(int postId, long userId) throws SQLException;
     void UnLikePost(int postId, long userId) throws SQLException;
     ResponseIsPostLiked IsPostLiked(int postId, long userId) throws SQLException;

@@ -16,7 +16,10 @@ else
 {
     @foreach (var post in posts)
     {
-        <SinglePost Post="post"/>
+        <a href="posts/@post.Id">
+            <SinglePost Post="post"/>
+        </a>
+
     }
 }
 @if (!string.IsNullOrEmpty(msg))

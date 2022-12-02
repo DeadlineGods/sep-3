@@ -1,0 +1,100 @@
+﻿@using Domain.Models
+@using Domain.DTOs
+@using HttpClients.ClientInterfaces
+@using System.Security.Claims
+@using BlazorWasm.Services
+@namespace UIComponents
+@inject ILikeService likeService
+@inject IAuthService authService
+
+@if (isLiked)
+{
+    <div class="field">
+        <button
+            @onclick="@(() => UnlikePostAsync(PostId))"
+            @onclick:preventDefault="@true"
+            class="like-button" role="button">
+            Like
+            <img class="icon" src="img/like_pressed.svg"/>
+        </button>
+    </div>
+}
+else
+{
+    <div class="field">
+        <button
+            @onclick="@(() => LikePostAsync(PostId))"
+            @onclick:preventDefault="@true"
+            class="like-button" role="button">
+            Like
+            <img class="icon" src="img/like_notpressed.svg"/>
+        </button>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public int PostId { get; set; }
+    [Parameter]
+    public Action<int> UpdateParentsLikes { get; set; }
+
+    private long userId;
+    private bool isLiked = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ClaimsPrincipal context = await authService.GetAuthAsync();
+        var claims = context.Identities.First().Claims.ToList();
+        string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+        userId = long.Parse(id);
+        isLiked = await IsLikedAsync(PostId);
+    }
+
+
+    private async Task LikePostAsync(int postId)
+    {
+        try
+        {
+            LikePostDto dto = new LikePostDto(postId, userId);
+            isLiked = !isLiked;
+            UpdateParentsLikes(1);
+            await likeService.LikePostAsync(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private async Task UnlikePostAsync(int postId)
+    {
+        try
+        {
+            UnLikePostDto dto = new UnLikePostDto(postId, userId);
+            isLiked = !isLiked;
+            UpdateParentsLikes(-1);
+            await likeService.UnLikePostAsync(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private async Task<bool> IsLikedAsync(int postId)
+    {
+        try
+        {
+            IsPostLikedDto dto = new(postId, userId);
+            return await likeService.IsPostLikedAsync(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+}

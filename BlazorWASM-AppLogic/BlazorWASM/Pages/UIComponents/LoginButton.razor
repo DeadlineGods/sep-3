@@ -3,16 +3,17 @@
 @inject NavigationManager navMgr
 @inject IAuthService authService
 
-    <AuthorizeView>
+<AuthorizeView>
     <Authorized>
-    <img class="icon" src="img/Logout.png" @onclick="LogoutAsync"/>
+        <img class="icon" src="img/Logout.png" @onclick="LogoutAsync"/>
     </Authorized>
     <NotAuthorized>
-    <img class="icon" src="img/Login.png" @onclick="Login"/>
+        <img class="icon" src="img/Login.png" @onclick="Login"/>
     </NotAuthorized>
-    </AuthorizeView>
+</AuthorizeView>
 
-    @code {
+@code {
+
     private void Login()
     {
         navMgr.NavigateTo("/Login");
@@ -23,4 +24,5 @@
         await authService.LogoutAsync();
         navMgr.NavigateTo("/");
     }
+
 }
