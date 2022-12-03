@@ -13,10 +13,10 @@ public class TagHttpClient : ITagService
         this.client = client;
     }
 
-    public async Task<ICollection<TagPost>> GetAsync(int? postId = null, string? tagContains = null)
+    public async Task<ICollection<TagPost>> GetPostTagAsync(int? postId = null, string? tagContains = null)
     {
         string query = ConstructQuery(postId, tagContains);
-        HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Tags/get" + query);
+        HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Tag/getPostTag" + query);
 
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
@@ -26,6 +26,25 @@ public class TagHttpClient : ITagService
 
         Console.WriteLine(content);
         ICollection<TagPost> tags = JsonSerializer.Deserialize<ICollection<TagPost>>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+        return tags;
+    }
+    public async Task<ICollection<Tag>> GetTagListAsync(string? tagContains = null)
+    {
+        string query = ConstructQuery(null, tagContains);
+        HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Tag/getTagList" + query);
+
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        Console.WriteLine(content);
+        ICollection<Tag> tags = JsonSerializer.Deserialize<ICollection<Tag>>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
@@ -45,7 +64,7 @@ public class TagHttpClient : ITagService
         if (!string.IsNullOrEmpty(tagContains))
         {
             query += string.IsNullOrEmpty(query) ? "?" : "&";
-            query += $"tagContains={tagContains}";
+            query += $"TagContains={tagContains}";
         }
 
         return query;
