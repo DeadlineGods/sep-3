@@ -2,10 +2,10 @@
 
 public class UnLikePostDto
 {
-    public int postId { get; }
+    public long postId { get; }
     public long userId { get; }
 
-    public UnLikePostDto(int postId, long userId)
+    public UnLikePostDto(long postId, long userId)
     {
         this.postId = postId;
         this.userId = userId;

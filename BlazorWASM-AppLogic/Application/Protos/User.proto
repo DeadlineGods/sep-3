@@ -39,7 +39,7 @@ message ResponseGetUsers{
 
 message RequestGetLikes
 {
-	int32 postId = 1;
+	int64 postId = 1;
 }
 
 message ResponseGetLikes

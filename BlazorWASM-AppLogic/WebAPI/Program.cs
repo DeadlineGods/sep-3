@@ -28,6 +28,9 @@ builder.Services.AddScoped<IUserLogic, UserLogic>();
 builder.Services.AddScoped<ILikeDao, LikeGrpcClient>();
 builder.Services.AddScoped<ILikeLogic, LikeLogic>();
 
+builder.Services.AddScoped<ICommentDao, CommentGrpcClient>();
+builder.Services.AddScoped<ICommentLogic, CommentLogic>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.RequireHttpsMetadata = false;

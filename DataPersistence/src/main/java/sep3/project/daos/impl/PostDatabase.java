@@ -1,6 +1,7 @@
-package sep3.project.daos;
+package sep3.project.daos.impl;
 
 import org.lognet.springboot.grpc.GRpcService;
+import sep3.project.daos.interfaces.PostPersistence;
 import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.PostData;
 import sep3.project.protobuf.ResponseGetUsers;

@@ -8,12 +8,12 @@ namespace Application.GrpcClients;
 
 public class LikeGrpcClient : ILikeDao
 {
-    public async Task<int> CountLikesAsync(int postId)
+    public async Task<int> CountLikesAsync(long postId)
     {
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
         var client = new LikeService.LikeServiceClient(channel);
         
-        var reply = client.CountLikes
+        var reply = await client.CountLikesAsync
         (new RequestCountLikes()
         {
             PostId = postId

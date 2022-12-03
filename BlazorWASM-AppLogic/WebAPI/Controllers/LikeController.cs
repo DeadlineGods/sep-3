@@ -7,7 +7,7 @@ namespace WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class LikeController: ControllerBase
+public class LikeController : ControllerBase
 {
     private readonly ILikeLogic likeLogic;
     

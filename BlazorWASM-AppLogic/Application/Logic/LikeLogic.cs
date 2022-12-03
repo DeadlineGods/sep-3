@@ -81,7 +81,7 @@ public class LikeLogic : ILikeLogic
         return count;
     }
     
-    private async Task<bool> CheckIfPostExistsAsync(int id)
+    private async Task<bool> CheckIfPostExistsAsync(long id)
     {
         SearchPostParametersDto searchPostParametersDto = new(id, null, null);
         IEnumerable<Post> existingPosts = await PostDao.GetAsync(searchPostParametersDto);

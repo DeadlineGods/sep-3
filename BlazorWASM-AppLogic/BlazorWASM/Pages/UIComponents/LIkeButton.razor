@@ -35,7 +35,7 @@ else
 @code {
 
     [Parameter]
-    public int PostId { get; set; }
+    public long PostId { get; set; }
     [Parameter]
     public Action<int> UpdateParentsLikes { get; set; }
 
@@ -52,7 +52,7 @@ else
     }
 
 
-    private async Task LikePostAsync(int postId)
+    private async Task LikePostAsync(long postId)
     {
         try
         {
@@ -68,7 +68,7 @@ else
         }
     }
 
-    private async Task UnlikePostAsync(int postId)
+    private async Task UnlikePostAsync(long postId)
     {
         try
         {
@@ -84,7 +84,7 @@ else
         }
     }
 
-    private async Task<bool> IsLikedAsync(int postId)
+    private async Task<bool> IsLikedAsync(long postId)
     {
         try
         {

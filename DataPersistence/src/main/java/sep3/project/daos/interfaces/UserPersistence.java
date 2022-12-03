@@ -1,4 +1,4 @@
-package sep3.project.daos;
+package sep3.project.daos.interfaces;
 
 import org.springframework.stereotype.Component;
 import sep3.project.protobuf.*;

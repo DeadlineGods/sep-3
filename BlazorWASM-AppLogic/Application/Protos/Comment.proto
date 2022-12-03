@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+service CommentService{
+  rpc CreateComment(RequestCreateComment) returns(ResponseCreateComment);
+  rpc AssignCommentToParent(RequestAssignCommentToParent) returns(EmptyComment);
+  rpc GetComment(RequestGetComment) returns(CommentData);
+}
+
+message RequestCreateComment {
+  string body = 1;
+  int64 ownerId = 2;
+  int64 postId = 3;
+}
+
+message ResponseCreateComment {
+  int64 id = 1;
+}
+
+message RequestGetComment {
+  int64 id = 1;
+}
+
+message RequestAssignCommentToParent {
+  int64 id = 1;
+  int64 parentId = 2;
+}
+
+message CommentData{
+  int64 id = 1;
+  string body = 2;
+  int64 ownerId = 3;
+  int64 postId = 4;
+  int64 createdOnMilliseconds = 5;
+}
+
+message EmptyComment{
+  
+}

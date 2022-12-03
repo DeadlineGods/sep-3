@@ -3,8 +3,7 @@ package sep3.project.services;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import sep3.project.daos.LikePersistence;
-import sep3.project.daos.UserPersistence;
+import sep3.project.daos.interfaces.LikePersistence;
 import sep3.project.protobuf.*;
 
 import java.sql.SQLException;
