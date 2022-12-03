@@ -8,28 +8,18 @@ public interface PostTagDataOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>optional int32 postId = 1;</code>
-   * @return Whether the postId field is set.
-   */
-  boolean hasPostId();
-  /**
-   * <code>optional int32 postId = 1;</code>
+   * <code>int32 postId = 1;</code>
    * @return The postId.
    */
   int getPostId();
 
   /**
-   * <code>optional string tagContains = 2;</code>
-   * @return Whether the tagContains field is set.
-   */
-  boolean hasTagContains();
-  /**
-   * <code>optional string tagContains = 2;</code>
+   * <code>string tagContains = 2;</code>
    * @return The tagContains.
    */
   java.lang.String getTagContains();
   /**
-   * <code>optional string tagContains = 2;</code>
+   * <code>string tagContains = 2;</code>
    * @return The bytes for tagContains.
    */
   com.google.protobuf.ByteString

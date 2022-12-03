@@ -56,18 +56,16 @@ public final class Tag {
       "\n\ttag.proto\"]\n\021RequestGetPostTag\022\023\n\006post" +
       "Id\030\001 \001(\005H\000\210\001\001\022\030\n\013tagContains\030\002 \001(\tH\001\210\001\001B" +
       "\t\n\007_postIdB\016\n\014_tagContains\"0\n\022ResponseGe" +
-      "tPostTag\022\032\n\004tags\030\001 \003(\0132\014.PostTagData\"W\n\013" +
-      "PostTagData\022\023\n\006postId\030\001 \001(\005H\000\210\001\001\022\030\n\013tagC" +
-      "ontains\030\002 \001(\tH\001\210\001\001B\t\n\007_postIdB\016\n\014_tagCon" +
-      "tains\"=\n\021RequestGetTagList\022\030\n\013tagContain" +
-      "s\030\001 \001(\tH\000\210\001\001B\016\n\014_tagContains\"0\n\022Response" +
-      "GetTagList\022\032\n\004tags\030\001 \003(\0132\014.TagListData\"7" +
-      "\n\013TagListData\022\030\n\013tagContains\030\001 \001(\tH\000\210\001\001B" +
-      "\016\n\014_tagContains2z\n\nTagService\0225\n\nGetPost" +
-      "Tag\022\022.RequestGetPostTag\032\023.ResponseGetPos" +
-      "tTag\0225\n\nGetTagList\022\022.RequestGetTagList\032\023" +
-      ".ResponseGetTagListB\031\n\025sep3.project.prot" +
-      "obufP\001b\006proto3"
+      "tPostTag\022\032\n\004tags\030\001 \003(\0132\014.PostTagData\"2\n\013" +
+      "PostTagData\022\016\n\006postId\030\001 \001(\005\022\023\n\013tagContai" +
+      "ns\030\002 \001(\t\"=\n\021RequestGetTagList\022\030\n\013tagCont" +
+      "ains\030\001 \001(\tH\000\210\001\001B\016\n\014_tagContains\"0\n\022Respo" +
+      "nseGetTagList\022\032\n\004tags\030\001 \003(\0132\014.TagListDat" +
+      "a\"\"\n\013TagListData\022\023\n\013tagContains\030\001 \001(\t2z\n" +
+      "\nTagService\0225\n\nGetPostTag\022\022.RequestGetPo" +
+      "stTag\032\023.ResponseGetPostTag\0225\n\nGetTagList" +
+      "\022\022.RequestGetTagList\032\023.ResponseGetTagLis" +
+      "tB\031\n\025sep3.project.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -90,7 +88,7 @@ public final class Tag {
     internal_static_PostTagData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PostTagData_descriptor,
-        new java.lang.String[] { "PostId", "TagContains", "PostId", "TagContains", });
+        new java.lang.String[] { "PostId", "TagContains", });
     internal_static_RequestGetTagList_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_RequestGetTagList_fieldAccessorTable = new
@@ -108,7 +106,7 @@ public final class Tag {
     internal_static_TagListData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TagListData_descriptor,
-        new java.lang.String[] { "TagContains", "TagContains", });
+        new java.lang.String[] { "TagContains", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

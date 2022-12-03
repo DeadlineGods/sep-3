@@ -19,8 +19,8 @@ message ResponseGetPostTag{
 }
 
 message PostTagData{
-  optional int32 postId = 1;
-  optional string tagContains = 2;
+  int32 postId = 1;
+  string tagContains = 2;
 }
 
 message RequestGetTagList
@@ -32,5 +32,5 @@ message ResponseGetTagList{
   repeated TagListData tags = 1;
 }
 message TagListData{
-  optional string tagContains = 1;
+  string tagContains = 1;
 }

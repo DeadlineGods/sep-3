@@ -39,7 +39,6 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
-    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -51,13 +50,13 @@ private static final long serialVersionUID = 0L;
             done = true;
             break;
           case 8: {
-            bitField0_ |= 0x00000001;
+
             postId_ = input.readInt32();
             break;
           }
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
-            bitField0_ |= 0x00000002;
+
             tagContains_ = s;
             break;
           }
@@ -95,19 +94,10 @@ private static final long serialVersionUID = 0L;
             sep3.project.protobuf.PostTagData.class, sep3.project.protobuf.PostTagData.Builder.class);
   }
 
-  private int bitField0_;
   public static final int POSTID_FIELD_NUMBER = 1;
   private int postId_;
   /**
-   * <code>optional int32 postId = 1;</code>
-   * @return Whether the postId field is set.
-   */
-  @java.lang.Override
-  public boolean hasPostId() {
-    return ((bitField0_ & 0x00000001) != 0);
-  }
-  /**
-   * <code>optional int32 postId = 1;</code>
+   * <code>int32 postId = 1;</code>
    * @return The postId.
    */
   @java.lang.Override
@@ -118,15 +108,7 @@ private static final long serialVersionUID = 0L;
   public static final int TAGCONTAINS_FIELD_NUMBER = 2;
   private volatile java.lang.Object tagContains_;
   /**
-   * <code>optional string tagContains = 2;</code>
-   * @return Whether the tagContains field is set.
-   */
-  @java.lang.Override
-  public boolean hasTagContains() {
-    return ((bitField0_ & 0x00000002) != 0);
-  }
-  /**
-   * <code>optional string tagContains = 2;</code>
+   * <code>string tagContains = 2;</code>
    * @return The tagContains.
    */
   @java.lang.Override
@@ -143,7 +125,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>optional string tagContains = 2;</code>
+   * <code>string tagContains = 2;</code>
    * @return The bytes for tagContains.
    */
   @java.lang.Override
@@ -175,10 +157,10 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (((bitField0_ & 0x00000001) != 0)) {
+    if (postId_ != 0) {
       output.writeInt32(1, postId_);
     }
-    if (((bitField0_ & 0x00000002) != 0)) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(tagContains_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, tagContains_);
     }
     unknownFields.writeTo(output);
@@ -190,11 +172,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (((bitField0_ & 0x00000001) != 0)) {
+    if (postId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, postId_);
     }
-    if (((bitField0_ & 0x00000002) != 0)) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(tagContains_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, tagContains_);
     }
     size += unknownFields.getSerializedSize();
@@ -212,16 +194,10 @@ private static final long serialVersionUID = 0L;
     }
     sep3.project.protobuf.PostTagData other = (sep3.project.protobuf.PostTagData) obj;
 
-    if (hasPostId() != other.hasPostId()) return false;
-    if (hasPostId()) {
-      if (getPostId()
-          != other.getPostId()) return false;
-    }
-    if (hasTagContains() != other.hasTagContains()) return false;
-    if (hasTagContains()) {
-      if (!getTagContains()
-          .equals(other.getTagContains())) return false;
-    }
+    if (getPostId()
+        != other.getPostId()) return false;
+    if (!getTagContains()
+        .equals(other.getTagContains())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -233,14 +209,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (hasPostId()) {
-      hash = (37 * hash) + POSTID_FIELD_NUMBER;
-      hash = (53 * hash) + getPostId();
-    }
-    if (hasTagContains()) {
-      hash = (37 * hash) + TAGCONTAINS_FIELD_NUMBER;
-      hash = (53 * hash) + getTagContains().hashCode();
-    }
+    hash = (37 * hash) + POSTID_FIELD_NUMBER;
+    hash = (53 * hash) + getPostId();
+    hash = (37 * hash) + TAGCONTAINS_FIELD_NUMBER;
+    hash = (53 * hash) + getTagContains().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -375,9 +347,9 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       postId_ = 0;
-      bitField0_ = (bitField0_ & ~0x00000001);
+
       tagContains_ = "";
-      bitField0_ = (bitField0_ & ~0x00000002);
+
       return this;
     }
 
@@ -404,17 +376,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public sep3.project.protobuf.PostTagData buildPartial() {
       sep3.project.protobuf.PostTagData result = new sep3.project.protobuf.PostTagData(this);
-      int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
-      if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.postId_ = postId_;
-        to_bitField0_ |= 0x00000001;
-      }
-      if (((from_bitField0_ & 0x00000002) != 0)) {
-        to_bitField0_ |= 0x00000002;
-      }
+      result.postId_ = postId_;
       result.tagContains_ = tagContains_;
-      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -463,11 +426,10 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(sep3.project.protobuf.PostTagData other) {
       if (other == sep3.project.protobuf.PostTagData.getDefaultInstance()) return this;
-      if (other.hasPostId()) {
+      if (other.getPostId() != 0) {
         setPostId(other.getPostId());
       }
-      if (other.hasTagContains()) {
-        bitField0_ |= 0x00000002;
+      if (!other.getTagContains().isEmpty()) {
         tagContains_ = other.tagContains_;
         onChanged();
       }
@@ -499,19 +461,10 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
-    private int bitField0_;
 
     private int postId_ ;
     /**
-     * <code>optional int32 postId = 1;</code>
-     * @return Whether the postId field is set.
-     */
-    @java.lang.Override
-    public boolean hasPostId() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>optional int32 postId = 1;</code>
+     * <code>int32 postId = 1;</code>
      * @return The postId.
      */
     @java.lang.Override
@@ -519,22 +472,22 @@ private static final long serialVersionUID = 0L;
       return postId_;
     }
     /**
-     * <code>optional int32 postId = 1;</code>
+     * <code>int32 postId = 1;</code>
      * @param value The postId to set.
      * @return This builder for chaining.
      */
     public Builder setPostId(int value) {
-      bitField0_ |= 0x00000001;
+      
       postId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional int32 postId = 1;</code>
+     * <code>int32 postId = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearPostId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
+      
       postId_ = 0;
       onChanged();
       return this;
@@ -542,14 +495,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object tagContains_ = "";
     /**
-     * <code>optional string tagContains = 2;</code>
-     * @return Whether the tagContains field is set.
-     */
-    public boolean hasTagContains() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
-    /**
-     * <code>optional string tagContains = 2;</code>
+     * <code>string tagContains = 2;</code>
      * @return The tagContains.
      */
     public java.lang.String getTagContains() {
@@ -565,7 +511,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>optional string tagContains = 2;</code>
+     * <code>string tagContains = 2;</code>
      * @return The bytes for tagContains.
      */
     public com.google.protobuf.ByteString
@@ -582,7 +528,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>optional string tagContains = 2;</code>
+     * <code>string tagContains = 2;</code>
      * @param value The tagContains to set.
      * @return This builder for chaining.
      */
@@ -591,23 +537,23 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  
       tagContains_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional string tagContains = 2;</code>
+     * <code>string tagContains = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearTagContains() {
-      bitField0_ = (bitField0_ & ~0x00000002);
+      
       tagContains_ = getDefaultInstance().getTagContains();
       onChanged();
       return this;
     }
     /**
-     * <code>optional string tagContains = 2;</code>
+     * <code>string tagContains = 2;</code>
      * @param value The bytes for tagContains to set.
      * @return This builder for chaining.
      */
@@ -617,7 +563,7 @@ private static final long serialVersionUID = 0L;
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-      bitField0_ |= 0x00000002;
+      
       tagContains_ = value;
       onChanged();
       return this;
