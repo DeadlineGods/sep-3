@@ -10,5 +10,6 @@ public interface IPostLogic
 {
     Task<int> CreateAsync(PostCreationDto postCreationDto);
     Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters);
+    Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate center);
     Task DeleteAsync(int id);
 }

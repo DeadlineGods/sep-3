@@ -48,8 +48,25 @@ public class PostHttpClient : IPostService
 		    throw new Exception(content);
 	    }
 
-	    Console.WriteLine(content);
 	    ICollection<Post> posts = JsonSerializer.Deserialize<ICollection<Post>>(content, new JsonSerializerOptions
+	    {
+		    PropertyNameCaseInsensitive = true
+	    })!;
+
+	    return posts;
+    }
+
+    public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate coordinate)
+    {
+	    HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/Posts/getInRadius?lat={coordinate.latitude}?lon={coordinate.longitude}");
+
+	    string responseContent = await response.Content.ReadAsStringAsync();
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(responseContent);
+	    }
+
+	    IEnumerable<Post> posts = JsonSerializer.Deserialize<IEnumerable<Post>>(responseContent, new JsonSerializerOptions
 	    {
 		    PropertyNameCaseInsensitive = true
 	    })!;
@@ -91,4 +108,5 @@ public class PostHttpClient : IPostService
 		    throw new Exception(content);
 	    }
     }
+
 }
