@@ -2,12 +2,12 @@ namespace Domain.DTOs;
 
 public class SearchPostTagParameters
 {
-    public string? TagContains { get;}
+    public string? tagContains { get;}
     public int? postId { get;}
 
     public SearchPostTagParameters(string? tagContains = null, int? postId = null)
     {
-        TagContains = tagContains;
+        this.tagContains = tagContains;
         this.postId = postId;
     }
 }

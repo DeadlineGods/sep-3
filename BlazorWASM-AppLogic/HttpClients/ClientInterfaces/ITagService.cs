@@ -4,5 +4,5 @@ namespace HttpClients.ClientInterfaces;
 
 public interface ITagService
 {
-    Task<ICollection<Tag>> GetAsync(int? postId = null, string? tagContains = null);
+    Task<ICollection<TagPost>> GetAsync(int? postId = null, string? tagContains = null);
 }

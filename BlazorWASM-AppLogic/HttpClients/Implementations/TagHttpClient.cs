@@ -13,7 +13,7 @@ public class TagHttpClient : ITagService
         this.client = client;
     }
 
-    public async Task<ICollection<Tag>> GetAsync(int? postId = null, string? tagContains = null)
+    public async Task<ICollection<TagPost>> GetAsync(int? postId = null, string? tagContains = null)
     {
         string query = ConstructQuery(postId, tagContains);
         HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Tags/get" + query);
@@ -25,7 +25,7 @@ public class TagHttpClient : ITagService
         }
 
         Console.WriteLine(content);
-        ICollection<Tag> tags = JsonSerializer.Deserialize<ICollection<Tag>>(content, new JsonSerializerOptions
+        ICollection<TagPost> tags = JsonSerializer.Deserialize<ICollection<TagPost>>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;

@@ -5,5 +5,6 @@ namespace Application.LogicInterfaces;
 
 public interface ITagLogic
 {
-    Task<IEnumerable<Tag>> GetPostTagAsync(SearchPostTagParameters searchParameters);
+    Task<IEnumerable<TagPost>> GetPostTagAsync(SearchPostTagParameters searchParameters);
+    Task<IEnumerable<Tag>> GetTagListAsync(SearchTagListParameters searchParameters);
 }
