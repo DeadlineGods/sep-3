@@ -1,4 +1,4 @@
-﻿@page "/posts/create"
+﻿@page "/posts/create2"
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
 @using Domain.Models
@@ -9,11 +9,11 @@
 @inject IPostService postService
 @inject IImageUploadService imageUploadService
 
-	<Alert Type="success" Show="@showAlert">
-		<p>Successfully created post!</p>
-		<button @onclick="@NavigateToPost">show me</button>
-		<button @onclick="(() => showAlert = false)">close</button>
-	</Alert>
+<Alert Type="success" Show="@showAlert">
+	<p>Successfully created post!</p>
+	<button @onclick="@NavigateToPost">show me</button>
+	<button @onclick="(() => showAlert = false)">close</button>
+</Alert>
 
 <div class="card">
 	<h3>Create Post</h3>
