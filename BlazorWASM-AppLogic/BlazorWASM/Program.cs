@@ -23,6 +23,7 @@ builder.Services.AddScoped<IAuthService, JwtAuthService>();
 builder.Services.AddScoped<IUserService, UserHttpClient>();
 builder.Services.AddScoped<ILikeService, LikeHttpClient>();
 builder.Services.AddScoped<IImageUploadService, ImageUploadHttpClient>();
+builder.Services.AddScoped<ICommentService, CommentHttpClient>();
     
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 

@@ -12,7 +12,6 @@
     <div class="field">
         <button
             @onclick="@(() => UnlikePostAsync(PostId))"
-            @onclick:preventDefault="@true"
             class="like-button" role="button">
             Like
             <img class="icon" src="img/like_pressed.svg"/>
@@ -24,7 +23,6 @@ else
     <div class="field">
         <button
             @onclick="@(() => LikePostAsync(PostId))"
-            @onclick:preventDefault="@true"
             class="like-button" role="button">
             Like
             <img class="icon" src="img/like_notpressed.svg"/>

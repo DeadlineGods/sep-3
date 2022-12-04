@@ -1,0 +1,123 @@
+﻿@using Domain.Models
+@using HttpClients.ClientInterfaces
+@using HttpClients.Implementations
+@using Shared
+@using System.Security.Claims
+@using BlazorWasm.Services
+@namespace UIComponents
+@inject IUserService userService
+@inject ICommentService commentService
+@inject IAuthService authService
+
+<div>
+    <h3>@Comment.OwnerUsername</h3>
+    <p>@Comment.Body</p>
+    <p>@Util.DateTimeToRelativeTime(Comment.CreatedAt)</p>
+
+    <AuthorizeView>
+        <Authorized>
+            @if (commentInput)
+            {
+                <button
+                    @onclick="@(() => commentInput = !commentInput)">
+                    close
+                </button>
+            }
+            else
+            {
+                <button
+                    @onclick="@(() => commentInput = !commentInput)">
+                    reply
+                </button>
+            }
+            @if (commentInput)
+            {
+                <div class="flex space-x-2">
+                    <input
+                        type="text" @bind="commentInputText"/>
+                    <button
+                        @onclick="PublishAsync">
+                        publish
+                    </button>
+                </div>
+            }
+        </Authorized>
+    </AuthorizeView>
+
+    <ol>
+        @if (subComments.Any())
+        {
+            foreach (var subComment in subComments)
+            {
+                <li>
+                    <SingleComment Comment="@subComment"/>
+                </li>
+            }
+        }
+    </ol>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public Comment Comment { get; set; }
+
+    private ICollection<Comment> subComments = new List<Comment>();
+
+    private bool commentInput = false;
+    private string commentInputText = "";
+
+    private async void PublishAsync()
+    {
+        if (string.IsNullOrEmpty(commentInputText))
+        {
+            return;
+        }
+
+        commentInput = false;
+
+        try
+        {
+            ClaimsPrincipal context = await authService.GetAuthAsync();
+            var claims = context.Identities.First().Claims.ToList();
+            string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+            long createdCommentId = await commentService.CreateAsync(commentInputText, long.Parse(ownerId), Comment.PostId);
+            await commentService.AssignCommentToParentAsync(createdCommentId, Comment.Id);
+
+            await LoadAsync();
+
+            commentInputText = "";
+
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+    private async Task LoadAsync()
+    {
+        try
+        {
+            subComments = await commentService.GetAllSubCommentsAsync(Comment.Id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+}

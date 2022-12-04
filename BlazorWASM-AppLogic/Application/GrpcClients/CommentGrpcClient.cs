@@ -104,6 +104,7 @@ public class CommentGrpcClient : ICommentDao
             Id = commentData.Id,
             Body = commentData.Body,
             OwnerId = users.FirstOrDefault().Id,
+            OwnerUsername = users.FirstOrDefault().UserName,
             PostId = posts.FirstOrDefault().Id,
             CreatedAt = createdAt
         };

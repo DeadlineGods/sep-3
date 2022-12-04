@@ -34,17 +34,20 @@ public class UserHttpClient : IUserService
 
     public async Task<IEnumerable<User>> GetUsersAsync(string? usernameContains, long? userid)
     {
-        string uri = "https://localhost:7196/users";
+        string uri = "https://localhost:7196/User";
+        string query = "";
         if (!string.IsNullOrEmpty(usernameContains))
         {
-            uri += $"?username={usernameContains}";
+            query += $"?username={usernameContains}";
         }
 
         if (userid != null)
         {
-            uri += string.IsNullOrEmpty(uri) ? "?" : "&";
-            uri += $"userid={userid}";
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"userid={userid}";
         }
+
+        uri += query;
 
         HttpResponseMessage response = await client.GetAsync(uri);
         string result = await response.Content.ReadAsStringAsync();
