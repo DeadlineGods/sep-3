@@ -7,5 +7,7 @@ public interface ICommentDao
 {
     Task<long> CreateAsync(Comment comment);
     Task AssignCommentToParentAsync(AssignCommentToDto assignCommentToDto);
-    Task<Comment> GetAsync(long id);
+    Task<Comment> GetByIdAsync(long id);
+    Task<IEnumerable<Comment>> GetByPostAsync(long postId);
+    Task<IEnumerable<Comment>> GetSubCommentsAsync(long id);
 }

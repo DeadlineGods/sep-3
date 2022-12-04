@@ -1,4 +1,5 @@
-﻿using Application.DAOsInterfaces;
+﻿using System.Collections;
+using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
@@ -26,8 +27,8 @@ public class CommentGrpcClient : ICommentDao
         var reply = await client.CreateCommentAsync(new RequestCreateComment()
         {
             Body = comment.Body,
-            OwnerId = comment.Owner.Id,
-            PostId = comment.PostedOn.Id
+            OwnerId = comment.OwnerId,
+            PostId = comment.PostId
         });
 
         long createdCommentId = await Task.FromResult(reply.Id);
@@ -47,17 +48,43 @@ public class CommentGrpcClient : ICommentDao
         });
     }
 
-    public async Task<Comment> GetAsync(long id)
+    public async Task<Comment> GetByIdAsync(long id)
     {
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
         var client = new CommentService.CommentServiceClient(channel);
 
-        var reply = await client.GetCommentAsync(new RequestGetComment()
+        var reply = await client.GetByIdCommentAsync(new RequestGetGetByIdComment()
         {
             Id = id
         });
 
         return await ConstructAsync(reply);
+    }
+
+    public async Task<IEnumerable<Comment>> GetByPostAsync(long postId)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+        var client = new CommentService.CommentServiceClient(channel);
+        
+        var reply = await client.GetByPostCommentsAsync(new RequestGetByPostComments()
+        {
+            PostId = postId 
+        });
+
+        return await ConstructListAsync(reply);
+    }
+
+    public async Task<IEnumerable<Comment>> GetSubCommentsAsync(long id)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+        var client = new CommentService.CommentServiceClient(channel);
+
+        var reply = await client.GetSubCommentsAsync(new RequestGetSubComments()
+        {
+            Id = id
+        });
+
+        return await ConstructListAsync(reply);
     }
 
     private async Task<Comment> ConstructAsync(CommentData commentData)
@@ -76,9 +103,21 @@ public class CommentGrpcClient : ICommentDao
         {
             Id = commentData.Id,
             Body = commentData.Body,
-            Owner = users.FirstOrDefault(),
-            PostedOn = posts.FirstOrDefault(),
+            OwnerId = users.FirstOrDefault().Id,
+            PostId = posts.FirstOrDefault().Id,
             CreatedAt = createdAt
         };
+    }
+    
+    private async Task<IEnumerable<Comment>> ConstructListAsync(CommentsList reply)
+    {
+        ICollection<Comment> comments = new List<Comment>();
+
+        foreach (var commentData in reply.Comments)
+        {
+            comments.Add(await ConstructAsync(commentData));
+        }
+
+        return comments.AsEnumerable();
     }
 }

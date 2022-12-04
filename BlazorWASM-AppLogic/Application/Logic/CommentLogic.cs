@@ -17,25 +17,25 @@ public class CommentLogic : ICommentLogic
         this.userDao = userDao;
         this.postDao = postDao;
     }
+
     public async Task<long> CreateAsync(CommentCreationDto creationDto)
     {
-        
         SearchPostParametersDto searchPostParametersDto = new(creationDto.PostId, null, null);
-        IEnumerable<Post> posts =  await postDao.GetAsync(searchPostParametersDto);
-        Post? post= posts.FirstOrDefault();
+        IEnumerable<Post> posts = await postDao.GetAsync(searchPostParametersDto);
+        Post? post = posts.FirstOrDefault();
         if (post == null)
             throw new Exception($"Post with id {creationDto.PostId} does not exist");
 
         SearchUserParametersDto searchUserParametersDto = new(null, creationDto.OwnerId);
-        IEnumerable<User> users =  await userDao.GetAsync(searchUserParametersDto);
+        IEnumerable<User> users = await userDao.GetAsync(searchUserParametersDto);
         User? user = users.FirstOrDefault();
         if (user == null)
             throw new Exception($"User with id {creationDto.OwnerId} does not exist");
-        
+
         Comment comment = new Comment()
         {
-            Owner = user,
-            PostedOn = post,
+            OwnerId = user.Id,
+            PostId = post.Id,
             Body = creationDto.Body,
         };
 
@@ -44,28 +44,53 @@ public class CommentLogic : ICommentLogic
 
     public async Task AssignCommentToParentAsync(AssignCommentToDto assignCommentToDto)
     {
-       await AssignCommentToParentValidation(assignCommentToDto);
+        await AssignCommentToParentValidation(assignCommentToDto);
 
-       await commentDao.AssignCommentToParentAsync(assignCommentToDto);
+        await commentDao.AssignCommentToParentAsync(assignCommentToDto);
+    }
+
+    public async Task<IEnumerable<Comment>> GetAsync(long postId)
+    {
+        SearchPostParametersDto searchPostParametersDto = new(postId, null, null);
+        IEnumerable<Post> posts = await postDao.GetAsync(searchPostParametersDto);
+        Post? post = posts.FirstOrDefault();
+        if (post == null)
+            throw new Exception($"Post with id {postId} does not exist");
+
+        return await commentDao.GetByPostAsync(postId);
+    }
+
+    public async Task<IEnumerable<Comment>> GetSubCommentsAsync(long id)
+    {
+        await CheckIfCommentExists(id);
+
+        return await commentDao.GetSubCommentsAsync(id);
+    }
+
+    public async Task<Comment> GetByIdAsync(long id)
+    {
+        Comment comment = await commentDao.GetByIdAsync(id);
+        if (comment == null)
+            throw new Exception($"Comment with id {id} does not exist");
+
+        return comment;
     }
 
     private async Task AssignCommentToParentValidation(AssignCommentToDto assignCommentToDto)
     {
-        Comment? commentExisting = await commentDao.GetAsync(assignCommentToDto.commentId);
+        Comment? commentExisting = await commentDao.GetByIdAsync(assignCommentToDto.commentId);
         if (commentExisting == null)
         {
             throw new Exception($"Comment with id {assignCommentToDto.commentId} does not exist");
-
         }
-        
-        Comment? parentCommentExisting = await commentDao.GetAsync(assignCommentToDto.parentId);
+
+        Comment? parentCommentExisting = await commentDao.GetByIdAsync(assignCommentToDto.parentId);
         if (parentCommentExisting == null)
         {
             throw new Exception($"Parent comment with id {assignCommentToDto.parentId} does not exist");
-
         }
 
-        if (commentExisting.PostedOn.Id != parentCommentExisting.PostedOn.Id)
+        if (commentExisting.PostId != parentCommentExisting.PostId)
         {
             throw new Exception(
                 $"Can not assign comment {assignCommentToDto.commentId} to parent comment {assignCommentToDto.parentId} because they do not share the same post");
@@ -75,5 +100,12 @@ public class CommentLogic : ICommentLogic
         {
             throw new Exception($"Can not assign comment to be parent of it self");
         }
+    }
+
+    private async Task CheckIfCommentExists(long id)
+    {
+        Comment comment = await commentDao.GetByIdAsync(id);
+        if (comment == null)
+            throw new Exception($"Comment with id {id} does not exist");
     }
 }

@@ -57,11 +57,11 @@ public class CommentImpl extends CommentServiceGrpc.CommentServiceImplBase {
     }
 
     @Override
-    public void getComment(RequestGetComment request, StreamObserver<CommentData> responseObserver) {
+    public void getByIdComment(RequestGetGetByIdComment request, StreamObserver<CommentData> responseObserver) {
         System.out.println("Received Request =v \n" + request.toString());
         CommentData response = null;
         try {
-            response = database.get(
+            response = database.getById(
                     request.getId()
             );
         } catch (SQLException e) {
@@ -72,5 +72,41 @@ public class CommentImpl extends CommentServiceGrpc.CommentServiceImplBase {
         responseObserver.onCompleted();
 
         System.out.println("Comment =v \n" + response.toString());
+    }
+
+    @Override
+    public void getByPostComments(RequestGetByPostComments request, StreamObserver<CommentsList> responseObserver) {
+        System.out.println("Received Request =v \n" + request.toString());
+        CommentsList response = null;
+        try {
+            response = database.getByPost(
+                    request.getPostId()
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+
+        System.out.println("Comments =v \n" + response.toString());
+    }
+
+    @Override
+    public void getSubComments(RequestGetSubComments request, StreamObserver<CommentsList> responseObserver) {
+        System.out.println("Received Request =v \n" + request.toString());
+        CommentsList response = null;
+        try {
+            response = database.getSubComments(
+                request.getId()
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+
+        System.out.println("Sub comments =v \n" + response.toString());
     }
 }

@@ -4,9 +4,11 @@ import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.daos.interfaces.CommentPersistence;
 import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.CommentData;
+import sep3.project.protobuf.CommentsList;
 import sep3.project.protobuf.ResponseCreateComment;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 @GRpcService
 public class CommentDatabase implements CommentPersistence {
@@ -56,7 +58,7 @@ public class CommentDatabase implements CommentPersistence {
     }
 
     @Override
-    public CommentData get(long id) throws SQLException {
+    public CommentData getById(long id) throws SQLException {
         Connection connection = DBConnection.getConnection();
         CommentData commentData = null;
 
@@ -82,5 +84,65 @@ public class CommentDatabase implements CommentPersistence {
         }
 
         return commentData;
+    }
+
+    @Override
+    public CommentsList getByPost(long postId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        CommentsList commentsList = null;
+        ArrayList<CommentData> commentDataArrayList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM comment WHERE id NOT IN (SELECT comment_id FROM commentparentcomment) and post_id = ?");
+
+            statement.setLong(1, postId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                CommentData commentData = CommentData.newBuilder()
+                        .setId(resultSet.getLong("id"))
+                        .setBody(resultSet.getString("body"))
+                        .setPostId(resultSet.getLong("post_id"))
+                        .setOwnerId(resultSet.getLong("user_id"))
+                        .setCreatedOnMilliseconds(resultSet.getTimestamp("created_on").getTime())
+                        .build();
+
+                commentDataArrayList.add(commentData);
+            }
+        } finally {
+            connection.close();
+        }
+
+        return CommentsList.newBuilder().addAllComments(commentDataArrayList).build();
+    }
+
+    @Override
+    public CommentsList getSubComments(long id) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        CommentsList commentsList = null;
+        ArrayList<CommentData> commentDataArrayList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM comment WHERE id IN (SELECT comment_id FROM commentparentcomment WHERE parent_comment_id = ?)");
+
+            statement.setLong(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                CommentData commentData = CommentData.newBuilder()
+                        .setId(resultSet.getLong("id"))
+                        .setBody(resultSet.getString("body"))
+                        .setPostId(resultSet.getLong("post_id"))
+                        .setOwnerId(resultSet.getLong("user_id"))
+                        .setCreatedOnMilliseconds(resultSet.getTimestamp("created_on").getTime())
+                        .build();
+
+                commentDataArrayList.add(commentData);
+            }
+        } finally {
+            connection.close();
+        }
+
+        return CommentsList.newBuilder().addAllComments(commentDataArrayList).build();
     }
 }

@@ -46,6 +46,54 @@ public class CommentsController :  ControllerBase
         }
     }
     
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Comment>>> GetAsync([FromQuery] long postId)
+    {
+        try
+        {
+            IEnumerable<Comment> comments = await commentLogic.GetAsync(postId);
+            return Ok(comments);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("/sub-comments/")]
+
+    public async Task<ActionResult<IEnumerable<Comment>>> GetSubCommentsAsync([FromQuery] long id)
+    {
+        try
+        {
+            IEnumerable<Comment> comments = await commentLogic.GetSubCommentsAsync(id);
+            return Ok(comments);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    [HttpGet]
+    [Route("/comment/")]
+    public async Task<ActionResult<Comment>> GetByIdAsync([FromQuery] long id)
+    {
+        try
+        {
+            Comment comment = await commentLogic.GetByIdAsync(id);
+            return Ok(comment);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
 }
 
 
