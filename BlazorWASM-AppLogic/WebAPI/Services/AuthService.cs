@@ -33,7 +33,6 @@ public class AuthService : IAuthService
 
     public  Task<User> ValidateUser(string username, string password)
     {
-        Console.Write("siema");
         SearchUserParametersDto dto = new SearchUserParametersDto(username, null);
         if (string.IsNullOrEmpty(username))
         {
