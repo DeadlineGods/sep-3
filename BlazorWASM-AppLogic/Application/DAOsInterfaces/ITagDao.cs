@@ -5,5 +5,6 @@ namespace Application.DAOsInterfaces;
 
 public interface ITagDao
 {
-    Task<IEnumerable<Tag>> GetAsync(SearchTagParameters searchParameters);
+    Task<IEnumerable<TagPost>> GetPostTagAsync(SearchPostTagParameters searchParameters);
+    Task<IEnumerable<Tag>> GetTagListAsync(SearchTagListParameters searchParameters);
 }

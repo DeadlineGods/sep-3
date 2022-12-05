@@ -1,10 +1,24 @@
 ﻿@page "/posts/all"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@using System.Collections
 @inject IPostService postService
+@inject ITagService tagService
 @inject NavigationManager navMgr
 
 
+    <div class="createPostCard">
+        <div class="filters-container">
+            <div class="filter">
+                <label>Search by tag:</label>
+                <input name="name" type="text" class="feedback-input" placeholder="Type here..." @bind="tagFilter"/>
+            </div>
+        </div>
+        <div class="field">
+            <button @onclick="LoadPosts" class="button-35" role="button">Search</button>
+        </div>
+    </div>
 
 @if (posts == null)
 {
@@ -16,6 +30,7 @@ else if (!posts.Any())
 }
 else
 {
+    
     @foreach (var post in posts)
     {
         <div class="post-card">
@@ -37,9 +52,14 @@ else
 }
 
 @code {
-    private IEnumerable<Post>? posts;
+    
+    private IList<Post>? posts = new List<Post>();
     private string msg;
-
+    
+    private string? tagFilter;
+    private ICollection<TagPost>? postTag;
+    private IList<int>? postIdsFilter;
+    
     [Parameter]
     public string? Id { get; set; }
 
@@ -47,7 +67,28 @@ else
     {
         try
         {
-            posts = await postService.GetAsync();
+            IEnumerable<Post> temp = await postService.GetAsync();
+            posts = temp.ToList();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+    
+    private async Task LoadPosts()
+    {
+        try
+        {
+            posts.Clear();
+            postIdsFilter = new List<int>();
+            postTag = await tagService.GetPostTagAsync(0, tagFilter.ToLower());
+            foreach (var tagPost in postTag)
+            {
+                ICollection<Post> temp = await postService.GetAsync(tagPost.postId, null, null);
+                posts.Add(temp.FirstOrDefault());
+            }
         }
         catch (Exception e)
         {
