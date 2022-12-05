@@ -1,12 +1,9 @@
 package sep3.project.services;
 
 import io.grpc.stub.StreamObserver;
-import org.checkerframework.checker.fenum.qual.SwingElementOrientation;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import sep3.project.daos.LocationPersistence;
-import sep3.project.daos.PostPersistence;
+import sep3.project.daos.interfaces.LocationPersistence;
 import sep3.project.protobuf.*;
 
 import java.sql.SQLException;

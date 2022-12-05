@@ -1,9 +1,9 @@
-package sep3.project.daos;
+package sep3.project.daos.impl;
 
 import org.lognet.springboot.grpc.GRpcService;
+import sep3.project.daos.interfaces.LocationPersistence;
 import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.CoordinatesData;
-import sep3.project.protobuf.Location;
 import sep3.project.protobuf.LocationData;
 import sep3.project.protobuf.LocationId;
 
