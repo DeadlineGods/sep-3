@@ -15,7 +15,9 @@ message RequestCreatePost {
 	string title = 1;
 	string description = 2;
 	int64 userId = 3;
-	repeated string tags = 4;
+	string imgUrl = 4;
+	repeated string tags = 5;
+	int32 locationId = 6;
 }
 
 message ResponseCreatePost {
@@ -23,17 +25,19 @@ message ResponseCreatePost {
 }
 
 message PostData {
-	int32 id = 1;
+	int64 id = 1;
 	int64 userId = 2;
 	int32 likes = 3;
 	string title = 4;
 	string description = 5;
-	int64 postedOnMilliseconds = 6;
+	string imgUrl = 6;
+	int32 locationId = 7;
+	int64 postedOnMilliseconds = 8;
 }
 
 message RequestDeletePost
 {
-	int32 id =1;
+	int64 id =1;
 }
 
 message EmptyPost
@@ -42,7 +46,7 @@ message EmptyPost
 }
 
 message RequestGetPost {
-	optional int32 id = 1;
+	optional int64 id = 1;
 	optional int64 userId = 2;
 	optional string title = 3;
 }

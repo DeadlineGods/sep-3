@@ -24,27 +24,31 @@ public class AuthService : IAuthService
         users = new List<User>();
     }
 
-    private async void LoadUsersIntoList()
+    private async void LoadUsersIntoListAsync()
     {
         SearchUserParametersDto dto = new SearchUserParametersDto(null,null);
         IEnumerable<User> tempUsers = await userLogic.GetAsync(dto);
         users = tempUsers.ToList();
     }
 
-    public  Task<User> ValidateUser(string username, string password)
+    public Task<User> ValidateUserAsync(string username, string password)
     {
-        SearchUserParametersDto dto = new SearchUserParametersDto(username, null);
+        SearchUserParametersDto dto = new SearchUserParametersDto(username);
+
         if (string.IsNullOrEmpty(username))
         {
             throw new Exception("Username cannot be null");
         }
+
         IEnumerable<User> tempUsers = userLogic.GetAsync(dto).Result;
+
         List<User?> users = new List<User?>();
+
         if (!tempUsers.Any())
         {
             throw new Exception("User with username: " + dto.username + " is not existing");
         }
-        
+
         users = tempUsers.ToList();
         User? existingUser = users[0];
 
@@ -52,7 +56,7 @@ public class AuthService : IAuthService
         {
             throw new Exception("User not found");
         }
-        
+
         if (!existingUser.Password.Equals(password))
         {
             throw new Exception("Password mismatch");
@@ -60,9 +64,9 @@ public class AuthService : IAuthService
         return Task.FromResult(existingUser);
     }
 
-    public async Task<User> RegisterUser(UserCreationDto dto)
+    public async Task<User> RegisterUserAsync(UserCreationDto dto)
     {
-        users = await userService.GetUsers();
+        users = await userLogic.GetAsync(new SearchUserParametersDto());
 
         if (string.IsNullOrEmpty(dto.username))
         {
@@ -75,14 +79,21 @@ public class AuthService : IAuthService
         }
 
         User? existingUser = users.FirstOrDefault(u =>
-            u.UserName.Equals(dto.username, StringComparison.OrdinalIgnoreCase));
+            u.UserName.Equals(dto.username));
+
 
         if (existingUser != null)
         {
             throw new Exception("This username is taken");
         }
 
-     
-        return await userService.Create(new UserAuthDto(dto.username,dto.firstName,dto.lastName,dto.password,dto.email,dto.phoneNumber));
+        existingUser = users.FirstOrDefault(u => u.Email.Equals(dto.email));
+
+        if (existingUser != null)
+        {
+	        throw new Exception("Account with this email is already created!");
+        }
+
+        return await userService.Create(dto);
     }
 }

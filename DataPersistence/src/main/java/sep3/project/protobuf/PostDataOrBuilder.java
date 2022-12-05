@@ -50,7 +50,25 @@ public interface PostDataOrBuilder extends
       getDescriptionBytes();
 
   /**
-   * <code>int64 postedOnMilliseconds = 6;</code>
+   * <code>string imgUrl = 6;</code>
+   * @return The imgUrl.
+   */
+  java.lang.String getImgUrl();
+  /**
+   * <code>string imgUrl = 6;</code>
+   * @return The bytes for imgUrl.
+   */
+  com.google.protobuf.ByteString
+      getImgUrlBytes();
+
+  /**
+   * <code>int32 locationId = 7;</code>
+   * @return The locationId.
+   */
+  int getLocationId();
+
+  /**
+   * <code>int64 postedOnMilliseconds = 8;</code>
    * @return The postedOnMilliseconds.
    */
   long getPostedOnMilliseconds();

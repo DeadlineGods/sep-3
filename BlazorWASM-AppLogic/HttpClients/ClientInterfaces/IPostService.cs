@@ -12,5 +12,5 @@ public interface IPostService
     Task<ICollection<Post>> GetAsync(int? id = null, int? userId = null, string? titleContains = null);
     Task DeleteAsync(int id, long user_id);
     Task UpdateAsync(UpdatePostDto dto, long user_id);
-    //Task<PostDto> GetByIdAsync(int id);
+    Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate coordinate, int radius);
 }

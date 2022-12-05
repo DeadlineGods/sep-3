@@ -2,10 +2,10 @@
 
 public class LikePostDto
 {
-    public int postId { get; }
+    public long postId { get; }
     public long userId { get; }
 
-    public LikePostDto(int postId, long userId)
+    public LikePostDto(long postId, long userId)
     {
         this.postId = postId;
         this.userId = userId;

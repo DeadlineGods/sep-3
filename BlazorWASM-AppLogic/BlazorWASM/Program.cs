@@ -17,10 +17,15 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
-builder.Services.AddScoped<IUserService, UserHttpClient>();
+//builder.Services.AddScoped<IUserService, UserHttpClient>();
 builder.Services.AddScoped<IPostService, PostHttpClient>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();
-    
+builder.Services.AddScoped<ILocationService, LocationHttpClient>();
+builder.Services.AddScoped<IUserService, UserHttpClient>();
+builder.Services.AddScoped<ILikeService, LikeHttpClient>();
+builder.Services.AddScoped<IImageUploadService, ImageUploadHttpClient>();
+builder.Services.AddScoped<ICommentService, CommentHttpClient>();
+
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 
 AuthorizationPolicies.AddPolicies(builder.Services);

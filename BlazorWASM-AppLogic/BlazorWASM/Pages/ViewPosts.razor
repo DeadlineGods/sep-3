@@ -1,12 +1,8 @@
 ﻿@page "/posts/all"
+@using UIComponents
 @using Domain.Models
 @using HttpClients.ClientInterfaces
-@using System.Collections
 @inject IPostService postService
-@inject NavigationManager navMgr
-@inject IUserService userService
-
-
 
 @if (posts == null)
 {
@@ -15,30 +11,16 @@
 else if (!posts.Any())
 {
     <p>No posts to display</p>
-    
 }
 else
 {
-    
     @foreach (var post in posts)
     {
-        Id = post.Id;
-        <div class="post-card">
-            <a href="/posts/@post.Id">
-                <div>@post.Title</div>
-                <div>@post.PostedOn</div>
-                <div>@post.Location</div>
-                <div>@post.Description</div>
-                <div><!--image--></div>
-                <div>@post.Owner.UserName</div>
-                <div>@post.Likes</div>
-                <div>
+        <a href="posts/@post.Id">
+            Go to post
+        </a>
+        <SinglePost Post="post"/>
 
-                </div>
-                
-                
-            </a>
-        </div>
     }
 }
 @if (!string.IsNullOrEmpty(msg))
@@ -50,17 +32,17 @@ else
     private IEnumerable<Post>? posts;
     private IEnumerable<User>? users;
     private string msg;
-    private int count;
+    private bool isLiked;
+
     [Parameter]
     public int Id { get; set; }
-    
 
+    
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            posts = await postService.GetAsync();
-
+            posts = await postService.GetInRadiusAsync(new Coordinate(55.8581310000, 9.8475880000), 30000);
         }
         catch (Exception e)
         {

@@ -38,27 +38,45 @@ public interface RequestCreatePostOrBuilder extends
   long getUserId();
 
   /**
-   * <code>repeated string tags = 4;</code>
+   * <code>string imgUrl = 4;</code>
+   * @return The imgUrl.
+   */
+  java.lang.String getImgUrl();
+  /**
+   * <code>string imgUrl = 4;</code>
+   * @return The bytes for imgUrl.
+   */
+  com.google.protobuf.ByteString
+      getImgUrlBytes();
+
+  /**
+   * <code>repeated string tags = 5;</code>
    * @return A list containing the tags.
    */
   java.util.List<java.lang.String>
       getTagsList();
   /**
-   * <code>repeated string tags = 4;</code>
+   * <code>repeated string tags = 5;</code>
    * @return The count of tags.
    */
   int getTagsCount();
   /**
-   * <code>repeated string tags = 4;</code>
+   * <code>repeated string tags = 5;</code>
    * @param index The index of the element to return.
    * @return The tags at the given index.
    */
   java.lang.String getTags(int index);
   /**
-   * <code>repeated string tags = 4;</code>
+   * <code>repeated string tags = 5;</code>
    * @param index The index of the value to return.
    * @return The bytes of the tags at the given index.
    */
   com.google.protobuf.ByteString
       getTagsBytes(int index);
+
+  /**
+   * <code>int32 locationId = 6;</code>
+   * @return The locationId.
+   */
+  int getLocationId();
 }

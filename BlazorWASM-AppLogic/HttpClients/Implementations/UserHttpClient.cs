@@ -15,10 +15,11 @@ public class UserHttpClient : IUserService
     {
         this.client = client;
     }
-    public async Task<User> Create(UserAuthDto dto)
+    public async Task<User> Create(UserCreationDto dto)
     {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/users", dto);
+        HttpResponseMessage response = await client.PostAsJsonAsync("https://localhost:7196/user", dto);
         string result = await response.Content.ReadAsStringAsync();
+
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(result);
@@ -31,49 +32,39 @@ public class UserHttpClient : IUserService
         return user;
     }
 
-    public async Task<IEnumerable<User>> GetUsers(string? usernameContains, long? userid)
+    public async Task<IEnumerable<User>> GetUsersAsync(string? usernameContains, long? userid)
     {
-        string uri = "https://localhost:7196/users";
+        string uri = "https://localhost:7196/User";
+        string query = "";
         if (!string.IsNullOrEmpty(usernameContains))
         {
-            uri += $"?username={usernameContains}";
+            query += $"?username={usernameContains}";
         }
 
         if (userid != null)
         {
-            uri += string.IsNullOrEmpty(uri) ? "?" : "&";
-            uri += $"userid={userid}";
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"userid={userid}";
         }
+
+        uri += query;
 
         HttpResponseMessage response = await client.GetAsync(uri);
         string result = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
+
+        IEnumerable<User> users = new List<User>();
+        if (response.IsSuccessStatusCode)
         {
-            throw new Exception(result);
+            // throw new Exception(result);
+	        users = JsonSerializer.Deserialize<IEnumerable<User>>(result, new JsonSerializerOptions
+	        {
+	            PropertyNameCaseInsensitive = true
+	        })!;
         }
 
-        IEnumerable<User> users = JsonSerializer.Deserialize<IEnumerable<User>>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
         return users;
     }
-
-    public async Task<Like> LikePost(LikePostDto dto)
-    {
-        HttpResponseMessage response = await client.PostAsJsonAsync("/likes", dto);
-        string result = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(result);
-        }
-        Like like = JsonSerializer.Deserialize<Like>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-        return like;
-    }
-
+    
     public async Task<IEnumerable<User>> GetLikes(int postId)
     {
         HttpResponseMessage response = await client.GetAsync("User/Like");
@@ -87,21 +78,5 @@ public class UserHttpClient : IUserService
             PropertyNameCaseInsensitive = true
         })!;
         return users;
-    }
-
-    public async Task<int> CountLikes(int postId)
-    {
-        HttpResponseMessage response = await client.GetAsync("User/likes/count");
-        string result = await response.Content.ReadAsStringAsync();
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception(result);
-        }
-
-        int count = JsonSerializer.Deserialize<int>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-        return count;
     }
 }

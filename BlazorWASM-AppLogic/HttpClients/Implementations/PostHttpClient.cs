@@ -26,12 +26,13 @@ public class PostHttpClient : IPostService
     {
         string subFormAsJson = JsonSerializer.Serialize(postCreationDto);
         StringContent content = new(subFormAsJson, Encoding.UTF8, "application/json");
+
         HttpResponseMessage response = await client.PostAsync("https://localhost:7196/posts/create", content);
         string responseContent = await response.Content.ReadAsStringAsync();
-		
+
         if (!response.IsSuccessStatusCode)
         {
-	        throw new Exception(responseContent);
+            throw new Exception(responseContent);
         }
 
         return Int32.Parse(responseContent);
@@ -48,8 +49,25 @@ public class PostHttpClient : IPostService
 		    throw new Exception(content);
 	    }
 
-	    Console.WriteLine(content);
 	    ICollection<Post> posts = JsonSerializer.Deserialize<ICollection<Post>>(content, new JsonSerializerOptions
+	    {
+		    PropertyNameCaseInsensitive = true
+	    })!;
+
+	    return posts;
+    }
+
+    public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate coordinate, int radius)
+    {
+	    HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/Posts/getInRadius?lat={coordinate.latitude}&lon={coordinate.longitude}&radius={radius}");
+
+	    string responseContent = await response.Content.ReadAsStringAsync();
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(responseContent);
+	    }
+
+	    IEnumerable<Post> posts = JsonSerializer.Deserialize<IEnumerable<Post>>(responseContent, new JsonSerializerOptions
 	    {
 		    PropertyNameCaseInsensitive = true
 	    })!;
@@ -104,24 +122,10 @@ public class PostHttpClient : IPostService
 	    if (!response.IsSuccessStatusCode)
 	    {
 		    throw new Exception(content);
-	    } 
-
-	    
-	    
+	    }
     }
 
-    /*public async Task<PostDto> GetByIdAsync(int id)
-    {
-	    HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/posts/{id}");
-	    string content = await response.Content.ReadAsStringAsync();
 
-	    if (!response.IsSuccessStatusCode)
-	    {
-		    throw new Exception(content);
-	    }
-	    PostDto post = JsonSerializer.Deserialize<PostDto>(content)!;
-	    return post;
-    }*/
     /*
     public async Task<bool> IsPostLiked(int id)
     {

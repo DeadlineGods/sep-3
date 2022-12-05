@@ -8,42 +8,11 @@
 @inject IAuthService authService
 @inject IUserService userService
 @inject NavigationManager navMgr
+@using UIComponents
 
 @if (post != null)
 {
-	userId = post.Owner.Id;
-	<div class="post-card">
-		<div>@post.Title</div>
-		<div>@post.PostedOn</div>
-		<div>@post.Location</div>
-		<div>@post.Description</div>
-		<div><!--image--></div>
-		<div>@post.Owner.UserName</div>
-		<div>@post.Likes</div>
-		<div>@post.Tags</div>
-		<div>
-			@if (postLiked)
-			{
-				<LikePostButton OnLikeToggled="@PostLikeClicked"/>
-			}
-			@if (!postLiked)
-			{
-				<LikePostButton OnLikeToggled="@PostLikeClicked"/>
-			}
-		</div>
-		<div>
-			        <AuthorizeView>
-                        <Authorized>
-                            @if (post.Owner.UserName == @context.User.Identity.Name)
-                            {
-	                            <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
-	                            <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
-
-                            }
-                        </Authorized>
-                    </AuthorizeView>
-		</div>
-	</div>
+	<SinglePost Post="post"/>
 }
 else
 {
@@ -68,9 +37,6 @@ else
 
 	        IEnumerable<Post> posts = await postService.GetAsync(Id);
 	        post = posts.FirstOrDefault();
-	        Console.WriteLine(post);
-	        //postLiked = await userService.IsPostLiked(Id);
-
         }
         catch (Exception e)
         {

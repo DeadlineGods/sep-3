@@ -13,6 +13,4 @@ public class SearchPostParameters
 		TitleContains = titleContains;
 	}
 
-
-
 }

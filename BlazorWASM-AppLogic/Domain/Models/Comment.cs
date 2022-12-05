@@ -2,12 +2,12 @@
 
 namespace Domain.Models;
 
-public abstract class Comment
+public class Comment
 {
-    public String body { get; set; }
-
-    protected Comment(string body)
-    {
-        this.body = body;
-    }
+    public long Id { get; set; }
+    public string Body { get; set; }
+    public long OwnerId { get; set; }
+    public string OwnerUsername { get; set; }
+    public long PostId { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

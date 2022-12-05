@@ -9,7 +9,7 @@ namespace BlazorWasm.Services.Http;
 public class JwtAuthService : IAuthService
 {
     private readonly HttpClient client = new ();
-    
+
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!;
 
     // this private variable for simple caching
@@ -55,7 +55,7 @@ public class JwtAuthService : IAuthService
     {
         string userAsJson = JsonSerializer.Serialize(dto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await client.PostAsync("https://localhost:7130/auth/register", content);
+        HttpResponseMessage response = await client.PostAsync("https://localhost:7196/auth/register", content);
         string responseContent = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
@@ -100,7 +100,7 @@ public class JwtAuthService : IAuthService
         }
 
         IEnumerable<Claim> claims = ParseClaimsFromJwt(Jwt);
-    
+
         ClaimsIdentity identity = new(claims, "jwt");
 
         ClaimsPrincipal principal = new(identity);

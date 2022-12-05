@@ -6,7 +6,6 @@ option java_package = "sep3.project.protobuf";
 service PostService {
 	rpc CreatePost(RequestCreatePost) returns(ResponseCreatePost);
 	rpc GetPost(RequestGetPost) returns(ResponseGetPost);
-	rpc GetPostById(RequestGetPostById) returns(ResponseGetPostById);
 	rpc DeletePost(RequestDeletePost) returns(EmptyPost);
 	rpc UpdatePost(RequestUpdatePost) returns (ResponseUpdatePost);
 
@@ -16,7 +15,9 @@ message RequestCreatePost {
 	string title = 1;
 	string description = 2;
 	int64 userId = 3;
-	repeated string tags = 4;
+	string imgUrl = 4;
+	repeated string tags = 5;
+	int32 locationId = 6;
 }
 
 message ResponseCreatePost {
@@ -29,7 +30,9 @@ message PostData {
 	int32 likes = 3;
 	string title = 4;
 	string description = 5;
-	int64 postedOnMilliseconds = 6;
+	string imgUrl = 6;
+	int32 locationId = 7;
+	int64 postedOnMilliseconds = 8;
 }
 
 message RequestDeletePost

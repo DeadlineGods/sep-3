@@ -45,37 +45,6 @@ public final class UserServiceGrpc {
     return getCreateUserMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestLikePost,
-      sep3.project.protobuf.ResponseLikePost> getLikePostMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "LikePost",
-      requestType = sep3.project.protobuf.RequestLikePost.class,
-      responseType = sep3.project.protobuf.ResponseLikePost.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestLikePost,
-      sep3.project.protobuf.ResponseLikePost> getLikePostMethod() {
-    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestLikePost, sep3.project.protobuf.ResponseLikePost> getLikePostMethod;
-    if ((getLikePostMethod = UserServiceGrpc.getLikePostMethod) == null) {
-      synchronized (UserServiceGrpc.class) {
-        if ((getLikePostMethod = UserServiceGrpc.getLikePostMethod) == null) {
-          UserServiceGrpc.getLikePostMethod = getLikePostMethod =
-              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestLikePost, sep3.project.protobuf.ResponseLikePost>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "LikePost"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  sep3.project.protobuf.RequestLikePost.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  sep3.project.protobuf.ResponseLikePost.getDefaultInstance()))
-              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("LikePost"))
-              .build();
-        }
-      }
-    }
-    return getLikePostMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetUsers,
       sep3.project.protobuf.ResponseGetUsers> getGetUsersMethod;
 
@@ -108,65 +77,34 @@ public final class UserServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetLikes,
-      sep3.project.protobuf.ResponseGetLikes> getGetLikesMethod;
+      sep3.project.protobuf.ResponseGetLikes> getGetUsersWhoLikedMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetLikes",
+      fullMethodName = SERVICE_NAME + '/' + "GetUsersWhoLiked",
       requestType = sep3.project.protobuf.RequestGetLikes.class,
       responseType = sep3.project.protobuf.ResponseGetLikes.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetLikes,
-      sep3.project.protobuf.ResponseGetLikes> getGetLikesMethod() {
-    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetLikes, sep3.project.protobuf.ResponseGetLikes> getGetLikesMethod;
-    if ((getGetLikesMethod = UserServiceGrpc.getGetLikesMethod) == null) {
+      sep3.project.protobuf.ResponseGetLikes> getGetUsersWhoLikedMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetLikes, sep3.project.protobuf.ResponseGetLikes> getGetUsersWhoLikedMethod;
+    if ((getGetUsersWhoLikedMethod = UserServiceGrpc.getGetUsersWhoLikedMethod) == null) {
       synchronized (UserServiceGrpc.class) {
-        if ((getGetLikesMethod = UserServiceGrpc.getGetLikesMethod) == null) {
-          UserServiceGrpc.getGetLikesMethod = getGetLikesMethod =
+        if ((getGetUsersWhoLikedMethod = UserServiceGrpc.getGetUsersWhoLikedMethod) == null) {
+          UserServiceGrpc.getGetUsersWhoLikedMethod = getGetUsersWhoLikedMethod =
               io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestGetLikes, sep3.project.protobuf.ResponseGetLikes>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetLikes"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetUsersWhoLiked"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   sep3.project.protobuf.RequestGetLikes.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   sep3.project.protobuf.ResponseGetLikes.getDefaultInstance()))
-              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("GetLikes"))
+              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("GetUsersWhoLiked"))
               .build();
         }
       }
     }
-    return getGetLikesMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestCountLikes,
-      sep3.project.protobuf.ResponseCountLikes> getCountLikesMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "CountLikes",
-      requestType = sep3.project.protobuf.RequestCountLikes.class,
-      responseType = sep3.project.protobuf.ResponseCountLikes.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestCountLikes,
-      sep3.project.protobuf.ResponseCountLikes> getCountLikesMethod() {
-    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestCountLikes, sep3.project.protobuf.ResponseCountLikes> getCountLikesMethod;
-    if ((getCountLikesMethod = UserServiceGrpc.getCountLikesMethod) == null) {
-      synchronized (UserServiceGrpc.class) {
-        if ((getCountLikesMethod = UserServiceGrpc.getCountLikesMethod) == null) {
-          UserServiceGrpc.getCountLikesMethod = getCountLikesMethod =
-              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestCountLikes, sep3.project.protobuf.ResponseCountLikes>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CountLikes"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  sep3.project.protobuf.RequestCountLikes.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  sep3.project.protobuf.ResponseCountLikes.getDefaultInstance()))
-              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("CountLikes"))
-              .build();
-        }
-      }
-    }
-    return getCountLikesMethod;
+    return getGetUsersWhoLikedMethod;
   }
 
   /**
@@ -226,13 +164,6 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void likePost(sep3.project.protobuf.RequestLikePost request,
-        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseLikePost> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getLikePostMethod(), responseObserver);
-    }
-
-    /**
-     */
     public void getUsers(sep3.project.protobuf.RequestGetUsers request,
         io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUsersMethod(), responseObserver);
@@ -240,16 +171,9 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void getLikes(sep3.project.protobuf.RequestGetLikes request,
+    public void getUsersWhoLiked(sep3.project.protobuf.RequestGetLikes request,
         io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetLikes> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetLikesMethod(), responseObserver);
-    }
-
-    /**
-     */
-    public void countLikes(sep3.project.protobuf.RequestCountLikes request,
-        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseCountLikes> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCountLikesMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUsersWhoLikedMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -262,13 +186,6 @@ public final class UserServiceGrpc {
                 sep3.project.protobuf.UserData>(
                   this, METHODID_CREATE_USER)))
           .addMethod(
-            getLikePostMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                sep3.project.protobuf.RequestLikePost,
-                sep3.project.protobuf.ResponseLikePost>(
-                  this, METHODID_LIKE_POST)))
-          .addMethod(
             getGetUsersMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
@@ -276,19 +193,12 @@ public final class UserServiceGrpc {
                 sep3.project.protobuf.ResponseGetUsers>(
                   this, METHODID_GET_USERS)))
           .addMethod(
-            getGetLikesMethod(),
+            getGetUsersWhoLikedMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 sep3.project.protobuf.RequestGetLikes,
                 sep3.project.protobuf.ResponseGetLikes>(
-                  this, METHODID_GET_LIKES)))
-          .addMethod(
-            getCountLikesMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                sep3.project.protobuf.RequestCountLikes,
-                sep3.project.protobuf.ResponseCountLikes>(
-                  this, METHODID_COUNT_LIKES)))
+                  this, METHODID_GET_USERS_WHO_LIKED)))
           .build();
     }
   }
@@ -317,14 +227,6 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void likePost(sep3.project.protobuf.RequestLikePost request,
-        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseLikePost> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getLikePostMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
     public void getUsers(sep3.project.protobuf.RequestGetUsers request,
         io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -333,18 +235,10 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void getLikes(sep3.project.protobuf.RequestGetLikes request,
+    public void getUsersWhoLiked(sep3.project.protobuf.RequestGetLikes request,
         io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetLikes> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetLikesMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public void countLikes(sep3.project.protobuf.RequestCountLikes request,
-        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseCountLikes> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getCountLikesMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetUsersWhoLikedMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -371,13 +265,6 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public sep3.project.protobuf.ResponseLikePost likePost(sep3.project.protobuf.RequestLikePost request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getLikePostMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
     public sep3.project.protobuf.ResponseGetUsers getUsers(sep3.project.protobuf.RequestGetUsers request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetUsersMethod(), getCallOptions(), request);
@@ -385,16 +272,9 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public sep3.project.protobuf.ResponseGetLikes getLikes(sep3.project.protobuf.RequestGetLikes request) {
+    public sep3.project.protobuf.ResponseGetLikes getUsersWhoLiked(sep3.project.protobuf.RequestGetLikes request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetLikesMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public sep3.project.protobuf.ResponseCountLikes countLikes(sep3.project.protobuf.RequestCountLikes request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getCountLikesMethod(), getCallOptions(), request);
+          getChannel(), getGetUsersWhoLikedMethod(), getCallOptions(), request);
     }
   }
 
@@ -422,14 +302,6 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseLikePost> likePost(
-        sep3.project.protobuf.RequestLikePost request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getLikePostMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
     public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetUsers> getUsers(
         sep3.project.protobuf.RequestGetUsers request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -438,26 +310,16 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetLikes> getLikes(
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetLikes> getUsersWhoLiked(
         sep3.project.protobuf.RequestGetLikes request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetLikesMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseCountLikes> countLikes(
-        sep3.project.protobuf.RequestCountLikes request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getCountLikesMethod(), getCallOptions()), request);
+          getChannel().newCall(getGetUsersWhoLikedMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_CREATE_USER = 0;
-  private static final int METHODID_LIKE_POST = 1;
-  private static final int METHODID_GET_USERS = 2;
-  private static final int METHODID_GET_LIKES = 3;
-  private static final int METHODID_COUNT_LIKES = 4;
+  private static final int METHODID_GET_USERS = 1;
+  private static final int METHODID_GET_USERS_WHO_LIKED = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -480,21 +342,13 @@ public final class UserServiceGrpc {
           serviceImpl.createUser((sep3.project.protobuf.RequestCreateUser) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.UserData>) responseObserver);
           break;
-        case METHODID_LIKE_POST:
-          serviceImpl.likePost((sep3.project.protobuf.RequestLikePost) request,
-              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseLikePost>) responseObserver);
-          break;
         case METHODID_GET_USERS:
           serviceImpl.getUsers((sep3.project.protobuf.RequestGetUsers) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetUsers>) responseObserver);
           break;
-        case METHODID_GET_LIKES:
-          serviceImpl.getLikes((sep3.project.protobuf.RequestGetLikes) request,
+        case METHODID_GET_USERS_WHO_LIKED:
+          serviceImpl.getUsersWhoLiked((sep3.project.protobuf.RequestGetLikes) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetLikes>) responseObserver);
-          break;
-        case METHODID_COUNT_LIKES:
-          serviceImpl.countLikes((sep3.project.protobuf.RequestCountLikes) request,
-              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseCountLikes>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -558,10 +412,8 @@ public final class UserServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new UserServiceFileDescriptorSupplier())
               .addMethod(getCreateUserMethod())
-              .addMethod(getLikePostMethod())
               .addMethod(getGetUsersMethod())
-              .addMethod(getGetLikesMethod())
-              .addMethod(getCountLikesMethod())
+              .addMethod(getGetUsersWhoLikedMethod())
               .build();
         }
       }
