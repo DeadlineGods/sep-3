@@ -4,10 +4,14 @@
 @using Domain.Models
 @using global::Shared
 @using UIComponents
-@inject AuthenticationStateProvider AuthenticationStateProvider;
+@using System.Security.Claims
+@using BlazorWasm.Services
 @inject NavigationManager navMgr
 @inject IPostService postService
 @inject ILocationService locationService
+@inject IAuthService authService
+@inject HttpClient Http
+
 @inject IImageUploadService imageUploadService
 
 	<Alert Type="success" Show="@showAlert">
@@ -110,10 +114,17 @@
 
 	        // get user id
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
-	        PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
+			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+	        // PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
 
-            id = await postService.CreateAsync(postCreationDto);
+	        ClaimsPrincipal context = await authService.GetAuthAsync();
+	        var claims = context.Identities.First().Claims.ToList();
+	        string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+	        long userId = long.Parse(userIdAsStrubg);
+
+            PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, postTags, locationId);
+
+            id = await postService.CreateAsync(dto);
 
 	        showAlert = true;
 	        postTitle = "";

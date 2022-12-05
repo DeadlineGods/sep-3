@@ -13,15 +13,17 @@ namespace Application.Logic;
 
 public class PostLogic : IPostLogic
 {
-    private readonly IPostDao postDao;
-    private readonly IUserDao userDao;
-    private readonly ILocationDao locationDao;
+    private readonly IPostDao PostDao;
+    private readonly IUserDao UserDao;
+    private readonly ILikeDao LikeDao;
+    private readonly ILocationDao LocationDao;
 
-    public PostLogic(IPostDao postDao, IUserDao userDao, ILocationDao locationDao)
+    public PostLogic(IPostDao postDao, IUserDao userDao, ILikeDao likeDao, ILocationDao locationDao)
     {
-        this.postDao = postDao;
-        this.userDao = userDao;
-        this.locationDao = locationDao;
+       PostDao = postDao;
+       UserDao = userDao;
+       LikeDao = likeDao;
+       LocationDao = locationDao;
     }
 
     public async Task<int> CreateAsync(PostCreationDto postCreationDto)
@@ -29,29 +31,35 @@ public class PostLogic : IPostLogic
         ValidatePost(postCreationDto);
 
         SearchUserParametersDto dto = new SearchUserParametersDto(null, postCreationDto.UserId);
-        IEnumerable<User> users = await userDao.GetAsync(dto);
+        IEnumerable<User> users = await UserDao.GetAsync(dto);
         User existingOwner = users.FirstOrDefault();
         if (existingOwner == null)
         {
             throw new Exception($"User with id = {postCreationDto.UserId} does not exist");
         }
 
-        return await postDao.CreateAsync(postCreationDto);
+        return await PostDao.CreateAsync(postCreationDto);
     }
 
-    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
+    public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
-	    return await postDao.GetAsync(parameters);
+        IEnumerable<Post> posts = await PostDao.GetAsync(parametersDto);
+        foreach (var post in posts)
+        {
+            post.Likes = await LikeDao.CountLikesAsync(post.Id);
+        }
+
+        return posts;
     }
 
     public async Task DeleteAsync(int id)
     {
-        await postDao.DeleteAsync(id);
+        await PostDao.DeleteAsync(id);
     }
 
     public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate center, int radius)
     {
-	    IEnumerable<Post> posts = await GetAsync(new SearchPostParameters());
+	    IEnumerable<Post> posts = await GetAsync(new SearchPostParametersDto());
 	    ICollection<Post> postsInRadius = new List<Post>();
 
 

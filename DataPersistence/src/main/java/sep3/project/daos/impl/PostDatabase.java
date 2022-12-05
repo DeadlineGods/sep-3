@@ -1,6 +1,7 @@
 package sep3.project.daos;
 
 import org.lognet.springboot.grpc.GRpcService;
+import sep3.project.daos.interfaces.PostPersistence;
 import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.PostData;
 import sep3.project.protobuf.ResponseGetUsers;
@@ -158,7 +159,7 @@ public class PostDatabase implements PostPersistence {
 
 			// then insert also into join table, because tag_name is foreign key
 			statement = connection.prepareStatement("" +
-					"INSERT INTO Post_tag(post_id, tag_name) VALUES(?, ?)");
+					"INSERT INTO post_tag(post_id, tag_name) VALUES(?, ?)");
 
 			statement.setInt(1, id);
 			statement.setString(2, tag);

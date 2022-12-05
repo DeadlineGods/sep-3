@@ -31,10 +31,10 @@ public class PostGrpcClient : IPostDao
 		    ImgUrl = post.ImgUrl,
 			LocationId = post.LocationId
 	    };
-
 	    //add tags
 	    foreach (var tag in post.Tags)
 	    {
+		    Console.WriteLine(tag);
 		    request.Tags.Add(tag);
 	    }
 
@@ -43,16 +43,16 @@ public class PostGrpcClient : IPostDao
 	    return await Task.FromResult(reply.Id);
     }
 
-    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
+    public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
 	    var reply = await client.GetPostAsync(
 		    new RequestGetPost
 		    {
-			    Id = parameters.Id ?? 0,
-			    UserId = parameters.UserId ?? 0,
-			    Title = parameters.TitleContains ?? ""
+			    Id = parametersDto.Id ?? 0,
+			    UserId = parametersDto.UserId ?? 0,
+			    Title = parametersDto.TitleContains ?? ""
 		    });
 
 	    IList<Post> posts = new List<Post>();

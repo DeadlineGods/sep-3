@@ -1,7 +1,9 @@
-package sep3.project.daos;
+package sep3.project.daos.impl;
 
 import org.lognet.springboot.grpc.GRpcService;
+import sep3.project.daos.interfaces.UserPersistence;
 import sep3.project.persistance.DBConnection;
+import sep3.project.protobuf.ResponseGetLikes;
 import sep3.project.protobuf.ResponseGetUsers;
 import sep3.project.protobuf.UserData;
 
@@ -57,6 +59,42 @@ public class UserDatabase implements UserPersistence {
         }
 
         return userData;
+    }
+
+
+    @Override
+    public ResponseGetLikes GetLikes(int postId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        List<UserData> usersList = new ArrayList<>();
+        ResponseGetLikes response = null;
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement( "SELECT * FROM \"User\" WHERE id IN (SELECT user_id FROM likepost WHERE post_id = ?)");
+            statement.setInt(1, postId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                UserData userData = null;
+                userData = UserData.newBuilder()
+                        .setId(resultSet.getInt("id"))
+                        .setUsername(resultSet.getString("user_name"))
+                        .setFirstName(resultSet.getString("first_name"))
+                        .setLastName(resultSet.getString("last_name"))
+                        .setEmail(resultSet.getString("email"))
+                        .setPassword(resultSet.getString("password"))
+                        .setPhoneNumber(resultSet.getString("phone_number"))
+                        .build();
+
+                usersList.add(userData);
+            }
+            response = ResponseGetLikes.newBuilder().addAllUser(usersList).build();
+        }
+        finally {
+            connection.close();
+        }
+        return response;
     }
 
     public ResponseGetUsers Get(String username, long userId) throws SQLException {
@@ -123,7 +161,7 @@ public class UserDatabase implements UserPersistence {
 
         try {
             statement = connection.prepareStatement(
-                    "SELECT * FROM \"User\" WHERE user_name = ?");
+                    "SELECT * FROM \"User\" WHERE user_name LIKE '%' || ? || '%'");
 
             statement.setString(1,username);
             return statement.executeQuery();

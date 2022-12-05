@@ -5,7 +5,7 @@ namespace Domain.Models;
 
 public class Post
 {
-    public int Id{ get; set; }
+    public long Id{ get; set; }
     public User Owner { get; set; }
     public int Likes { get; set; } = 0;
     public string Title { get; set; }
@@ -17,7 +17,7 @@ public class Post
 
     public Post() { }
 
-    public Post(int id, User owner, int likes, string title, string description, string imgUrl, DateTime postedOn, IList<string> tags)
+    public Post(long id, User owner, int likes, string title, string description, string imgUrl, DateTime postedOn, Coordinate? coordinate, IList<string> tags)
     {
 	    Id = id;
 	    Owner = owner;
@@ -29,7 +29,7 @@ public class Post
 	    Tags = tags;
     }
 
-    public Post(int id, User owner, int likes, string title, string imgUrl ,string description, DateTime postedOn, Location location)
+    public Post(long id, User owner, int likes, string title, string imgUrl ,string description, DateTime postedOn, Location location)
     {
 	    Id = id;
 	    Likes = likes;

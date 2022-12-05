@@ -3,7 +3,7 @@ package sep3.project.services;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import sep3.project.daos.PostPersistence;
+import sep3.project.daos.interfaces.PostPersistence;
 import sep3.project.protobuf.*;
 
 import java.sql.SQLException;

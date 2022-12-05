@@ -1,10 +1,8 @@
 ﻿@page "/posts/all"
+@using UIComponents
 @using Domain.Models
 @using HttpClients.ClientInterfaces
 @inject IPostService postService
-@inject NavigationManager navMgr
-
-
 
 @if (posts == null)
 {
@@ -18,17 +16,11 @@ else
 {
     @foreach (var post in posts)
     {
-        <div class="post-card">
-            <a href="posts/@post.Id">
-                <div>@post.Title</div>
-                <div>@post.PostedOn</div>
-                <div>@post.Description</div>
-                <img src="@post.ImgUrl" alt="thumbnail"/>
-                <div>@post.Owner.UserName</div>
-                <div>@post.Likes</div>
-                <div>@post.Tags</div>
-            </a>
-        </div>
+        <a href="posts/@post.Id">
+            Go to post
+        </a>
+        <SinglePost Post="post"/>
+
     }
 }
 @if (!string.IsNullOrEmpty(msg))
@@ -39,10 +31,11 @@ else
 @code {
     private IEnumerable<Post>? posts;
     private string msg;
+    private bool isLiked;
 
     [Parameter]
     public string? Id { get; set; }
-
+    
     protected override async Task OnInitializedAsync()
     {
         try
@@ -55,5 +48,4 @@ else
             msg = e.Message;
         }
     }
-
 }
