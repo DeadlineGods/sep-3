@@ -8,7 +8,6 @@ service PostService {
 	rpc GetPostById(RequestGetPostById) returns(ResponseGetPostById);
 	rpc DeletePost(RequestDeletePost) returns(EmptyPost);
 	rpc UpdatePost(RequestUpdatePost) returns (ResponseUpdatePost);
-
 }
 
 message RequestCreatePost {

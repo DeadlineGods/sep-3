@@ -21,6 +21,8 @@ public class PostDatabase implements PostPersistence {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
+		System.out.println(locationId);
+
 		try {
 			PreparedStatement statement = connection.prepareStatement("" +
 					"INSERT INTO post(title, user_id, description, image_url, location_id) VALUES(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -57,7 +59,7 @@ public class PostDatabase implements PostPersistence {
 		{
 			//deleting sub_comments
 			PreparedStatement statement_sub_comments = connection.prepareStatement(
-					"DELETE FROM sub_comment WHERE parent_comment IN " +
+					"DELETE FROM commentparentcomment WHERE parent_comment_id IN " +
 							"(SELECT id FROM comment WHERE post_id IN " +
 							"(SELECT id FROM post WHERE id = ?))"
 			);

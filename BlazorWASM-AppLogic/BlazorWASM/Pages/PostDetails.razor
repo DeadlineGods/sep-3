@@ -7,6 +7,7 @@
 @inject IPostService postService
 @inject IAuthService authService
 @inject IUserService userService
+@inject ILikeService likeService
 @inject NavigationManager navMgr
 @using UIComponents
 
@@ -59,7 +60,7 @@ else
 				var claims = context.Identities.First().Claims.ToList();
 				string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
 				LikePostDto dto = new LikePostDto(Id, int.Parse(id));
-				await userService.LikePost(dto);
+				await likeService.LikePostAsync(dto);
 				isSucceed = true;
 			}
 		}
@@ -70,31 +71,6 @@ else
 		}
 	}
 	
-	private async Task Delete()
-	{
-		try
-		{
-			await postService.DeleteAsync(Id, post.Owner.Id);
-			navMgr.NavigateTo("/");
-		}
-		catch (Exception e)
-		{
-			Console.WriteLine(e);
-			throw;
-		}
-	}
-	
-	private async Task Edit()
-	{
-		try
-		{
-			navMgr.NavigateTo($"EditPost/{Id}");
-		}
-		catch (Exception e)
-		{
-			Console.WriteLine(e);
-			throw;
-		}
-	}
+
 
 }

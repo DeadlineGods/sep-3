@@ -110,8 +110,7 @@
 	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
 
 	        int locationId = await locationService.CreateAsync(locationCreationDto);
-
-
+	        
 	        // get user id
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
 			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;

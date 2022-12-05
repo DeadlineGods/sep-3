@@ -102,6 +102,7 @@ public class LocationDatabase implements LocationPersistence {
 						.setId(result.getInt("id"))
 						.build();
 			}
+
 		}
 		finally {
 			connection.close();

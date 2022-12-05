@@ -57,17 +57,17 @@ public class PostLogic : IPostLogic
 
     public async Task DeleteAsync(int post_id, int user_id)
     {
-        SearchPostParameters parameters = new SearchPostParameters(post_id);
+        SearchPostParametersDto parameters = new SearchPostParametersDto(post_id);
         IEnumerable<Post> posts = await GetAsync(parameters);
         foreach (var post in posts)
         {
             if (post.Owner.Id == user_id)
             {
-                await postDao.DeleteAsync(post_id);
+                await PostDao.DeleteAsync(post_id);
             }
         }
         
-        await PostDao.DeleteAsync(id);
+        await PostDao.DeleteAsync(post_id);
     }
 
     public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate center, int radius)
@@ -110,8 +110,8 @@ public class PostLogic : IPostLogic
     {
         
 
-        SearchPostParameters postParameters = new SearchPostParameters(dto.Id);
-        IEnumerable<Post> posts = await postDao.GetAsync(postParameters);
+        SearchPostParametersDto postParameters = new SearchPostParametersDto(dto.Id);
+        IEnumerable<Post> posts = await PostDao.GetAsync(postParameters);
         Post? existing = posts.FirstOrDefault();
         if (existing == null)
         {
@@ -138,7 +138,7 @@ public class PostLogic : IPostLogic
             };
             Console.WriteLine(updated.Title);
             ValidatePost(updated);
-            await postDao.UpdateAsync(updated);
+            await PostDao.UpdateAsync(updated);
         }
         
 

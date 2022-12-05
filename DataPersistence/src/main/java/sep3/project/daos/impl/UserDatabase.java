@@ -5,6 +5,7 @@ import sep3.project.daos.interfaces.UserPersistence;
 import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.ResponseGetLikes;
 import sep3.project.protobuf.ResponseGetUsers;
+import sep3.project.protobuf.ResponseLikePost;
 import sep3.project.protobuf.UserData;
 
 
@@ -24,7 +25,7 @@ public class UserDatabase implements UserPersistence {
         UserData userData = null;
         try {
             long userId = 0;
-            String sql = "INSERT INTO \"user\" (user_name, first_name, last_name, email, password, phone_number)  VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO \"User\" (user_name, first_name, last_name, email, password, phone_number)  VALUES (?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = connection.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
@@ -100,7 +101,7 @@ public class UserDatabase implements UserPersistence {
         PreparedStatement statement = null;
 
         try {
-            statement = connection.prepareStatement( "SELECT * FROM \"user\" WHERE id IN (SELECT user_id FROM likepost WHERE post_id = ?)");
+            statement = connection.prepareStatement( "SELECT * FROM \"User\" WHERE id IN (SELECT user_id FROM likepost WHERE post_id = ?)");
             statement.setInt(1, postId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -177,7 +178,7 @@ public class UserDatabase implements UserPersistence {
         PreparedStatement statement = null;
 
         try {
-            statement = connection.prepareStatement("SELECT * FROM \"user\"");
+            statement = connection.prepareStatement("SELECT * FROM \"User\"");
 
             return statement.executeQuery();
 
@@ -191,7 +192,7 @@ public class UserDatabase implements UserPersistence {
 
         try {
             statement = connection.prepareStatement(
-                    "SELECT * FROM \"user\" WHERE user_name LIKE '%' || ? || '%'");
+                    "SELECT * FROM \"User\" WHERE user_name LIKE '%' || ? || '%'");
 
             statement.setString(1,username);
             return statement.executeQuery();
@@ -206,7 +207,7 @@ public class UserDatabase implements UserPersistence {
         try {
             int i = (int) id;
             statement = connection.prepareStatement(
-                    "SELECT * FROM \"user\" WHERE id = ?");
+                    "SELECT * FROM \"User\" WHERE id = ?");
             statement.setLong(1, i);
             return statement.executeQuery();
 
@@ -220,7 +221,7 @@ public class UserDatabase implements UserPersistence {
         try {
             int i = (int) id;
             statement = connection.prepareStatement(
-                    "SELECT * FROM \"user\" WHERE id = ? AND lower(user_name) LIKE '%' || ? || '%'");
+                    "SELECT * FROM \"User\" WHERE id = ? AND lower(user_name) LIKE '%' || ? || '%'");
             statement.setLong(1, i);
             statement.setString(2, username);
             return statement.executeQuery();

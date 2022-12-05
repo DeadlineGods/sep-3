@@ -32,7 +32,7 @@ public class PostGrpcClient : IPostDao
 		    Title = post.Title,
 		    Description = post.Description,
 		    UserId = post.UserId,
-		    ImgUrl = post.ImgUrl,
+			ImgUrl = post.ImgUrl,
 			LocationId = post.LocationId
 	    };
 	    //add tags
@@ -91,7 +91,7 @@ public class PostGrpcClient : IPostDao
     }
 
 
-    private async Task<Post> ConstructPostAsync(PostData reply)
+    
 
     public async Task UpdateAsync(Post post)
     {
@@ -99,10 +99,10 @@ public class PostGrpcClient : IPostDao
 	    var client = new PostService.PostServiceClient(channel);
 	    try
 	    {
-		    Console.WriteLine(post.Id);
+		    
 		    RequestUpdatePost request = new RequestUpdatePost
 		    {
-			    Id = post.Id,
+			    Id = (int)post.Id,
 			    Title = post.Title,
 			    Description = post.Description,
 		    };
@@ -125,26 +125,16 @@ public class PostGrpcClient : IPostDao
 
  
 
-    private async Task<Post> ConstructPost(PostData reply)
+    private async Task<Post> ConstructPostAsync(PostData reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
-	    
-	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.Description, postedOn);
-    }
-    
-    private async Task<Post> ConstructPost(ResponseGetPostById reply)
-    {
-	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
-	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
-	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
-	    IEnumerable<User> users = await userDao.GetAsync(dto);
-	    
-	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.Description, postedOn);
 	    Location location = await locationDao.GetAsync(reply.LocationId);
-
+	    
 	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn, location);
     }
+    
+ 
 }
