@@ -1,3 +1,4 @@
+using System.Collections;
 using Application.DAOsInterfaces;
 using Domain.DTOs;
 using Domain.Models;
@@ -16,6 +17,25 @@ public class TagGrpcClient : ITagDao
     }
 
     
+    public async Task<string[]> CreateAsync(PostTagCreationDto dto)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+        var client = new TagService.TagServiceClient(channel);
+
+        var request = new RequestCreateTags()
+        {
+            PostId = dto.postId
+        };
+        
+        //add tags
+        foreach (var tag in dto.Tags)
+        {
+            request.Tags.Add(tag);
+        }
+
+        var reply = await client.CreateTagsAsync(request);
+        return await Task.FromResult(reply.Tags.ToArray());
+    }
     public async Task<IEnumerable<TagPost>> GetPostTagAsync(SearchPostTagParameters searchParameters)
     {
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");
@@ -58,6 +78,7 @@ public class TagGrpcClient : ITagDao
         
         return await Task.FromResult(tags);
     }
+
 
 
     private async Task<TagPost> ConstructPostTagAsync(PostTagData reply)

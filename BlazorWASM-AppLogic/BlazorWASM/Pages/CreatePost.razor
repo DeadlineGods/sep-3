@@ -7,6 +7,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider;
 @inject NavigationManager navMgr
 @inject IPostService postService
+@inject ITagService tagService
 @inject IImageUploadService imageUploadService
 
 	<Alert Type="success" Show="@showAlert">
@@ -105,9 +106,12 @@
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
             int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
 
-            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, coordinates);
+	        PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, coordinates);
 
-            id = await postService.CreateAsync(dto);
+	        await postService.CreateAsync(dto);
+
+	        PostTagCreationDto tagDto = new(id, postTags.ToArray());
+	        await tagService.CreateAsync(tagDto);
 
 	        showAlert = true;
 	        postTitle = "";
