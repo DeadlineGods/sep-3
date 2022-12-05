@@ -8,6 +8,7 @@ import sep3.project.protobuf.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @GRpcService
 public class TagImpl extends TagServiceGrpc.TagServiceImplBase {
@@ -15,6 +16,28 @@ public class TagImpl extends TagServiceGrpc.TagServiceImplBase {
 
     public TagImpl(@Qualifier("tagDatabase")TagPersistence database) {
         this.database = database;
+    }
+    @Override
+    public void createTags(RequestCreateTags request, StreamObserver<ResponseCreateTag> responseObserver)
+    {
+        System.out.println("Received Request =>\n" + request.toString());
+        String[] tags = new String[]{};
+
+        try {
+            //create tags in database and return created tags
+            //not all tags written when creating a post are created in database
+            //some could arleady exist
+            tags = database.CreateTags(request.getPostId(), request.getTagsList().toArray(new String[0]));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        ResponseCreateTag response = ResponseCreateTag.newBuilder()
+                .addAllTags(Arrays.asList(tags))
+                .build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
     @Override
     public void getPostTag(RequestGetPostTag request, StreamObserver<ResponseGetPostTag> responseObserver) {

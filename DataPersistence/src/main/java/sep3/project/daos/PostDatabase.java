@@ -17,20 +17,21 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public int createPost(String title, long userId, String description, String[] tags, String imageUrl, float lat, float lng) throws SQLException {
+	public int createPost(String title, long userId, String description, String imageUrl, float lat, float lng) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
 		try {
 			PreparedStatement statement = connection.prepareStatement("" +
-					"INSERT INTO post(title, user_id, description, image_url, latitude, longitude) VALUES(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					"INSERT INTO post(title, user_id, description, image_url, posted_on, location_id) VALUES(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, title);
 			statement.setLong(2, userId);
 			statement.setString(3, description);
 			statement.setString(4, imageUrl);
-			statement.setBigDecimal(5, BigDecimal.valueOf(lat));
-			statement.setBigDecimal(6, BigDecimal.valueOf(lng));
+
+			statement.setTimestamp(5, new Timestamp(2022, 12, 5, 12, 15, 5, 0));
+			statement.setInt(6,1);
 
 			statement.execute();
 
@@ -40,7 +41,7 @@ public class PostDatabase implements PostPersistence {
 				id = rs.getInt("id");
 			}
 
-			addTags(connection, tags, id);
+			//addTags(connection, tags, id);
 
 		}
 		finally {
@@ -143,6 +144,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 
+	/*
 	private void addTags(Connection connection, String[] tags, int id) throws SQLException {
 		PreparedStatement statement = null;
 		for (String tag : tags) {
@@ -176,6 +178,9 @@ public class PostDatabase implements PostPersistence {
 
 		return resultSet.next();
 	}
+
+
+	 */
 
 	private ResultSet getAll(Connection connection) {
 		PreparedStatement statement = null;

@@ -4,10 +4,19 @@ option java_multiple_files = true;
 option java_package = "sep3.project.protobuf";
 
 service TagService{
+  rpc CreateTags(RequestCreateTags) returns(ResponseCreateTag);
   rpc GetPostTag(RequestGetPostTag) returns (ResponseGetPostTag);
   rpc GetTagList(RequestGetTagList) returns(ResponseGetTagList);
 }
-
+message RequestCreateTags
+{
+  int32 postId=1;
+  repeated string tags=2;
+}
+message ResponseCreateTag
+{
+  repeated string tags=1;
+}
 message RequestGetPostTag
 {
   optional int32 postId = 1;

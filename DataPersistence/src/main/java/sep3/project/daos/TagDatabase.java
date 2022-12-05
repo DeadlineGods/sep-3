@@ -15,6 +15,52 @@ public class TagDatabase implements TagPersistence{
     }
 
     @Override
+    public String[] CreateTags(int postId, String[] tags) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement statement = null;
+        String[] createdTags = new String[tags.length];
+        int index = 0;
+        try {
+            for (String tag : tags) {
+
+                // first insert into TAG table
+                if (!containsTag(connection, tag)) {
+                    statement = connection.prepareStatement("" +
+                            "INSERT INTO tag_list(tag_name) VALUES(?)");
+
+                    statement.setString(1, tag);
+
+                    statement.execute();
+                }
+
+                // then insert also into join table, because tag_name is foreign key
+                statement = connection.prepareStatement("" +
+                        "INSERT INTO post_tag(post_id, tag_name) VALUES(?, ?)");
+
+                statement.setInt(1, postId);
+                statement.setString(2, tag);
+
+                statement.execute();
+                createdTags[index] = tag;
+                index++;
+            }
+        }
+        finally {
+            connection.close();
+        }
+        return createdTags;
+
+    }
+    private boolean containsTag(Connection connection, String tag) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT tag_name from tag_list where tag_name = ?");
+
+        statement.setString(1, tag);
+        ResultSet resultSet = statement.executeQuery();
+
+        return resultSet.next();
+    }
+
+    @Override
     public ArrayList<PostTagData> GetPostTag(String tagContains, int postId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         ArrayList<PostTagData> tags = new ArrayList<>();
@@ -148,6 +194,7 @@ public class TagDatabase implements TagPersistence{
 
         return tags;
     }
+
     private ResultSet getAllTagList(Connection connection) {
         PreparedStatement statement = null;
 
