@@ -44,10 +44,10 @@ public final class Location {
   static {
     java.lang.String[] descriptorData = {
       "\n\016location.proto\"6\n\017CoordinatesData\022\020\n\010l" +
-      "atitude\030\001 \001(\002\022\021\n\tlongitude\030\002 \001(\002\"u\n\014Loca" +
+      "atitude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001\"u\n\014Loca" +
       "tionData\022\017\n\007address\030\001 \001(\t\022\020\n\010postCode\030\002 " +
       "\001(\t\022\017\n\007country\030\003 \001(\t\022\014\n\004town\030\004 \001(\t\022\020\n\010la" +
-      "titude\030\005 \001(\002\022\021\n\tlongitude\030\006 \001(\002\"O\n\013Addre" +
+      "titude\030\005 \001(\001\022\021\n\tlongitude\030\006 \001(\001\"O\n\013Addre" +
       "ssData\022\017\n\007address\030\001 \001(\t\022\020\n\010postCode\030\002 \001(" +
       "\t\022\017\n\007country\030\003 \001(\t\022\014\n\004town\030\004 \001(\t\"\030\n\nLoca" +
       "tionId\022\n\n\002id\030\001 \001(\0052\264\001\n\017LocationService\022/" +

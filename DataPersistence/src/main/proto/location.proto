@@ -11,8 +11,8 @@ service LocationService {
 }
 
 message CoordinatesData {
-	float latitude = 1;
-	float longitude = 2;
+	double latitude = 1;
+	double longitude = 2;
 }
 
 message LocationData {
@@ -20,8 +20,8 @@ message LocationData {
 	string postCode = 2;
 	string country = 3;
 	string town = 4;
-	float latitude = 5;
-	float longitude = 6;
+	double latitude = 5;
+	double longitude = 6;
 }
 
 message AddressData {

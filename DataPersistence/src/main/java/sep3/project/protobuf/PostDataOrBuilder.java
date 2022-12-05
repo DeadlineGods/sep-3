@@ -62,7 +62,13 @@ public interface PostDataOrBuilder extends
       getImgUrlBytes();
 
   /**
-   * <code>int64 postedOnMilliseconds = 7;</code>
+   * <code>int32 locationId = 7;</code>
+   * @return The locationId.
+   */
+  int getLocationId();
+
+  /**
+   * <code>int64 postedOnMilliseconds = 8;</code>
    * @return The postedOnMilliseconds.
    */
   long getPostedOnMilliseconds();

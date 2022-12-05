@@ -85,14 +85,9 @@ private static final long serialVersionUID = 0L;
             tags_.add(s);
             break;
           }
-          case 53: {
+          case 48: {
 
-            latitude_ = input.readFloat();
-            break;
-          }
-          case 61: {
-
-            longitude_ = input.readFloat();
+            locationId_ = input.readInt32();
             break;
           }
           default: {
@@ -292,26 +287,15 @@ private static final long serialVersionUID = 0L;
     return tags_.getByteString(index);
   }
 
-  public static final int LATITUDE_FIELD_NUMBER = 6;
-  private float latitude_;
+  public static final int LOCATIONID_FIELD_NUMBER = 6;
+  private int locationId_;
   /**
-   * <code>float latitude = 6;</code>
-   * @return The latitude.
+   * <code>int32 locationId = 6;</code>
+   * @return The locationId.
    */
   @java.lang.Override
-  public float getLatitude() {
-    return latitude_;
-  }
-
-  public static final int LONGITUDE_FIELD_NUMBER = 7;
-  private float longitude_;
-  /**
-   * <code>float longitude = 7;</code>
-   * @return The longitude.
-   */
-  @java.lang.Override
-  public float getLongitude() {
-    return longitude_;
+  public int getLocationId() {
+    return locationId_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -343,11 +327,8 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < tags_.size(); i++) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 5, tags_.getRaw(i));
     }
-    if (java.lang.Float.floatToRawIntBits(latitude_) != 0) {
-      output.writeFloat(6, latitude_);
-    }
-    if (java.lang.Float.floatToRawIntBits(longitude_) != 0) {
-      output.writeFloat(7, longitude_);
+    if (locationId_ != 0) {
+      output.writeInt32(6, locationId_);
     }
     unknownFields.writeTo(output);
   }
@@ -379,13 +360,9 @@ private static final long serialVersionUID = 0L;
       size += dataSize;
       size += 1 * getTagsList().size();
     }
-    if (java.lang.Float.floatToRawIntBits(latitude_) != 0) {
+    if (locationId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(6, latitude_);
-    }
-    if (java.lang.Float.floatToRawIntBits(longitude_) != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(7, longitude_);
+        .computeInt32Size(6, locationId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -412,12 +389,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getImgUrl())) return false;
     if (!getTagsList()
         .equals(other.getTagsList())) return false;
-    if (java.lang.Float.floatToIntBits(getLatitude())
-        != java.lang.Float.floatToIntBits(
-            other.getLatitude())) return false;
-    if (java.lang.Float.floatToIntBits(getLongitude())
-        != java.lang.Float.floatToIntBits(
-            other.getLongitude())) return false;
+    if (getLocationId()
+        != other.getLocationId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -442,12 +415,8 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + TAGS_FIELD_NUMBER;
       hash = (53 * hash) + getTagsList().hashCode();
     }
-    hash = (37 * hash) + LATITUDE_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getLatitude());
-    hash = (37 * hash) + LONGITUDE_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getLongitude());
+    hash = (37 * hash) + LOCATIONID_FIELD_NUMBER;
+    hash = (53 * hash) + getLocationId();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -591,9 +560,7 @@ private static final long serialVersionUID = 0L;
 
       tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       bitField0_ = (bitField0_ & ~0x00000001);
-      latitude_ = 0F;
-
-      longitude_ = 0F;
+      locationId_ = 0;
 
       return this;
     }
@@ -631,8 +598,7 @@ private static final long serialVersionUID = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
       }
       result.tags_ = tags_;
-      result.latitude_ = latitude_;
-      result.longitude_ = longitude_;
+      result.locationId_ = locationId_;
       onBuilt();
       return result;
     }
@@ -706,11 +672,8 @@ private static final long serialVersionUID = 0L;
         }
         onChanged();
       }
-      if (other.getLatitude() != 0F) {
-        setLatitude(other.getLatitude());
-      }
-      if (other.getLongitude() != 0F) {
-        setLongitude(other.getLongitude());
+      if (other.getLocationId() != 0) {
+        setLocationId(other.getLocationId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1111,64 +1074,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private float latitude_ ;
+    private int locationId_ ;
     /**
-     * <code>float latitude = 6;</code>
-     * @return The latitude.
+     * <code>int32 locationId = 6;</code>
+     * @return The locationId.
      */
     @java.lang.Override
-    public float getLatitude() {
-      return latitude_;
+    public int getLocationId() {
+      return locationId_;
     }
     /**
-     * <code>float latitude = 6;</code>
-     * @param value The latitude to set.
+     * <code>int32 locationId = 6;</code>
+     * @param value The locationId to set.
      * @return This builder for chaining.
      */
-    public Builder setLatitude(float value) {
+    public Builder setLocationId(int value) {
       
-      latitude_ = value;
+      locationId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>float latitude = 6;</code>
+     * <code>int32 locationId = 6;</code>
      * @return This builder for chaining.
      */
-    public Builder clearLatitude() {
+    public Builder clearLocationId() {
       
-      latitude_ = 0F;
-      onChanged();
-      return this;
-    }
-
-    private float longitude_ ;
-    /**
-     * <code>float longitude = 7;</code>
-     * @return The longitude.
-     */
-    @java.lang.Override
-    public float getLongitude() {
-      return longitude_;
-    }
-    /**
-     * <code>float longitude = 7;</code>
-     * @param value The longitude to set.
-     * @return This builder for chaining.
-     */
-    public Builder setLongitude(float value) {
-      
-      longitude_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>float longitude = 7;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearLongitude() {
-      
-      longitude_ = 0F;
+      locationId_ = 0;
       onChanged();
       return this;
     }

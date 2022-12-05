@@ -76,14 +76,14 @@ private static final long serialVersionUID = 0L;
             town_ = s;
             break;
           }
-          case 45: {
+          case 41: {
 
-            latitude_ = input.readFloat();
+            latitude_ = input.readDouble();
             break;
           }
-          case 53: {
+          case 49: {
 
-            longitude_ = input.readFloat();
+            longitude_ = input.readDouble();
             break;
           }
           default: {
@@ -273,24 +273,24 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int LATITUDE_FIELD_NUMBER = 5;
-  private float latitude_;
+  private double latitude_;
   /**
-   * <code>float latitude = 5;</code>
+   * <code>double latitude = 5;</code>
    * @return The latitude.
    */
   @java.lang.Override
-  public float getLatitude() {
+  public double getLatitude() {
     return latitude_;
   }
 
   public static final int LONGITUDE_FIELD_NUMBER = 6;
-  private float longitude_;
+  private double longitude_;
   /**
-   * <code>float longitude = 6;</code>
+   * <code>double longitude = 6;</code>
    * @return The longitude.
    */
   @java.lang.Override
-  public float getLongitude() {
+  public double getLongitude() {
     return longitude_;
   }
 
@@ -320,11 +320,11 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(town_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, town_);
     }
-    if (java.lang.Float.floatToRawIntBits(latitude_) != 0) {
-      output.writeFloat(5, latitude_);
+    if (java.lang.Double.doubleToRawLongBits(latitude_) != 0) {
+      output.writeDouble(5, latitude_);
     }
-    if (java.lang.Float.floatToRawIntBits(longitude_) != 0) {
-      output.writeFloat(6, longitude_);
+    if (java.lang.Double.doubleToRawLongBits(longitude_) != 0) {
+      output.writeDouble(6, longitude_);
     }
     unknownFields.writeTo(output);
   }
@@ -347,13 +347,13 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(town_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, town_);
     }
-    if (java.lang.Float.floatToRawIntBits(latitude_) != 0) {
+    if (java.lang.Double.doubleToRawLongBits(latitude_) != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(5, latitude_);
+        .computeDoubleSize(5, latitude_);
     }
-    if (java.lang.Float.floatToRawIntBits(longitude_) != 0) {
+    if (java.lang.Double.doubleToRawLongBits(longitude_) != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(6, longitude_);
+        .computeDoubleSize(6, longitude_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -378,11 +378,11 @@ private static final long serialVersionUID = 0L;
         .equals(other.getCountry())) return false;
     if (!getTown()
         .equals(other.getTown())) return false;
-    if (java.lang.Float.floatToIntBits(getLatitude())
-        != java.lang.Float.floatToIntBits(
+    if (java.lang.Double.doubleToLongBits(getLatitude())
+        != java.lang.Double.doubleToLongBits(
             other.getLatitude())) return false;
-    if (java.lang.Float.floatToIntBits(getLongitude())
-        != java.lang.Float.floatToIntBits(
+    if (java.lang.Double.doubleToLongBits(getLongitude())
+        != java.lang.Double.doubleToLongBits(
             other.getLongitude())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
@@ -404,11 +404,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + TOWN_FIELD_NUMBER;
     hash = (53 * hash) + getTown().hashCode();
     hash = (37 * hash) + LATITUDE_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getLatitude());
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getLatitude()));
     hash = (37 * hash) + LONGITUDE_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getLongitude());
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getLongitude()));
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -550,9 +550,9 @@ private static final long serialVersionUID = 0L;
 
       town_ = "";
 
-      latitude_ = 0F;
+      latitude_ = 0D;
 
-      longitude_ = 0F;
+      longitude_ = 0D;
 
       return this;
     }
@@ -650,10 +650,10 @@ private static final long serialVersionUID = 0L;
         town_ = other.town_;
         onChanged();
       }
-      if (other.getLatitude() != 0F) {
+      if (other.getLatitude() != 0D) {
         setLatitude(other.getLatitude());
       }
-      if (other.getLongitude() != 0F) {
+      if (other.getLongitude() != 0D) {
         setLongitude(other.getLongitude());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -989,64 +989,64 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private float latitude_ ;
+    private double latitude_ ;
     /**
-     * <code>float latitude = 5;</code>
+     * <code>double latitude = 5;</code>
      * @return The latitude.
      */
     @java.lang.Override
-    public float getLatitude() {
+    public double getLatitude() {
       return latitude_;
     }
     /**
-     * <code>float latitude = 5;</code>
+     * <code>double latitude = 5;</code>
      * @param value The latitude to set.
      * @return This builder for chaining.
      */
-    public Builder setLatitude(float value) {
+    public Builder setLatitude(double value) {
       
       latitude_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>float latitude = 5;</code>
+     * <code>double latitude = 5;</code>
      * @return This builder for chaining.
      */
     public Builder clearLatitude() {
       
-      latitude_ = 0F;
+      latitude_ = 0D;
       onChanged();
       return this;
     }
 
-    private float longitude_ ;
+    private double longitude_ ;
     /**
-     * <code>float longitude = 6;</code>
+     * <code>double longitude = 6;</code>
      * @return The longitude.
      */
     @java.lang.Override
-    public float getLongitude() {
+    public double getLongitude() {
       return longitude_;
     }
     /**
-     * <code>float longitude = 6;</code>
+     * <code>double longitude = 6;</code>
      * @param value The longitude to set.
      * @return This builder for chaining.
      */
-    public Builder setLongitude(float value) {
+    public Builder setLongitude(double value) {
       
       longitude_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>float longitude = 6;</code>
+     * <code>double longitude = 6;</code>
      * @return This builder for chaining.
      */
     public Builder clearLongitude() {
       
-      longitude_ = 0F;
+      longitude_ = 0D;
       onChanged();
       return this;
     }

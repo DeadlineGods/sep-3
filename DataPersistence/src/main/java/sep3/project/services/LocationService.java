@@ -45,4 +45,20 @@ public class LocationService extends LocationServiceGrpc.LocationServiceImplBase
 
 		responseObserver.onCompleted();
 	}
+
+	@Override
+	public void create(LocationData request, StreamObserver<LocationId> responseObserver) {
+		System.out.println("Received Request =>\n" + request.toString());
+
+		LocationId id = null;
+		try {
+			id = database.create(request);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		responseObserver.onNext(id);
+
+		responseObserver.onCompleted();
+	}
 }

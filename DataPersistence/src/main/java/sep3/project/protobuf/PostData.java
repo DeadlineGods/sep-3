@@ -86,6 +86,11 @@ private static final long serialVersionUID = 0L;
           }
           case 56: {
 
+            locationId_ = input.readInt32();
+            break;
+          }
+          case 64: {
+
             postedOnMilliseconds_ = input.readInt64();
             break;
           }
@@ -270,10 +275,21 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int POSTEDONMILLISECONDS_FIELD_NUMBER = 7;
+  public static final int LOCATIONID_FIELD_NUMBER = 7;
+  private int locationId_;
+  /**
+   * <code>int32 locationId = 7;</code>
+   * @return The locationId.
+   */
+  @java.lang.Override
+  public int getLocationId() {
+    return locationId_;
+  }
+
+  public static final int POSTEDONMILLISECONDS_FIELD_NUMBER = 8;
   private long postedOnMilliseconds_;
   /**
-   * <code>int64 postedOnMilliseconds = 7;</code>
+   * <code>int64 postedOnMilliseconds = 8;</code>
    * @return The postedOnMilliseconds.
    */
   @java.lang.Override
@@ -313,8 +329,11 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(imgUrl_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, imgUrl_);
     }
+    if (locationId_ != 0) {
+      output.writeInt32(7, locationId_);
+    }
     if (postedOnMilliseconds_ != 0L) {
-      output.writeInt64(7, postedOnMilliseconds_);
+      output.writeInt64(8, postedOnMilliseconds_);
     }
     unknownFields.writeTo(output);
   }
@@ -346,9 +365,13 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(imgUrl_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, imgUrl_);
     }
+    if (locationId_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(7, locationId_);
+    }
     if (postedOnMilliseconds_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(7, postedOnMilliseconds_);
+        .computeInt64Size(8, postedOnMilliseconds_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -377,6 +400,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getDescription())) return false;
     if (!getImgUrl()
         .equals(other.getImgUrl())) return false;
+    if (getLocationId()
+        != other.getLocationId()) return false;
     if (getPostedOnMilliseconds()
         != other.getPostedOnMilliseconds()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
@@ -403,6 +428,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getDescription().hashCode();
     hash = (37 * hash) + IMGURL_FIELD_NUMBER;
     hash = (53 * hash) + getImgUrl().hashCode();
+    hash = (37 * hash) + LOCATIONID_FIELD_NUMBER;
+    hash = (53 * hash) + getLocationId();
     hash = (37 * hash) + POSTEDONMILLISECONDS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getPostedOnMilliseconds());
@@ -551,6 +578,8 @@ private static final long serialVersionUID = 0L;
 
       imgUrl_ = "";
 
+      locationId_ = 0;
+
       postedOnMilliseconds_ = 0L;
 
       return this;
@@ -585,6 +614,7 @@ private static final long serialVersionUID = 0L;
       result.title_ = title_;
       result.description_ = description_;
       result.imgUrl_ = imgUrl_;
+      result.locationId_ = locationId_;
       result.postedOnMilliseconds_ = postedOnMilliseconds_;
       onBuilt();
       return result;
@@ -654,6 +684,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getImgUrl().isEmpty()) {
         imgUrl_ = other.imgUrl_;
         onChanged();
+      }
+      if (other.getLocationId() != 0) {
+        setLocationId(other.getLocationId());
       }
       if (other.getPostedOnMilliseconds() != 0L) {
         setPostedOnMilliseconds(other.getPostedOnMilliseconds());
@@ -1008,9 +1041,40 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private int locationId_ ;
+    /**
+     * <code>int32 locationId = 7;</code>
+     * @return The locationId.
+     */
+    @java.lang.Override
+    public int getLocationId() {
+      return locationId_;
+    }
+    /**
+     * <code>int32 locationId = 7;</code>
+     * @param value The locationId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setLocationId(int value) {
+      
+      locationId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 locationId = 7;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearLocationId() {
+      
+      locationId_ = 0;
+      onChanged();
+      return this;
+    }
+
     private long postedOnMilliseconds_ ;
     /**
-     * <code>int64 postedOnMilliseconds = 7;</code>
+     * <code>int64 postedOnMilliseconds = 8;</code>
      * @return The postedOnMilliseconds.
      */
     @java.lang.Override
@@ -1018,7 +1082,7 @@ private static final long serialVersionUID = 0L;
       return postedOnMilliseconds_;
     }
     /**
-     * <code>int64 postedOnMilliseconds = 7;</code>
+     * <code>int64 postedOnMilliseconds = 8;</code>
      * @param value The postedOnMilliseconds to set.
      * @return This builder for chaining.
      */
@@ -1029,7 +1093,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int64 postedOnMilliseconds = 7;</code>
+     * <code>int64 postedOnMilliseconds = 8;</code>
      * @return This builder for chaining.
      */
     public Builder clearPostedOnMilliseconds() {

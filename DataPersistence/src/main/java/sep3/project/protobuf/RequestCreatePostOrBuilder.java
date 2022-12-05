@@ -75,14 +75,8 @@ public interface RequestCreatePostOrBuilder extends
       getTagsBytes(int index);
 
   /**
-   * <code>float latitude = 6;</code>
-   * @return The latitude.
+   * <code>int32 locationId = 6;</code>
+   * @return The locationId.
    */
-  float getLatitude();
-
-  /**
-   * <code>float longitude = 7;</code>
-   * @return The longitude.
-   */
-  float getLongitude();
+  int getLocationId();
 }

@@ -56,14 +56,14 @@ public interface LocationDataOrBuilder extends
       getTownBytes();
 
   /**
-   * <code>float latitude = 5;</code>
+   * <code>double latitude = 5;</code>
    * @return The latitude.
    */
-  float getLatitude();
+  double getLatitude();
 
   /**
-   * <code>float longitude = 6;</code>
+   * <code>double longitude = 6;</code>
    * @return The longitude.
    */
-  float getLongitude();
+  double getLongitude();
 }
