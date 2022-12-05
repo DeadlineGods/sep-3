@@ -3,10 +3,16 @@
 @using Domain.DTOs
 @using Domain.Models
 @using global::Shared
+@using global::UIComponents
 @using UIComponents
-@inject AuthenticationStateProvider AuthenticationStateProvider;
+@using System.Security.Claims
+@using BlazorWasm.Services
 @inject NavigationManager navMgr
 @inject IPostService postService
+@inject ILocationService locationService
+@inject IAuthService authService
+@inject HttpClient Http
+
 @inject ITagService tagService
 @inject IImageUploadService imageUploadService
 
@@ -24,19 +30,19 @@
 		<label>Body:</label>
 		<input type="text" @bind="postDescription"/>
 		<label>Tags</label>
-		<input type="text" @bind="newTag"/>
+		<input type="text" @bind="newTag" @ref="tagInput"/>
 		<button @onclick="@AddTag">add </button>
+
+		@foreach (string tag in postTags)
+		{
+			<div class="row">
+				@tag
+				<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+			</div>
+		}
+
 		<InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
 	</div>
-
-	@foreach (string tag in postTags)
-	{
-		<div class="row">
-			@tag
-			<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-		</div>
-	}
-
 	<div class="button-row">
 		@if (!string.IsNullOrEmpty(msg))
 		{
@@ -49,6 +55,7 @@
 
 
 @code {
+	ElementReference tagInput;
     private ImageFile? filesBase64 = null;
     private string postTitle = "";
     private string postDescription = "";
@@ -102,11 +109,22 @@
 
 	        Coordinate coordinates = await Map.GetCoordinates();
 
+	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
+
+	        int locationId = await locationService.CreateAsync(locationCreationDto);
+
+
 	        // get user id
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+	        // PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
+	        
+	        ClaimsPrincipal context = await authService.GetAuthAsync();
+	        var claims = context.Identities.First().Claims.ToList();
+	        string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+	        long userId = long.Parse(userIdAsStrubg);
 
-	        PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, coordinates);
+            PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, postTags, locationId);
 
 	        await postService.CreateAsync(dto);
 
@@ -152,12 +170,15 @@
 
     private void AddTag()
     {
-        if (newTag.Equals("") || postTags.Contains(newTag))
+
+	    if (newTag.Equals("") || postTags.Contains(newTag))
         {
-            return;
+	        tagInput.FocusAsync();
+	        return;
         }
         postTags.Add(newTag);
         newTag = "";
+	    tagInput.FocusAsync();
     }
 
     private void RemoveTag(string tag)

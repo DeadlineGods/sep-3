@@ -4,7 +4,8 @@ option csharp_namespace = "GrpcClient";
 
 service UserService{
 	rpc CreateUser(RequestCreateUser) returns (UserData);
-  rpc GetUsers(RequestGetUsers) returns (ResponseGetUsers);
+	rpc GetUsers(RequestGetUsers) returns (ResponseGetUsers);
+	rpc GetUsersWhoLiked(RequestGetLikes) returns (ResponseGetLikes);
 }
 
 message UserData {
@@ -28,10 +29,21 @@ message RequestCreateUser {
 
 message RequestGetUsers
 {
-  optional string username = 1;
-	optional int64 userid=2;
+	optional string username = 1;
+	optional int64 userid = 2;
 }
 
 message ResponseGetUsers{
-  repeated UserData userData = 1;
+	repeated UserData userData = 1;
 }
+
+message RequestGetLikes
+{
+	int64 postId = 1;
+}
+
+message ResponseGetLikes
+{
+	repeated UserData user = 1;
+}
+

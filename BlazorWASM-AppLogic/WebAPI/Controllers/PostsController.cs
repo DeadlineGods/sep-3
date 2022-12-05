@@ -41,11 +41,12 @@ public class PostsController : ControllerBase
 	    [FromQuery] int? id,
 	    [FromQuery] int? userId,
 	    [FromQuery] string? titleContains
-	) {
-	    try
+	)
+    {
+		try
 	    {
-		    SearchPostParameters parameters = new SearchPostParameters(id, userId, titleContains);
-            IEnumerable<Post> posts = await postLogic.GetAsync(parameters);
+		    SearchPostParametersDto parametersDto = new SearchPostParametersDto(id, userId, titleContains);
+            IEnumerable<Post> posts = await postLogic.GetAsync(parametersDto);
             return Ok(posts);
         }
         catch (Exception e)
@@ -53,6 +54,21 @@ public class PostsController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
+    }
+
+    [HttpGet, Route("getInRadius")]
+    public async Task<ActionResult<Post>> GetInRadiusAsync([FromQuery] double lat, [FromQuery] double lon, [FromQuery] int radius)
+    {
+	    try
+	    {
+		    IEnumerable<Post> posts = await postLogic.GetInRadiusAsync(new Coordinate(lat, lon), radius);
+		    return Ok(posts);
+	    }
+	    catch (Exception e)
+	    {
+		    Console.WriteLine(e);
+		    return StatusCode(500, e.Message);
+	    }
     }
 
 

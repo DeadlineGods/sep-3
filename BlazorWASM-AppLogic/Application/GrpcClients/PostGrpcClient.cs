@@ -10,13 +10,15 @@ namespace Application.GrpcClients;
 public class PostGrpcClient : IPostDao
 {
 	private readonly IUserDao userDao;
+	private readonly ILocationDao locationDao;
 
-	public PostGrpcClient(IUserDao userDao)
+	public PostGrpcClient(IUserDao userDao, ILocationDao locationDao)
 	{
 		this.userDao = userDao;
+		this.locationDao = locationDao;
 	}
 
-    public async Task<int> CreateAsync(Post post)
+    public async Task<int> CreateAsync(PostCreationDto post)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
@@ -25,27 +27,26 @@ public class PostGrpcClient : IPostDao
 	    {
 		    Title = post.Title,
 		    Description = post.Description,
-		    UserId = post.Owner.Id,
+		    UserId = post.UserId,
 		    ImgUrl = post.ImgUrl,
-		    Latitude = post.Coordinate.latitude,
-		    Longitude = post.Coordinate.longitude,
+			LocationId = post.LocationId
 	    };
-	    
+
 	    var reply = await client.CreatePostAsync(request);
 
 	    return await Task.FromResult(reply.Id);
     }
 
-    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
+    public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
 	    var reply = await client.GetPostAsync(
 		    new RequestGetPost
 		    {
-			    Id = parameters.Id ?? 0,
-			    UserId = parameters.UserId ?? 0,
-			    Title = parameters.TitleContains ?? ""
+			    Id = parametersDto.Id ?? 0,
+			    UserId = parametersDto.UserId ?? 0,
+			    Title = parametersDto.TitleContains ?? ""
 		    });
 
 	    IList<Post> posts = new List<Post>();
@@ -86,7 +87,8 @@ public class PostGrpcClient : IPostDao
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
+	    Location location = await locationDao.GetAsync(reply.LocationId);
 
-	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn);
+	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn, location);
     }
 }

@@ -1,19 +1,18 @@
 ﻿@page "/posts/{id:int}"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@using System.Security.Claims
+@using BlazorWasm.Services
 @inject IPostService postService
+@inject IAuthService authService
+@inject IUserService userService
 @inject NavigationManager navMgr
+@using UIComponents
 
 @if (post != null)
 {
-	<div class="post-card">
-		<div>@post.Title</div>
-		<div>@post.PostedOn</div>
-		<div>@post.Description</div>
-		<img src="@post.ImgUrl" alt="thumbnail"/>
-		<div>@post.Owner.UserName</div>
-		<div>@post.Likes</div>
-	</div>
+	<SinglePost Post="post"/>
 }
 else
 {
@@ -21,27 +20,23 @@ else
 }
 
 @code {
-	//<div>@post.Tags</div>
-	
     private Post? post;
-
-    [Parameter]
+	[Parameter]
     public int Id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
 	    try
         {
-	        Console.WriteLine("I am here");
-
 	        IEnumerable<Post> posts = await postService.GetAsync(Id);
 	        post = posts.FirstOrDefault();
-	        Console.WriteLine(post);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
         }
     }
+
+	
 
 }

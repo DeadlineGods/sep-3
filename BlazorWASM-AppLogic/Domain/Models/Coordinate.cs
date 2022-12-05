@@ -2,12 +2,13 @@
 
 public class Coordinate
 {
-    public float latitude{ get; set; }
-    public float longitude{ get; set; }
+    public double latitude{ get; set; }
+    public double longitude{ get; set; }
 
-    public Coordinate(float latitude, float longitude)
+    public Coordinate(double latitude, double longitude)
     {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
 }

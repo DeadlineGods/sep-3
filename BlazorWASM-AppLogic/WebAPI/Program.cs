@@ -27,6 +27,14 @@ builder.Services.AddScoped<IPostDao, PostGrpcClient>();
 builder.Services.AddScoped<IUserDao, UserGrpcClient>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 
+builder.Services.AddScoped<ILocationDao, LocationGrpcClient>();
+builder.Services.AddScoped<ILocationLogic, LocationLogic>();
+
+builder.Services.AddScoped<ILikeDao, LikeGrpcClient>();
+builder.Services.AddScoped<ILikeLogic, LikeLogic>();
+
+builder.Services.AddScoped<ICommentDao, CommentGrpcClient>();
+builder.Services.AddScoped<ICommentLogic, CommentLogic>();
 
 builder.Services.AddScoped<ITagDao, TagGrpcClient>();
 builder.Services.AddScoped<ITagLogic, TagLogic>();

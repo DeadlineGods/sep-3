@@ -7,22 +7,38 @@ namespace Application.Logic;
 
 public class UserLogic : IUserLogic
 {
-	private readonly IUserDao Dao;
+	private readonly IUserDao UserDao;
 
-	public UserLogic(IUserDao dao)
+	public UserLogic(IUserDao userDao)
 	{
-		Dao = dao;
+		UserDao = userDao;
 	}
 
 	public async Task<User> CreateAsync(UserCreationDto dto)
 	{
 		Validate(dto);
 
-		User created = await Dao.CreateAsync(dto);
+		User created = await UserDao.CreateAsync(dto);
 
 		return created;
 	}
+	
+	public async Task<IEnumerable<User>> GetLikes(int postId)
+	{
+		IEnumerable<User> users = new List<User>();
+		try
+		{
+			users = await UserDao.GetLikes(postId);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine("Not found");
+			throw;
+		}
 
+		return users;
+	}
+	
 	private static void Validate(UserCreationDto userToCreate)
 	{
 		string userName = userToCreate.username;
@@ -42,7 +58,7 @@ public class UserLogic : IUserLogic
 		IEnumerable<User> userWithUsername = new List<User>();
 		try
 		{
-			userWithUsername = await Dao.GetAsync(searchParameters);
+			userWithUsername = await UserDao.GetAsync(searchParameters);
 		}
 		catch (Exception e)
 		{
