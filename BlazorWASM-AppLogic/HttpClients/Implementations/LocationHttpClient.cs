@@ -1,4 +1,6 @@
+using System.Text;
 using System.Text.Json;
+using Domain.DTOs;
 using Domain.Models;
 using HttpClients.ClientInterfaces;
 
@@ -48,5 +50,21 @@ public class LocationHttpClient : ILocationService
 		})!;
 
 		return coordinate;
+	}
+
+	public async Task<int> CreateAsync(LocationCreationDto dto)
+	{
+		string subFormAsJson = JsonSerializer.Serialize(dto);
+		StringContent content = new(subFormAsJson, Encoding.UTF8, "application/json");
+
+		HttpResponseMessage response = await client.PostAsync("https://localhost:7196/location/create", content);
+		string responseContent = await response.Content.ReadAsStringAsync();
+
+		if (!response.IsSuccessStatusCode)
+		{
+			throw new Exception(responseContent);
+		}
+
+		return Int32.Parse(responseContent);
 	}
 }

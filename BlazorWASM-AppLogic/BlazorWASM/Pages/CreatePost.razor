@@ -7,6 +7,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider;
 @inject NavigationManager navMgr
 @inject IPostService postService
+@inject ILocationService locationService
 @inject IImageUploadService imageUploadService
 
 	<Alert Type="success" Show="@showAlert">
@@ -23,19 +24,19 @@
 		<label>Body:</label>
 		<input type="text" @bind="postDescription"/>
 		<label>Tags</label>
-		<input type="text" @bind="newTag"/>
+		<input type="text" @bind="newTag" @ref="tagInput"/>
 		<button @onclick="@AddTag">add </button>
+
+		@foreach (string tag in postTags)
+		{
+			<div class="row">
+				@tag
+				<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+			</div>
+		}
+
 		<InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
 	</div>
-
-	@foreach (string tag in postTags)
-	{
-		<div class="row">
-			@tag
-			<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-		</div>
-	}
-
 	<div class="button-row">
 		@if (!string.IsNullOrEmpty(msg))
 		{
@@ -48,6 +49,7 @@
 
 
 @code {
+	ElementReference tagInput;
     private ImageFile? filesBase64 = null;
     private string postTitle = "";
     private string postDescription = "";
@@ -101,13 +103,17 @@
 
 	        Coordinate coordinates = await Map.GetCoordinates();
 
+	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
+
+	        int locationId = await locationService.CreateAsync(locationCreationDto);
+
+
 	        // get user id
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
             int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+	        PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
 
-            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, coordinates);
-
-            id = await postService.CreateAsync(dto);
+            id = await postService.CreateAsync(postCreationDto);
 
 	        showAlert = true;
 	        postTitle = "";
@@ -148,12 +154,15 @@
 
     private void AddTag()
     {
-        if (newTag.Equals("") || postTags.Contains(newTag))
+
+	    if (newTag.Equals("") || postTags.Contains(newTag))
         {
-            return;
+	        tagInput.FocusAsync();
+	        return;
         }
         postTags.Add(newTag);
         newTag = "";
+	    tagInput.FocusAsync();
     }
 
     private void RemoveTag(string tag)

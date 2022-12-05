@@ -1,5 +1,6 @@
 using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
+using Domain.DTOs;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,21 @@ public class LocationController : ControllerBase
 		{
 			Location location = await LocationLogic.GetAsync(id);
 			return Ok(location);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			return StatusCode(500, e.Message);
+		}
+	}
+
+	[HttpPost, Route("create")]
+	public async Task<ActionResult<int>> Create(LocationCreationDto dto)
+	{
+		try
+		{
+			int id = await LocationLogic.CreateAsync(dto);
+			return Ok(id);
 		}
 		catch (Exception e)
 		{

@@ -36,17 +36,7 @@ public class PostLogic : IPostLogic
             throw new Exception($"User with id = {postCreationDto.UserId} does not exist");
         }
 
-        Post post = new Post()
-        {
-            Title = postCreationDto.Title,
-            Description = postCreationDto.Description,
-            Tags = postCreationDto.Tags,
-            Owner = existingOwner,
-            ImgUrl = postCreationDto.ImgUrl,
-            Coordinate = postCreationDto.Coordinates
-        };
-
-        return await postDao.CreateAsync(post);
+        return await postDao.CreateAsync(postCreationDto);
     }
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
@@ -59,16 +49,15 @@ public class PostLogic : IPostLogic
         await postDao.DeleteAsync(id);
     }
 
-    public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate center)
+    public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate center, int radius)
     {
 	    IEnumerable<Post> posts = await GetAsync(new SearchPostParameters());
 	    ICollection<Post> postsInRadius = new List<Post>();
 
+
 	    foreach (Post post in posts)
 	    {
-		    Coordinate coordinates = await locationDao.GetCoordinatesAsync(post.Id);
-
-		    if (IsInRadius(center, coordinates))
+		    if (IsInRadius(center, post.Location.coordinate, radius))
 			    postsInRadius.Add(post);
 	    }
 
@@ -76,7 +65,7 @@ public class PostLogic : IPostLogic
 
     }
 
-    private bool IsInRadius(Coordinate center, Coordinate postCoordinate)
+    private bool IsInRadius(Coordinate center, Coordinate postCoordinate, int radius)
     {
 	    // formula
 	    //d = √[(x₂ - x₁)² + (y₂ - y₁)²]
@@ -90,7 +79,8 @@ public class PostLogic : IPostLogic
 	    double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1-a));
 	    double d = R * c;
 
-	    return d * 1000 < 30000;
+
+	    return d * 1000 < radius;
     }
 
     private void ValidatePost(PostCreationDto postCreationDto)

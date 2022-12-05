@@ -57,11 +57,11 @@ public class PostsController : ControllerBase
     }
 
     [HttpGet, Route("getInRadius")]
-    public async Task<ActionResult<Post>> GetInRadiusAsync([FromQuery] float lat, [FromQuery] float lon)
+    public async Task<ActionResult<Post>> GetInRadiusAsync([FromQuery] double lat, [FromQuery] double lon, [FromQuery] int radius)
     {
 	    try
 	    {
-		    IEnumerable<Post> posts = await postLogic.GetInRadiusAsync(new Coordinate(lat, lon));
+		    IEnumerable<Post> posts = await postLogic.GetInRadiusAsync(new Coordinate(lat, lon), radius);
 		    return Ok(posts);
 	    }
 	    catch (Exception e)

@@ -12,12 +12,12 @@ public class Post
     public string Description { get; set; }
     public string ImgUrl { get; set; }
     public DateTime PostedOn { get; set; }
-    public Coordinate Coordinate { get; set; }
+    public Location Location { get; set; }
     public IList<string> Tags { get; set; }
 
     public Post() { }
 
-    public Post(int id, User owner, int likes, string title, string description, string imgUrl, DateTime postedOn, Coordinate? coordinate, IList<string> tags)
+    public Post(int id, User owner, int likes, string title, string description, string imgUrl, DateTime postedOn, IList<string> tags)
     {
 	    Id = id;
 	    Owner = owner;
@@ -26,11 +26,10 @@ public class Post
 	    ImgUrl = imgUrl;
 	    Description = description;
 	    PostedOn = postedOn;
-	    Coordinate = coordinate;
 	    Tags = tags;
     }
 
-    public Post(int id, User owner, int likes, string title, string imgUrl ,string description, DateTime postedOn)
+    public Post(int id, User owner, int likes, string title, string imgUrl ,string description, DateTime postedOn, Location location)
     {
 	    Id = id;
 	    Likes = likes;
@@ -39,6 +38,7 @@ public class Post
 	    PostedOn = postedOn;
 	    Owner = owner;
 	    ImgUrl = imgUrl;
+	    Location = location;
     }
 
 

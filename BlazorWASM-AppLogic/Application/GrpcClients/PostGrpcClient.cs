@@ -10,13 +10,15 @@ namespace Application.GrpcClients;
 public class PostGrpcClient : IPostDao
 {
 	private readonly IUserDao userDao;
+	private readonly ILocationDao locationDao;
 
-	public PostGrpcClient(IUserDao userDao)
+	public PostGrpcClient(IUserDao userDao, ILocationDao locationDao)
 	{
 		this.userDao = userDao;
+		this.locationDao = locationDao;
 	}
 
-    public async Task<int> CreateAsync(Post post)
+    public async Task<int> CreateAsync(PostCreationDto post)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
@@ -25,10 +27,9 @@ public class PostGrpcClient : IPostDao
 	    {
 		    Title = post.Title,
 		    Description = post.Description,
-		    UserId = post.Owner.Id,
+		    UserId = post.UserId,
 		    ImgUrl = post.ImgUrl,
-		    Latitude = post.Coordinate.latitude,
-		    Longitude = post.Coordinate.longitude,
+			LocationId = post.LocationId
 	    };
 
 	    //add tags
@@ -92,7 +93,8 @@ public class PostGrpcClient : IPostDao
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
+	    Location location = await locationDao.GetAsync(reply.LocationId);
 
-	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn);
+	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn, location);
     }
 }

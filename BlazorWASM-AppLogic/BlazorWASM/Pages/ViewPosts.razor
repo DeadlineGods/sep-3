@@ -47,7 +47,7 @@ else
     {
         try
         {
-            posts = await postService.GetAsync();
+            posts = await postService.GetInRadiusAsync(new Coordinate(55.8581310000, 9.8475880000), 30000);
         }
         catch (Exception e)
         {
