@@ -7,7 +7,7 @@ using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
-using SearchPostParameters = Domain.DTOs.SearchPostParameters;
+using SearchPostParameters = Domain.DTOs.SearchPostParametersDto;
 
 namespace Application.Logic;
 

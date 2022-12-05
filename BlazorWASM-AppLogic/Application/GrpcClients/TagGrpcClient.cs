@@ -83,7 +83,7 @@ public class TagGrpcClient : ITagDao
 
     private async Task<TagPost> ConstructPostTagAsync(PostTagData reply)
     {
-        SearchPostParameters dto = new SearchPostParameters(reply.PostId, null, null);
+        SearchPostParametersDto dto = new SearchPostParametersDto(reply.PostId, null, null);
         IEnumerable<Post> posts = await postDao.GetAsync(dto);
 
         return new TagPost( reply.TagContains, posts.FirstOrDefault().Id);
