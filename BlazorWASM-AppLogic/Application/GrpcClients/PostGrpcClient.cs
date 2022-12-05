@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
@@ -88,9 +89,50 @@ public class PostGrpcClient : IPostDao
 
 	    await Task.CompletedTask;
     }
-    
-    
+
+    public async Task UpdateAsync(Post post)
+    {
+	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+	    var client = new PostService.PostServiceClient(channel);
+	    try
+	    {
+		    Console.WriteLine(post.Id);
+		    RequestUpdatePost request = new RequestUpdatePost
+		    {
+			    Id = post.Id,
+			    Title = post.Title,
+			    Description = post.Description,
+		    };
+		    foreach (var tag in post.Tags)
+		    {
+			    Console.WriteLine(tag);
+			    request.Tags.Add(tag);
+		    }
+		    
+		    await client.UpdatePostAsync(request);
+	    }
+	    catch (Exception e)
+	    {
+		    Console.WriteLine(e);
+		    throw;
+	    }
+
+	    await Task.CompletedTask;
+    }
+
+ 
+
     private async Task<Post> ConstructPost(PostData reply)
+    {
+	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
+	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
+	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
+	    IEnumerable<User> users = await userDao.GetAsync(dto);
+	    
+	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.Description, postedOn);
+    }
+    
+    private async Task<Post> ConstructPost(ResponseGetPostById reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;

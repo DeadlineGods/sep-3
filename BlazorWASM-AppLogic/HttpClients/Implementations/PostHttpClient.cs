@@ -94,6 +94,34 @@ public class PostHttpClient : IPostService
 
     }
 
+    public async Task UpdateAsync(UpdatePostDto dto, long user_id)
+    {
+
+	    string dtoAsJson = JsonSerializer.Serialize(dto);
+	    StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
+	    HttpResponseMessage response = await client.PatchAsync($"https://localhost:7196/Posts?user_id={user_id}", body);
+	    string content = await response.Content.ReadAsStringAsync();
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(content);
+	    } 
+
+	    
+	    
+    }
+
+    /*public async Task<PostDto> GetByIdAsync(int id)
+    {
+	    HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/posts/{id}");
+	    string content = await response.Content.ReadAsStringAsync();
+
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(content);
+	    }
+	    PostDto post = JsonSerializer.Deserialize<PostDto>(content)!;
+	    return post;
+    }*/
     /*
     public async Task<bool> IsPostLiked(int id)
     {

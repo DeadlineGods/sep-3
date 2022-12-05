@@ -72,6 +72,49 @@ public class PostLogic : IPostLogic
         
     }
 
+    
+
+    public async Task<int> UpdateAsync(UpdatePostDto dto, int user_id)
+    {
+        
+
+        SearchPostParameters postParameters = new SearchPostParameters(dto.Id);
+        IEnumerable<Post> posts = await postDao.GetAsync(postParameters);
+        Post? existing = posts.FirstOrDefault();
+        if (existing == null)
+        {
+            throw new Exception($"Post with {dto.Id} not found");
+        }
+
+        Console.WriteLine(existing.Owner.Id);
+        Console.WriteLine(user_id);
+        
+        if (existing.Owner.Id == user_id)
+        {
+            string titleToUse = dto.Title ?? existing.Title;
+            string descriptionToUse = dto.Description ?? existing.Description;
+            //IList<string> tags = dto.Tags ?? existing.Tags;
+            
+            
+            Post updated = new Post()
+            {
+                Id = dto.Id,
+                Title = titleToUse,
+                Description = descriptionToUse,
+                Tags = dto.Tags,
+                Owner = existing.Owner
+            };
+            Console.WriteLine(updated.Title);
+            ValidatePost(updated);
+            await postDao.UpdateAsync(updated);
+        }
+        
+
+        return dto.Id;
+    }
+
+
+
     private void ValidatePost(PostCreationDto postCreationDto)
     {
         if (postCreationDto.Description.Length > 5000)
@@ -80,6 +123,19 @@ public class PostLogic : IPostLogic
         }
 
         if (postCreationDto.Title.Length > 150)
+        {
+            throw new Exception("Title has more characters than 150");
+        }
+    }
+    
+    private void ValidatePost(Post dto)
+    {
+        if (dto.Description.Length > 5000)
+        {
+            throw new Exception("Description has more characters than 5000");
+        }
+
+        if (dto.Title.Length > 150)
         {
             throw new Exception("Title has more characters than 150");
         }

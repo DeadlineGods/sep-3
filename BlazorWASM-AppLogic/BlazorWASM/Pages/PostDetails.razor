@@ -36,7 +36,9 @@
                         <Authorized>
                             @if (post.Owner.UserName == @context.User.Identity.Name)
                             {
-                                <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+	                            <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+	                            <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+
                             }
                         </Authorized>
                     </AuthorizeView>
@@ -108,6 +110,19 @@ else
 		{
 			await postService.DeleteAsync(Id, post.Owner.Id);
 			navMgr.NavigateTo("/");
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
+	}
+	
+	private async Task Edit()
+	{
+		try
+		{
+			navMgr.NavigateTo($"EditPost/{Id}");
 		}
 		catch (Exception e)
 		{

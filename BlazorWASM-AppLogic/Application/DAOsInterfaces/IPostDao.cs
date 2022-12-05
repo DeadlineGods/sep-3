@@ -10,4 +10,5 @@ public interface IPostDao
     Task<int> CreateAsync(Post post);
     Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters);
     Task DeleteAsync(int id);
+    Task UpdateAsync(Post post);
 }

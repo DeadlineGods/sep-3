@@ -1,0 +1,125 @@
+﻿@page "/EditPost/{id:int}"
+@using Domain.DTOs
+@using Domain.Models
+@using HttpClients.ClientInterfaces
+@inject IPostService postService
+@inject NavigationManager navMgr;
+<h3>EditPost</h3>
+
+<div class="card">
+    @if (dto == null)
+    {
+        <label>Post not found</label>
+    }
+    else
+    {
+        <h3>Update Todo</h3>
+        <div class="form-group field">
+            <label>Title:</label>
+            <input type="text" @bind="dto.Title"/>
+        </div>
+        <div class="form-group field">
+            <label>Description:</label>
+            <input type="text" @bind="dto.Description"/>
+        </div>
+        <label>Tags</label>
+        <input type="text" @bind="newTag"/>
+        <button @onclick="@AddTag">add </button>
+        <div class="button-row">
+            <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
+        </div>
+        
+        @foreach (string tag in postTags)
+        {
+            <div class="row">
+                @tag
+                <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+            </div>
+        }
+
+    }
+    @if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color: red">@msg</label>
+    }
+</div>
+
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private string postTitle = "";
+    private string postDescription = "";
+    private IList<string> postTags = new List<string>();
+    private string newTag = "";
+    Post postData { get; set; }
+
+    private UpdatePostDto dto = null!;
+    private string msg = "";
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        msg = "";
+        try
+        {
+            ICollection<Post> posts = await postService.GetAsync(Id);
+            postData = posts.FirstOrDefault();
+            
+
+            Console.WriteLine(postData.Id);
+            dto = new(Id)
+            {
+                Title = postTitle,
+                Description = postDescription,
+                Tags = postTags
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private async Task UpdateAsync()
+    {
+        try
+        {
+            
+            await postService.UpdateAsync(dto, postData.Owner.Id);
+            
+
+            navMgr.NavigateTo("/posts/all");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
+    private void AddTag()
+    {
+        if (newTag.Equals("") || postTags.Contains(newTag))
+        {
+            return;
+        }
+        postTags.Add(newTag);
+        newTag = "";
+    }
+
+    private void RemoveTag(string tag)
+    {
+        postTags.Remove(tag);
+    }
+
+    private void NavigateToPost()
+    {
+        navMgr.NavigateTo("posts/" + Id);
+    }
+
+}

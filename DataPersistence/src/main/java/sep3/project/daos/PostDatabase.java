@@ -2,8 +2,7 @@ package sep3.project.daos;
 
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.persistance.DBConnection;
-import sep3.project.protobuf.PostData;
-import sep3.project.protobuf.ResponseGetUsers;
+import sep3.project.protobuf.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class PostDatabase implements PostPersistence {
 
 		try {
 			PreparedStatement statement = connection.prepareStatement("" +
-					"INSERT INTO post(title, user_id, description) VALUES(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					"INSERT INTO post(title, user_id, description, 	location_id) VALUES(?, ?, ?, 1)", Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, title);
 			statement.setLong(2, userId);
@@ -84,12 +83,16 @@ public class PostDatabase implements PostPersistence {
 			statement_reports.setInt(1, id);
 			statement_reports.execute();
 
+			//deleting from tags
+
 			//deleting post_tags
 			PreparedStatement statement_tags = connection.prepareStatement(
 					"DELETE FROM post_tag WHERE post_id IN " +
 							"(SELECT id FROM post WHERE id = ?)"
 			);
 
+			statement_tags.setInt(1, id);
+			statement_tags.execute();
 			// deleting ban_post
 			PreparedStatement statement_ban = connection.prepareStatement(
 					"DELETE FROM ban_post WHERE post_id IN " +
@@ -193,7 +196,7 @@ public class PostDatabase implements PostPersistence {
 			// first insert into TAG table
 			if (! containsTag(connection, tag)) {
 				statement = connection.prepareStatement("" +
-						"INSERT INTO tag(name) VALUES(?)");
+						"INSERT INTO tag_list(tag_name) VALUES(?)");
 
 				statement.setString(1, tag);
 
@@ -202,7 +205,7 @@ public class PostDatabase implements PostPersistence {
 
 			// then insert also into join table, because tag_name is foreign key
 			statement = connection.prepareStatement("" +
-					"INSERT INTO posttag(post_id, tag_name) VALUES(?, ?)");
+					"INSERT INTO post_tag(post_id, tag_name) VALUES(?, ?)");
 
 			statement.setInt(1, id);
 			statement.setString(2, tag);
@@ -212,7 +215,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	private boolean containsTag(Connection connection, String tag) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement("SELECT name from tag where name = ?");
+		PreparedStatement statement = connection.prepareStatement("SELECT tag_name from tag_list where tag_name = ?");
 
 		statement.setString(1, tag);
 		ResultSet resultSet = statement.executeQuery();
@@ -346,5 +349,73 @@ public class PostDatabase implements PostPersistence {
 				.setTitle(resultSet.getString("title"))
 				.setPostedOnMilliseconds(resultSet.getTimestamp("posted_on").getTime())
 				.build();
+	}
+
+	@Override
+	public ResponseUpdatePost updatePost(int id, String title, String description, String[] tags) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+		ResponseUpdatePost response = null;
+		try
+		{
+			PreparedStatement statement_text = connection.prepareStatement("UPDATE post SET title = ?, description = ? WHERE id = ?;");
+			statement_text.setString(1, title);
+			statement_text.setString(2, description);
+			statement_text.setInt(3, id);
+
+			statement_text.execute();
+
+			//first deleting
+			PreparedStatement statement_tags_delete = connection.prepareStatement("DELETE FROM post_tag WHERE post_id IN (SELECT id FROM post WHERE id = ?);");
+			statement_tags_delete.setInt(1, id);
+			statement_tags_delete.execute();
+
+			//then inserting
+			for (String tag : tags)
+			{
+				PreparedStatement statement1 = connection.prepareStatement("INSERT INTO tag_list(tag_name) VALUES(?)");
+				statement1.setString(1, tag);
+				statement1.execute();
+
+				PreparedStatement statement = connection.prepareStatement("INSERT INTO post_tag(post_id, tag_name) VALUES (?, ?)");
+				statement.setInt(1, id);
+				statement.setString(2, tag);
+				statement.execute();
+
+			}
+
+		}
+		finally {
+			connection.close();
+		}
+		return response;
+
+	}
+
+	@Override
+	public ResponseGetPostById getPostById(int id) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+		ResponseGetPostById response = null;
+		try
+		{
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT * FROM \"post\" WHERE id = ?");
+
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				response = ResponseGetPostById.newBuilder()
+						.setId(resultSet.getInt("id"))
+						.setTitle(resultSet.getString("title"))
+						.setDescription(resultSet.getString("description"))
+						.setPostedOnMilliseconds(resultSet.getTimestamp("posted_on").getTime())
+						.setUserId(resultSet.getLong(resultSet.getInt("user_id"))).build();
+			}
+
+		}
+		finally {
+			connection.close();
+		}
+		return response;
 	}
 }

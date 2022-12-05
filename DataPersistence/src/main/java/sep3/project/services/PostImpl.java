@@ -71,4 +71,54 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	}
+
+	@Override
+	public void updatePost(RequestUpdatePost request, StreamObserver<ResponseUpdatePost> responseObserver) {
+		System.out.println("Received Request to update=>\n" + request.toString());
+		try
+		{
+			ResponseGetPostById responseGetPostById = database.getPostById(request.getId());
+			if(responseGetPostById == null)
+			{
+				System.out.println("No posts with id => " + request.getId());
+				responseObserver.onNext(null);
+				responseObserver.onCompleted();
+				return;
+			}
+			else {
+				System.out.println("Post with id was updated" + request.getId() + " =>" + request);
+
+			}
+			database.updatePost(request.getId(), request.getTitle(), request.getDescription(), request.getTagsList().toArray(new String[0]));
+		}
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		ResponseUpdatePost response = ResponseUpdatePost.newBuilder()
+						.setId(request.getId()).build();
+
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+
+	}
+
+	@Override
+	public void getPostById(RequestGetPostById request, StreamObserver<ResponseGetPostById> responseObserver) {
+		System.out.println("Received Request =>\n" + request.toString());
+		ResponseGetPostById response = null;
+		try
+		{
+			response = database.getPostById(request.getId());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+		System.out.println("Post with id" + request.getId() + " =>" + response.toString());
+
+
+	}
 }

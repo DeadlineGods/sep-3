@@ -72,4 +72,21 @@ public class PostsController : ControllerBase
         }
     }
 
+    [HttpPatch]
+    public async Task<ActionResult> UpdateAsync([FromBody] UpdatePostDto dto, [FromQuery] int user_id)
+    {
+        try
+        {
+            await postLogic.UpdateAsync(dto, user_id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+
+
 }
