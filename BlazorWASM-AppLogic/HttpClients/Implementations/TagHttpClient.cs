@@ -1,4 +1,6 @@
+using System.Text;
 using System.Text.Json;
+using Domain.DTOs;
 using Domain.Models;
 using HttpClients.ClientInterfaces;
 
@@ -13,6 +15,22 @@ public class TagHttpClient : ITagService
         this.client = client;
     }
 
+    public async Task<string[]> CreateAsync(PostTagCreationDto dto)
+    {
+        string subFormAsJson = JsonSerializer.Serialize(dto);
+        StringContent content = new(subFormAsJson, Encoding.UTF8, "application/json");
+        
+        HttpResponseMessage response = await client.PostAsync("https://localhost:7196/Tag/create", content);
+        string responseContent = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(responseContent);
+        }
+        var toReturn = responseContent.ToCharArray().Select( c => c.ToString()).ToArray();
+        return toReturn;
+    }
+    
     public async Task<ICollection<TagPost>> GetPostTagAsync(int? postId = null, string? tagContains = null)
     {
         string query = ConstructQuery(postId, tagContains);
@@ -51,6 +69,7 @@ public class TagHttpClient : ITagService
 
         return tags;
     }
+
     private static string ConstructQuery(int? postId, string? tagContains)
     {
         string query = "";

@@ -7,4 +7,5 @@ public interface ITagDao
 {
     Task<IEnumerable<TagPost>> GetPostTagAsync(SearchPostTagParameters searchParameters);
     Task<IEnumerable<Tag>> GetTagListAsync(SearchTagListParameters searchParameters);
+    Task<string[]> CreateAsync(PostTagCreationDto dto);
 }

@@ -41,7 +41,6 @@ else
                 <img src="@post.ImgUrl" alt="thumbnail"/>
                 <div>@post.Owner.UserName</div>
                 <div>@post.Likes</div>
-                <div>@post.Tags</div>
             </a>
         </div>
     }
@@ -52,7 +51,7 @@ else
 }
 
 @code {
-    
+    //<div>@post.Tags</div>
     private IList<Post>? posts = new List<Post>();
     private string msg;
     

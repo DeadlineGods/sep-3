@@ -15,7 +15,20 @@ public class TagController:ControllerBase
     {
         this.tagLogic = tagLogic;
     }
-    
+    [HttpPost, Route("create")]
+    public async Task<ActionResult<TagPost>> CreateAsync(PostTagCreationDto dto)
+    {
+        try
+        {
+            string[] tagsArray = await tagLogic.CreateAsync(dto);
+            return Ok(tagsArray);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
     [HttpGet,Route("getPostTag")]
     public async Task<ActionResult<TagPost>> GetPostTagAsync
     (

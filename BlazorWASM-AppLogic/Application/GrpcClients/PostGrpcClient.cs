@@ -30,13 +30,7 @@ public class PostGrpcClient : IPostDao
 		    Latitude = post.Coordinate.latitude,
 		    Longitude = post.Coordinate.longitude,
 	    };
-
-	    //add tags
-	    foreach (var tag in post.Tags)
-	    {
-		    request.Tags.Add(tag);
-	    }
-
+	    
 	    var reply = await client.CreatePostAsync(request);
 
 	    return await Task.FromResult(reply.Id);

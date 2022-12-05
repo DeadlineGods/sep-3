@@ -13,7 +13,6 @@ message RequestCreatePost {
 	string description = 2;
 	int64 userId = 3;
 	string imgUrl = 4;
-	repeated string tags = 5;
 	float latitude = 6;
 	float longitude = 7;
 }
@@ -51,4 +50,5 @@ message RequestGetPost {
 message ResponseGetPost {
 	repeated PostData posts = 1;
 }
+
 
