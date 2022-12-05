@@ -143,7 +143,7 @@
 <div class="main_content">
     <div id="offcanvas-create flex justify-center ">
         <div class="alertBox pt-6">
-            <Alert Type="success" Show="true">
+            <Alert Type="success" Show="@showAlert">
                 <p>Successfully created post!</p>
                 <button @onclick="@NavigateToPost">show me</button>
                 <button @onclick="(() => showAlert = false)">close</button>
