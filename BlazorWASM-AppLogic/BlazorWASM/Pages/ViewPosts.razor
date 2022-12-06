@@ -85,7 +85,6 @@ else
             else
             {
                 posts.Clear();
-                var postIdsFilter = new List<int>();
                 postTag = await tagService.GetPostTagAsync(0, tagFilter.ToLower());
                 foreach (var tagPost in postTag)
                 {
