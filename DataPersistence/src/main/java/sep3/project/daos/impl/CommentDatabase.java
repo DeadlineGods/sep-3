@@ -145,4 +145,32 @@ public class CommentDatabase implements CommentPersistence {
 
         return CommentsList.newBuilder().addAllComments(commentDataArrayList).build();
     }
+
+    @Override
+    public void deleteComment(long post_id) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+
+        try
+        {
+            //deleting sub_comments
+            PreparedStatement statement_sub_comments = connection.prepareStatement(
+                    "DELETE FROM commentparentcomment WHERE parent_comment_id IN " +
+                            "(SELECT id FROM comment WHERE post_id IN " +
+                            "(SELECT id FROM post WHERE id = ?))"
+            );
+            statement_sub_comments.setLong(1, post_id);
+            statement_sub_comments.execute();
+            //deleting comments
+            PreparedStatement statement_comments = connection.prepareStatement(
+                    "DELETE FROM comment WHERE post_id IN " +
+                            "(SELECT id FROM post WHERE id = ?)"
+            );
+            statement_comments.setLong(1, post_id);
+            statement_comments.execute();
+
+        }
+        finally {
+            connection.close();
+        }
+    }
 }

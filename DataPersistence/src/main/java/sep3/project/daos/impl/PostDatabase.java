@@ -54,7 +54,8 @@ public class PostDatabase implements PostPersistence {
 
 		try
 		{
-			//deleting sub_comments
+			//TODO remove it after testing
+			/*//deleting sub_comments
 			PreparedStatement statement_sub_comments = connection.prepareStatement(
 					"DELETE FROM commentparentcomment WHERE parent_comment_id IN " +
 							"(SELECT id FROM comment WHERE post_id IN " +
@@ -102,7 +103,7 @@ public class PostDatabase implements PostPersistence {
 							"(SELECT id FROM post WHERE id = ?);"
 			);
 			statement_ban.setInt(1, id);
-			statement_ban.execute();
+			statement_ban.execute();*/
 
 			//deleting post
 			PreparedStatement statement = connection.prepareStatement(
