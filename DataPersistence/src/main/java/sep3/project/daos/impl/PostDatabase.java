@@ -3,8 +3,7 @@ package sep3.project.daos.impl;
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.daos.interfaces.PostPersistence;
 import sep3.project.persistance.DBConnection;
-import sep3.project.protobuf.PostData;
-import sep3.project.protobuf.ResponseGetUsers;
+import sep3.project.protobuf.*;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -18,11 +17,10 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public int createPost(String title, long userId, String description, String imageUrl, int locationId) throws SQLException {
+	public int createPost(String title, long userId, String description,  String imageUrl, int locationId) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
-		System.out.println(locationId);
 		try {
 			PreparedStatement statement = connection.prepareStatement("" +
 					"INSERT INTO post(title, user_id, description, image_url, location_id) VALUES(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -41,6 +39,7 @@ public class PostDatabase implements PostPersistence {
 				id = rs.getInt("id");
 			}
 
+
 		}
 		finally {
 			connection.close();
@@ -50,16 +49,67 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public void deletePost(long id) throws SQLException {
+	public void deletePost(int id) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 
 		try
 		{
+			//deleting sub_comments
+			PreparedStatement statement_sub_comments = connection.prepareStatement(
+					"DELETE FROM commentparentcomment WHERE parent_comment_id IN " +
+							"(SELECT id FROM comment WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?))"
+			);
+			statement_sub_comments.setInt(1, id);
+			statement_sub_comments.execute();
+			//deleting comments
+			PreparedStatement statement_comments = connection.prepareStatement(
+					"DELETE FROM comment WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?)"
+			);
+			statement_comments.setInt(1, id);
+			statement_comments.execute();
+
+			//deleting likes
+			PreparedStatement statement_likes = connection.prepareStatement(
+					"DELETE FROM likepost WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?)"
+			);
+			statement_likes.setInt(1, id);
+			statement_likes.execute();
+
+			//deleting reports
+			PreparedStatement statement_reports = connection.prepareStatement(
+					"DELETE FROM report WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?)"
+			);
+			statement_reports.setInt(1, id);
+			statement_reports.execute();
+
+			//deleting from tags
+
+			//deleting post_tags
+			PreparedStatement statement_tags = connection.prepareStatement(
+					"DELETE FROM post_tag WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?)"
+			);
+
+			statement_tags.setInt(1, id);
+			statement_tags.execute();
+			// deleting ban_post
+			PreparedStatement statement_ban = connection.prepareStatement(
+					"DELETE FROM ban_post WHERE post_id IN " +
+							"(SELECT id FROM post WHERE id = ?);"
+			);
+			statement_ban.setInt(1, id);
+			statement_ban.execute();
+
+			//deleting post
 			PreparedStatement statement = connection.prepareStatement(
 					"DELETE FROM post " +
 							"WHERE id = ?"
 			);
-			statement.setLong(1, id);
+			statement.setInt(1, id);
 			statement.execute();
 		}
 		finally {
@@ -68,7 +118,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public ArrayList<PostData> getPost(long id, long userId, String titleContains) throws SQLException {
+	public ArrayList<PostData> getPost(int id, long userId, String titleContains) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 		ArrayList<PostData> posts = new ArrayList<>();
 		ResponseGetUsers response = null;
@@ -169,14 +219,14 @@ public class PostDatabase implements PostPersistence {
 		}
 	}
 
-	private ResultSet getById(Connection connection, long id) {
+	private ResultSet getById(Connection connection, int id) {
 		PreparedStatement statement = null;
 
 		try {
 			statement = connection.prepareStatement(
 					"SELECT * FROM \"post\" WHERE id = ?");
 
-			statement.setLong(1, id);
+			statement.setInt(1, id);
 			return statement.executeQuery();
 
 		} catch (SQLException e) {
@@ -198,14 +248,14 @@ public class PostDatabase implements PostPersistence {
 			throw new RuntimeException(e);
 		}
 	}
-	private ResultSet getByByUserIdAndPostId(Connection connection, long userId, long id) {
+	private ResultSet getByByUserIdAndPostId(Connection connection, long userId, int id) {
 		PreparedStatement statement = null;
 
 		try {
 			statement = connection.prepareStatement(
 					"SELECT * FROM \"post\" WHERE user_id = ? AND id=?");
 			statement.setLong(1, userId);
-			statement.setLong(2, id);
+			statement.setInt(2, id);
 			return statement.executeQuery();
 
 		} catch (SQLException e) {
@@ -228,13 +278,13 @@ public class PostDatabase implements PostPersistence {
 		}
 	}
 
-	private ResultSet getByIdAndTitle(Connection connection, long id, String title) {
+	private ResultSet getByIdAndTitle(Connection connection, int id, String title) {
 		PreparedStatement statement = null;
 
 		try {
 			statement = connection.prepareStatement(
 					"SELECT * FROM \"post\" WHERE id = ? AND lower(title) LIKE '%' || ? || '%'");
-			statement.setLong(1, id);
+			statement.setInt(1, id);
 			statement.setString(2, title);
 			return statement.executeQuery();
 
@@ -242,14 +292,14 @@ public class PostDatabase implements PostPersistence {
 			throw new RuntimeException(e);
 		}
 	}
-	private ResultSet getByAllParameters(Connection connection, long id, long userId, String title)
+	private ResultSet getByAllParameters(Connection connection, int id, long userId, String title)
 	{
 		PreparedStatement statement = null;
 
 		try {
 			statement = connection.prepareStatement(
 					"SELECT * FROM \"post\" WHERE id = ? AND lower(title) LIKE '%' || ? || '%' AND user_id = ?");
-			statement.setLong(1, id);
+			statement.setInt(1, id);
 			statement.setString(2, title);
 			statement.setLong(3, userId);
 			return statement.executeQuery();
@@ -261,7 +311,7 @@ public class PostDatabase implements PostPersistence {
 
 	private PostData createPostFromQuery(ResultSet resultSet) throws SQLException {
 		return PostData.newBuilder()
-				.setId(resultSet.getLong("id"))
+				.setId(resultSet.getInt("id"))
 				.setUserId(resultSet.getLong("user_id"))
 				.setDescription(resultSet.getString("description"))
 				.setTitle(resultSet.getString("title"))
@@ -270,4 +320,47 @@ public class PostDatabase implements PostPersistence {
 				.setPostedOnMilliseconds(resultSet.getTimestamp("posted_on").getTime())
 				.build();
 	}
+
+	@Override
+	public ResponseUpdatePost updatePost(int id, String title, String description, String[] tags) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+		ResponseUpdatePost response = null;
+		try
+		{
+			PreparedStatement statement_text = connection.prepareStatement("UPDATE post SET title = ?, description = ? WHERE id = ?;");
+			statement_text.setString(1, title);
+			statement_text.setString(2, description);
+			statement_text.setInt(3, id);
+
+			statement_text.execute();
+
+			//first deleting
+			PreparedStatement statement_tags_delete = connection.prepareStatement("DELETE FROM post_tag WHERE post_id IN (SELECT id FROM post WHERE id = ?);");
+			statement_tags_delete.setInt(1, id);
+			statement_tags_delete.execute();
+
+			//then inserting
+			for (String tag : tags)
+			{
+				PreparedStatement statement1 = connection.prepareStatement("INSERT INTO tag_list(tag_name) VALUES(?)");
+				statement1.setString(1, tag);
+				statement1.execute();
+
+				PreparedStatement statement = connection.prepareStatement("INSERT INTO post_tag(post_id, tag_name) VALUES (?, ?)");
+				statement.setInt(1, id);
+				statement.setString(2, tag);
+				statement.execute();
+
+			}
+
+		}
+		finally {
+			connection.close();
+		}
+		return response;
+
+	}
+
+
+
 }

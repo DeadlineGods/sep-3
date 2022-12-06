@@ -1,7 +1,6 @@
 package sep3.project.daos.interfaces;
 
 import org.springframework.stereotype.Component;
-import sep3.project.protobuf.Coordinates;
 import sep3.project.protobuf.CoordinatesData;
 import sep3.project.protobuf.LocationData;
 import sep3.project.protobuf.LocationId;

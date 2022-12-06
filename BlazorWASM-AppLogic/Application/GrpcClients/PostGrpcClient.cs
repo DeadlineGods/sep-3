@@ -1,4 +1,8 @@
-﻿using Application.DAOsInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading.Tasks;
+using Application.DAOsInterfaces;
 using Domain.DTOs;
 using Domain.Models;
 using Grpc.Net.Client;
@@ -28,11 +32,10 @@ public class PostGrpcClient : IPostDao
 		    Title = post.Title,
 		    Description = post.Description,
 		    UserId = post.UserId,
-		    ImgUrl = post.ImgUrl,
+			ImgUrl = post.ImgUrl,
 			LocationId = post.LocationId
 	    };
 	    
-	    Console.WriteLine(post.LocationId);
 
 	    var reply = await client.CreatePostAsync(request);
 
@@ -83,6 +86,40 @@ public class PostGrpcClient : IPostDao
     }
 
 
+    
+
+    public async Task UpdateAsync(Post post)
+    {
+	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+	    var client = new PostService.PostServiceClient(channel);
+	    try
+	    {
+		    
+		    RequestUpdatePost request = new RequestUpdatePost
+		    {
+			    Id = (int)post.Id,
+			    Title = post.Title,
+			    Description = post.Description,
+		    };
+		    foreach (var tag in request.Tags)
+		    {
+			    Console.WriteLine(tag);
+			    request.Tags.Add(tag);
+		    }
+		    
+		    await client.UpdatePostAsync(request);
+	    }
+	    catch (Exception e)
+	    {
+		    Console.WriteLine(e);
+		    throw;
+	    }
+
+	    await Task.CompletedTask;
+    }
+
+ 
+
     private async Task<Post> ConstructPostAsync(PostData reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
@@ -90,7 +127,9 @@ public class PostGrpcClient : IPostDao
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
 	    Location location = await locationDao.GetAsync(reply.LocationId);
-
+	    
 	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn, location);
     }
+    
+ 
 }

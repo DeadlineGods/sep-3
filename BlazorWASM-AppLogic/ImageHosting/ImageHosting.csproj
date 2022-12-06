@@ -14,4 +14,13 @@
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="wwwroot\StaticFile\kanmxxi5.wjf_NES_EX1.png" />
+      <Content Remove="wwwroot\StaticFile\gannkinx.b3v_VIA_logo.png" />
+      <Content Remove="wwwroot\StaticFile\exvo4tia.fsj_VIA_logo.png" />
+      <Content Remove="wwwroot\StaticFile\1yo45t3g.qai_VIA_logo.png" />
+      <Content Remove="wwwroot\StaticFile\142piu5x.dmi_CPU_Exercises4.png" />
+      <Content Remove="wwwroot\StaticFile\0twzsvmi.3j5_VIA_logo.png" />
+    </ItemGroup>
+
 </Project>

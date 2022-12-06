@@ -38,6 +38,8 @@ public class PostHttpClient : IPostService
         return Int32.Parse(responseContent);
     }
 
+
+
     public async Task<ICollection<Post>> GetAsync(long? id, long? userId, string? titleContains)
     {
 	    string query = ConstructQuery(id, userId, titleContains);
@@ -100,9 +102,24 @@ public class PostHttpClient : IPostService
 	    return query;
     }
 
-    public async Task DeleteAsync(long id)
+    public async Task DeleteAsync(long id, long user_id)
     {
-	    HttpResponseMessage response = await client.DeleteAsync("https://localhost:7196/posts/{id}");
+
+	    HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7196/posts/{id}?user_id={user_id}");
+	    string content = await response.Content.ReadAsStringAsync();
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(content);
+	    }
+
+    }
+
+    public async Task UpdateAsync(UpdatePostDto dto, long user_id)
+    {
+
+	    string dtoAsJson = JsonSerializer.Serialize(dto);
+	    StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
+	    HttpResponseMessage response = await client.PatchAsync($"https://localhost:7196/Posts?user_id={user_id}", body);
 	    string content = await response.Content.ReadAsStringAsync();
 	    if (!response.IsSuccessStatusCode)
 	    {

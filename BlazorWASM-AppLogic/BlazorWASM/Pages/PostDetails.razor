@@ -1,4 +1,4 @@
-﻿@page "/posts/{id:int}"
+﻿@page "/posts/{Id:int}"
 @using Domain.Models
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
@@ -7,6 +7,7 @@
 @inject IPostService postService
 @inject IAuthService authService
 @inject IUserService userService
+@inject ILikeService likeService
 @inject NavigationManager navMgr
 @using UIComponents
 
@@ -21,6 +22,9 @@ else
 
 @code {
     private Post? post;
+	
+
+
 	[Parameter]
     public int Id { get; set; }
 
@@ -28,6 +32,8 @@ else
     {
 	    try
         {
+	        
+
 	        IEnumerable<Post> posts = await postService.GetAsync(Id);
 	        post = posts.FirstOrDefault();
         }
@@ -36,7 +42,6 @@ else
             Console.WriteLine(e);
         }
     }
-
 	
 
 }

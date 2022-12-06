@@ -72,12 +72,13 @@ public class PostsController : ControllerBase
     }
 
 
-    [HttpDelete ("{id:int}")]
-    public async Task<ActionResult> DeleteAsync([FromRoute] long id)
+   
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] long id,[FromQuery] int user_id)
     {
         try
         {
-            await postLogic.DeleteAsync(id);
+            await postLogic.DeleteAsync(id, user_id);
             return Ok();
         }
         catch (Exception e)
@@ -86,5 +87,22 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+
+    [HttpPatch]
+    public async Task<ActionResult> UpdateAsync([FromBody] UpdatePostDto dto, [FromQuery] int user_id)
+    {
+        try
+        {
+            await postLogic.UpdateAsync(dto, user_id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+
 
 }

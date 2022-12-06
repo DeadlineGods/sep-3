@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
@@ -52,9 +53,22 @@ public class PostLogic : IPostLogic
         return posts;
     }
 
-    public async Task DeleteAsync(long id)
+
+
+
+    public async Task DeleteAsync(long post_id, int user_id)
     {
-        await PostDao.DeleteAsync(id);
+        SearchPostParametersDto parameters = new SearchPostParametersDto(post_id);
+        IEnumerable<Post> posts = await GetAsync(parameters);
+        foreach (var post in posts)
+        {
+            if (post.Owner.Id == user_id)
+            {
+                await PostDao.DeleteAsync(post_id);
+            }
+        }
+        
+        await PostDao.DeleteAsync(post_id);
     }
 
     public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate center, int radius)
@@ -91,6 +105,47 @@ public class PostLogic : IPostLogic
 	    return d * 1000 < radius;
     }
 
+    
+
+    public async Task<int> UpdateAsync(UpdatePostDto dto, int user_id)
+    {
+        
+
+        SearchPostParametersDto postParameters = new SearchPostParametersDto(dto.Id);
+        IEnumerable<Post> posts = await PostDao.GetAsync(postParameters);
+        Post? existing = posts.FirstOrDefault();
+        if (existing == null)
+        {
+            throw new Exception($"Post with {dto.Id} not found");
+        }
+        
+        
+        if (existing.Owner.Id == user_id)
+        {
+            string titleToUse = dto.Title ?? existing.Title;
+            string descriptionToUse = dto.Description ?? existing.Description;
+            //IList<string> tags = dto.Tags ?? existing.Tags;
+            
+            
+            Post updated = new Post()
+            {
+                Id = dto.Id,
+                Title = titleToUse,
+                Description = descriptionToUse,
+                //Tags = dto.Tags,
+                Owner = existing.Owner
+            };
+            
+            ValidatePost(updated);
+            await PostDao.UpdateAsync(updated);
+        }
+        
+
+        return dto.Id;
+    }
+
+
+
     private void ValidatePost(PostCreationDto postCreationDto)
     {
         if (postCreationDto.Description.Length > 5000)
@@ -99,6 +154,19 @@ public class PostLogic : IPostLogic
         }
 
         if (postCreationDto.Title.Length > 150)
+        {
+            throw new Exception("Title has more characters than 150");
+        }
+    }
+    
+    private void ValidatePost(Post dto)
+    {
+        if (dto.Description.Length > 5000)
+        {
+            throw new Exception("Description has more characters than 5000");
+        }
+
+        if (dto.Title.Length > 150)
         {
             throw new Exception("Title has more characters than 150");
         }
