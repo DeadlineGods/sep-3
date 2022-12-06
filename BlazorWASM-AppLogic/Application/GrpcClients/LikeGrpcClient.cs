@@ -64,7 +64,29 @@ public class LikeGrpcClient : ILikeDao
 
         return await Task.FromResult(reply.IsLiked);
     }
+
+    public async Task DeleteAsync(long postId)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+        var client = new LikeService.LikeServiceClient(channel);
+        try
+        {
+            await client.DeleteLikesAsync(
+                new RequestDeleteLikes
+                {
+                    PostId = postId
+                });
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        await Task.CompletedTask;
+    }
     
+
     private Like ConstructLike(ResponseLikePost response)
     {
         return new Like(response.PostId, response.UserId);

@@ -8,6 +8,8 @@ service CommentService{
   rpc GetByIdComment(RequestGetGetByIdComment) returns(CommentData);
   rpc GetByPostComments(RequestGetByPostComments) returns(CommentsList);
   rpc GetSubComments(RequestGetSubComments) returns(CommentsList);
+  rpc DeleteComment(RequestDeleteComment) returns (EmptyComment);
+
 }
 
 message RequestCreateComment {
@@ -51,4 +53,9 @@ message CommentsList {
 
 message EmptyComment{
 
+}
+
+message RequestDeleteComment
+{
+  int64 postId = 1;
 }

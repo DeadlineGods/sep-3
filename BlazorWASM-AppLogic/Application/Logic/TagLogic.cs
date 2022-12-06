@@ -29,4 +29,9 @@ public class TagLogic : ITagLogic
     {
         return await tagDao.GetTagListAsync(searchParameters);
     }
+
+    public async Task DeleteTask(long postId)
+    {
+        await tagDao.DeleteAsync(postId);
+    }
 }

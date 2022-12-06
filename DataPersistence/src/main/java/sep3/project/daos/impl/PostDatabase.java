@@ -110,7 +110,7 @@ public class PostDatabase implements PostPersistence {
 					"DELETE FROM post " +
 							"WHERE id = ?"
 			);
-			statement.setInt(1, id);
+			statement.setLong(1, id);
 			statement.execute();
 		}
 		finally {

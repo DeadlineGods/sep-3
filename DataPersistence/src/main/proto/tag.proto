@@ -7,7 +7,7 @@ service TagService{
   rpc CreateTags(RequestCreateTags) returns(ResponseCreateTag);
   rpc GetPostTag(RequestGetPostTag) returns (ResponseGetPostTag);
   rpc GetTagList(RequestGetTagList) returns(ResponseGetTagList);
-  rpc DeleteTag(RequestDeleteTag) returns (EmptyTag)
+  rpc DeleteTag(RequestDeleteTag) returns (EmptyTag);
 }
 message RequestCreateTags
 {
@@ -52,5 +52,5 @@ message EmptyTag
 
 message RequestDeleteTag
 {
-  int32 postId=1;
+  int64 postId=1;
 }

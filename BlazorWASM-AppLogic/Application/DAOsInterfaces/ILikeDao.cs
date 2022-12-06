@@ -9,4 +9,6 @@ public interface ILikeDao
     Task<Like> LikePostAsync(LikePostDto likeDto);
     Task UnLikePostAsync(UnLikePostDto unLikePostDto);
     Task<bool> IsPostLikedAsync(IsPostLikedDto isPostLikedDto);
+    Task DeleteAsync(long postId);
+
 }

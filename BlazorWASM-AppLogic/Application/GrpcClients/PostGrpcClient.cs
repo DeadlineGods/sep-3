@@ -26,7 +26,6 @@ public class PostGrpcClient : IPostDao
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
-
 	    var request = new RequestCreatePost
 	    {
 		    Title = post.Title,

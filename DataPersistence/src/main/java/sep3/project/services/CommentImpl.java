@@ -109,4 +109,20 @@ public class CommentImpl extends CommentServiceGrpc.CommentServiceImplBase {
 
         System.out.println("Sub comments =v \n" + response.toString());
     }
+
+    @Override
+    public void deleteComment(RequestDeleteComment request, StreamObserver<EmptyComment> responseObserver) {
+        System.out.println("Received Request =v \n" + request.toString());
+        try
+        {
+            database.deleteComment(request.getPostId());
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        EmptyComment response = EmptyComment.newBuilder().build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
 }
