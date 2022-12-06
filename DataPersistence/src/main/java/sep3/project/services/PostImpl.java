@@ -22,6 +22,7 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 		System.out.println("Received Request =>\n" + request.toString());
 		int id = 0;
 
+		System.out.println(request.getLocationId());
 		try {
 			// create post in database and return id of new created post
 			id = database.createPost(request.getTitle(), request.getUserId(), request.getDescription(), request.getImgUrl(), request.getLocationId());

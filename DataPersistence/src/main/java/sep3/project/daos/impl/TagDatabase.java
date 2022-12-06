@@ -1,4 +1,4 @@
-package sep3.project.daos;
+package sep3.project.daos.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,16 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.lognet.springboot.grpc.GRpcService;
+import sep3.project.daos.interfaces.TagPersistence;
 import sep3.project.persistance.DBConnection;
 import sep3.project.protobuf.*;
 
 @GRpcService
-public class TagDatabase implements TagPersistence{
+public class TagDatabase implements TagPersistence {
     public TagDatabase() {
     }
 
     @Override
-    public String[] CreateTags(int postId, String[] tags) throws SQLException {
+    public String[] CreateTags(long postId, String[] tags) throws SQLException {
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
         String[] createdTags = new String[tags.length];
@@ -37,7 +38,7 @@ public class TagDatabase implements TagPersistence{
                 statement = connection.prepareStatement("" +
                         "INSERT INTO post_tag(post_id, tag_name) VALUES(?, ?)");
 
-                statement.setInt(1, postId);
+                statement.setLong(1, postId);
                 statement.setString(2, tag);
 
                 statement.execute();
@@ -61,7 +62,7 @@ public class TagDatabase implements TagPersistence{
     }
 
     @Override
-    public ArrayList<PostTagData> GetPostTag(String tagContains, int postId) throws SQLException {
+    public ArrayList<PostTagData> GetPostTag(String tagContains, long postId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         ArrayList<PostTagData> tags = new ArrayList<>();
         try {
@@ -104,14 +105,14 @@ public class TagDatabase implements TagPersistence{
         return tags;
     }
 
-    private ResultSet getPostTagById(Connection connection, int postId) {
+    private ResultSet getPostTagById(Connection connection, long postId) {
         PreparedStatement statement = null;
 
         try {
             statement = connection.prepareStatement(
                     "SELECT * FROM \"post_tag\" WHERE post_id = ?");
 
-            statement.setInt(1, postId);
+            statement.setLong(1, postId);
             return statement.executeQuery();
 
         } catch (SQLException e) {
@@ -132,13 +133,13 @@ public class TagDatabase implements TagPersistence{
             throw new RuntimeException(e);
         }
     }
-    private ResultSet getPostTagByIdAndTagContains(Connection connection, int postId, String tagContains) {
+    private ResultSet getPostTagByIdAndTagContains(Connection connection, long postId, String tagContains) {
         PreparedStatement statement = null;
 
         try {
             statement = connection.prepareStatement(
                     "SELECT * FROM \"post_tag\" WHERE post_id = ? AND lower(tag_name) LIKE '%' || ? || '%'");
-            statement.setInt(1, postId);
+            statement.setLong(1, postId);
             statement.setString(2, tagContains);
             return statement.executeQuery();
 
@@ -160,7 +161,7 @@ public class TagDatabase implements TagPersistence{
     }
     private PostTagData createPostTagFromQuery(ResultSet resultSet) throws SQLException {
         return PostTagData.newBuilder()
-                .setPostId(resultSet.getInt("post_id"))
+                .setPostId(resultSet.getLong("post_id"))
                 .setTagContains(resultSet.getString("tag_name"))
                 .build();
     }
