@@ -68,20 +68,7 @@ message ResponseUpdatePost
 	int32 id = 1;
 }
 
-message RequestGetPostById
-{
-	int32 id = 1;
-}
 
-message ResponseGetPostById
-{
-	int32 id = 1;
-	int64 userId = 2;
-	int32 likes = 3;
-	string title = 4;
-	string description = 5;
-	int64 postedOnMilliseconds = 6;
-}
 
 
 

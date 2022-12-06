@@ -3,6 +3,7 @@ package sep3.project.services;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import sep3.project.daos.PostDatabase;
 import sep3.project.daos.interfaces.PostPersistence;
 import sep3.project.protobuf.*;
 
@@ -75,10 +76,13 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 	@Override
 	public void updatePost(RequestUpdatePost request, StreamObserver<ResponseUpdatePost> responseObserver) {
 		System.out.println("Received Request to update=>\n" + request.toString());
-		try
-		{
-			ResponseGetPostById responseGetPostById = database.getPostById(request.getId());
-			if(responseGetPostById == null)
+		ArrayList list;
+
+		try {
+			// get posts from database
+			list = database.getPost(request.getId(), 0, "");
+			PostData post = (PostData) list.get(0);
+			if(post == null)
 			{
 				System.out.println("No posts with id => " + request.getId());
 				responseObserver.onNext(null);
@@ -104,21 +108,5 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 
 	}
 
-	@Override
-	public void getPostById(RequestGetPostById request, StreamObserver<ResponseGetPostById> responseObserver) {
-		System.out.println("Received Request =>\n" + request.toString());
-		ResponseGetPostById response = null;
-		try
-		{
-			response = database.getPostById(request.getId());
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
 
-		responseObserver.onNext(response);
-		responseObserver.onCompleted();
-		System.out.println("Post with id" + request.getId() + " =>" + response.toString());
-
-
-	}
 }

@@ -399,31 +399,6 @@ public class PostDatabase implements PostPersistence {
 
 	}
 
-	@Override
-	public ResponseGetPostById getPostById(int id) throws SQLException {
-		Connection connection = DBConnection.getConnection();
-		ResponseGetPostById response = null;
-		try
-		{
-			PreparedStatement statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE id = ?");
 
-			statement.setInt(1, id);
-			ResultSet resultSet = statement.executeQuery();
-			while(resultSet.next())
-			{
-				response = ResponseGetPostById.newBuilder()
-						.setId(resultSet.getInt("id"))
-						.setTitle(resultSet.getString("title"))
-						.setDescription(resultSet.getString("description"))
-						.setPostedOnMilliseconds(resultSet.getTimestamp("posted_on").getTime())
-						.setUserId(resultSet.getLong(resultSet.getInt("user_id"))).build();
-			}
 
-		}
-		finally {
-			connection.close();
-		}
-		return response;
-	}
 }

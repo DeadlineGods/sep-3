@@ -15,5 +15,4 @@ public interface PostPersistence {
 	void deletePost(int id) throws SQLException;
 	ArrayList<PostData> getPost(int id, long userId, String titleContains) throws SQLException;
 	ResponseUpdatePost updatePost(int id, String title, String description, String[] tags) throws SQLException;
-	ResponseGetPostById getPostById(int id) throws SQLException;
 }

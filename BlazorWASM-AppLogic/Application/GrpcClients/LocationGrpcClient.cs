@@ -68,7 +68,7 @@ public class LocationGrpcClient : ILocationDao
 		{
 			throw new Exception("Creation was not successful.");
 		}
-
+		
 		return await Task.FromResult(reply.Id);
 	}
 }

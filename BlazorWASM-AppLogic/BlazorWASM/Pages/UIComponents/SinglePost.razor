@@ -8,6 +8,7 @@
 @inject NavigationManager navMgr
 @inject ICommentService commentService
 @inject IAuthService authService
+@inject IPostService postService
 
 <div class="post-card">
     <div>@Post.Title</div>
@@ -26,8 +27,14 @@
                 <input type="text" @bind="commentInputText"/>
                 <button @onclick="PublishAsync">publish</button>
             </div>
+            @if (Post.Owner.UserName == @context.User.Identity.Name)
+            {
+                <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+                <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+    
+            }
         </Authorized>
-    </AuthorizeView>
+        </AuthorizeView>
 
 
     @if (comments.Any())
@@ -108,6 +115,33 @@
         catch (Exception e)
         {
             Console.WriteLine(e);
+        }
+    }
+    
+    private async Task Delete()
+    {
+        try
+        {
+            await postService.DeleteAsync(Post.Id, Post.Owner.Id);
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+	
+    private async Task Edit()
+    {
+        try
+        {
+            navMgr.NavigateTo($"EditPost/{Post.Id}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 
