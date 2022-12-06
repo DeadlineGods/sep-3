@@ -42,6 +42,8 @@ public class PostLogic : IPostLogic
         return await PostDao.CreateAsync(postCreationDto);
     }
 
+
+
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
         IEnumerable<Post> posts = await PostDao.GetAsync(parametersDto);
@@ -134,7 +136,7 @@ public class PostLogic : IPostLogic
                 Id = dto.Id,
                 Title = titleToUse,
                 Description = descriptionToUse,
-                Tags = dto.Tags,
+                //Tags = dto.Tags,
                 Owner = existing.Owner
             };
             Console.WriteLine(updated.Title);

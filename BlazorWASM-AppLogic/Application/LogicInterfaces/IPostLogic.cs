@@ -8,8 +8,8 @@ namespace Application.LogicInterfaces;
 
 public interface IPostLogic
 {
-    Task<int> CreateAsync(PostCreationDto postCreationDto);
-    Task DeleteAsync(int post_id, int user_id);
+    Task<long> CreateAsync(PostCreationDto postCreationDto);
+    Task DeleteAsync(long post_id, int user_id);
     Task<int> UpdateAsync(UpdatePostDto dto, int user_id);
     
     Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto);

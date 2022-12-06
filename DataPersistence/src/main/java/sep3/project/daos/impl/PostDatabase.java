@@ -1,4 +1,4 @@
-package sep3.project.daos;
+package sep3.project.daos.impl;
 
 import org.lognet.springboot.grpc.GRpcService;
 import sep3.project.daos.interfaces.PostPersistence;
@@ -17,7 +17,7 @@ public class PostDatabase implements PostPersistence {
 	}
 
 	@Override
-	public int createPost(String title, long userId, String description, String[] tags, String imageUrl, int locationId) throws SQLException {
+	public int createPost(String title, long userId, String description,  String imageUrl, int locationId) throws SQLException {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
@@ -41,7 +41,7 @@ public class PostDatabase implements PostPersistence {
 				id = rs.getInt("id");
 			}
 
-			addTags(connection, tags, id);
+
 
 		}
 		finally {

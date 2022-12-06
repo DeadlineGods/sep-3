@@ -22,9 +22,7 @@ else
 
 @code {
     private Post? post;
-	bool postLiked;
-	private long userId;
-	private bool isSucceed;
+	
 
 
 	[Parameter]
@@ -44,33 +42,6 @@ else
             Console.WriteLine(e);
         }
     }
-
-	async Task PostLikeClicked(bool isLiked)
-	{
-		
-		try
-		{
-			if (isLiked)
-			{
-				postLiked = isLiked;
-			}
-			else if (!isLiked)
-			{
-				ClaimsPrincipal context = await authService.GetAuthAsync();
-				var claims = context.Identities.First().Claims.ToList();
-				string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-				LikePostDto dto = new LikePostDto(Id, int.Parse(id));
-				await likeService.LikePostAsync(dto);
-				isSucceed = true;
-			}
-		}
-		catch (Exception e)
-		{
-			Console.WriteLine(e);
-			throw;
-		}
-	}
 	
-
 
 }

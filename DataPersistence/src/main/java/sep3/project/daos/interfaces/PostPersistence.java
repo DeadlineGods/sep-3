@@ -2,10 +2,8 @@ package sep3.project.daos.interfaces;
 
 import org.springframework.stereotype.Component;
 import sep3.project.protobuf.PostData;
-import sep3.project.protobuf.ResponseGetPostById;
 import sep3.project.protobuf.ResponseUpdatePost;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

@@ -38,6 +38,8 @@ public class PostHttpClient : IPostService
         return Int32.Parse(responseContent);
     }
 
+
+
     public async Task<ICollection<Post>> GetAsync(long? id, long? userId, string? titleContains)
     {
 	    string query = ConstructQuery(id, userId, titleContains);
