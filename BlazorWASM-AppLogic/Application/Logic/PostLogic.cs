@@ -118,9 +118,7 @@ public class PostLogic : IPostLogic
         {
             throw new Exception($"Post with {dto.Id} not found");
         }
-
-        Console.WriteLine(existing.Owner.Id);
-        Console.WriteLine(user_id);
+        
         
         if (existing.Owner.Id == user_id)
         {
@@ -137,7 +135,7 @@ public class PostLogic : IPostLogic
                 //Tags = dto.Tags,
                 Owner = existing.Owner
             };
-            Console.WriteLine(updated.Title);
+            
             ValidatePost(updated);
             await PostDao.UpdateAsync(updated);
         }

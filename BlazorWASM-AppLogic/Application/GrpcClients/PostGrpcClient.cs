@@ -36,7 +36,6 @@ public class PostGrpcClient : IPostDao
 			LocationId = post.LocationId
 	    };
 	    
-	    Console.WriteLine(post.LocationId);
 
 	    var reply = await client.CreatePostAsync(request);
 

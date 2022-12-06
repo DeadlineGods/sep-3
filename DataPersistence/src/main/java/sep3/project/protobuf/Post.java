@@ -59,16 +59,6 @@ public final class Post {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ResponseUpdatePost_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_RequestGetPostById_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_RequestGetPostById_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ResponseGetPostById_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ResponseGetPostById_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -93,18 +83,14 @@ public final class Post {
       "\017ResponseGetPost\022\030\n\005posts\030\001 \003(\0132\t.PostDa" +
       "ta\"Q\n\021RequestUpdatePost\022\n\n\002id\030\001 \001(\005\022\r\n\005t" +
       "itle\030\002 \001(\t\022\023\n\013description\030\003 \001(\t\022\014\n\004tags\030" +
-      "\004 \003(\t\" \n\022ResponseUpdatePost\022\n\n\002id\030\001 \001(\005\"" +
-      " \n\022RequestGetPostById\022\n\n\002id\030\001 \001(\005\"\202\001\n\023Re" +
-      "sponseGetPostById\022\n\n\002id\030\001 \001(\005\022\016\n\006userId\030" +
-      "\002 \001(\003\022\r\n\005likes\030\003 \001(\005\022\r\n\005title\030\004 \001(\t\022\023\n\013d" +
-      "escription\030\005 \001(\t\022\034\n\024postedOnMilliseconds" +
-      "\030\006 \001(\0032\327\001\n\013PostService\0225\n\nCreatePost\022\022.R" +
-      "equestCreatePost\032\023.ResponseCreatePost\022,\n" +
-      "\007GetPost\022\017.RequestGetPost\032\020.ResponseGetP" +
-      "ost\022,\n\nDeletePost\022\022.RequestDeletePost\032\n." +
-      "EmptyPost\0225\n\nUpdatePost\022\022.RequestUpdateP" +
-      "ost\032\023.ResponseUpdatePostB\031\n\025sep3.project" +
-      ".protobufP\001b\006proto3"
+      "\004 \003(\t\" \n\022ResponseUpdatePost\022\n\n\002id\030\001 \001(\0052" +
+      "\327\001\n\013PostService\0225\n\nCreatePost\022\022.RequestC" +
+      "reatePost\032\023.ResponseCreatePost\022,\n\007GetPos" +
+      "t\022\017.RequestGetPost\032\020.ResponseGetPost\022,\n\n" +
+      "DeletePost\022\022.RequestDeletePost\032\n.EmptyPo" +
+      "st\0225\n\nUpdatePost\022\022.RequestUpdatePost\032\023.R" +
+      "esponseUpdatePostB\031\n\025sep3.project.protob" +
+      "ufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -164,18 +150,6 @@ public final class Post {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ResponseUpdatePost_descriptor,
         new java.lang.String[] { "Id", });
-    internal_static_RequestGetPostById_descriptor =
-      getDescriptor().getMessageTypes().get(9);
-    internal_static_RequestGetPostById_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_RequestGetPostById_descriptor,
-        new java.lang.String[] { "Id", });
-    internal_static_ResponseGetPostById_descriptor =
-      getDescriptor().getMessageTypes().get(10);
-    internal_static_ResponseGetPostById_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ResponseGetPostById_descriptor,
-        new java.lang.String[] { "Id", "UserId", "Likes", "Title", "Description", "PostedOnMilliseconds", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
