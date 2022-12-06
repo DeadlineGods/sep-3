@@ -46,8 +46,7 @@ else
 }
 
 @code {
-    private IList<Post>? posts;
-    private IEnumerable<User>? users;
+    private IList<Post>? posts = new List<Post>();
     private string msg;
     private bool isLiked;
 
@@ -86,7 +85,6 @@ else
             else
             {
                 posts.Clear();
-                var postIdsFilter = new List<int>();
                 postTag = await tagService.GetPostTagAsync(0, tagFilter.ToLower());
                 foreach (var tagPost in postTag)
                 {
@@ -101,4 +99,5 @@ else
             msg = e.Message;
         }
     }
+    
 }

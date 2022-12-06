@@ -28,13 +28,13 @@
                 <button @onclick="PublishAsync">publish</button>
             </div>
             @if (Post.Owner.UserName == @context.User.Identity.Name)
-            {
-                <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
-                <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
-    
-            }
+                        {
+                            <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+                            <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+                
+                        }
         </Authorized>
-        </AuthorizeView>
+    </AuthorizeView>
 
 
     @if (comments.Any())

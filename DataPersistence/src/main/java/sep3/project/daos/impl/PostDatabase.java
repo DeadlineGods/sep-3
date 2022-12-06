@@ -21,8 +21,6 @@ public class PostDatabase implements PostPersistence {
 		Connection connection = DBConnection.getConnection();
 		int id = 0;
 
-		System.out.println(locationId);
-
 		try {
 			PreparedStatement statement = connection.prepareStatement("" +
 					"INSERT INTO post(title, user_id, description, image_url, location_id) VALUES(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -40,7 +38,6 @@ public class PostDatabase implements PostPersistence {
 			if (rs.next()) {
 				id = rs.getInt("id");
 			}
-
 
 
 		}
@@ -192,41 +189,6 @@ public class PostDatabase implements PostPersistence {
 		}
 
 		return posts;
-	}
-
-
-	private void addTags(Connection connection, String[] tags, int id) throws SQLException {
-		PreparedStatement statement = null;
-		for (String tag : tags) {
-
-			// first insert into TAG table
-			if (! containsTag(connection, tag)) {
-				statement = connection.prepareStatement("" +
-						"INSERT INTO tag_list(tag_name) VALUES(?)");
-
-				statement.setString(1, tag);
-
-				statement.execute();
-			}
-
-			// then insert also into join table, because tag_name is foreign key
-			statement = connection.prepareStatement("" +
-					"INSERT INTO post_tag(post_id, tag_name) VALUES(?, ?)");
-
-			statement.setInt(1, id);
-			statement.setString(2, tag);
-
-			statement.execute();
-		}
-	}
-
-	private boolean containsTag(Connection connection, String tag) throws SQLException {
-		PreparedStatement statement = connection.prepareStatement("SELECT tag_name from tag_list where tag_name = ?");
-
-		statement.setString(1, tag);
-		ResultSet resultSet = statement.executeQuery();
-
-		return resultSet.next();
 	}
 
 	private ResultSet getAll(Connection connection) {

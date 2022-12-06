@@ -42,8 +42,6 @@ public class PostLogic : IPostLogic
         return await PostDao.CreateAsync(postCreationDto);
     }
 
-
-
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
         IEnumerable<Post> posts = await PostDao.GetAsync(parametersDto);
@@ -57,7 +55,7 @@ public class PostLogic : IPostLogic
 
 
 
-    
+
     public async Task DeleteAsync(long post_id, int user_id)
     {
         SearchPostParametersDto parameters = new SearchPostParametersDto(post_id);
