@@ -8,8 +8,8 @@ namespace Application.LogicInterfaces;
 
 public interface IPostLogic
 {
-    Task<int> CreateAsync(PostCreationDto postCreationDto);
+    Task<long> CreateAsync(PostCreationDto postCreationDto);
     Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto);
     Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate center, int radius);
-    Task DeleteAsync(int id);
+    Task DeleteAsync(long id);
 }

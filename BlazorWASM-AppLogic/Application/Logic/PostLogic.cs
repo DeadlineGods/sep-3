@@ -26,7 +26,7 @@ public class PostLogic : IPostLogic
        LocationDao = locationDao;
     }
 
-    public async Task<int> CreateAsync(PostCreationDto postCreationDto)
+    public async Task<long> CreateAsync(PostCreationDto postCreationDto)
     {
         ValidatePost(postCreationDto);
 
@@ -52,7 +52,7 @@ public class PostLogic : IPostLogic
         return posts;
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(long id)
     {
         await PostDao.DeleteAsync(id);
     }

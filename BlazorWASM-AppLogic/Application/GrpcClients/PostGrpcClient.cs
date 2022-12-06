@@ -18,7 +18,7 @@ public class PostGrpcClient : IPostDao
 		this.locationDao = locationDao;
 	}
 
-    public async Task<int> CreateAsync(PostCreationDto post)
+    public async Task<long> CreateAsync(PostCreationDto post)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
@@ -31,6 +31,8 @@ public class PostGrpcClient : IPostDao
 		    ImgUrl = post.ImgUrl,
 			LocationId = post.LocationId
 	    };
+	    
+	    Console.WriteLine(post.LocationId);
 
 	    var reply = await client.CreatePostAsync(request);
 
@@ -59,7 +61,7 @@ public class PostGrpcClient : IPostDao
 
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(long id)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);

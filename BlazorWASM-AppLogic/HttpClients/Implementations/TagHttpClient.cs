@@ -31,7 +31,7 @@ public class TagHttpClient : ITagService
         return toReturn;
     }
     
-    public async Task<ICollection<TagPost>> GetPostTagAsync(int? postId = null, string? tagContains = null)
+    public async Task<ICollection<TagPost>> GetPostTagAsync(long? postId = null, string? tagContains = null)
     {
         string query = ConstructQuery(postId, tagContains);
         HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Tag/getPostTag" + query);
@@ -70,7 +70,7 @@ public class TagHttpClient : ITagService
         return tags;
     }
 
-    private static string ConstructQuery(int? postId, string? tagContains)
+    private static string ConstructQuery(long? postId, string? tagContains)
     {
         string query = "";
 

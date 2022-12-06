@@ -7,6 +7,7 @@
 @using UIComponents
 @using System.Security.Claims
 @using BlazorWasm.Services
+@using System.Diagnostics.SymbolStore
 @inject NavigationManager navMgr
 @inject IPostService postService
 @inject ILocationService locationService
@@ -62,7 +63,7 @@
     private IList<string> postTags = new List<string>();
     private string newTag = "";
     private bool showAlert;
-    private int id;
+    private long id;
 
 	private MapComponent Map;
 
@@ -124,9 +125,10 @@
 	        string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
 	        long userId = long.Parse(userIdAsStrubg);
 
-            PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, postTags, locationId);
+            PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
 
-	        await postService.CreateAsync(dto);
+	        id = await postService.CreateAsync(dto);
+	        
 
 	        PostTagCreationDto tagDto = new(id, postTags.ToArray());
 	        await tagService.CreateAsync(tagDto);

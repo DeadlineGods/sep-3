@@ -24,7 +24,7 @@ public class PostsController : ControllerBase
     {
 	    try
         {
-            int id = await postLogic.CreateAsync(postCreationDto);
+            long id = await postLogic.CreateAsync(postCreationDto);
             return Ok(id);
         }
         catch (Exception e)
@@ -38,8 +38,8 @@ public class PostsController : ControllerBase
     [HttpGet, Route("get")]
     public async Task<ActionResult<Post>> GetAsync
     (
-	    [FromQuery] int? id,
-	    [FromQuery] int? userId,
+	    [FromQuery] long? id,
+	    [FromQuery] long? userId,
 	    [FromQuery] string? titleContains
 	)
     {
@@ -73,7 +73,7 @@ public class PostsController : ControllerBase
 
 
     [HttpDelete ("{id:int}")]
-    public async Task<ActionResult> DeleteAsync([FromRoute] int id)
+    public async Task<ActionResult> DeleteAsync([FromRoute] long id)
     {
         try
         {

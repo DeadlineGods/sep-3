@@ -33,7 +33,7 @@ public class TagController:ControllerBase
     public async Task<ActionResult<TagPost>> GetPostTagAsync
     (
         [FromQuery] string? TagContains,
-        [FromQuery] int? postId
+        [FromQuery] long? postId
     ) {
         try
         {

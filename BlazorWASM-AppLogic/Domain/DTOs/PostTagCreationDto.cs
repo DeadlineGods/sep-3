@@ -2,10 +2,10 @@
 
 public class PostTagCreationDto
 {
-    public int postId { get; }
+    public long postId { get; }
     public string[] Tags { get; }
 
-    public PostTagCreationDto(int postId, string[] tags)
+    public PostTagCreationDto(long postId, string[] tags)
     {
         this.postId = postId;
         Tags = tags;

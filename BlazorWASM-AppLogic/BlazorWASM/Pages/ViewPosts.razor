@@ -5,6 +5,20 @@
 @using Domain.DTOs
 @using System.Collections
 @inject IPostService postService
+@inject ITagService tagService
+
+<div class="createPostCard">
+    <div class="filters-container">
+        <div class="filter">
+            <label>Search by tag:</label>
+            <input name="name" type="text" class="feedback-input" placeholder="Type here..." @bind="tagFilter"/>
+        </div>
+    </div>
+    <div class="field">
+        <button @onclick="() => OnInitializedAsync()" class="button-35" role="button">Cancel</button>
+        <button @onclick="LoadPosts" class="button-35" role="button">Search</button>
+    </div>
+</div>
 
 @if (posts == null)
 {
@@ -39,8 +53,7 @@ else
 
     
     private string? tagFilter;
-    private ICollection<TagPost>? postTag;
-    private IList<int>? postIdsFilter;
+    private IEnumerable<TagPost>? postTag;
     
     [Parameter]
     public string? Id { get; set; }
@@ -49,7 +62,8 @@ else
     {
         try
         {
-            posts = await postService.GetInRadiusAsync(new Coordinate(55.8581310000, 9.8475880000), 30000);
+            tagFilter = "";
+            //posts = await postService.GetInRadiusAsync(new Coordinate(55.8581310000, 9.8475880000), 30000);
             IEnumerable<Post> temp = await postService.GetAsync();
             posts = temp.ToList();
         }
@@ -64,13 +78,20 @@ else
     {
         try
         {
-            posts.Clear();
-            postIdsFilter = new List<int>();
-            postTag = await tagService.GetPostTagAsync(0, tagFilter.ToLower());
-            foreach (var tagPost in postTag)
+            if (tagFilter.Equals(""))
             {
-                ICollection<Post> temp = await postService.GetAsync(tagPost.postId, null, null);
-                posts.Add(temp.FirstOrDefault());
+                OnInitializedAsync();
+            }
+            else
+            {
+                posts.Clear();
+                postIdsFilter = new List<int>();
+                postTag = await tagService.GetPostTagAsync(0, tagFilter.ToLower());
+                foreach (var tagPost in postTag)
+                {
+                    ICollection<Post> temp = await postService.GetAsync(tagPost.postId, null, null);
+                    posts.Add(temp.FirstOrDefault());
+                }
             }
         }
         catch (Exception e)
