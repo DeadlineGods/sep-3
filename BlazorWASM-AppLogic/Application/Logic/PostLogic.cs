@@ -8,7 +8,7 @@ using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
-using SearchPostParameters = Domain.DTOs.SearchPostParameters;
+using SearchPostParameters = Domain.DTOs.SearchPostParametersDto;
 
 namespace Application.Logic;
 
@@ -27,7 +27,7 @@ public class PostLogic : IPostLogic
        LocationDao = locationDao;
     }
 
-    public async Task<int> CreateAsync(PostCreationDto postCreationDto)
+    public async Task<long> CreateAsync(PostCreationDto postCreationDto)
     {
         ValidatePost(postCreationDto);
 
@@ -55,7 +55,7 @@ public class PostLogic : IPostLogic
 
 
 
-    public async Task DeleteAsync(int post_id, int user_id)
+    public async Task DeleteAsync(long post_id, int user_id)
     {
         SearchPostParametersDto parameters = new SearchPostParametersDto(post_id);
         IEnumerable<Post> posts = await GetAsync(parameters);

@@ -38,7 +38,7 @@ public class PostHttpClient : IPostService
         return Int32.Parse(responseContent);
     }
 
-    public async Task<ICollection<Post>> GetAsync(int? id, int? userId, string? titleContains)
+    public async Task<ICollection<Post>> GetAsync(long? id, long? userId, string? titleContains)
     {
 	    string query = ConstructQuery(id, userId, titleContains);
 	    HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Posts/get" + query);
@@ -75,7 +75,7 @@ public class PostHttpClient : IPostService
 	    return posts;
     }
 
-    private static string ConstructQuery(int? id, int? userId, string? titleContains)
+    private static string ConstructQuery(long? id, long? userId, string? titleContains)
     {
 	    string query = "";
 
