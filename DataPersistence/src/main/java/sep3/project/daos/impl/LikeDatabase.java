@@ -17,7 +17,7 @@ public class LikeDatabase implements LikePersistence {
     }
 
     @Override
-    public ResponseLikePost LikePost(int postId, long userId) throws SQLException {
+    public ResponseLikePost LikePost(long postId, long userId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         ResponseLikePost responseLikePost = null;
         try {
@@ -27,7 +27,7 @@ public class LikeDatabase implements LikePersistence {
                     Statement.RETURN_GENERATED_KEYS);
 
             ps.setLong(1, userId);
-            ps.setInt(2, postId);
+            ps.setLong(2, postId);
 
             ps.execute();
 
@@ -47,14 +47,14 @@ public class LikeDatabase implements LikePersistence {
     }
 
     @Override
-    public void UnLikePost(int postId, long userId) throws SQLException {
+    public void UnLikePost(long postId, long userId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         try {
             String sql = "DELETE FROM likepost WHERE post_id = ? AND user_id = ?";
 
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setInt(1, postId);
+            ps.setLong(1, postId);
             ps.setLong(2, userId);
 
             ps.execute();
@@ -64,7 +64,7 @@ public class LikeDatabase implements LikePersistence {
     }
 
     @Override
-    public ResponseIsPostLiked IsPostLiked(int postId, long userId) throws SQLException {
+    public ResponseIsPostLiked IsPostLiked(long postId, long userId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         ResponseIsPostLiked response = null;
         try {
@@ -73,7 +73,7 @@ public class LikeDatabase implements LikePersistence {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setLong(1, userId);
-            ps.setInt(2, postId);
+            ps.setLong(2, postId);
 
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next())
@@ -91,14 +91,14 @@ public class LikeDatabase implements LikePersistence {
     }
 
     @Override
-    public ResponseCountLikes CountLikes(int postId) throws SQLException {
+    public ResponseCountLikes CountLikes(long postId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         ResponseCountLikes response = null;
         PreparedStatement statement = null;
         try
         {
             statement = connection.prepareStatement("SELECT COUNT(post_id) FROM likepost WHERE post_id = ?");
-            statement.setInt(1, postId);
+            statement.setLong(1, postId);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
