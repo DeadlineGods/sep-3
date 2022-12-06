@@ -133,7 +133,7 @@ public class PostLogic : IPostLogic
                 Id = dto.Id,
                 Title = titleToUse,
                 Description = descriptionToUse,
-                Tags = dto.Tags,
+                //Tags = dto.Tags,
                 Owner = existing.Owner
             };
             Console.WriteLine(updated.Title);

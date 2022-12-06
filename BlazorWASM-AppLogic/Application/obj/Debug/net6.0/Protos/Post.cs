@@ -27,7 +27,7 @@ namespace GrpcClient {
             "ChFQcm90b3MvUG9zdC5wcm90byJ5ChFSZXF1ZXN0Q3JlYXRlUG9zdBINCgV0",
             "aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCRIOCgZ1c2VySWQYAyAB",
             "KAMSDgoGaW1nVXJsGAQgASgJEgwKBHRhZ3MYBSADKAkSEgoKbG9jYXRpb25J",
-            "ZBgGIAEoBSIgChJSZXNwb25zZUNyZWF0ZVBvc3QSCgoCaWQYASABKAUimwEK",
+            "ZBgGIAEoBSIgChJSZXNwb25zZUNyZWF0ZVBvc3QSCgoCaWQYASABKAMimwEK",
             "CFBvc3REYXRhEgoKAmlkGAEgASgDEg4KBnVzZXJJZBgCIAEoAxINCgVsaWtl",
             "cxgDIAEoBRINCgV0aXRsZRgEIAEoCRITCgtkZXNjcmlwdGlvbhgFIAEoCRIO",
             "CgZpbWdVcmwYBiABKAkSEgoKbG9jYXRpb25JZBgHIAEoBRIcChRwb3N0ZWRP",
@@ -42,13 +42,12 @@ namespace GrpcClient {
             "ASABKAUiggEKE1Jlc3BvbnNlR2V0UG9zdEJ5SWQSCgoCaWQYASABKAUSDgoG",
             "dXNlcklkGAIgASgDEg0KBWxpa2VzGAMgASgFEg0KBXRpdGxlGAQgASgJEhMK",
             "C2Rlc2NyaXB0aW9uGAUgASgJEhwKFHBvc3RlZE9uTWlsbGlzZWNvbmRzGAYg",
-            "ASgDMpECCgtQb3N0U2VydmljZRI1CgpDcmVhdGVQb3N0EhIuUmVxdWVzdENy",
+            "ASgDMtcBCgtQb3N0U2VydmljZRI1CgpDcmVhdGVQb3N0EhIuUmVxdWVzdENy",
             "ZWF0ZVBvc3QaEy5SZXNwb25zZUNyZWF0ZVBvc3QSLAoHR2V0UG9zdBIPLlJl",
-            "cXVlc3RHZXRQb3N0GhAuUmVzcG9uc2VHZXRQb3N0EjgKC0dldFBvc3RCeUlk",
-            "EhMuUmVxdWVzdEdldFBvc3RCeUlkGhQuUmVzcG9uc2VHZXRQb3N0QnlJZBIs",
-            "CgpEZWxldGVQb3N0EhIuUmVxdWVzdERlbGV0ZVBvc3QaCi5FbXB0eVBvc3QS",
-            "NQoKVXBkYXRlUG9zdBISLlJlcXVlc3RVcGRhdGVQb3N0GhMuUmVzcG9uc2VV",
-            "cGRhdGVQb3N0Qg2qAgpHcnBjQ2xpZW50YgZwcm90bzM="));
+            "cXVlc3RHZXRQb3N0GhAuUmVzcG9uc2VHZXRQb3N0EiwKCkRlbGV0ZVBvc3QS",
+            "Ei5SZXF1ZXN0RGVsZXRlUG9zdBoKLkVtcHR5UG9zdBI1CgpVcGRhdGVQb3N0",
+            "EhIuUmVxdWVzdFVwZGF0ZVBvc3QaEy5SZXNwb25zZVVwZGF0ZVBvc3RCDaoC",
+            "CkdycGNDbGllbnRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -478,10 +477,10 @@ namespace GrpcClient {
 
     /// <summary>Field number for the "id" field.</summary>
     public const int IdFieldNumber = 1;
-    private int id_;
+    private long id_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Id {
+    public long Id {
       get { return id_; }
       set {
         id_ = value;
@@ -511,7 +510,7 @@ namespace GrpcClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
+      if (Id != 0L) hash ^= Id.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -530,9 +529,9 @@ namespace GrpcClient {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Id != 0) {
+      if (Id != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(Id);
+        output.WriteInt64(Id);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -544,9 +543,9 @@ namespace GrpcClient {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Id != 0) {
+      if (Id != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(Id);
+        output.WriteInt64(Id);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -558,8 +557,8 @@ namespace GrpcClient {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      if (Id != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Id);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -573,7 +572,7 @@ namespace GrpcClient {
       if (other == null) {
         return;
       }
-      if (other.Id != 0) {
+      if (other.Id != 0L) {
         Id = other.Id;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -592,7 +591,7 @@ namespace GrpcClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Id = input.ReadInt32();
+            Id = input.ReadInt64();
             break;
           }
         }
@@ -611,7 +610,7 @@ namespace GrpcClient {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            Id = input.ReadInt32();
+            Id = input.ReadInt64();
             break;
           }
         }

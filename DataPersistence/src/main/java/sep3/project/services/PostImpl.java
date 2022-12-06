@@ -104,21 +104,5 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 
 	}
 
-	@Override
-	public void getPostById(RequestGetPostById request, StreamObserver<ResponseGetPostById> responseObserver) {
-		System.out.println("Received Request =>\n" + request.toString());
-		ResponseGetPostById response = null;
-		try
-		{
-			response = database.getPostById(request.getId());
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
 
-		responseObserver.onNext(response);
-		responseObserver.onCompleted();
-		System.out.println("Post with id" + request.getId() + " =>" + response.toString());
-
-
-	}
 }

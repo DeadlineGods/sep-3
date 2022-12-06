@@ -102,7 +102,7 @@ public class PostGrpcClient : IPostDao
 			    Title = post.Title,
 			    Description = post.Description,
 		    };
-		    foreach (var tag in post.Tags)
+		    foreach (var tag in request.Tags)
 		    {
 			    Console.WriteLine(tag);
 			    request.Tags.Add(tag);

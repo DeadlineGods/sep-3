@@ -76,37 +76,6 @@ public final class PostServiceGrpc {
     return getGetPostMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetPostById,
-      sep3.project.protobuf.ResponseGetPostById> getGetPostByIdMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetPostById",
-      requestType = sep3.project.protobuf.RequestGetPostById.class,
-      responseType = sep3.project.protobuf.ResponseGetPostById.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetPostById,
-      sep3.project.protobuf.ResponseGetPostById> getGetPostByIdMethod() {
-    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetPostById, sep3.project.protobuf.ResponseGetPostById> getGetPostByIdMethod;
-    if ((getGetPostByIdMethod = PostServiceGrpc.getGetPostByIdMethod) == null) {
-      synchronized (PostServiceGrpc.class) {
-        if ((getGetPostByIdMethod = PostServiceGrpc.getGetPostByIdMethod) == null) {
-          PostServiceGrpc.getGetPostByIdMethod = getGetPostByIdMethod =
-              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestGetPostById, sep3.project.protobuf.ResponseGetPostById>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetPostById"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  sep3.project.protobuf.RequestGetPostById.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  sep3.project.protobuf.ResponseGetPostById.getDefaultInstance()))
-              .setSchemaDescriptor(new PostServiceMethodDescriptorSupplier("GetPostById"))
-              .build();
-        }
-      }
-    }
-    return getGetPostByIdMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestDeletePost,
       sep3.project.protobuf.EmptyPost> getDeletePostMethod;
 
@@ -233,13 +202,6 @@ public final class PostServiceGrpc {
 
     /**
      */
-    public void getPostById(sep3.project.protobuf.RequestGetPostById request,
-        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetPostById> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetPostByIdMethod(), responseObserver);
-    }
-
-    /**
-     */
     public void deletePost(sep3.project.protobuf.RequestDeletePost request,
         io.grpc.stub.StreamObserver<sep3.project.protobuf.EmptyPost> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeletePostMethod(), responseObserver);
@@ -268,13 +230,6 @@ public final class PostServiceGrpc {
                 sep3.project.protobuf.RequestGetPost,
                 sep3.project.protobuf.ResponseGetPost>(
                   this, METHODID_GET_POST)))
-          .addMethod(
-            getGetPostByIdMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                sep3.project.protobuf.RequestGetPostById,
-                sep3.project.protobuf.ResponseGetPostById>(
-                  this, METHODID_GET_POST_BY_ID)))
           .addMethod(
             getDeletePostMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -325,14 +280,6 @@ public final class PostServiceGrpc {
 
     /**
      */
-    public void getPostById(sep3.project.protobuf.RequestGetPostById request,
-        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetPostById> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetPostByIdMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
     public void deletePost(sep3.project.protobuf.RequestDeletePost request,
         io.grpc.stub.StreamObserver<sep3.project.protobuf.EmptyPost> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -374,13 +321,6 @@ public final class PostServiceGrpc {
     public sep3.project.protobuf.ResponseGetPost getPost(sep3.project.protobuf.RequestGetPost request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetPostMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public sep3.project.protobuf.ResponseGetPostById getPostById(sep3.project.protobuf.RequestGetPostById request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetPostByIdMethod(), getCallOptions(), request);
     }
 
     /**
@@ -430,14 +370,6 @@ public final class PostServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetPostById> getPostById(
-        sep3.project.protobuf.RequestGetPostById request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetPostByIdMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
     public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.EmptyPost> deletePost(
         sep3.project.protobuf.RequestDeletePost request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -455,9 +387,8 @@ public final class PostServiceGrpc {
 
   private static final int METHODID_CREATE_POST = 0;
   private static final int METHODID_GET_POST = 1;
-  private static final int METHODID_GET_POST_BY_ID = 2;
-  private static final int METHODID_DELETE_POST = 3;
-  private static final int METHODID_UPDATE_POST = 4;
+  private static final int METHODID_DELETE_POST = 2;
+  private static final int METHODID_UPDATE_POST = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -483,10 +414,6 @@ public final class PostServiceGrpc {
         case METHODID_GET_POST:
           serviceImpl.getPost((sep3.project.protobuf.RequestGetPost) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetPost>) responseObserver);
-          break;
-        case METHODID_GET_POST_BY_ID:
-          serviceImpl.getPostById((sep3.project.protobuf.RequestGetPostById) request,
-              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetPostById>) responseObserver);
           break;
         case METHODID_DELETE_POST:
           serviceImpl.deletePost((sep3.project.protobuf.RequestDeletePost) request,
@@ -559,7 +486,6 @@ public final class PostServiceGrpc {
               .setSchemaDescriptor(new PostServiceFileDescriptorSupplier())
               .addMethod(getCreatePostMethod())
               .addMethod(getGetPostMethod())
-              .addMethod(getGetPostByIdMethod())
               .addMethod(getDeletePostMethod())
               .addMethod(getUpdatePostMethod())
               .build();

@@ -19,6 +19,9 @@
         <button @onclick="LoadPosts" class="button-35" role="button">Search</button>
     </div>
 </div>
+<div>
+
+</div>
 
 @if (posts == null)
 {
@@ -36,14 +39,12 @@ else
             Go to post
         </a>
         <SinglePost Post="post"/>
-
     }
 }
 @if (!string.IsNullOrEmpty(msg))
 {
     <label style="color: red">@msg</label>
 }
-
 @code {
     private IList<Post>? posts = new List<Post>();
     private string msg;
@@ -98,4 +99,5 @@ else
             msg = e.Message;
         }
     }
+    
 }
