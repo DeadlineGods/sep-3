@@ -13,21 +13,21 @@ service LikeService{
 
 message RequestCountLikes
 {
-  int32 postId = 1;
+  int64 postId = 1;
 }
 
 message ResponseCountLikes
 {
-  int32 likesNo = 1;
+  int64 likesNo = 1;
 }
 
 message RequestUnLikePost {
-  int32 postId=1;
+  int64 postId=1;
   int64 userId=2;
 }
 
 message RequestIsPostLiked {
-  int32 postId=1;
+  int64 postId=1;
   int64 userId=2;
 }
 
@@ -40,12 +40,12 @@ message LikeEmpty {
 }
 
 message ResponseLikePost {
-  int32 postId = 1;
+  int64 postId = 1;
   int64 userId = 2;
 }
 
 message RequestLikePost {
-  int32 postId=1;
+  int64 postId=1;
   int64 userId=2;
 }
 
