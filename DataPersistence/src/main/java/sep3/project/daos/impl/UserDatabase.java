@@ -221,7 +221,7 @@ public class UserDatabase implements UserPersistence {
         try {
             int i = (int) id;
             statement = connection.prepareStatement(
-                    "SELECT * FROM \"User\" WHERE id = ? AND lower(user_name) LIKE '%' || ? || '%'");
+                    "SELECT * FROM \"User\" WHERE id = ? AND user_name LIKE '%' || ? || '%'");
             statement.setLong(1, i);
             statement.setString(2, username);
             return statement.executeQuery();

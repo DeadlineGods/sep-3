@@ -5,7 +5,6 @@ option csharp_namespace = "GrpcClient";
 service PostService {
 	rpc CreatePost(RequestCreatePost) returns(ResponseCreatePost);
 	rpc GetPost(RequestGetPost) returns(ResponseGetPost);
-	rpc GetPostById(RequestGetPostById) returns(ResponseGetPostById);
 	rpc DeletePost(RequestDeletePost) returns(EmptyPost);
 	rpc UpdatePost(RequestUpdatePost) returns (ResponseUpdatePost);
 }
@@ -20,7 +19,7 @@ message RequestCreatePost {
 }
 
 message ResponseCreatePost {
-	int32 id = 1;
+	int64 id = 1;
 }
 
 message PostData {
@@ -81,5 +80,6 @@ message ResponseGetPostById
 	string description = 5;
 	int64 postedOnMilliseconds = 6;
 }
+
 
 

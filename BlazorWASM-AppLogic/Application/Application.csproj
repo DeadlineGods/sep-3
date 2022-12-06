@@ -24,5 +24,7 @@
         <Protobuf Include="Protos\Like.proto" GrpcServices="Client" />
         <Protobuf Include="Protos\Comment.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\Location.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\User.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\Tag.proto" GrpcServices="Client"/>
 	</ItemGroup>
 </Project>

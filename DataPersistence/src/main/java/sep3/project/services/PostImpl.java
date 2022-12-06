@@ -25,7 +25,7 @@ public class PostImpl extends PostServiceGrpc.PostServiceImplBase {
 
 		try {
 			// create post in database and return id of new created post
-			id = database.createPost(request.getTitle(), request.getUserId(), request.getDescription(), request.getTagsList().toArray(new String[0]), request.getImgUrl(), request.getLocationId());
+			id = database.createPost(request.getTitle(), request.getUserId(), request.getDescription(), request.getImgUrl(), request.getLocationId());
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
