@@ -118,24 +118,23 @@
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
 			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
 	        // PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
-	        
-	        ClaimsPrincipal context = await authService.GetAuthAsync();
-	        var claims = context.Identities.First().Claims.ToList();
-	        string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-	        long userId = long.Parse(userIdAsStrubg);
 
-            PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
+	        long userId = (long)await GetUserId();
+	        if (userId != 0)
+	        {
+		        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
 
-	        id = await postService.CreateAsync(dto);
-	        
+		        id = await postService.CreateAsync(dto);
 
-	        PostTagCreationDto tagDto = new(id, postTags.ToArray());
-	        await tagService.CreateAsync(tagDto);
 
-	        showAlert = true;
-	        postTitle = "";
-	        postDescription = "";
-	        postTags = new List<string>();
+		        PostTagCreationDto tagDto = new(id, postTags.ToArray());
+		        await tagService.CreateAsync(tagDto);
+
+		        showAlert = true;
+		        postTitle = "";
+		        postDescription = "";
+		        postTags = new List<string>();
+	        }
 
         }
         catch (Exception e)
@@ -144,6 +143,19 @@
             msg = e.Message;
         }
     }
+
+	private async Task<long?> GetUserId()
+	{
+		ClaimsPrincipal context = await authService.GetAuthAsync();
+		if (context.Identity?.Name == null)
+		{
+			msg = "You have to be logged in!";
+			return 0;
+		}
+		var claims = context.Identities.First().Claims.ToList();
+		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+		return long.Parse(userIdAsStrubg);
+	}
 
     private bool Validate()
     {

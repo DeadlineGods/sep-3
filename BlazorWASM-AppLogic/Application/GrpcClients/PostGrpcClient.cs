@@ -34,7 +34,7 @@ public class PostGrpcClient : IPostDao
 			ImgUrl = post.ImgUrl,
 			LocationId = post.LocationId
 	    };
-	    
+
 
 	    var reply = await client.CreatePostAsync(request);
 
@@ -85,7 +85,7 @@ public class PostGrpcClient : IPostDao
     }
 
 
-    
+
 
     public async Task UpdateAsync(Post post)
     {
@@ -93,7 +93,7 @@ public class PostGrpcClient : IPostDao
 	    var client = new PostService.PostServiceClient(channel);
 	    try
 	    {
-		    
+
 		    RequestUpdatePost request = new RequestUpdatePost
 		    {
 			    Id = (int)post.Id,
@@ -105,7 +105,7 @@ public class PostGrpcClient : IPostDao
 			    Console.WriteLine(tag);
 			    request.Tags.Add(tag);
 		    }
-		    
+
 		    await client.UpdatePostAsync(request);
 	    }
 	    catch (Exception e)
@@ -117,7 +117,7 @@ public class PostGrpcClient : IPostDao
 	    await Task.CompletedTask;
     }
 
- 
+
 
     private async Task<Post> ConstructPostAsync(PostData reply)
     {
@@ -126,9 +126,7 @@ public class PostGrpcClient : IPostDao
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
 	    Location location = await locationDao.GetAsync(reply.LocationId);
-	    
+
 	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn, location);
     }
-    
- 
 }
