@@ -112,4 +112,21 @@ public class LikeDatabase implements LikePersistence {
             connection.close();
         }
     }
+
+    @Override
+    public void DeleteLike(long postId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+        try
+        {
+            PreparedStatement statement_likes = connection.prepareStatement(
+                    "DELETE FROM likepost WHERE post_id IN " +
+                            "(SELECT id FROM post WHERE id = ?)"
+            );
+            statement_likes.setLong(1, postId);
+            statement_likes.execute();
+        }
+        finally {
+            connection.close();
+        }
+    }
 }

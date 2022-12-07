@@ -17,4 +17,6 @@ public interface CommentPersistence {
     CommentsList getByPost(long postId) throws SQLException;
 
     CommentsList getSubComments(long id) throws SQLException;
+    void deleteComment(long post_id) throws SQLException;
+
 }

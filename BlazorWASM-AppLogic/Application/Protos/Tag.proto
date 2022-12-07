@@ -6,6 +6,8 @@ service TagService{
   rpc CreateTags(RequestCreateTags) returns(ResponseCreateTag);
   rpc GetPostTag(RequestGetPostTag) returns (ResponseGetPostTag);
   rpc GetTagList(RequestGetTagList) returns(ResponseGetTagList);
+  rpc DeleteTag(RequestDeleteTag) returns (EmptyTag);
+
 }
 message RequestCreateTags
 {
@@ -41,4 +43,14 @@ message ResponseGetTagList{
 }
 message TagListData{
   string tagContains = 1;
+}
+
+message EmptyTag
+{
+
+}
+
+message RequestDeleteTag
+{
+  int64 postId=1;
 }

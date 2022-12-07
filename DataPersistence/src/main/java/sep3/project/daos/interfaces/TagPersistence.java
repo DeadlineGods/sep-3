@@ -11,5 +11,6 @@ import java.util.ArrayList;
 public interface TagPersistence {
     ArrayList<PostTagData> GetPostTag(String tagContains, long postId) throws SQLException;
     ArrayList<TagListData> GetTagList(String tagContains) throws SQLException;
+    void deleteTag(int postId) throws SQLException;
     String[] CreateTags(long postId, String[] tags) throws SQLException;
 }

@@ -80,4 +80,20 @@ public class TagImpl extends TagServiceGrpc.TagServiceImplBase {
         responseObserver.onNext(tags);
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void deleteTag(RequestDeleteTag request, StreamObserver<EmptyTag> responseObserver) {
+        System.out.println("Received Request to delete=>\n" + request.toString());
+        try
+        {
+            database.deleteTag((int) request.getPostId());
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        EmptyTag response = EmptyTag.newBuilder().build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
 }

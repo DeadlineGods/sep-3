@@ -10,4 +10,6 @@ public interface ICommentDao
     Task<Comment> GetByIdAsync(long id);
     Task<IEnumerable<Comment>> GetByPostAsync(long postId);
     Task<IEnumerable<Comment>> GetSubCommentsAsync(long id);
+    Task DeleteAsync(long postId);
+
 }

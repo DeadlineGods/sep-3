@@ -30,6 +30,7 @@ public class PostHttpClient : IPostService
         HttpResponseMessage response = await client.PostAsync("https://localhost:7196/posts/create", content);
         string responseContent = await response.Content.ReadAsStringAsync();
 
+        Console.WriteLine("http " + postCreationDto.LocationId);
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception(responseContent);

@@ -8,6 +8,7 @@ service LikeService{
   rpc UnLikePost(RequestUnLikePost) returns (LikeEmpty);
   rpc IsPostLiked(RequestIsPostLiked) returns (ResponseIsPostLiked);
   rpc CountLikes(RequestCountLikes) returns(ResponseCountLikes);
+  rpc DeleteLikes(RequestDeleteLikes) returns(LikeEmpty);
 }
 
 message RequestCountLikes
@@ -46,4 +47,9 @@ message ResponseLikePost {
 message RequestLikePost {
   int64 postId=1;
   int64 userId=2;
+}
+
+message RequestDeleteLikes
+{
+  int64 postId = 1;
 }
