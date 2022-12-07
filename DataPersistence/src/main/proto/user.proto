@@ -17,6 +17,7 @@ message UserData {
   string email = 5;
   string password = 6;
   string phoneNumber = 7;
+	int64 locationId = 8;
 }
 
 message RequestCreateUser {

@@ -21,9 +21,9 @@ public class UserGrpcClient : IUserDao
             {
                 Username = searchParameters.username ?? "",
                 Userid = searchParameters.userId ?? 0
-                
+
             });
-        
+
         for (int i = 0; i < reply.UserData.Count; i++)
         {
             UserData userData = reply.UserData[i];
@@ -49,7 +49,7 @@ public class UserGrpcClient : IUserDao
                 Password = user.password,
                 PhoneNumber = user.phoneNumber
             });
-        
+
         return await Task.FromResult(ConstructUser(reply));
     }
 
@@ -65,7 +65,7 @@ public class UserGrpcClient : IUserDao
             {
                 PostId = postId
             });
-        
+
         for (int i = 0; i < reply.User.Count; i++)
         {
             UserData userData = reply.User[i];
@@ -73,16 +73,13 @@ public class UserGrpcClient : IUserDao
             usersList.Add(user);
         }
         return await Task.FromResult(usersList.AsEnumerable());
-        
+
     }
-
-
-
 
     private User ConstructUser(UserData userData)
     {
         return new User(userData.Id, userData.Username, userData.FirstName + " " + userData.LastName, userData.Password,
-            userData.Email, userData.PhoneNumber);
+            userData.Email, userData.PhoneNumber, userData.LocationId);
     }
-    
+
 }

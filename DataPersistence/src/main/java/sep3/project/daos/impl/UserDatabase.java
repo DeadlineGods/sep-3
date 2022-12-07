@@ -209,6 +209,7 @@ public class UserDatabase implements UserPersistence {
                 .setEmail(resultSet.getString("email"))
                 .setPassword(resultSet.getString("password"))
                 .setPhoneNumber(resultSet.getString("phone_number"))
+				.setLocationId(resultSet.getLong("location_id"))
                 .build();
     }
 }
