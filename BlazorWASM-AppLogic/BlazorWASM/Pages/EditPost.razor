@@ -7,7 +7,7 @@
 <h3>EditPost</h3>
 
 <div class="card">
-    @if (dto == null)
+    @if (postData == null)
     {
         <label>Post not found</label>
     }
@@ -16,11 +16,11 @@
         <h3>Update Todo</h3>
         <div class="form-group field">
             <label>Title:</label>
-            <input type="text" @bind="dto.Title"/>
+            <input type="text" @bind="postTitle"/>
         </div>
         <div class="form-group field">
             <label>Description:</label>
-            <input type="text" @bind="dto.Description"/>
+            <input type="text" @bind="postDescription"/>
         </div>
         <label>Tags</label>
         <input type="text" @bind="newTag"/>
@@ -28,7 +28,7 @@
         <div class="button-row">
             <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
         </div>
-        
+
         @foreach (string tag in postTags)
         {
             <div class="row">
@@ -54,9 +54,8 @@
     private string postDescription = "";
     private IList<string> postTags = new List<string>();
     private string newTag = "";
-    Post postData { get; set; }
+    Post? postData { get; set; }
 
-    private UpdatePostDto dto = null!;
     private string msg = "";
 
 
@@ -68,15 +67,15 @@
         {
             ICollection<Post> posts = await postService.GetAsync(Id);
             postData = posts.FirstOrDefault();
-            
 
-            
-            dto = new(Id)
-            {
-                Title = postTitle,
-                Description = postDescription,
-                Tags = postTags
-            };
+	        if (postData == null)
+	        {
+		        msg = "This post does not exist!";
+		        return;
+	        }
+	        postTitle = postData.Title;
+	        postDescription = postData.Description;
+	        // postTags = postData.
         }
         catch (Exception e)
         {
@@ -89,9 +88,15 @@
     {
         try
         {
-            
+			UpdatePostDto dto = new(Id)
+			{
+			    Title = postTitle,
+			    Description = postDescription,
+			    Tags = postTags
+			};
+
             await postService.UpdateAsync(dto, postData.Owner.Id);
-            
+
 
             navMgr.NavigateTo("/posts/all");
         }
@@ -101,7 +106,7 @@
             throw;
         }
     }
-    
+
     private void AddTag()
     {
         if (newTag.Equals("") || postTags.Contains(newTag))

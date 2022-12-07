@@ -105,12 +105,10 @@ else
 			if (locationId == null)
 			{
 				msg = "You have to be logged in!";
-				Console.WriteLine("as");
 				return;
 			}
 
 			Coordinate coordinates = await locationService.GetCoordinatesAsync((int)locationId);
-			// todo
 			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
 			posts = temp.ToList();
 		}
