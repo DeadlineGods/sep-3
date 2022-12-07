@@ -51,5 +51,5 @@ message RequestLikePost {
 
 message RequestDeleteLikes
 {
-  int32 postId = 1;
+  int64 postId = 1;
 }
