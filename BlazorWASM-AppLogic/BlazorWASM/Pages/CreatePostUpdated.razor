@@ -5,9 +5,15 @@
 @using global::Shared
 @using global::UIComponents
 @using UIComponents
-@inject AuthenticationStateProvider AuthenticationStateProvider;
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using System.Diagnostics.SymbolStore
 @inject NavigationManager navMgr
 @inject IPostService postService
+@inject ILocationService locationService
+@inject IAuthService authService
+@inject HttpClient Http
+@inject ITagService tagService
 @inject IImageUploadService imageUploadService
 <body>
 
@@ -44,7 +50,7 @@
                 </div>
                 <div>
                     <label class="mb-0"> Tags</label>
-                    <textarea name="description" @bind="newTag"  rows="3" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></textarea>
+                    <textarea name="description" @bind="newTag"  @ref="tagInput" rows="3" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></textarea>
                     <button @onclick="@AddTag">add </button>
 
                 </div>
@@ -95,13 +101,14 @@
 </div>
 </body>
 @code {
-     private ImageFile? filesBase64 = null;
+ ElementReference tagInput;
+    private ImageFile? filesBase64 = null;
     private string postTitle = "";
     private string postDescription = "";
     private IList<string> postTags = new List<string>();
     private string newTag = "";
     private bool showAlert;
-    private int id;
+    private long id;
 
 	private MapComponent Map;
 
@@ -148,18 +155,31 @@
 
 	        Coordinate coordinates = await Map.GetCoordinates();
 
+	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
+
+	        int locationId = await locationService.CreateAsync(locationCreationDto);
+	        Console.WriteLine("Page: " + locationId);
 	        // get user id
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+	        // PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
 
-            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, coordinates);
+	        long userId = (long)await GetUserId();
+	        if (userId != 0)
+	        {
+		        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
 
-            id = await postService.CreateAsync(dto);
+		        id = await postService.CreateAsync(dto);
 
-	        showAlert = true;
-	        postTitle = "";
-	        postDescription = "";
-	        postTags = new List<string>();
+
+		        PostTagCreationDto tagDto = new(id, postTags.ToArray());
+		        await tagService.CreateAsync(tagDto);
+
+		        showAlert = true;
+		        postTitle = "";
+		        postDescription = "";
+		        postTags = new List<string>();
+	        }
 
         }
         catch (Exception e)
@@ -168,6 +188,19 @@
             msg = e.Message;
         }
     }
+
+	private async Task<long?> GetUserId()
+	{
+		ClaimsPrincipal context = await authService.GetAuthAsync();
+		if (context.Identity?.Name == null)
+		{
+			msg = "You have to be logged in!";
+			return 0;
+		}
+		var claims = context.Identities.First().Claims.ToList();
+		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+		return long.Parse(userIdAsStrubg);
+	}
 
     private bool Validate()
     {
@@ -195,12 +228,15 @@
 
     private void AddTag()
     {
-        if (newTag.Equals("") || postTags.Contains(newTag))
+
+	    if (newTag.Equals("") || postTags.Contains(newTag))
         {
-            return;
+	        tagInput.FocusAsync();
+	        return;
         }
         postTags.Add(newTag);
         newTag = "";
+	    tagInput.FocusAsync();
     }
 
     private void RemoveTag(string tag)
@@ -213,5 +249,4 @@
         navMgr.NavigateTo("posts/" + id);
     }
 
-    
 }
