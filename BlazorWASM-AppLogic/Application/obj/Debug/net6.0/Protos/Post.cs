@@ -24,34 +24,34 @@ namespace GrpcClient {
     static PostReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFQcm90b3MvUG9zdC5wcm90byJ5ChFSZXF1ZXN0Q3JlYXRlUG9zdBINCgV0",
+            "ChFQcm90b3MvUG9zdC5wcm90byJrChFSZXF1ZXN0Q3JlYXRlUG9zdBINCgV0",
             "aXRsZRgBIAEoCRITCgtkZXNjcmlwdGlvbhgCIAEoCRIOCgZ1c2VySWQYAyAB",
-            "KAMSDgoGaW1nVXJsGAQgASgJEgwKBHRhZ3MYBSADKAkSEgoKbG9jYXRpb25J",
-            "ZBgGIAEoBSIgChJSZXNwb25zZUNyZWF0ZVBvc3QSCgoCaWQYASABKAMimwEK",
-            "CFBvc3REYXRhEgoKAmlkGAEgASgDEg4KBnVzZXJJZBgCIAEoAxINCgVsaWtl",
-            "cxgDIAEoBRINCgV0aXRsZRgEIAEoCRITCgtkZXNjcmlwdGlvbhgFIAEoCRIO",
-            "CgZpbWdVcmwYBiABKAkSEgoKbG9jYXRpb25JZBgHIAEoBRIcChRwb3N0ZWRP",
-            "bk1pbGxpc2Vjb25kcxgIIAEoAyIfChFSZXF1ZXN0RGVsZXRlUG9zdBIKCgJp",
-            "ZBgBIAEoAyILCglFbXB0eVBvc3QiZgoOUmVxdWVzdEdldFBvc3QSDwoCaWQY",
-            "ASABKANIAIgBARITCgZ1c2VySWQYAiABKANIAYgBARISCgV0aXRsZRgDIAEo",
-            "CUgCiAEBQgUKA19pZEIJCgdfdXNlcklkQggKBl90aXRsZSIrCg9SZXNwb25z",
-            "ZUdldFBvc3QSGAoFcG9zdHMYASADKAsyCS5Qb3N0RGF0YSJRChFSZXF1ZXN0",
-            "VXBkYXRlUG9zdBIKCgJpZBgBIAEoBRINCgV0aXRsZRgCIAEoCRITCgtkZXNj",
-            "cmlwdGlvbhgDIAEoCRIMCgR0YWdzGAQgAygJIiAKElJlc3BvbnNlVXBkYXRl",
-            "UG9zdBIKCgJpZBgBIAEoBSIgChJSZXF1ZXN0R2V0UG9zdEJ5SWQSCgoCaWQY",
-            "ASABKAUiggEKE1Jlc3BvbnNlR2V0UG9zdEJ5SWQSCgoCaWQYASABKAUSDgoG",
-            "dXNlcklkGAIgASgDEg0KBWxpa2VzGAMgASgFEg0KBXRpdGxlGAQgASgJEhMK",
-            "C2Rlc2NyaXB0aW9uGAUgASgJEhwKFHBvc3RlZE9uTWlsbGlzZWNvbmRzGAYg",
-            "ASgDMtcBCgtQb3N0U2VydmljZRI1CgpDcmVhdGVQb3N0EhIuUmVxdWVzdENy",
-            "ZWF0ZVBvc3QaEy5SZXNwb25zZUNyZWF0ZVBvc3QSLAoHR2V0UG9zdBIPLlJl",
-            "cXVlc3RHZXRQb3N0GhAuUmVzcG9uc2VHZXRQb3N0EiwKCkRlbGV0ZVBvc3QS",
-            "Ei5SZXF1ZXN0RGVsZXRlUG9zdBoKLkVtcHR5UG9zdBI1CgpVcGRhdGVQb3N0",
-            "EhIuUmVxdWVzdFVwZGF0ZVBvc3QaEy5SZXNwb25zZVVwZGF0ZVBvc3RCDaoC",
-            "CkdycGNDbGllbnRiBnByb3RvMw=="));
+            "KAMSDgoGaW1nVXJsGAQgASgJEhIKCmxvY2F0aW9uSWQYBSABKAUiIAoSUmVz",
+            "cG9uc2VDcmVhdGVQb3N0EgoKAmlkGAEgASgDIpsBCghQb3N0RGF0YRIKCgJp",
+            "ZBgBIAEoAxIOCgZ1c2VySWQYAiABKAMSDQoFbGlrZXMYAyABKAUSDQoFdGl0",
+            "bGUYBCABKAkSEwoLZGVzY3JpcHRpb24YBSABKAkSDgoGaW1nVXJsGAYgASgJ",
+            "EhIKCmxvY2F0aW9uSWQYByABKAUSHAoUcG9zdGVkT25NaWxsaXNlY29uZHMY",
+            "CCABKAMiHwoRUmVxdWVzdERlbGV0ZVBvc3QSCgoCaWQYASABKAMiCwoJRW1w",
+            "dHlQb3N0ImYKDlJlcXVlc3RHZXRQb3N0Eg8KAmlkGAEgASgDSACIAQESEwoG",
+            "dXNlcklkGAIgASgDSAGIAQESEgoFdGl0bGUYAyABKAlIAogBAUIFCgNfaWRC",
+            "CQoHX3VzZXJJZEIICgZfdGl0bGUiKwoPUmVzcG9uc2VHZXRQb3N0EhgKBXBv",
+            "c3RzGAEgAygLMgkuUG9zdERhdGEiUQoRUmVxdWVzdFVwZGF0ZVBvc3QSCgoC",
+            "aWQYASABKAUSDQoFdGl0bGUYAiABKAkSEwoLZGVzY3JpcHRpb24YAyABKAkS",
+            "DAoEdGFncxgEIAMoCSIgChJSZXNwb25zZVVwZGF0ZVBvc3QSCgoCaWQYASAB",
+            "KAUiIAoSUmVxdWVzdEdldFBvc3RCeUlkEgoKAmlkGAEgASgFIoIBChNSZXNw",
+            "b25zZUdldFBvc3RCeUlkEgoKAmlkGAEgASgFEg4KBnVzZXJJZBgCIAEoAxIN",
+            "CgVsaWtlcxgDIAEoBRINCgV0aXRsZRgEIAEoCRITCgtkZXNjcmlwdGlvbhgF",
+            "IAEoCRIcChRwb3N0ZWRPbk1pbGxpc2Vjb25kcxgGIAEoAzLXAQoLUG9zdFNl",
+            "cnZpY2USNQoKQ3JlYXRlUG9zdBISLlJlcXVlc3RDcmVhdGVQb3N0GhMuUmVz",
+            "cG9uc2VDcmVhdGVQb3N0EiwKB0dldFBvc3QSDy5SZXF1ZXN0R2V0UG9zdBoQ",
+            "LlJlc3BvbnNlR2V0UG9zdBIsCgpEZWxldGVQb3N0EhIuUmVxdWVzdERlbGV0",
+            "ZVBvc3QaCi5FbXB0eVBvc3QSNQoKVXBkYXRlUG9zdBISLlJlcXVlc3RVcGRh",
+            "dGVQb3N0GhMuUmVzcG9uc2VVcGRhdGVQb3N0Qg2qAgpHcnBjQ2xpZW50YgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestCreatePost), global::GrpcClient.RequestCreatePost.Parser, new[]{ "Title", "Description", "UserId", "ImgUrl", "Tags", "LocationId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestCreatePost), global::GrpcClient.RequestCreatePost.Parser, new[]{ "Title", "Description", "UserId", "ImgUrl", "LocationId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.ResponseCreatePost), global::GrpcClient.ResponseCreatePost.Parser, new[]{ "Id" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.PostData), global::GrpcClient.PostData.Parser, new[]{ "Id", "UserId", "Likes", "Title", "Description", "ImgUrl", "LocationId", "PostedOnMilliseconds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GrpcClient.RequestDeletePost), global::GrpcClient.RequestDeletePost.Parser, new[]{ "Id" }, null, null, null, null),
@@ -106,7 +106,6 @@ namespace GrpcClient {
       description_ = other.description_;
       userId_ = other.userId_;
       imgUrl_ = other.imgUrl_;
-      tags_ = other.tags_.Clone();
       locationId_ = other.locationId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -165,19 +164,8 @@ namespace GrpcClient {
       }
     }
 
-    /// <summary>Field number for the "tags" field.</summary>
-    public const int TagsFieldNumber = 5;
-    private static readonly pb::FieldCodec<string> _repeated_tags_codec
-        = pb::FieldCodec.ForString(42);
-    private readonly pbc::RepeatedField<string> tags_ = new pbc::RepeatedField<string>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<string> Tags {
-      get { return tags_; }
-    }
-
     /// <summary>Field number for the "locationId" field.</summary>
-    public const int LocationIdFieldNumber = 6;
+    public const int LocationIdFieldNumber = 5;
     private int locationId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -207,7 +195,6 @@ namespace GrpcClient {
       if (Description != other.Description) return false;
       if (UserId != other.UserId) return false;
       if (ImgUrl != other.ImgUrl) return false;
-      if(!tags_.Equals(other.tags_)) return false;
       if (LocationId != other.LocationId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -220,7 +207,6 @@ namespace GrpcClient {
       if (Description.Length != 0) hash ^= Description.GetHashCode();
       if (UserId != 0L) hash ^= UserId.GetHashCode();
       if (ImgUrl.Length != 0) hash ^= ImgUrl.GetHashCode();
-      hash ^= tags_.GetHashCode();
       if (LocationId != 0) hash ^= LocationId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -256,9 +242,8 @@ namespace GrpcClient {
         output.WriteRawTag(34);
         output.WriteString(ImgUrl);
       }
-      tags_.WriteTo(output, _repeated_tags_codec);
       if (LocationId != 0) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(40);
         output.WriteInt32(LocationId);
       }
       if (_unknownFields != null) {
@@ -287,9 +272,8 @@ namespace GrpcClient {
         output.WriteRawTag(34);
         output.WriteString(ImgUrl);
       }
-      tags_.WriteTo(ref output, _repeated_tags_codec);
       if (LocationId != 0) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(40);
         output.WriteInt32(LocationId);
       }
       if (_unknownFields != null) {
@@ -314,7 +298,6 @@ namespace GrpcClient {
       if (ImgUrl.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ImgUrl);
       }
-      size += tags_.CalculateSize(_repeated_tags_codec);
       if (LocationId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(LocationId);
       }
@@ -342,7 +325,6 @@ namespace GrpcClient {
       if (other.ImgUrl.Length != 0) {
         ImgUrl = other.ImgUrl;
       }
-      tags_.Add(other.tags_);
       if (other.LocationId != 0) {
         LocationId = other.LocationId;
       }
@@ -377,11 +359,7 @@ namespace GrpcClient {
             ImgUrl = input.ReadString();
             break;
           }
-          case 42: {
-            tags_.AddEntriesFrom(input, _repeated_tags_codec);
-            break;
-          }
-          case 48: {
+          case 40: {
             LocationId = input.ReadInt32();
             break;
           }
@@ -416,11 +394,7 @@ namespace GrpcClient {
             ImgUrl = input.ReadString();
             break;
           }
-          case 42: {
-            tags_.AddEntriesFrom(ref input, _repeated_tags_codec);
-            break;
-          }
-          case 48: {
+          case 40: {
             LocationId = input.ReadInt32();
             break;
           }

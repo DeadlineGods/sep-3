@@ -4,6 +4,7 @@
 @using HttpClients.ClientInterfaces
 @inject IPostService postService
 @inject NavigationManager navMgr;
+@inject ITagService tagService;
 <h3>EditPost</h3>
 
 <div class="card">
@@ -25,10 +26,7 @@
         <label>Tags</label>
         <input type="text" @bind="newTag"/>
         <button @onclick="@AddTag">add </button>
-        <div class="button-row">
-            <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
-        </div>
-        
+
         @foreach (string tag in postTags)
         {
             <div class="row">
@@ -36,11 +34,14 @@
                 <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
             </div>
         }
+        <div class="button-row">
+            @if (!string.IsNullOrEmpty(msg))
+            {
+                <label style="color: red">@msg</label>
+            }
+            <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
+        </div>
 
-    }
-    @if (!string.IsNullOrEmpty(msg))
-    {
-        <label style="color: red">@msg</label>
     }
 </div>
 
@@ -50,8 +51,8 @@
 @code {
     [Parameter]
     public int Id { get; set; }
-    private string postTitle = "";
-    private string postDescription = "";
+    private string? postTitle;
+    private string? postDescription;
     private IList<string> postTags = new List<string>();
     private string newTag = "";
     Post postData { get; set; }
@@ -91,8 +92,11 @@
         {
             
             await postService.UpdateAsync(dto, postData.Owner.Id);
+            await tagService.DeleteAsync(postData.Id);
+            PostTagCreationDto tagDto = new(Id, postTags.ToArray());
+            await tagService.CreateAsync(tagDto);
             
-
+            
             navMgr.NavigateTo("/posts/all");
         }
         catch (Exception e)

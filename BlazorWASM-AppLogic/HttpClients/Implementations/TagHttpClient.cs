@@ -88,4 +88,16 @@ public class TagHttpClient : ITagService
 
         return query;
     }
+    
+    public async Task DeleteAsync(long postId)
+    {
+
+        HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7196/Tag/{postId}");
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+    }
 }

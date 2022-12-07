@@ -96,4 +96,20 @@ public class LikeImpl extends LikeServiceGrpc.LikeServiceImplBase {
         responseObserver.onCompleted();
         System.out.println("Post with id" + request.getPostId() +  " has => \n" + response.toString() + " likes");
     }
+
+    @Override
+    public void deleteLikes(RequestDeleteLikes request, StreamObserver<LikeEmpty> responseObserver) {
+        System.out.println("Received Request to delete=>\n" + request.toString());
+        try
+        {
+            database.DeleteLike(request.getPostId());
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        LikeEmpty response = LikeEmpty.newBuilder().build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
 }

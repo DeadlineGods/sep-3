@@ -65,4 +65,19 @@ public class TagController:ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpDelete("{postId:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] long postId)
+    {
+        try
+        {
+            await tagLogic.DeleteTask(postId);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }

@@ -54,20 +54,21 @@ public class PostDatabase implements PostPersistence {
 
 		try
 		{
-			//deleting sub_comments
+			//TODO remove it after testing
+			/*//deleting sub_comments
 			PreparedStatement statement_sub_comments = connection.prepareStatement(
 					"DELETE FROM commentparentcomment WHERE parent_comment_id IN " +
 							"(SELECT id FROM comment WHERE post_id IN " +
 							"(SELECT id FROM post WHERE id = ?))"
 			);
-			statement_sub_comments.setLong(1, id);
+			statement_sub_comments.setInt(1, id);
 			statement_sub_comments.execute();
 			//deleting comments
 			PreparedStatement statement_comments = connection.prepareStatement(
 					"DELETE FROM comment WHERE post_id IN " +
 							"(SELECT id FROM post WHERE id = ?)"
 			);
-			statement_comments.setLong(1, id);
+			statement_comments.setInt(1, id);
 			statement_comments.execute();
 
 			//deleting likes
@@ -75,7 +76,7 @@ public class PostDatabase implements PostPersistence {
 					"DELETE FROM likepost WHERE post_id IN " +
 							"(SELECT id FROM post WHERE id = ?)"
 			);
-			statement_likes.setLong(1, id);
+			statement_likes.setInt(1, id);
 			statement_likes.execute();
 
 			//deleting reports
@@ -83,7 +84,7 @@ public class PostDatabase implements PostPersistence {
 					"DELETE FROM report WHERE post_id IN " +
 							"(SELECT id FROM post WHERE id = ?)"
 			);
-			statement_reports.setLong(1, id);
+			statement_reports.setInt(1, id);
 			statement_reports.execute();
 
 			//deleting from tags
@@ -94,15 +95,15 @@ public class PostDatabase implements PostPersistence {
 							"(SELECT id FROM post WHERE id = ?)"
 			);
 
-			statement_tags.setLong(1, id);
+			statement_tags.setInt(1, id);
 			statement_tags.execute();
 			// deleting ban_post
 			PreparedStatement statement_ban = connection.prepareStatement(
 					"DELETE FROM ban_post WHERE post_id IN " +
 							"(SELECT id FROM post WHERE id = ?);"
 			);
-			statement_ban.setLong(1, id);
-			statement_ban.execute();
+			statement_ban.setInt(1, id);
+			statement_ban.execute();*/
 
 			//deleting post
 			PreparedStatement statement = connection.prepareStatement(

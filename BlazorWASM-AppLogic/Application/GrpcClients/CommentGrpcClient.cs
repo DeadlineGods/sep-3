@@ -121,4 +121,25 @@ public class CommentGrpcClient : ICommentDao
 
         return comments.AsEnumerable();
     }
+
+    public async Task DeleteAsync(long postId)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+        var client = new CommentService.CommentServiceClient(channel);
+        try
+        {
+            await client.DeleteCommentAsync(
+                new RequestDeleteComment
+                {
+                    PostId = postId
+                });
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        await Task.CompletedTask;
+    }
 }

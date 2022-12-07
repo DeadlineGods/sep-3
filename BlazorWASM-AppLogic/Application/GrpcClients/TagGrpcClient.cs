@@ -36,6 +36,29 @@ public class TagGrpcClient : ITagDao
         var reply = await client.CreateTagsAsync(request);
         return await Task.FromResult(reply.Tags.ToArray());
     }
+
+    public async Task DeleteAsync(long postId)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+        var client = new TagService.TagServiceClient(channel);
+        try
+        {
+            await client.DeleteTagAsync(
+                new RequestDeleteTag
+                {
+                    PostId = postId
+                });
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        await Task.CompletedTask;
+    }
+    
+
     public async Task<IEnumerable<TagPost>> GetPostTagAsync(SearchPostTagParameters searchParameters)
     {
         using var channel = GrpcChannel.ForAddress("http://localhost:6565");

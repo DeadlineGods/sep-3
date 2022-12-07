@@ -14,4 +14,5 @@ public interface LikePersistence {
     void UnLikePost(long postId, long userId) throws SQLException;
     ResponseIsPostLiked IsPostLiked(long postId, long userId) throws SQLException;
     ResponseCountLikes CountLikes(long postId) throws SQLException;
+    void DeleteLike(long postId) throws SQLException;
 }

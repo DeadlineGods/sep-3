@@ -17,14 +17,18 @@ public class PostLogic : IPostLogic
     private readonly IPostDao PostDao;
     private readonly IUserDao UserDao;
     private readonly ILikeDao LikeDao;
+    private readonly ITagDao TagDao;
+    private readonly ICommentDao CommentDao;
     private readonly ILocationDao LocationDao;
 
-    public PostLogic(IPostDao postDao, IUserDao userDao, ILikeDao likeDao, ILocationDao locationDao)
+    public PostLogic(IPostDao postDao, IUserDao userDao, ILikeDao likeDao, ILocationDao locationDao, ICommentDao commentDao, ITagDao tagDao)
     {
        PostDao = postDao;
        UserDao = userDao;
        LikeDao = likeDao;
        LocationDao = locationDao;
+       CommentDao = commentDao;
+       TagDao = tagDao;
     }
 
     public async Task<long> CreateAsync(PostCreationDto postCreationDto)
@@ -64,7 +68,11 @@ public class PostLogic : IPostLogic
         {
             if (post.Owner.Id == user_id)
             {
+                await CommentDao.DeleteAsync(post_id);
+                await LikeDao.DeleteAsync(post_id);
+                await TagDao.DeleteAsync(post_id);
                 await PostDao.DeleteAsync(post_id);
+
             }
         }
         
@@ -122,9 +130,10 @@ public class PostLogic : IPostLogic
         
         if (existing.Owner.Id == user_id)
         {
+            
             string titleToUse = dto.Title ?? existing.Title;
             string descriptionToUse = dto.Description ?? existing.Description;
-            //IList<string> tags = dto.Tags ?? existing.Tags;
+            IList<string> tags = dto.Tags;
             
             
             Post updated = new Post()
@@ -132,7 +141,6 @@ public class PostLogic : IPostLogic
                 Id = dto.Id,
                 Title = titleToUse,
                 Description = descriptionToUse,
-                //Tags = dto.Tags,
                 Owner = existing.Owner
             };
             

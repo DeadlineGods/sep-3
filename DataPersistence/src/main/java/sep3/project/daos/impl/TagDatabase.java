@@ -228,4 +228,45 @@ public class TagDatabase implements TagPersistence {
                 .setTagContains(resultSet.getString("tag_name"))
                 .build();
     }
+
+
+    @Override
+    public void deleteTag(int postId) throws SQLException {
+        Connection connection = DBConnection.getConnection();
+
+        try
+        {
+            //deleting reports
+            //TODO put in in report database after creating
+            PreparedStatement statement_reports = connection.prepareStatement(
+                    "DELETE FROM report WHERE post_id IN " +
+                            "(SELECT id FROM post WHERE id = ?)"
+            );
+            statement_reports.setInt(1, postId);
+            statement_reports.execute();
+
+            //deleting from tags
+
+            //deleting post_tags
+            PreparedStatement statement_tags = connection.prepareStatement(
+                    "DELETE FROM post_tag WHERE post_id IN " +
+                            "(SELECT id FROM post WHERE id = ?)"
+            );
+
+            statement_tags.setInt(1, postId);
+            statement_tags.execute();
+            // deleting ban_post
+            //TODO move it to ban
+            PreparedStatement statement_ban = connection.prepareStatement(
+                    "DELETE FROM ban_post WHERE post_id IN " +
+                            "(SELECT id FROM post WHERE id = ?);"
+            );
+            statement_ban.setInt(1, postId);
+            statement_ban.execute();
+        }
+        finally {
+            connection.close();
+        }
+    }
+
 }
