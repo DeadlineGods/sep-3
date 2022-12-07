@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+service ReportService{
+	rpc ReportPost(RequestReportPost) returns (ResponseReportPost);
+	rpc GetByIdReport(RequestGetByIdReport) returns(ResponseGetReport);
+}
+
+message RequestReportPost {
+	string violation_desc=1;
+	int32 post_id=2;
+	int32 user_id=3;
+}
+
+message ResponseReportPost {
+	int32 report_id = 1;
+}
+
+message RequestGetByIdReport{
+	int32 report_id = 1;
+}
+
+message ResponseGetReport {
+	int32 report_id = 1;
+	string violation_desc=2;
+	int32 post_id=3;
+	int32 user_id=4;
+}
+
+message ReportData {
+	int32 report_id=1;
+	string violation_desc=2;
+	int32 post_id=3;
+	int32 user_id=4;
+}

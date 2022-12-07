@@ -1,0 +1,66 @@
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using Domain.DTOs
+@using HttpClients.ClientInterfaces
+@namespace UIComponents
+@inject IReportService reportService
+
+
+<button @onclick="@(() => showReportField = true)">" >Report post</button>
+
+@if (showReportField)
+{
+	<input type="text" @bind="reportInputText" >
+	<button
+		@onclick="ReportPostAsync">
+		report
+	</button>
+
+	<label>@msg</label>
+
+}
+
+@code {
+
+	[Parameter]
+	public long PostId { get; set; }
+
+	[Parameter]
+	public long? UserId { get; set; }
+
+	public bool showReportField;
+	private string reportInputText;
+	private string msg;
+
+
+	protected override async Task OnInitializedAsync()
+	{
+
+	}
+
+	private async void ReportPostAsync()
+	{
+
+		try
+		{
+
+			Console.WriteLine("trying");
+			if (UserId != null)
+			{
+				Console.WriteLine("aa");
+				ReportPostDto dto = new ReportPostDto(reportInputText, (int)PostId, (int)UserId);
+				Console.WriteLine("bb");
+				int id = await reportService.ReportPostAsync(dto);
+				Console.WriteLine("cc");
+				msg = "successfully created";
+				reportInputText = "";
+			}
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			msg = e.Message;
+		}
+	}
+
+}

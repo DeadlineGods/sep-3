@@ -19,23 +19,24 @@
     <div>@Post.Likes</div>
 
     <AuthorizeView>
-        <Authorized>
-            <LIkeButton PostId="Post.Id" UpdateParentsLikes="UpdateLikes"/>
+	    <Authorized>
 
-            <div >
-                <p>comment: </p>
-                <input type="text" @bind="commentInputText"/>
-                <button @onclick="PublishAsync">publish</button>
-            </div>
-            @if (Post.Owner.UserName == @context.User.Identity.Name)
-            {
-                <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
-                <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+		    <LIkeButton PostId="Post.Id" UpdateParentsLikes="UpdateLikes"/>
 
-            }
-            @* <Report PostId="Post.Id" UserId="userId"></Report> *@
-            <h1>@msg</h1>
-        </Authorized>
+		    <div >
+			    <p>comment: </p>
+			    <input type="text" @bind="commentInputText"/>
+			    <button @onclick="PublishAsync">publish</button>
+		    </div>
+		    @if (Post.Owner.UserName == @context.User.Identity.Name)
+		    {
+			    <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+			    <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+
+		    }
+		    <Report PostId="Post.Id" UserId="userId"></Report>
+		    <h1>@msg</h1>
+	    </Authorized>
     </AuthorizeView>
 
     @if (comments.Any())
@@ -72,17 +73,20 @@
 
         try
         {
-            ClaimsPrincipal context = await authService.GetAuthAsync();
-            var claims = context.Identities.First().Claims.ToList();
-            string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+            // ClaimsPrincipal context = await authService.GetAuthAsync();
+            // var claims = context.Identities.First().Claims.ToList();
+            // string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
 
-            await commentService.CreateAsync(commentInputText, long.Parse(ownerId), Post.Id);
+	        if (userId != null)
+	        {
+				await commentService.CreateAsync(commentInputText, (long)userId, Post.Id);
+	            commentInputText = "";
 
-            commentInputText = "";
+	            await UpdateCommentsAsync();
 
-            await UpdateCommentsAsync();
+	            StateHasChanged();
+	        }
 
-            StateHasChanged();
         }
         catch (Exception e)
         {
@@ -105,7 +109,6 @@
 
     private async Task<long?> GetUserId()
     {
-        Console.WriteLine("ahoj");
         ClaimsPrincipal context = await authService.GetAuthAsync();
         if (context.Identity?.Name == null)
         {
@@ -120,8 +123,6 @@
         //     msg = "You have to be logged in!";
         //     return null;
         // }
-
-        Console.WriteLine(userIdString);
 
         return long.Parse(userIdString);
     }

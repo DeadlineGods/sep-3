@@ -25,9 +25,9 @@ builder.Services.AddScoped<IUserService, UserHttpClient>();
 builder.Services.AddScoped<ILikeService, LikeHttpClient>();
 builder.Services.AddScoped<IImageUploadService, ImageUploadHttpClient>();
 builder.Services.AddScoped<ICommentService, CommentHttpClient>();
-
 builder.Services.AddScoped<ITagService, TagHttpClient>();
-    
+builder.Services.AddScoped<IReportService, ReportHttpClient>();
+
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthProvider>();
 
 AuthorizationPolicies.AddPolicies(builder.Services);
