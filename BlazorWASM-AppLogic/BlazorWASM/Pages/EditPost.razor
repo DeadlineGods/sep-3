@@ -4,6 +4,7 @@
 @using HttpClients.ClientInterfaces
 @inject IPostService postService
 @inject NavigationManager navMgr;
+@inject ITagService tagService;
 <h3>EditPost</h3>
 
 <div class="card">
@@ -73,9 +74,11 @@
 		        msg = "This post does not exist!";
 		        return;
 	        }
+
 	        postTitle = postData.Title;
 	        postDescription = postData.Description;
-	        // postTags = postData.
+
+	        await LoadPostTags();
         }
         catch (Exception e)
         {
@@ -83,6 +86,15 @@
             msg = e.Message;
         }
     }
+
+	private async Task LoadPostTags()
+	{
+		IEnumerable<Tag> tags = await tagService.GetPostTagAsync(Id);
+		foreach (var tag in tags)
+		{
+			postTags.Add(tag.tagName);
+		}
+	}
 
     private async Task UpdateAsync()
     {
