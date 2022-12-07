@@ -24,7 +24,7 @@ public class PostsController : ControllerBase
     {
 	    try
         {
-            int id = await postLogic.CreateAsync(postCreationDto);
+            long id = await postLogic.CreateAsync(postCreationDto);
             return Ok(id);
         }
         catch (Exception e)
@@ -38,14 +38,15 @@ public class PostsController : ControllerBase
     [HttpGet, Route("get")]
     public async Task<ActionResult<Post>> GetAsync
     (
-	    [FromQuery] int? id,
-	    [FromQuery] int? userId,
+	    [FromQuery] long? id,
+	    [FromQuery] long? userId,
 	    [FromQuery] string? titleContains
-	) {
-	    try
+	)
+    {
+		try
 	    {
-		    SearchPostParameters parameters = new SearchPostParameters(id, userId, titleContains);
-            IEnumerable<Post> posts = await postLogic.GetAsync(parameters);
+		    SearchPostParametersDto parametersDto = new SearchPostParametersDto(id, userId, titleContains);
+            IEnumerable<Post> posts = await postLogic.GetAsync(parametersDto);
             return Ok(posts);
         }
         catch (Exception e)
@@ -55,13 +56,29 @@ public class PostsController : ControllerBase
         }
     }
 
+    [HttpGet, Route("getInRadius")]
+    public async Task<ActionResult<Post>> GetInRadiusAsync([FromQuery] double lat, [FromQuery] double lon, [FromQuery] int radius)
+    {
+	    try
+	    {
+		    IEnumerable<Post> posts = await postLogic.GetInRadiusAsync(new Coordinate(lat, lon), radius);
+		    return Ok(posts);
+	    }
+	    catch (Exception e)
+	    {
+		    Console.WriteLine(e);
+		    return StatusCode(500, e.Message);
+	    }
+    }
 
-    [HttpDelete ("{id:int}")]
-    public async Task<ActionResult> DeleteAsync([FromRoute] int id)
+
+   
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] long id,[FromQuery] int user_id)
     {
         try
         {
-            await postLogic.DeleteAsync(id);
+            await postLogic.DeleteAsync(id, user_id);
             return Ok();
         }
         catch (Exception e)
@@ -70,5 +87,22 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+
+    [HttpPatch]
+    public async Task<ActionResult> UpdateAsync([FromBody] UpdatePostDto dto, [FromQuery] int user_id)
+    {
+        try
+        {
+            await postLogic.UpdateAsync(dto, user_id);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+
 
 }

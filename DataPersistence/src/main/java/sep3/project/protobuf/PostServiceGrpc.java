@@ -107,6 +107,37 @@ public final class PostServiceGrpc {
     return getDeletePostMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestUpdatePost,
+      sep3.project.protobuf.ResponseUpdatePost> getUpdatePostMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdatePost",
+      requestType = sep3.project.protobuf.RequestUpdatePost.class,
+      responseType = sep3.project.protobuf.ResponseUpdatePost.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestUpdatePost,
+      sep3.project.protobuf.ResponseUpdatePost> getUpdatePostMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestUpdatePost, sep3.project.protobuf.ResponseUpdatePost> getUpdatePostMethod;
+    if ((getUpdatePostMethod = PostServiceGrpc.getUpdatePostMethod) == null) {
+      synchronized (PostServiceGrpc.class) {
+        if ((getUpdatePostMethod = PostServiceGrpc.getUpdatePostMethod) == null) {
+          PostServiceGrpc.getUpdatePostMethod = getUpdatePostMethod =
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestUpdatePost, sep3.project.protobuf.ResponseUpdatePost>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdatePost"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.RequestUpdatePost.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.ResponseUpdatePost.getDefaultInstance()))
+              .setSchemaDescriptor(new PostServiceMethodDescriptorSupplier("UpdatePost"))
+              .build();
+        }
+      }
+    }
+    return getUpdatePostMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -176,6 +207,13 @@ public final class PostServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeletePostMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void updatePost(sep3.project.protobuf.RequestUpdatePost request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseUpdatePost> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdatePostMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -199,6 +237,13 @@ public final class PostServiceGrpc {
                 sep3.project.protobuf.RequestDeletePost,
                 sep3.project.protobuf.EmptyPost>(
                   this, METHODID_DELETE_POST)))
+          .addMethod(
+            getUpdatePostMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                sep3.project.protobuf.RequestUpdatePost,
+                sep3.project.protobuf.ResponseUpdatePost>(
+                  this, METHODID_UPDATE_POST)))
           .build();
     }
   }
@@ -240,6 +285,14 @@ public final class PostServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeletePostMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void updatePost(sep3.project.protobuf.RequestUpdatePost request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseUpdatePost> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdatePostMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -275,6 +328,13 @@ public final class PostServiceGrpc {
     public sep3.project.protobuf.EmptyPost deletePost(sep3.project.protobuf.RequestDeletePost request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeletePostMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sep3.project.protobuf.ResponseUpdatePost updatePost(sep3.project.protobuf.RequestUpdatePost request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdatePostMethod(), getCallOptions(), request);
     }
   }
 
@@ -315,11 +375,20 @@ public final class PostServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeletePostMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseUpdatePost> updatePost(
+        sep3.project.protobuf.RequestUpdatePost request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdatePostMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_POST = 0;
   private static final int METHODID_GET_POST = 1;
   private static final int METHODID_DELETE_POST = 2;
+  private static final int METHODID_UPDATE_POST = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -349,6 +418,10 @@ public final class PostServiceGrpc {
         case METHODID_DELETE_POST:
           serviceImpl.deletePost((sep3.project.protobuf.RequestDeletePost) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.EmptyPost>) responseObserver);
+          break;
+        case METHODID_UPDATE_POST:
+          serviceImpl.updatePost((sep3.project.protobuf.RequestUpdatePost) request,
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseUpdatePost>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -414,6 +487,7 @@ public final class PostServiceGrpc {
               .addMethod(getCreatePostMethod())
               .addMethod(getGetPostMethod())
               .addMethod(getDeletePostMethod())
+              .addMethod(getUpdatePostMethod())
               .build();
         }
       }

@@ -1,4 +1,8 @@
-﻿using Application.DAOsInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading.Tasks;
+using Application.DAOsInterfaces;
 using Domain.DTOs;
 using Domain.Models;
 using Grpc.Net.Client;
@@ -10,48 +14,43 @@ namespace Application.GrpcClients;
 public class PostGrpcClient : IPostDao
 {
 	private readonly IUserDao userDao;
+	private readonly ILocationDao locationDao;
 
-	public PostGrpcClient(IUserDao userDao)
+	public PostGrpcClient(IUserDao userDao, ILocationDao locationDao)
 	{
 		this.userDao = userDao;
+		this.locationDao = locationDao;
 	}
 
-    public async Task<int> CreateAsync(Post post)
+    public async Task<long> CreateAsync(PostCreationDto post)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
-
 	    var request = new RequestCreatePost
 	    {
 		    Title = post.Title,
 		    Description = post.Description,
-		    UserId = post.Owner.Id,
-		    ImgUrl = post.ImgUrl,
-		    Latitude = post.Coordinate.latitude,
-		    Longitude = post.Coordinate.longitude,
+		    UserId = post.UserId,
+			ImgUrl = post.ImgUrl,
+			LocationId = post.LocationId
 	    };
 
-	    //add tags
-	    foreach (var tag in post.Tags)
-	    {
-		    request.Tags.Add(tag);
-	    }
 
 	    var reply = await client.CreatePostAsync(request);
 
 	    return await Task.FromResult(reply.Id);
     }
 
-    public async Task<IEnumerable<Post>> GetAsync(SearchPostParameters parameters)
+    public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
 	    var reply = await client.GetPostAsync(
 		    new RequestGetPost
 		    {
-			    Id = parameters.Id ?? 0,
-			    UserId = parameters.UserId ?? 0,
-			    Title = parameters.TitleContains ?? ""
+			    Id = parametersDto.Id ?? 0,
+			    UserId = parametersDto.UserId ?? 0,
+			    Title = parametersDto.TitleContains ?? ""
 		    });
 
 	    IList<Post> posts = new List<Post>();
@@ -64,7 +63,7 @@ public class PostGrpcClient : IPostDao
 
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(long id)
     {
 	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 	    var client = new PostService.PostServiceClient(channel);
@@ -86,13 +85,48 @@ public class PostGrpcClient : IPostDao
     }
 
 
+
+
+    public async Task UpdateAsync(Post post)
+    {
+	    using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+	    var client = new PostService.PostServiceClient(channel);
+	    try
+	    {
+
+		    RequestUpdatePost request = new RequestUpdatePost
+		    {
+			    Id = (int)post.Id,
+			    Title = post.Title,
+			    Description = post.Description,
+		    };
+		    foreach (var tag in request.Tags)
+		    {
+			    Console.WriteLine(tag);
+			    request.Tags.Add(tag);
+		    }
+
+		    await client.UpdatePostAsync(request);
+	    }
+	    catch (Exception e)
+	    {
+		    Console.WriteLine(e);
+		    throw;
+	    }
+
+	    await Task.CompletedTask;
+    }
+
+
+
     private async Task<Post> ConstructPostAsync(PostData reply)
     {
 	    TimeSpan time = TimeSpan.FromMilliseconds(reply.PostedOnMilliseconds);
 	    DateTime postedOn = new DateTime(1970, 1, 1) + time;
 	    SearchUserParametersDto dto = new SearchUserParametersDto(null, reply.UserId);
 	    IEnumerable<User> users = await userDao.GetAsync(dto);
+	    Location location = await locationDao.GetAsync(reply.LocationId);
 
-	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn);
+	    return new Post(reply.Id, users.FirstOrDefault(), reply.Likes, reply.Title, reply.ImgUrl, reply.Description, postedOn, location);
     }
 }

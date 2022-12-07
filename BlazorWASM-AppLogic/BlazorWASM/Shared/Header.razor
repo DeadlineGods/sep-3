@@ -7,17 +7,30 @@
                 </NavLink>
             </li>
             <li>
-                <NavLink href="/ViewPosts">
+                <NavLink href="/posts/all">
                     Feed
                 </NavLink>
             </li>
             <li>
-                <NavLink href="/CreatePost">
+                <NavLink href="/posts/create">
                     Create Post
+                </NavLink>
+            </li>
+            <li>
+                <NavLink href="/login">
+                    login
                 </NavLink>
             </li>
         </ol>
     </nav>
+    <AuthorizeView>
+        <Authorized>
+            <h4>Logged in</h4>
+        </Authorized>
+        <NotAuthorized>
+            <h4>Not logged in</h4>
+        </NotAuthorized>
+    </AuthorizeView>
 </header>
 
 @code {

@@ -1,8 +1,34 @@
 ﻿@page "/posts/all"
+@using UIComponents
 @using Domain.Models
 @using HttpClients.ClientInterfaces
+@using System.Security.Claims
+@using System.Collections
+@using BlazorWasm.Services
 @inject IPostService postService
-@inject NavigationManager navMgr
+@inject ITagService tagService
+@inject IAuthService authService
+@inject IUserService userService;
+@inject ILocationService locationService;
+
+<div class="createPostCard">
+	<button @onclick="LoadPostsBasedOnLocationAsync">Preffered Location</button>
+	@if (!string.IsNullOrEmpty(msg))
+    {
+        <label style="color: red">@msg</label>
+    }
+
+	<div class="filters-container">
+		<div class="filter">
+			<label>Search by tag:</label>
+			<input name="name" type="text" class="feedback-input" placeholder="Type here..." @bind="tagFilter"/>
+		</div>
+	</div>
+	<div class="field">
+		<button @onclick="OnInitializedAsync" class="button-35" role="button">Cancel</button>
+		<button @onclick="LoadPosts" class="button-35" role="button">Search</button>
+	</div>
+</div>
 
 @if (posts == null)
 {
@@ -14,38 +40,104 @@ else if (!posts.Any())
 }
 else
 {
+
     @foreach (var post in posts)
     {
-        <div class="post-card">
-            <a href="posts/@post.Id">
-                <div>@post.Title</div>
-                <div>@post.PostedOn</div>
-                <div>@post.Description</div>
-                <img src="@post.ImgUrl" alt="thumbnail"/>
-                <div>@post.Owner.UserName</div>
-                <div>@post.Likes</div>
-                <div>@post.Tags</div>
-            </a>
-        </div>
+        <a href="posts/@post.Id">
+            Go to post
+        </a>
+        <SinglePost Post="post"/>
+
     }
 }
-@if (!string.IsNullOrEmpty(msg))
-{
-    <label style="color: red">@msg</label>
-}
-
 @code {
-    private IEnumerable<Post>? posts;
+    private IList<Post>? posts = new List<Post>();
     private string msg;
+    private bool isLiked;
+
+
+    private string? tagFilter;
+    private IEnumerable<TagPost>? postTag;
 
     [Parameter]
-    public string? Id { get; set; }
+    public int Id { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            posts = await postService.GetAsync();
+            tagFilter = "";
+            IEnumerable<Post> temp = await postService.GetAsync();
+            posts = temp.ToList();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+	private async Task<long?> GetUserLocationId()
+	{
+		ClaimsPrincipal context = await authService.GetAuthAsync();
+
+		if (context.Identity?.Name == null)
+		{
+			return null;
+		}
+
+		var claims = context.Identities.First().Claims.ToList();
+		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+		long userId = long.Parse(userIdAsStrubg);
+		var users = await userService.GetUsersAsync(null, userId);
+		var user = users.FirstOrDefault();
+
+		return user.LocationId;
+	}
+
+	private async Task LoadPostsBasedOnLocationAsync()
+	{
+		try
+		{
+
+			long? locationId = await GetUserLocationId();
+			if (locationId == null)
+			{
+				msg = "You have to be logged in!";
+				return;
+			}
+
+			Coordinate coordinates = await locationService.GetCoordinatesAsync((int)locationId);
+			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
+			posts = temp.ToList();
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			msg = e.Message;
+		}
+
+	}
+
+    private async Task LoadPosts()
+    {
+        try
+        {
+            if (tagFilter.Equals(""))
+            {
+                OnInitializedAsync();
+            }
+            else
+            {
+                posts.Clear();
+                postTag = await tagService.GetPostTagAsync(0, tagFilter.ToLower());
+                foreach (var tagPost in postTag)
+                {
+                    ICollection<Post> temp = await postService.GetAsync(tagPost.postId, null, null);
+                    posts.Add(temp.FirstOrDefault());
+                }
+            }
         }
         catch (Exception e)
         {

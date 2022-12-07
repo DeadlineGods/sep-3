@@ -19,7 +19,6 @@ private static final long serialVersionUID = 0L;
     title_ = "";
     description_ = "";
     imgUrl_ = "";
-    tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
   @java.lang.Override
@@ -42,7 +41,6 @@ private static final long serialVersionUID = 0L;
     if (extensionRegistry == null) {
       throw new java.lang.NullPointerException();
     }
-    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -76,23 +74,9 @@ private static final long serialVersionUID = 0L;
             imgUrl_ = s;
             break;
           }
-          case 42: {
-            java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              tags_ = new com.google.protobuf.LazyStringArrayList();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            tags_.add(s);
-            break;
-          }
-          case 53: {
+          case 40: {
 
-            latitude_ = input.readFloat();
-            break;
-          }
-          case 61: {
-
-            longitude_ = input.readFloat();
+            locationId_ = input.readInt32();
             break;
           }
           default: {
@@ -112,9 +96,6 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        tags_ = tags_.getUnmodifiableView();
-      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -257,61 +238,15 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TAGS_FIELD_NUMBER = 5;
-  private com.google.protobuf.LazyStringList tags_;
+  public static final int LOCATIONID_FIELD_NUMBER = 5;
+  private int locationId_;
   /**
-   * <code>repeated string tags = 5;</code>
-   * @return A list containing the tags.
-   */
-  public com.google.protobuf.ProtocolStringList
-      getTagsList() {
-    return tags_;
-  }
-  /**
-   * <code>repeated string tags = 5;</code>
-   * @return The count of tags.
-   */
-  public int getTagsCount() {
-    return tags_.size();
-  }
-  /**
-   * <code>repeated string tags = 5;</code>
-   * @param index The index of the element to return.
-   * @return The tags at the given index.
-   */
-  public java.lang.String getTags(int index) {
-    return tags_.get(index);
-  }
-  /**
-   * <code>repeated string tags = 5;</code>
-   * @param index The index of the value to return.
-   * @return The bytes of the tags at the given index.
-   */
-  public com.google.protobuf.ByteString
-      getTagsBytes(int index) {
-    return tags_.getByteString(index);
-  }
-
-  public static final int LATITUDE_FIELD_NUMBER = 6;
-  private float latitude_;
-  /**
-   * <code>float latitude = 6;</code>
-   * @return The latitude.
+   * <code>int32 locationId = 5;</code>
+   * @return The locationId.
    */
   @java.lang.Override
-  public float getLatitude() {
-    return latitude_;
-  }
-
-  public static final int LONGITUDE_FIELD_NUMBER = 7;
-  private float longitude_;
-  /**
-   * <code>float longitude = 7;</code>
-   * @return The longitude.
-   */
-  @java.lang.Override
-  public float getLongitude() {
-    return longitude_;
+  public int getLocationId() {
+    return locationId_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -340,14 +275,8 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(imgUrl_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, imgUrl_);
     }
-    for (int i = 0; i < tags_.size(); i++) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, tags_.getRaw(i));
-    }
-    if (java.lang.Float.floatToRawIntBits(latitude_) != 0) {
-      output.writeFloat(6, latitude_);
-    }
-    if (java.lang.Float.floatToRawIntBits(longitude_) != 0) {
-      output.writeFloat(7, longitude_);
+    if (locationId_ != 0) {
+      output.writeInt32(5, locationId_);
     }
     unknownFields.writeTo(output);
   }
@@ -371,21 +300,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(imgUrl_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, imgUrl_);
     }
-    {
-      int dataSize = 0;
-      for (int i = 0; i < tags_.size(); i++) {
-        dataSize += computeStringSizeNoTag(tags_.getRaw(i));
-      }
-      size += dataSize;
-      size += 1 * getTagsList().size();
-    }
-    if (java.lang.Float.floatToRawIntBits(latitude_) != 0) {
+    if (locationId_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(6, latitude_);
-    }
-    if (java.lang.Float.floatToRawIntBits(longitude_) != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(7, longitude_);
+        .computeInt32Size(5, locationId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -410,14 +327,8 @@ private static final long serialVersionUID = 0L;
         != other.getUserId()) return false;
     if (!getImgUrl()
         .equals(other.getImgUrl())) return false;
-    if (!getTagsList()
-        .equals(other.getTagsList())) return false;
-    if (java.lang.Float.floatToIntBits(getLatitude())
-        != java.lang.Float.floatToIntBits(
-            other.getLatitude())) return false;
-    if (java.lang.Float.floatToIntBits(getLongitude())
-        != java.lang.Float.floatToIntBits(
-            other.getLongitude())) return false;
+    if (getLocationId()
+        != other.getLocationId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -438,16 +349,8 @@ private static final long serialVersionUID = 0L;
         getUserId());
     hash = (37 * hash) + IMGURL_FIELD_NUMBER;
     hash = (53 * hash) + getImgUrl().hashCode();
-    if (getTagsCount() > 0) {
-      hash = (37 * hash) + TAGS_FIELD_NUMBER;
-      hash = (53 * hash) + getTagsList().hashCode();
-    }
-    hash = (37 * hash) + LATITUDE_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getLatitude());
-    hash = (37 * hash) + LONGITUDE_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getLongitude());
+    hash = (37 * hash) + LOCATIONID_FIELD_NUMBER;
+    hash = (53 * hash) + getLocationId();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -589,11 +492,7 @@ private static final long serialVersionUID = 0L;
 
       imgUrl_ = "";
 
-      tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000001);
-      latitude_ = 0F;
-
-      longitude_ = 0F;
+      locationId_ = 0;
 
       return this;
     }
@@ -621,18 +520,11 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public sep3.project.protobuf.RequestCreatePost buildPartial() {
       sep3.project.protobuf.RequestCreatePost result = new sep3.project.protobuf.RequestCreatePost(this);
-      int from_bitField0_ = bitField0_;
       result.title_ = title_;
       result.description_ = description_;
       result.userId_ = userId_;
       result.imgUrl_ = imgUrl_;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        tags_ = tags_.getUnmodifiableView();
-        bitField0_ = (bitField0_ & ~0x00000001);
-      }
-      result.tags_ = tags_;
-      result.latitude_ = latitude_;
-      result.longitude_ = longitude_;
+      result.locationId_ = locationId_;
       onBuilt();
       return result;
     }
@@ -696,21 +588,8 @@ private static final long serialVersionUID = 0L;
         imgUrl_ = other.imgUrl_;
         onChanged();
       }
-      if (!other.tags_.isEmpty()) {
-        if (tags_.isEmpty()) {
-          tags_ = other.tags_;
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          ensureTagsIsMutable();
-          tags_.addAll(other.tags_);
-        }
-        onChanged();
-      }
-      if (other.getLatitude() != 0F) {
-        setLatitude(other.getLatitude());
-      }
-      if (other.getLongitude() != 0F) {
-        setLongitude(other.getLongitude());
+      if (other.getLocationId() != 0) {
+        setLocationId(other.getLocationId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -740,7 +619,6 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
-    private int bitField0_;
 
     private java.lang.Object title_ = "";
     /**
@@ -1001,174 +879,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.LazyStringList tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    private void ensureTagsIsMutable() {
-      if (!((bitField0_ & 0x00000001) != 0)) {
-        tags_ = new com.google.protobuf.LazyStringArrayList(tags_);
-        bitField0_ |= 0x00000001;
-       }
-    }
+    private int locationId_ ;
     /**
-     * <code>repeated string tags = 5;</code>
-     * @return A list containing the tags.
-     */
-    public com.google.protobuf.ProtocolStringList
-        getTagsList() {
-      return tags_.getUnmodifiableView();
-    }
-    /**
-     * <code>repeated string tags = 5;</code>
-     * @return The count of tags.
-     */
-    public int getTagsCount() {
-      return tags_.size();
-    }
-    /**
-     * <code>repeated string tags = 5;</code>
-     * @param index The index of the element to return.
-     * @return The tags at the given index.
-     */
-    public java.lang.String getTags(int index) {
-      return tags_.get(index);
-    }
-    /**
-     * <code>repeated string tags = 5;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the tags at the given index.
-     */
-    public com.google.protobuf.ByteString
-        getTagsBytes(int index) {
-      return tags_.getByteString(index);
-    }
-    /**
-     * <code>repeated string tags = 5;</code>
-     * @param index The index to set the value at.
-     * @param value The tags to set.
-     * @return This builder for chaining.
-     */
-    public Builder setTags(
-        int index, java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureTagsIsMutable();
-      tags_.set(index, value);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string tags = 5;</code>
-     * @param value The tags to add.
-     * @return This builder for chaining.
-     */
-    public Builder addTags(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureTagsIsMutable();
-      tags_.add(value);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string tags = 5;</code>
-     * @param values The tags to add.
-     * @return This builder for chaining.
-     */
-    public Builder addAllTags(
-        java.lang.Iterable<java.lang.String> values) {
-      ensureTagsIsMutable();
-      com.google.protobuf.AbstractMessageLite.Builder.addAll(
-          values, tags_);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string tags = 5;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearTags() {
-      tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000001);
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>repeated string tags = 5;</code>
-     * @param value The bytes of the tags to add.
-     * @return This builder for chaining.
-     */
-    public Builder addTagsBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      ensureTagsIsMutable();
-      tags_.add(value);
-      onChanged();
-      return this;
-    }
-
-    private float latitude_ ;
-    /**
-     * <code>float latitude = 6;</code>
-     * @return The latitude.
+     * <code>int32 locationId = 5;</code>
+     * @return The locationId.
      */
     @java.lang.Override
-    public float getLatitude() {
-      return latitude_;
+    public int getLocationId() {
+      return locationId_;
     }
     /**
-     * <code>float latitude = 6;</code>
-     * @param value The latitude to set.
+     * <code>int32 locationId = 5;</code>
+     * @param value The locationId to set.
      * @return This builder for chaining.
      */
-    public Builder setLatitude(float value) {
+    public Builder setLocationId(int value) {
       
-      latitude_ = value;
+      locationId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>float latitude = 6;</code>
+     * <code>int32 locationId = 5;</code>
      * @return This builder for chaining.
      */
-    public Builder clearLatitude() {
+    public Builder clearLocationId() {
       
-      latitude_ = 0F;
-      onChanged();
-      return this;
-    }
-
-    private float longitude_ ;
-    /**
-     * <code>float longitude = 7;</code>
-     * @return The longitude.
-     */
-    @java.lang.Override
-    public float getLongitude() {
-      return longitude_;
-    }
-    /**
-     * <code>float longitude = 7;</code>
-     * @param value The longitude to set.
-     * @return This builder for chaining.
-     */
-    public Builder setLongitude(float value) {
-      
-      longitude_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>float longitude = 7;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearLongitude() {
-      
-      longitude_ = 0F;
+      locationId_ = 0;
       onChanged();
       return this;
     }

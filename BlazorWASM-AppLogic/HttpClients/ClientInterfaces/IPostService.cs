@@ -9,6 +9,8 @@ namespace HttpClients.ClientInterfaces;
 public interface IPostService
 {
     Task<int> CreateAsync(PostCreationDto postCreationDto);
-    Task<ICollection<Post>> GetAsync(int? id = null, int? userId = null, string? titleContains = null);
-    Task DeleteAsync(int id);
+    Task<ICollection<Post>> GetAsync(long? id = null, long? userId = null, string? titleContains = null);
+    Task DeleteAsync(long id, long user_id);
+    Task UpdateAsync(UpdatePostDto dto, long user_id);
+    Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate coordinate, int radius);
 }

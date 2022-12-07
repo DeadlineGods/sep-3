@@ -5,9 +5,16 @@
 @using global::Shared
 @using global::UIComponents
 @using UIComponents
-@inject AuthenticationStateProvider AuthenticationStateProvider;
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using System.Diagnostics.SymbolStore
 @inject NavigationManager navMgr
 @inject IPostService postService
+@inject ILocationService locationService
+@inject IAuthService authService
+@inject HttpClient Http
+
+@inject ITagService tagService
 @inject IImageUploadService imageUploadService
 
 <Alert Type="success" Show="@showAlert">
@@ -24,19 +31,19 @@
 		<label>Body:</label>
 		<input type="text" @bind="postDescription"/>
 		<label>Tags</label>
-		<input type="text" @bind="newTag"/>
+		<input type="text" @bind="newTag" @ref="tagInput"/>
 		<button @onclick="@AddTag">add </button>
+
+		@foreach (string tag in postTags)
+		{
+			<div class="row">
+				@tag
+				<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+			</div>
+		}
+
 		<InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
 	</div>
-
-	@foreach (string tag in postTags)
-	{
-		<div class="row">
-			@tag
-			<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-		</div>
-	}
-
 	<div class="button-row">
 		@if (!string.IsNullOrEmpty(msg))
 		{
@@ -49,13 +56,14 @@
 
 
 @code {
+	ElementReference tagInput;
     private ImageFile? filesBase64 = null;
     private string postTitle = "";
     private string postDescription = "";
     private IList<string> postTags = new List<string>();
     private string newTag = "";
     private bool showAlert;
-    private int id;
+    private long id;
 
 	private MapComponent Map;
 
@@ -102,18 +110,31 @@
 
 	        Coordinate coordinates = await Map.GetCoordinates();
 
+	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
+
+	        int locationId = await locationService.CreateAsync(locationCreationDto);
+	        Console.WriteLine("Page: " + locationId);
 	        // get user id
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
-            int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
+	        // PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
 
-            PostCreationDto dto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, coordinates);
+	        long userId = (long)await GetUserId();
+	        if (userId != 0)
+	        {
+		        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
 
-            id = await postService.CreateAsync(dto);
+		        id = await postService.CreateAsync(dto);
 
-	        showAlert = true;
-	        postTitle = "";
-	        postDescription = "";
-	        postTags = new List<string>();
+
+		        PostTagCreationDto tagDto = new(id, postTags.ToArray());
+		        await tagService.CreateAsync(tagDto);
+
+		        showAlert = true;
+		        postTitle = "";
+		        postDescription = "";
+		        postTags = new List<string>();
+	        }
 
         }
         catch (Exception e)
@@ -122,6 +143,19 @@
             msg = e.Message;
         }
     }
+
+	private async Task<long?> GetUserId()
+	{
+		ClaimsPrincipal context = await authService.GetAuthAsync();
+		if (context.Identity?.Name == null)
+		{
+			msg = "You have to be logged in!";
+			return 0;
+		}
+		var claims = context.Identities.First().Claims.ToList();
+		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+		return long.Parse(userIdAsStrubg);
+	}
 
     private bool Validate()
     {
@@ -149,12 +183,15 @@
 
     private void AddTag()
     {
-        if (newTag.Equals("") || postTags.Contains(newTag))
+
+	    if (newTag.Equals("") || postTags.Contains(newTag))
         {
-            return;
+	        tagInput.FocusAsync();
+	        return;
         }
         postTags.Add(newTag);
         newTag = "";
+	    tagInput.FocusAsync();
     }
 
     private void RemoveTag(string tag)

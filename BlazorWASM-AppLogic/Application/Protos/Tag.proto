@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+service TagService{
+  rpc CreateTags(RequestCreateTags) returns(ResponseCreateTag);
+  rpc GetPostTag(RequestGetPostTag) returns (ResponseGetPostTag);
+  rpc GetTagList(RequestGetTagList) returns(ResponseGetTagList);
+  rpc DeleteTag(RequestDeleteTag) returns (EmptyTag);
+
+}
+message RequestCreateTags
+{
+  int64 postId=1;
+  repeated string tags=2;
+}
+message ResponseCreateTag
+{
+  repeated string tags=1;
+}
+message RequestGetPostTag
+{
+  optional int64 postId = 1;
+  optional string tagContains = 2;
+}
+
+message ResponseGetPostTag{
+  repeated PostTagData tags = 1;
+}
+
+message PostTagData{
+  int64 postId = 1;
+  string tagContains = 2;
+}
+
+message RequestGetTagList
+{
+  optional string tagContains = 1;
+}
+
+message ResponseGetTagList{
+  repeated TagListData tags = 1;
+}
+message TagListData{
+  string tagContains = 1;
+}
+
+message EmptyTag
+{
+
+}
+
+message RequestDeleteTag
+{
+  int64 postId=1;
+}

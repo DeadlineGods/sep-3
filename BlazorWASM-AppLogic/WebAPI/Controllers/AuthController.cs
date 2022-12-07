@@ -66,7 +66,7 @@ public class AuthController : ControllerBase
             new Claim(ClaimTypes.Name, user.UserName),
 
 
-
+            
             //Maybe we'll use it.
             new Claim("Id", user.Id.ToString())
         };

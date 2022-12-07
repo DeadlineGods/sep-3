@@ -1,0 +1,83 @@
+using Application.LogicInterfaces;
+using Domain.DTOs;
+using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebAPI.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class TagController:ControllerBase
+{
+    private readonly ITagLogic tagLogic;
+
+    public TagController(ITagLogic tagLogic)
+    {
+        this.tagLogic = tagLogic;
+    }
+    [HttpPost, Route("create")]
+    public async Task<ActionResult<TagPost>> CreateAsync(PostTagCreationDto dto)
+    {
+        try
+        {
+            string[] tagsArray = await tagLogic.CreateAsync(dto);
+            return Ok(tagsArray);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    [HttpGet,Route("getPostTag")]
+    public async Task<ActionResult<TagPost>> GetPostTagAsync
+    (
+        [FromQuery] string? TagContains,
+        [FromQuery] long? postId
+    ) {
+        try
+        {
+            SearchPostTagParameters parameters = new SearchPostTagParameters(TagContains, postId);
+            IEnumerable<TagPost> tags = await tagLogic.GetPostTagAsync(parameters);
+            return Ok(tags);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    [HttpGet,Route("getTagList")]
+    public async Task<ActionResult<Tag>> GetTagListAsync
+    (
+        [FromQuery] string? TagContains
+    ) {
+        try
+        {
+            SearchTagListParameters parameters = new SearchTagListParameters(TagContains);
+            IEnumerable<Tag> tags = await tagLogic.GetTagListAsync(parameters);
+            
+            return Ok(tags);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpDelete("{postId:int}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] long postId)
+    {
+        try
+        {
+            await tagLogic.DeleteTask(postId);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+}

@@ -8,15 +8,15 @@ public interface RequestGetPostOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>optional int32 id = 1;</code>
+   * <code>optional int64 id = 1;</code>
    * @return Whether the id field is set.
    */
   boolean hasId();
   /**
-   * <code>optional int32 id = 1;</code>
+   * <code>optional int64 id = 1;</code>
    * @return The id.
    */
-  int getId();
+  long getId();
 
   /**
    * <code>optional int64 userId = 2;</code>

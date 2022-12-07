@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "sep3.project.protobuf";
+
+service LikeService{
+  rpc LikePost(RequestLikePost) returns (ResponseLikePost);
+  rpc UnLikePost(RequestUnLikePost) returns (LikeEmpty);
+  rpc IsPostLiked(RequestIsPostLiked) returns (ResponseIsPostLiked);
+  rpc CountLikes(RequestCountLikes) returns(ResponseCountLikes);
+  rpc DeleteLikes(RequestDeleteLikes) returns(LikeEmpty);
+}
+
+message RequestCountLikes
+{
+  int64 postId = 1;
+}
+
+message ResponseCountLikes
+{
+  int64 likesNo = 1;
+}
+
+message RequestUnLikePost {
+  int64 postId=1;
+  int64 userId=2;
+}
+
+message RequestIsPostLiked {
+  int64 postId=1;
+  int64 userId=2;
+}
+
+message ResponseIsPostLiked {
+  bool isLiked = 1;
+}
+
+message LikeEmpty {
+
+}
+
+message ResponseLikePost {
+  int64 postId = 1;
+  int64 userId = 2;
+}
+
+message RequestLikePost {
+  int64 postId=1;
+  int64 userId=2;
+}
+
+message RequestDeleteLikes
+{
+  int64 postId = 1;
+}

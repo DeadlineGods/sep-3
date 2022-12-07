@@ -95,6 +95,11 @@ private static final long serialVersionUID = 0L;
             phoneNumber_ = s;
             break;
           }
+          case 64: {
+
+            locationId_ = input.readInt64();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -368,6 +373,17 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int LOCATIONID_FIELD_NUMBER = 8;
+  private long locationId_;
+  /**
+   * <code>int64 locationId = 8;</code>
+   * @return The locationId.
+   */
+  @java.lang.Override
+  public long getLocationId() {
+    return locationId_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -403,6 +419,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(phoneNumber_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 7, phoneNumber_);
     }
+    if (locationId_ != 0L) {
+      output.writeInt64(8, locationId_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -434,6 +453,10 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(phoneNumber_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, phoneNumber_);
     }
+    if (locationId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(8, locationId_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -463,6 +486,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getPassword())) return false;
     if (!getPhoneNumber()
         .equals(other.getPhoneNumber())) return false;
+    if (getLocationId()
+        != other.getLocationId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -489,6 +514,9 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getPassword().hashCode();
     hash = (37 * hash) + PHONENUMBER_FIELD_NUMBER;
     hash = (53 * hash) + getPhoneNumber().hashCode();
+    hash = (37 * hash) + LOCATIONID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getLocationId());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -636,6 +664,8 @@ private static final long serialVersionUID = 0L;
 
       phoneNumber_ = "";
 
+      locationId_ = 0L;
+
       return this;
     }
 
@@ -669,6 +699,7 @@ private static final long serialVersionUID = 0L;
       result.email_ = email_;
       result.password_ = password_;
       result.phoneNumber_ = phoneNumber_;
+      result.locationId_ = locationId_;
       onBuilt();
       return result;
     }
@@ -743,6 +774,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getPhoneNumber().isEmpty()) {
         phoneNumber_ = other.phoneNumber_;
         onChanged();
+      }
+      if (other.getLocationId() != 0L) {
+        setLocationId(other.getLocationId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1256,6 +1290,37 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       phoneNumber_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long locationId_ ;
+    /**
+     * <code>int64 locationId = 8;</code>
+     * @return The locationId.
+     */
+    @java.lang.Override
+    public long getLocationId() {
+      return locationId_;
+    }
+    /**
+     * <code>int64 locationId = 8;</code>
+     * @param value The locationId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setLocationId(long value) {
+      
+      locationId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 locationId = 8;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearLocationId() {
+      
+      locationId_ = 0L;
       onChanged();
       return this;
     }

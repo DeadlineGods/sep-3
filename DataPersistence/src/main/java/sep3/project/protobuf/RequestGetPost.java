@@ -52,7 +52,7 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
             bitField0_ |= 0x00000001;
-            id_ = input.readInt32();
+            id_ = input.readInt64();
             break;
           }
           case 16: {
@@ -102,9 +102,9 @@ private static final long serialVersionUID = 0L;
 
   private int bitField0_;
   public static final int ID_FIELD_NUMBER = 1;
-  private int id_;
+  private long id_;
   /**
-   * <code>optional int32 id = 1;</code>
+   * <code>optional int64 id = 1;</code>
    * @return Whether the id field is set.
    */
   @java.lang.Override
@@ -112,11 +112,11 @@ private static final long serialVersionUID = 0L;
     return ((bitField0_ & 0x00000001) != 0);
   }
   /**
-   * <code>optional int32 id = 1;</code>
+   * <code>optional int64 id = 1;</code>
    * @return The id.
    */
   @java.lang.Override
-  public int getId() {
+  public long getId() {
     return id_;
   }
 
@@ -200,7 +200,7 @@ private static final long serialVersionUID = 0L;
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (((bitField0_ & 0x00000001) != 0)) {
-      output.writeInt32(1, id_);
+      output.writeInt64(1, id_);
     }
     if (((bitField0_ & 0x00000002) != 0)) {
       output.writeInt64(2, userId_);
@@ -219,7 +219,7 @@ private static final long serialVersionUID = 0L;
     size = 0;
     if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, id_);
+        .computeInt64Size(1, id_);
     }
     if (((bitField0_ & 0x00000002) != 0)) {
       size += com.google.protobuf.CodedOutputStream
@@ -271,7 +271,8 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     if (hasId()) {
       hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId();
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
     }
     if (hasUserId()) {
       hash = (37 * hash) + USERID_FIELD_NUMBER;
@@ -415,7 +416,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      id_ = 0;
+      id_ = 0L;
       bitField0_ = (bitField0_ & ~0x00000001);
       userId_ = 0L;
       bitField0_ = (bitField0_ & ~0x00000002);
@@ -551,9 +552,9 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private int id_ ;
+    private long id_ ;
     /**
-     * <code>optional int32 id = 1;</code>
+     * <code>optional int64 id = 1;</code>
      * @return Whether the id field is set.
      */
     @java.lang.Override
@@ -561,31 +562,31 @@ private static final long serialVersionUID = 0L;
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>optional int32 id = 1;</code>
+     * <code>optional int64 id = 1;</code>
      * @return The id.
      */
     @java.lang.Override
-    public int getId() {
+    public long getId() {
       return id_;
     }
     /**
-     * <code>optional int32 id = 1;</code>
+     * <code>optional int64 id = 1;</code>
      * @param value The id to set.
      * @return This builder for chaining.
      */
-    public Builder setId(int value) {
+    public Builder setId(long value) {
       bitField0_ |= 0x00000001;
       id_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional int32 id = 1;</code>
+     * <code>optional int64 id = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearId() {
       bitField0_ = (bitField0_ & ~0x00000001);
-      id_ = 0;
+      id_ = 0L;
       onChanged();
       return this;
     }

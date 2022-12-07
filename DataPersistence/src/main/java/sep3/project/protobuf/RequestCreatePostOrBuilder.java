@@ -50,39 +50,8 @@ public interface RequestCreatePostOrBuilder extends
       getImgUrlBytes();
 
   /**
-   * <code>repeated string tags = 5;</code>
-   * @return A list containing the tags.
+   * <code>int32 locationId = 5;</code>
+   * @return The locationId.
    */
-  java.util.List<java.lang.String>
-      getTagsList();
-  /**
-   * <code>repeated string tags = 5;</code>
-   * @return The count of tags.
-   */
-  int getTagsCount();
-  /**
-   * <code>repeated string tags = 5;</code>
-   * @param index The index of the element to return.
-   * @return The tags at the given index.
-   */
-  java.lang.String getTags(int index);
-  /**
-   * <code>repeated string tags = 5;</code>
-   * @param index The index of the value to return.
-   * @return The bytes of the tags at the given index.
-   */
-  com.google.protobuf.ByteString
-      getTagsBytes(int index);
-
-  /**
-   * <code>float latitude = 6;</code>
-   * @return The latitude.
-   */
-  float getLatitude();
-
-  /**
-   * <code>float longitude = 7;</code>
-   * @return The longitude.
-   */
-  float getLongitude();
+  int getLocationId();
 }

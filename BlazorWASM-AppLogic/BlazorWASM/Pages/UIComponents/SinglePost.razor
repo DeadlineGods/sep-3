@@ -1,0 +1,148 @@
+﻿@using Domain.Models
+@namespace UIComponents
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using HttpClients.Implementations
+@inject NavigationManager navMgr
+@inject ICommentService commentService
+@inject IAuthService authService
+@inject IPostService postService
+
+<div class="post-card">
+    <div>@Post.Title</div>
+    <div>@Post.PostedOn</div>
+	<div>@Post.Description</div>
+    <img src="@Post.ImgUrl" alt="thumbnail"/>
+    <div>@Post.Owner.UserName</div>
+    <div>@Post.Likes</div>
+
+    <AuthorizeView>
+        <Authorized>
+            <LIkeButton PostId="Post.Id" UpdateParentsLikes="UpdateLikes"/>
+
+            <div >
+                <p>comment: </p>
+                <input type="text" @bind="commentInputText"/>
+                <button @onclick="PublishAsync">publish</button>
+            </div>
+            @if (Post.Owner.UserName == @context.User.Identity.Name)
+                        {
+                            <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+                            <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+                
+                        }
+        </Authorized>
+    </AuthorizeView>
+
+
+    @if (comments.Any())
+    {
+        <ol>
+            @foreach (var comment in comments)
+            {
+                <li>
+                    <SingleComment Comment="@comment"/>
+                </li>
+            }
+        </ol>
+    }
+
+</div>
+
+@code {
+
+    [Parameter]
+    public Post? Post { get; set; }
+
+    private ICollection<Comment> comments = new List<Comment>();
+
+    private string commentInputText = "";
+
+    private async Task PublishAsync()
+    {
+        if (string.IsNullOrEmpty(commentInputText))
+        {
+            return;
+        }
+
+        try
+        {
+            ClaimsPrincipal context = await authService.GetAuthAsync();
+            var claims = context.Identities.First().Claims.ToList();
+            string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+
+            await commentService.CreateAsync(commentInputText, long.Parse(ownerId), Post.Id);
+
+            commentInputText = "";
+
+            await UpdateCommentsAsync();
+
+            StateHasChanged();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await UpdateCommentsAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+
+    private void UpdateLikes(int changeDiff)
+    {
+        Post.Likes += changeDiff;
+        StateHasChanged();
+    }
+
+    private async Task UpdateCommentsAsync()
+    {
+        try
+        {
+            comments = await commentService.GetCommentsByPostAsync(Post.Id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+    
+    private async Task Delete()
+    {
+        try
+        {
+            await postService.DeleteAsync(Post.Id, Post.Owner.Id);
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+	
+    private async Task Edit()
+    {
+        try
+        {
+            navMgr.NavigateTo($"EditPost/{Post.Id}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+}

@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Security.AccessControl;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Application.DAOsInterfaces;
 using Domain.DTOs;
-using Domain.Models;
 using Grpc.Net.Client;
 using GrpcClient;
+
 using User = Domain.Models.User;
 
 
 namespace Application.GrpcClients;
 
 public class UserGrpcClient : IUserDao
+
 {
     public async Task<IEnumerable<User>> GetAsync(SearchUserParametersDto searchParameters)
     {
@@ -25,9 +21,9 @@ public class UserGrpcClient : IUserDao
             {
                 Username = searchParameters.username ?? "",
                 Userid = searchParameters.userId ?? 0
-                
+
             });
-        
+
         for (int i = 0; i < reply.UserData.Count; i++)
         {
             UserData userData = reply.UserData[i];
@@ -53,12 +49,37 @@ public class UserGrpcClient : IUserDao
                 Password = user.password,
                 PhoneNumber = user.phoneNumber
             });
-        
+
         return await Task.FromResult(ConstructUser(reply));
     }
+
+    public async Task<IEnumerable<User>> GetLikes(int postId)
+    {
+        using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+
+        var client = new UserService.UserServiceClient(channel);
+        List<User> usersList = new List<User>();
+
+        var reply = await client.GetUsersWhoLikedAsync(
+            new RequestGetLikes
+            {
+                PostId = postId
+            });
+
+        for (int i = 0; i < reply.User.Count; i++)
+        {
+            UserData userData = reply.User[i];
+            User? user = ConstructUser(userData);
+            usersList.Add(user);
+        }
+        return await Task.FromResult(usersList.AsEnumerable());
+
+    }
+
     private User ConstructUser(UserData userData)
     {
         return new User(userData.Id, userData.Username, userData.FirstName + " " + userData.LastName, userData.Password,
-            userData.Email, userData.PhoneNumber);
+            userData.Email, userData.PhoneNumber, userData.LocationId);
     }
+
 }

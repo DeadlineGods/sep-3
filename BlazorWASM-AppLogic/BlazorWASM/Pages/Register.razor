@@ -1,7 +1,6 @@
 ﻿@page "/Register"
 @using BlazorWasm.Services
 @using Domain.DTOs
-@using Domain.Models
 @inject IAuthService authService
 @inject NavigationManager navMgr
 
@@ -13,17 +12,17 @@
                   <label>User name:</label>
                   <input type="text" class="feedback-input-register" @bind="userName"/>
               </div>
-                      
+
             <div class="field">
                     <label>Full name:</label>
                     <input type="text" class="feedback-input-register" @bind="firstName"/>
                 </div>
-           
+
             <div class="field">
                 <label>Full name:</label>
                 <input type="text" class="feedback-input-register" @bind="lastName"/>
             </div>
-            
+
             <div class="field">
                 <label style="text-align: center">Password:</label>
                 <input type="password" class="feedback-input-register" @bind="password"/>
@@ -36,6 +35,8 @@
                 <label style="text-align: center">Phone Number:</label>
                 <input type="text" class="feedback-input-register" @bind="phoneNumber"/>
             </div>
+
+
 
             @if (!string.IsNullOrEmpty(errorLabel))
             {

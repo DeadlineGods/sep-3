@@ -8,10 +8,10 @@ public interface PostDataOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 id = 1;</code>
+   * <code>int64 id = 1;</code>
    * @return The id.
    */
-  int getId();
+  long getId();
 
   /**
    * <code>int64 userId = 2;</code>
@@ -62,7 +62,13 @@ public interface PostDataOrBuilder extends
       getImgUrlBytes();
 
   /**
-   * <code>int64 postedOnMilliseconds = 7;</code>
+   * <code>int32 locationId = 7;</code>
+   * @return The locationId.
+   */
+  int getLocationId();
+
+  /**
+   * <code>int64 postedOnMilliseconds = 8;</code>
    * @return The postedOnMilliseconds.
    */
   long getPostedOnMilliseconds();
