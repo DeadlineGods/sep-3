@@ -1,0 +1,26 @@
+﻿@namespace UIComponents
+@using Report = Domain.Models.Report
+@using Shared
+@using Domain.Models
+
+<AuthorizeView>
+    <Authorized>
+        <h3>@Report.violation</h3>
+        <p>Reported by: @Report.reportedBy.UserName</p>
+        <div class="post-card">
+            <div>@Report.reportedPost.Title</div>
+            <div>@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</div>
+            <div>@Report.reportedPost.Description</div>
+            <img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
+            <div>@Report.reportedPost.Owner.UserName</div>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
+
+@code {
+
+    [Parameter]
+    public Domain.Models.Report? Report { get; set; }
+
+}

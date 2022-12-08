@@ -4,33 +4,35 @@ option csharp_namespace = "GrpcClient";
 
 service ReportService{
 	rpc ReportPost(RequestReportPost) returns (ResponseReportPost);
-	rpc GetByIdReport(RequestGetByIdReport) returns(ResponseGetReport);
+	rpc GetByIdReport(RequestGetByIdReport) returns(ReportData);
+	rpc GetReports(ReportEmpty) returns(ResponseGetReports);
 }
 
 message RequestReportPost {
 	string violation_desc=1;
-	int32 post_id=2;
-	int32 user_id=3;
+	int64 post_id=2;
+	int64 user_id=3;
 }
 
 message ResponseReportPost {
-	int32 report_id = 1;
+	int64 report_id = 1;
 }
 
 message RequestGetByIdReport{
-	int32 report_id = 1;
-}
-
-message ResponseGetReport {
-	int32 report_id = 1;
-	string violation_desc=2;
-	int32 post_id=3;
-	int32 user_id=4;
+	int64 report_id = 1;
 }
 
 message ReportData {
-	int32 report_id=1;
+	int64 report_id=1;
 	string violation_desc=2;
-	int32 post_id=3;
-	int32 user_id=4;
+	int64 post_id=3;
+	int64 user_id=4;
+}
+
+message ReportEmpty {
+	
+}
+
+message ResponseGetReports {
+	repeated ReportData reports = 1;
 }

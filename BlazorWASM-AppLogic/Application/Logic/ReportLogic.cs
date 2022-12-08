@@ -18,7 +18,7 @@ public class ReportLogic : IReportLogic
 		this.reportDao = reportDao;
 	}
 
-	public async Task<int> ReportPostAsync(ReportPostDto dto)
+	public async Task<long> ReportPostAsync(ReportPostDto dto)
 	{
 		if (!await CheckIfPostExistsAsync(dto.postId))
 		{
@@ -40,13 +40,18 @@ public class ReportLogic : IReportLogic
 		return await reportDao.ReportPostAsync(dto);
 	}
 
-	public async Task<Report> GetByIdAsync(int id)
+	public async Task<Report> GetByIdAsync(long id)
 	{
 		Report report = await reportDao.GetByIdAsync(id);
 		if (report == null)
 			throw new Exception($"Report with id {id} does not exist");
 
 		return report;
+	}
+
+	public async Task<IEnumerable<Report>> GetAsync()
+	{
+		return await reportDao.GetAsync();
 	}
 
 	private async Task<bool> CheckIfPostExistsAsync(long id)

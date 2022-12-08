@@ -8,8 +8,8 @@ public interface RequestGetByIdReportOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 report_id = 1;</code>
+   * <code>int64 report_id = 1;</code>
    * @return The reportId.
    */
-  int getReportId();
+  long getReportId();
 }

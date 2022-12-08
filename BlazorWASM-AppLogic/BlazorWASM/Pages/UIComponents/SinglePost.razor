@@ -5,6 +5,7 @@
 @using System.Security.Claims
 @using BlazorWasm.Services
 @using HttpClients.Implementations
+@using Shared
 @inject NavigationManager navMgr
 @inject ICommentService commentService
 @inject IAuthService authService
@@ -13,7 +14,7 @@
 
 <div class="post-card">
     <div>@Post.Title</div>
-    <div>@Post.PostedOn</div>
+    <div>@Util.DateTimeToRelativeTime(Post.PostedOn)</div>
 	<div>@Post.Description</div>
     <img src="@Post.ImgUrl" alt="thumbnail"/>
     <div>@Post.Owner.UserName</div>
@@ -55,7 +56,6 @@
 </div>
 
 @code {
-
     [Parameter]
     public Post? Post { get; set; }
 

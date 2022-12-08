@@ -1,0 +1,33 @@
+﻿@page "/reports"
+@using Domain.Models
+@using HttpClients.ClientInterfaces
+@using UIComponents
+@using Report = Domain.Models.Report
+@inject IReportService reportService
+
+<ul>
+    @foreach (var report in reports)
+    {
+        <li>
+            <SingleReport Report="report"/>
+        </li>
+    }
+</ul>
+
+@code {
+    IEnumerable<Report> reports = new List<Report>();
+    private string msg;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            reports = await reportService.GetAsync();
+        }  
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+}

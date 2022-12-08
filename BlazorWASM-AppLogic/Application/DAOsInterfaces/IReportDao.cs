@@ -5,7 +5,8 @@ namespace Application.DAOsInterfaces;
 
 public interface IReportDao
 {
-	Task<int> ReportPostAsync(ReportPostDto reportDto);
-	Task<Report> GetByIdAsync(int id);
+	Task<long> ReportPostAsync(ReportPostDto reportDto);
+	Task<Report> GetByIdAsync(long id);
 
+	Task<IEnumerable<Report>> GetAsync();
 }

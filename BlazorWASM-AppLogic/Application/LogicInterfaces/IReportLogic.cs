@@ -5,6 +5,7 @@ namespace Application.LogicInterfaces;
 
 public interface IReportLogic
 {
-	Task<int> ReportPostAsync(ReportPostDto dto);
-	Task<Report> GetByIdAsync(int id);
+	Task<long> ReportPostAsync(ReportPostDto dto);
+	Task<Report> GetByIdAsync(long id);
+	Task<IEnumerable<Report>> GetAsync();
 }

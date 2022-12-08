@@ -20,7 +20,7 @@ public class ReportController : ControllerBase
 	{
 		try
 		{
-			int reportId = await reportLogic.ReportPostAsync(dto);
+			long reportId = await reportLogic.ReportPostAsync(dto);
 			return Ok(reportId);
 
 		}
@@ -39,6 +39,21 @@ public class ReportController : ControllerBase
 		{
 			Report report = await reportLogic.GetByIdAsync(id);
 			return Ok(report);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			return StatusCode(500, e.Message);
+		}
+	}
+
+	[HttpGet]
+	public async Task<ActionResult<IEnumerable<Report>>> GetAsync()
+	{
+		try
+		{
+			IEnumerable<Report> reports = await reportLogic.GetAsync();
+			return Ok(reports);
 		}
 		catch (Exception e)
 		{

@@ -31,7 +31,7 @@ public class ReportHttpClient : IReportService
 		return id;
 	}
 
-	public async Task<ICollection<Report>> GetReportById(long reportId)
+	public async Task<Report> GetReportById(long reportId)
 	{
 		HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Report/get?reportId=" + reportId);
 
@@ -41,7 +41,25 @@ public class ReportHttpClient : IReportService
 			throw new Exception(content);
 		}
 
-		ICollection<Report> comments = JsonSerializer.Deserialize<ICollection<Report>>(content, new JsonSerializerOptions
+		Report report = JsonSerializer.Deserialize<Report>(content, new JsonSerializerOptions
+		{
+			PropertyNameCaseInsensitive = true
+		})!;
+
+		return report;
+	}
+
+	public async Task<IEnumerable<Report>> GetAsync()
+	{
+		HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Report");
+
+		string content = await response.Content.ReadAsStringAsync();
+		if (!response.IsSuccessStatusCode)
+		{
+			throw new Exception(content);
+		}
+
+		IEnumerable<Report> comments = JsonSerializer.Deserialize<IEnumerable<Report>>(content, new JsonSerializerOptions
 		{
 			PropertyNameCaseInsensitive = true
 		})!;

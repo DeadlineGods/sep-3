@@ -8,10 +8,10 @@ public interface ReportDataOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 report_id = 1;</code>
+   * <code>int64 report_id = 1;</code>
    * @return The reportId.
    */
-  int getReportId();
+  long getReportId();
 
   /**
    * <code>string violation_desc = 2;</code>
@@ -26,14 +26,14 @@ public interface ReportDataOrBuilder extends
       getViolationDescBytes();
 
   /**
-   * <code>int32 post_id = 3;</code>
+   * <code>int64 post_id = 3;</code>
    * @return The postId.
    */
-  int getPostId();
+  long getPostId();
 
   /**
-   * <code>int32 user_id = 4;</code>
+   * <code>int64 user_id = 4;</code>
    * @return The userId.
    */
-  int getUserId();
+  long getUserId();
 }

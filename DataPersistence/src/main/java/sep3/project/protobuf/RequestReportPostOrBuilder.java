@@ -20,14 +20,14 @@ public interface RequestReportPostOrBuilder extends
       getViolationDescBytes();
 
   /**
-   * <code>int32 post_id = 2;</code>
+   * <code>int64 post_id = 2;</code>
    * @return The postId.
    */
-  int getPostId();
+  long getPostId();
 
   /**
-   * <code>int32 user_id = 3;</code>
+   * <code>int64 user_id = 3;</code>
    * @return The userId.
    */
-  int getUserId();
+  long getUserId();
 }

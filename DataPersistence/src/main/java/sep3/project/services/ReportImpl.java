@@ -37,32 +37,34 @@ public class ReportImpl extends ReportServiceGrpc.ReportServiceImplBase{
 	}
 
 	@Override
-	public void getByIdReport(RequestGetByIdReport request, StreamObserver<ResponseGetReport> responseObserver) {
-		super.getByIdReport(request, responseObserver);
+	public void getByIdReport(RequestGetByIdReport request, StreamObserver<ReportData> responseObserver) {
+		System.out.println("Received Request =v \n" + request.toString());
+		ReportData response = null;
+		try {
+			response = database.getById(request.getReportId());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+
+		System.out.println("Report =v \n" + response.toString());
 	}
 
 	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
+	public void getReports(ReportEmpty request, StreamObserver<ResponseGetReports> responseObserver) {
+		System.out.println("Received Request =v \n" + request.toString());
+		ResponseGetReports response = null;
+		try {
+			response = database.get();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
 
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
-
-	@Override
-	public String toString() {
-		return super.toString();
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
+		System.out.println("Reports =v \n" + response.toString());
 	}
 }

@@ -6,6 +6,7 @@ namespace HttpClients.ClientInterfaces;
 public interface IReportService
 {
 	Task<int> ReportPostAsync(ReportPostDto dto);
-	Task<ICollection<Report>> GetReportById(long reportId);
+	Task<Report> GetReportById(long reportId);
 
+	Task<IEnumerable<Report>> GetAsync();
 }

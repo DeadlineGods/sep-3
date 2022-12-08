@@ -30,15 +30,20 @@ public final class Report {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_RequestGetByIdReport_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ResponseGetReport_descriptor;
-  static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ResponseGetReport_fieldAccessorTable;
-  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ReportData_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ReportData_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ReportEmpty_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ReportEmpty_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ResponseGetReports_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ResponseGetReports_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -49,19 +54,19 @@ public final class Report {
   static {
     java.lang.String[] descriptorData = {
       "\n\014report.proto\"M\n\021RequestReportPost\022\026\n\016v" +
-      "iolation_desc\030\001 \001(\t\022\017\n\007post_id\030\002 \001(\005\022\017\n\007" +
-      "user_id\030\003 \001(\005\"\'\n\022ResponseReportPost\022\021\n\tr" +
-      "eport_id\030\001 \001(\005\")\n\024RequestGetByIdReport\022\021" +
-      "\n\treport_id\030\001 \001(\005\"`\n\021ResponseGetReport\022\021" +
-      "\n\treport_id\030\001 \001(\005\022\026\n\016violation_desc\030\002 \001(" +
-      "\t\022\017\n\007post_id\030\003 \001(\005\022\017\n\007user_id\030\004 \001(\005\"Y\n\nR" +
-      "eportData\022\021\n\treport_id\030\001 \001(\005\022\026\n\016violatio" +
-      "n_desc\030\002 \001(\t\022\017\n\007post_id\030\003 \001(\005\022\017\n\007user_id" +
-      "\030\004 \001(\0052\202\001\n\rReportService\0225\n\nReportPost\022\022" +
-      ".RequestReportPost\032\023.ResponseReportPost\022" +
-      ":\n\rGetByIdReport\022\025.RequestGetByIdReport\032" +
-      "\022.ResponseGetReportB\031\n\025sep3.project.prot" +
-      "obufP\001b\006proto3"
+      "iolation_desc\030\001 \001(\t\022\017\n\007post_id\030\002 \001(\003\022\017\n\007" +
+      "user_id\030\003 \001(\003\"\'\n\022ResponseReportPost\022\021\n\tr" +
+      "eport_id\030\001 \001(\003\")\n\024RequestGetByIdReport\022\021" +
+      "\n\treport_id\030\001 \001(\003\"Y\n\nReportData\022\021\n\trepor" +
+      "t_id\030\001 \001(\003\022\026\n\016violation_desc\030\002 \001(\t\022\017\n\007po" +
+      "st_id\030\003 \001(\003\022\017\n\007user_id\030\004 \001(\003\"\r\n\013ReportEm" +
+      "pty\"2\n\022ResponseGetReports\022\034\n\007reports\030\001 \003" +
+      "(\0132\013.ReportData2\254\001\n\rReportService\0225\n\nRep" +
+      "ortPost\022\022.RequestReportPost\032\023.ResponseRe" +
+      "portPost\0223\n\rGetByIdReport\022\025.RequestGetBy" +
+      "IdReport\032\013.ReportData\022/\n\nGetReports\022\014.Re" +
+      "portEmpty\032\023.ResponseGetReportsB\031\n\025sep3.p" +
+      "roject.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -85,18 +90,24 @@ public final class Report {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RequestGetByIdReport_descriptor,
         new java.lang.String[] { "ReportId", });
-    internal_static_ResponseGetReport_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_ResponseGetReport_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ResponseGetReport_descriptor,
-        new java.lang.String[] { "ReportId", "ViolationDesc", "PostId", "UserId", });
     internal_static_ReportData_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_ReportData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ReportData_descriptor,
         new java.lang.String[] { "ReportId", "ViolationDesc", "PostId", "UserId", });
+    internal_static_ReportEmpty_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_ReportEmpty_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ReportEmpty_descriptor,
+        new java.lang.String[] { });
+    internal_static_ResponseGetReports_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_ResponseGetReports_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ResponseGetReports_descriptor,
+        new java.lang.String[] { "Reports", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

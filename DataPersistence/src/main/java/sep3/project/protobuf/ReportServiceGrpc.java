@@ -46,34 +46,65 @@ public final class ReportServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetByIdReport,
-      sep3.project.protobuf.ResponseGetReport> getGetByIdReportMethod;
+      sep3.project.protobuf.ReportData> getGetByIdReportMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetByIdReport",
       requestType = sep3.project.protobuf.RequestGetByIdReport.class,
-      responseType = sep3.project.protobuf.ResponseGetReport.class,
+      responseType = sep3.project.protobuf.ReportData.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetByIdReport,
-      sep3.project.protobuf.ResponseGetReport> getGetByIdReportMethod() {
-    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetByIdReport, sep3.project.protobuf.ResponseGetReport> getGetByIdReportMethod;
+      sep3.project.protobuf.ReportData> getGetByIdReportMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.RequestGetByIdReport, sep3.project.protobuf.ReportData> getGetByIdReportMethod;
     if ((getGetByIdReportMethod = ReportServiceGrpc.getGetByIdReportMethod) == null) {
       synchronized (ReportServiceGrpc.class) {
         if ((getGetByIdReportMethod = ReportServiceGrpc.getGetByIdReportMethod) == null) {
           ReportServiceGrpc.getGetByIdReportMethod = getGetByIdReportMethod =
-              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestGetByIdReport, sep3.project.protobuf.ResponseGetReport>newBuilder()
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.RequestGetByIdReport, sep3.project.protobuf.ReportData>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetByIdReport"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   sep3.project.protobuf.RequestGetByIdReport.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  sep3.project.protobuf.ResponseGetReport.getDefaultInstance()))
+                  sep3.project.protobuf.ReportData.getDefaultInstance()))
               .setSchemaDescriptor(new ReportServiceMethodDescriptorSupplier("GetByIdReport"))
               .build();
         }
       }
     }
     return getGetByIdReportMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.ReportEmpty,
+      sep3.project.protobuf.ResponseGetReports> getGetReportsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetReports",
+      requestType = sep3.project.protobuf.ReportEmpty.class,
+      responseType = sep3.project.protobuf.ResponseGetReports.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sep3.project.protobuf.ReportEmpty,
+      sep3.project.protobuf.ResponseGetReports> getGetReportsMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.ReportEmpty, sep3.project.protobuf.ResponseGetReports> getGetReportsMethod;
+    if ((getGetReportsMethod = ReportServiceGrpc.getGetReportsMethod) == null) {
+      synchronized (ReportServiceGrpc.class) {
+        if ((getGetReportsMethod = ReportServiceGrpc.getGetReportsMethod) == null) {
+          ReportServiceGrpc.getGetReportsMethod = getGetReportsMethod =
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.ReportEmpty, sep3.project.protobuf.ResponseGetReports>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetReports"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.ReportEmpty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.ResponseGetReports.getDefaultInstance()))
+              .setSchemaDescriptor(new ReportServiceMethodDescriptorSupplier("GetReports"))
+              .build();
+        }
+      }
+    }
+    return getGetReportsMethod;
   }
 
   /**
@@ -134,8 +165,15 @@ public final class ReportServiceGrpc {
     /**
      */
     public void getByIdReport(sep3.project.protobuf.RequestGetByIdReport request,
-        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetReport> responseObserver) {
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ReportData> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetByIdReportMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getReports(sep3.project.protobuf.ReportEmpty request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetReports> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetReportsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -152,8 +190,15 @@ public final class ReportServiceGrpc {
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 sep3.project.protobuf.RequestGetByIdReport,
-                sep3.project.protobuf.ResponseGetReport>(
+                sep3.project.protobuf.ReportData>(
                   this, METHODID_GET_BY_ID_REPORT)))
+          .addMethod(
+            getGetReportsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                sep3.project.protobuf.ReportEmpty,
+                sep3.project.protobuf.ResponseGetReports>(
+                  this, METHODID_GET_REPORTS)))
           .build();
     }
   }
@@ -183,9 +228,17 @@ public final class ReportServiceGrpc {
     /**
      */
     public void getByIdReport(sep3.project.protobuf.RequestGetByIdReport request,
-        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetReport> responseObserver) {
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ReportData> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetByIdReportMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getReports(sep3.project.protobuf.ReportEmpty request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetReports> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetReportsMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -212,9 +265,16 @@ public final class ReportServiceGrpc {
 
     /**
      */
-    public sep3.project.protobuf.ResponseGetReport getByIdReport(sep3.project.protobuf.RequestGetByIdReport request) {
+    public sep3.project.protobuf.ReportData getByIdReport(sep3.project.protobuf.RequestGetByIdReport request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetByIdReportMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sep3.project.protobuf.ResponseGetReports getReports(sep3.project.protobuf.ReportEmpty request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetReportsMethod(), getCallOptions(), request);
     }
   }
 
@@ -242,15 +302,24 @@ public final class ReportServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetReport> getByIdReport(
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ReportData> getByIdReport(
         sep3.project.protobuf.RequestGetByIdReport request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetByIdReportMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.ResponseGetReports> getReports(
+        sep3.project.protobuf.ReportEmpty request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetReportsMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_REPORT_POST = 0;
   private static final int METHODID_GET_BY_ID_REPORT = 1;
+  private static final int METHODID_GET_REPORTS = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -275,7 +344,11 @@ public final class ReportServiceGrpc {
           break;
         case METHODID_GET_BY_ID_REPORT:
           serviceImpl.getByIdReport((sep3.project.protobuf.RequestGetByIdReport) request,
-              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetReport>) responseObserver);
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ReportData>) responseObserver);
+          break;
+        case METHODID_GET_REPORTS:
+          serviceImpl.getReports((sep3.project.protobuf.ReportEmpty) request,
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.ResponseGetReports>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -340,6 +413,7 @@ public final class ReportServiceGrpc {
               .setSchemaDescriptor(new ReportServiceFileDescriptorSupplier())
               .addMethod(getReportPostMethod())
               .addMethod(getGetByIdReportMethod())
+              .addMethod(getGetReportsMethod())
               .build();
         }
       }

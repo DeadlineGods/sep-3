@@ -51,7 +51,7 @@ private static final long serialVersionUID = 0L;
             break;
           case 8: {
 
-            reportId_ = input.readInt32();
+            reportId_ = input.readInt64();
             break;
           }
           case 18: {
@@ -62,12 +62,12 @@ private static final long serialVersionUID = 0L;
           }
           case 24: {
 
-            postId_ = input.readInt32();
+            postId_ = input.readInt64();
             break;
           }
           case 32: {
 
-            userId_ = input.readInt32();
+            userId_ = input.readInt64();
             break;
           }
           default: {
@@ -105,13 +105,13 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int REPORT_ID_FIELD_NUMBER = 1;
-  private int reportId_;
+  private long reportId_;
   /**
-   * <code>int32 report_id = 1;</code>
+   * <code>int64 report_id = 1;</code>
    * @return The reportId.
    */
   @java.lang.Override
-  public int getReportId() {
+  public long getReportId() {
     return reportId_;
   }
 
@@ -154,24 +154,24 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int POST_ID_FIELD_NUMBER = 3;
-  private int postId_;
+  private long postId_;
   /**
-   * <code>int32 post_id = 3;</code>
+   * <code>int64 post_id = 3;</code>
    * @return The postId.
    */
   @java.lang.Override
-  public int getPostId() {
+  public long getPostId() {
     return postId_;
   }
 
   public static final int USER_ID_FIELD_NUMBER = 4;
-  private int userId_;
+  private long userId_;
   /**
-   * <code>int32 user_id = 4;</code>
+   * <code>int64 user_id = 4;</code>
    * @return The userId.
    */
   @java.lang.Override
-  public int getUserId() {
+  public long getUserId() {
     return userId_;
   }
 
@@ -189,17 +189,17 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (reportId_ != 0) {
-      output.writeInt32(1, reportId_);
+    if (reportId_ != 0L) {
+      output.writeInt64(1, reportId_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(violationDesc_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, violationDesc_);
     }
-    if (postId_ != 0) {
-      output.writeInt32(3, postId_);
+    if (postId_ != 0L) {
+      output.writeInt64(3, postId_);
     }
-    if (userId_ != 0) {
-      output.writeInt32(4, userId_);
+    if (userId_ != 0L) {
+      output.writeInt64(4, userId_);
     }
     unknownFields.writeTo(output);
   }
@@ -210,20 +210,20 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (reportId_ != 0) {
+    if (reportId_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, reportId_);
+        .computeInt64Size(1, reportId_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(violationDesc_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, violationDesc_);
     }
-    if (postId_ != 0) {
+    if (postId_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, postId_);
+        .computeInt64Size(3, postId_);
     }
-    if (userId_ != 0) {
+    if (userId_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(4, userId_);
+        .computeInt64Size(4, userId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -260,13 +260,16 @@ private static final long serialVersionUID = 0L;
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + REPORT_ID_FIELD_NUMBER;
-    hash = (53 * hash) + getReportId();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getReportId());
     hash = (37 * hash) + VIOLATION_DESC_FIELD_NUMBER;
     hash = (53 * hash) + getViolationDesc().hashCode();
     hash = (37 * hash) + POST_ID_FIELD_NUMBER;
-    hash = (53 * hash) + getPostId();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getPostId());
     hash = (37 * hash) + USER_ID_FIELD_NUMBER;
-    hash = (53 * hash) + getUserId();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getUserId());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -400,13 +403,13 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      reportId_ = 0;
+      reportId_ = 0L;
 
       violationDesc_ = "";
 
-      postId_ = 0;
+      postId_ = 0L;
 
-      userId_ = 0;
+      userId_ = 0L;
 
       return this;
     }
@@ -486,17 +489,17 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(sep3.project.protobuf.ReportData other) {
       if (other == sep3.project.protobuf.ReportData.getDefaultInstance()) return this;
-      if (other.getReportId() != 0) {
+      if (other.getReportId() != 0L) {
         setReportId(other.getReportId());
       }
       if (!other.getViolationDesc().isEmpty()) {
         violationDesc_ = other.violationDesc_;
         onChanged();
       }
-      if (other.getPostId() != 0) {
+      if (other.getPostId() != 0L) {
         setPostId(other.getPostId());
       }
-      if (other.getUserId() != 0) {
+      if (other.getUserId() != 0L) {
         setUserId(other.getUserId());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -528,33 +531,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int reportId_ ;
+    private long reportId_ ;
     /**
-     * <code>int32 report_id = 1;</code>
+     * <code>int64 report_id = 1;</code>
      * @return The reportId.
      */
     @java.lang.Override
-    public int getReportId() {
+    public long getReportId() {
       return reportId_;
     }
     /**
-     * <code>int32 report_id = 1;</code>
+     * <code>int64 report_id = 1;</code>
      * @param value The reportId to set.
      * @return This builder for chaining.
      */
-    public Builder setReportId(int value) {
+    public Builder setReportId(long value) {
       
       reportId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 report_id = 1;</code>
+     * <code>int64 report_id = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearReportId() {
       
-      reportId_ = 0;
+      reportId_ = 0L;
       onChanged();
       return this;
     }
@@ -635,64 +638,64 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int postId_ ;
+    private long postId_ ;
     /**
-     * <code>int32 post_id = 3;</code>
+     * <code>int64 post_id = 3;</code>
      * @return The postId.
      */
     @java.lang.Override
-    public int getPostId() {
+    public long getPostId() {
       return postId_;
     }
     /**
-     * <code>int32 post_id = 3;</code>
+     * <code>int64 post_id = 3;</code>
      * @param value The postId to set.
      * @return This builder for chaining.
      */
-    public Builder setPostId(int value) {
+    public Builder setPostId(long value) {
       
       postId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 post_id = 3;</code>
+     * <code>int64 post_id = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearPostId() {
       
-      postId_ = 0;
+      postId_ = 0L;
       onChanged();
       return this;
     }
 
-    private int userId_ ;
+    private long userId_ ;
     /**
-     * <code>int32 user_id = 4;</code>
+     * <code>int64 user_id = 4;</code>
      * @return The userId.
      */
     @java.lang.Override
-    public int getUserId() {
+    public long getUserId() {
       return userId_;
     }
     /**
-     * <code>int32 user_id = 4;</code>
+     * <code>int64 user_id = 4;</code>
      * @param value The userId to set.
      * @return This builder for chaining.
      */
-    public Builder setUserId(int value) {
+    public Builder setUserId(long value) {
       
       userId_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 user_id = 4;</code>
+     * <code>int64 user_id = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearUserId() {
       
-      userId_ = 0;
+      userId_ = 0L;
       onChanged();
       return this;
     }
