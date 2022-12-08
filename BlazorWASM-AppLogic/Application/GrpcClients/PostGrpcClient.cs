@@ -54,6 +54,7 @@ public class PostGrpcClient : IPostDao
 		    });
 
 	    IList<Post> posts = new List<Post>();
+
 	    foreach (var replyPost in reply.Posts)
 	    {
 			posts.Add(await ConstructPostAsync(replyPost));

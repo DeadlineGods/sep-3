@@ -81,16 +81,14 @@ else
 	private async Task<long?> GetUserLocationId()
 	{
 		ClaimsPrincipal context = await authService.GetAuthAsync();
-
 		if (context.Identity?.Name == null)
 		{
-			return null;
+			msg = "You have to be logged in!";
+			return 0;
 		}
 
-		var claims = context.Identities.First().Claims.ToList();
-		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-		long userId = long.Parse(userIdAsStrubg);
-		var users = await userService.GetUsersAsync(null, userId);
+		var users = await userService.GetUsersAsync(context.Identity.Name);
+
 		var user = users.FirstOrDefault();
 
 		return user.LocationId;

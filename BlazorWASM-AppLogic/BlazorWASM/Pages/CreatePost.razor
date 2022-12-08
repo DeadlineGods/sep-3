@@ -7,12 +7,12 @@
 @using UIComponents
 @using System.Security.Claims
 @using BlazorWasm.Services
-@using System.Diagnostics.SymbolStore
+
 @inject NavigationManager navMgr
 @inject IPostService postService
 @inject ILocationService locationService
 @inject IAuthService authService
-@inject HttpClient Http
+@inject IUserService userService
 
 @inject ITagService tagService
 @inject IImageUploadService imageUploadService
@@ -113,7 +113,7 @@
 	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
 
 	        int locationId = await locationService.CreateAsync(locationCreationDto);
-	        Console.WriteLine("Page: " + locationId);
+
 	        // get user id
 			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
 			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
@@ -146,15 +146,17 @@
 
 	private async Task<long?> GetUserId()
 	{
+
 		ClaimsPrincipal context = await authService.GetAuthAsync();
 		if (context.Identity?.Name == null)
 		{
 			msg = "You have to be logged in!";
 			return 0;
 		}
-		var claims = context.Identities.First().Claims.ToList();
-		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-		return long.Parse(userIdAsStrubg);
+
+		var users = await userService.GetUsersAsync(context.Identity.Name);
+		long? userId = users.FirstOrDefault().Id;
+		return userId;
 	}
 
     private bool Validate()

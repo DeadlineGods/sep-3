@@ -24,13 +24,29 @@ public class AuthController : ControllerBase
         this.authService = authService;
     }
 
+    [HttpPost, Route("admin-login")]
+    public async Task<ActionResult> AdminLoginAsync([FromBody] LoginDto dto)
+    {
+	    try
+	    {
+		    LoginDto loginDto = await authService.ValidateAdminAsync(dto.username, dto.password);
+		    string token = GenerateJwt(loginDto);
+
+		    return Ok(token);
+	    }
+	    catch (Exception e)
+	    {
+		    return BadRequest(e.Message);
+	    }
+    }
+
     [HttpPost, Route("login")]
-    public async Task<ActionResult> LoginAsync([FromBody] UserLoginDto userLoginDto)
+    public async Task<ActionResult> LoginAsync([FromBody] LoginDto userLoginDto)
     {
         try
         {
-            User user = await authService.ValidateUserAsync(userLoginDto.username, userLoginDto.password);
-            string token = GenerateJwt(user);
+            LoginDto dto = await authService.ValidateUserAsync(userLoginDto.username, userLoginDto.password);
+            string token = GenerateJwt(dto);
 
             return Ok(token);
         }
@@ -39,7 +55,6 @@ public class AuthController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    //TODO for future
 
     [HttpPost, Route("register")]
     public async Task<ActionResult> RegisterAsync([FromBody]UserCreationDto userDto)
@@ -56,25 +71,21 @@ public class AuthController : ControllerBase
         }
     }
 
-    private List<Claim> GenerateClaims(User user)
+    private List<Claim> GenerateClaims(LoginDto dto)
     {
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, config["Jwt:Subject"]),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName),
-
-
-            
-            //Maybe we'll use it.
-            new Claim("Id", user.Id.ToString())
+            new Claim(ClaimTypes.Name, dto.username)
         };
         return claims.ToList();
     }
-    private string GenerateJwt(User user)
+
+    private string GenerateJwt(LoginDto dto)
     {
-        List<Claim> claims = GenerateClaims(user);
+        List<Claim> claims = GenerateClaims(dto);
 
         SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
         SigningCredentials signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);

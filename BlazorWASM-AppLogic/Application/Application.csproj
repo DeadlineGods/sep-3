@@ -27,5 +27,6 @@
 		<Protobuf Include="Protos\User.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\Tag.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\Report.proto" GrpcServices="Client" />
+		<Protobuf Include="Protos\Admin.proto" GrpcServices="Client" />
 	</ItemGroup>
 </Project>

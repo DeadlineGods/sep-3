@@ -6,6 +6,8 @@
 @namespace UIComponents
 @inject ILikeService likeService
 @inject IAuthService authService
+@inject IUserService userService
+
 
 @if (isLiked)
 {
@@ -42,11 +44,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        ClaimsPrincipal context = await authService.GetAuthAsync();
-        var claims = context.Identities.First().Claims.ToList();
-        string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-        userId = long.Parse(id);
-        isLiked = await IsLikedAsync(PostId);
+	    ClaimsPrincipal context = await authService.GetAuthAsync();
+	    if (context.Identity?.Name == null)
+	    {
+		    return;
+	    }
+
+	    var users = await userService.GetUsersAsync(context.Identity.Name);
+	    userId = users.FirstOrDefault().Id;
+
+	    isLiked = await IsLikedAsync(PostId);
     }
 
 

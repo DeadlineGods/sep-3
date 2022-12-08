@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+service AdminService{
+	rpc GetAdmin(AdminUsername) returns(ResponseGetAdmins);
+}
+
+message AdminData {
+	string username = 1;
+	string password = 2;
+	string email = 3;
+}
+
+message AdminUsername {
+	optional string username = 1;
+}
+
+message ResponseGetAdmins {
+	repeated AdminData admins = 1;
+}

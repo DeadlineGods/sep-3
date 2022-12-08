@@ -9,6 +9,7 @@
 @inject ICommentService commentService
 @inject IAuthService authService
 @inject IPostService postService
+@inject IUserService userService
 
 <div class="post-card">
     <div>@Post.Title</div>
@@ -115,16 +116,11 @@
             msg = "You have to be logged in!";
             return null;
         }
-        var claims = context.Identities.First().Claims.ToList();
-        string? userIdString = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
 
-        // if (string.IsNullOrEmpty(userIdAsStrubg))
-        // {
-        //     msg = "You have to be logged in!";
-        //     return null;
-        // }
+	    var users = await userService.GetUsersAsync(context.Identity.Name);
+	    long? id = users.FirstOrDefault().Id;
 
-        return long.Parse(userIdString);
+        return (long) id;
     }
 
 

@@ -79,10 +79,15 @@
 
         try
         {
-            ClaimsPrincipal context = await authService.GetAuthAsync();
-            var claims = context.Identities.First().Claims.ToList();
-            string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-            long createdCommentId = await commentService.CreateAsync(commentInputText, long.Parse(ownerId), Comment.PostId);
+	        ClaimsPrincipal context = await authService.GetAuthAsync();
+	        if (context.Identity?.Name == null)
+	        {
+		        return;
+	        }
+	        var users = await userService.GetUsersAsync(context.Identity.Name);
+	        long userId = users.FirstOrDefault().Id;
+
+	        long createdCommentId = await commentService.CreateAsync(commentInputText, userId, Comment.PostId);
             await commentService.AssignCommentToParentAsync(createdCommentId, Comment.Id);
 
             await LoadAsync();
