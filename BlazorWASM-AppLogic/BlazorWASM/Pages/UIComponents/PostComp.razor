@@ -26,43 +26,36 @@
                         
                         
                                 </div>
-                              <div>
-                                <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
-                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
-                        
-                                    <ul class="space-y-1">
-                                      <li>
-                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                           <i class="uil-share-alt mr-1"></i> Share
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                           <i class="uil-edit-alt mr-1"></i>  Edit Post
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                           <i class="uil-comment-slash mr-1"></i>   Disable comments
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                           <i class="uil-favorite mr-1"></i>  Add favorites
-                                          </a>
-                                      </li>
-                                      <li>
-                                        <hr class="-mx-2 my-2 dark:border-gray-800">
-                                      </li>
-                                      <li>
-                                          <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                                           <i class="uil-trash-alt mr-1"></i>  Delete
-                                          </a>
-                                      </li>
-                                    </ul>
-                        
+                                <div>
+                                    @* edit1 *@
+                                    <AuthorizeView>
+                                        <Authorized>
+                                             @if (postDetail.Owner.UserName == @context.User.Identity.Name)
+                                                                            {
+                                            <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
+                                            <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
+
+                                                <ul class="space-y-1">
+                                                    
+                                                    <li @onclick:preventDefault="true" @onclick="Edit">
+                                                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                            <i class="uil-edit-alt mr-1"></i> Edit Post
+                                                        </a>
+                                                    </li>
+                                                   
+                                                    <li  @onclick="Delete">
+                                                        <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                                            <i class="uil-trash-alt mr-1"></i> Delete
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                            }
+
+                                        </Authorized>
+                                </AuthorizeView>
                                 </div>
-                              </div>
                             </div>
                             <div class="titleDateBox flex justify-between">
                                 <h3 class="ml-4">@postDetail.Title</h3>
@@ -108,7 +101,7 @@
                                         Liked by <strong>@postDetail.Likes</strong> people
                                     </div>
                                 </div>
-                                 <div class="p-3 ">
+                                 <div class="p-3  border-t ">
                                     @postDetail.Description
                                  </div>
                                  <div class="lg:m-0 -mx-5 flex justify-between py-4 relative space-x-3  dark-tabs"  style="">
@@ -121,53 +114,26 @@
                                                           <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Laptops </a>
                                                     </div>
                                                 </div>
-                                <div class="border-t pt-4 space-y-4 dark:border-gray-600">
-                                    <div class="flex">
-                                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                                            <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                                        </div>
-                                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
-                                            <p class="leading-6">In ut odio libero vulputate <urna class="i uil-heart"></urna> <i
-                                                    class="uil-grin-tongue-wink"> </i> </p>
-                                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                                        </div>
-                                    </div>
-                                    <div class="flex">
-                                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                                            <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
-                                        </div>
-                                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
-                                            <p class="leading-6">Nam liber tempor cum soluta nobis eleifend option <i class="uil-grin-tongue-wink-alt"></i>
-                                            </p>
-                                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                                        </div>
-                                    </div>
+                               
+                                    
                                 </div>
                         
-                                @* <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800"> *@
-                                @*     <input type="text" placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none"> *@
-                                @*     <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2"> *@
-                                @*         <a href="#"> <i class="uil-image"></i></a> *@
-                                @*         <a href="#"> <i class="uil-video"></i></a> *@
-                                @*     </div> *@
-                                @* </div> *@
-                                
-                        @* aaaaaaaaaaaa         *@
+                         
                         <AuthorizeView>
                             <Authorized>
-                                <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800">
-                                    <input type="text" @bind="commentInputText" placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none">
+                                <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800 mx-3 mb-8">
+                                    <input type="text" @bind="commentInputText" placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none ">
                                     <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
                                         <a href="#"  @onclick:preventDefault="true" @onclick="PublishAsync"> <i class="uil-comment"></i></a>
                                         @* <a href="#"> <i class="uil-video"></i></a> *@
                                     </div>
                                 </div>
                                 
-                              
+                              @* edit *@
                                 @if (postDetail.Owner.UserName == @context.User.Identity.Name)
                                 {
-                                    <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
-                                    <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+                                    <div><i class="uil-award"  @onclick="Delete"> </i> </div>
+                                    <div><i class="uil-award"  @onclick="Edit"> </i> </div>
 
                                 }
                             </Authorized>
@@ -176,7 +142,7 @@
                         
                             @if (comments.Any())
                             {
-                                <ol>
+                                <ol class="ml-3 pb-3">
                                     @foreach (var comment in comments)
                                     {
                                         <li>
@@ -187,7 +153,7 @@
                             }
                             </div>
                         
-                        </div>
+                        
     @code {
         [Parameter]
         public Post postDetail { get; set; }
