@@ -3,31 +3,43 @@
 @using HttpClients.ClientInterfaces
 @using UIComponents
 @using Report = Domain.Models.Report
+@using System.Runtime.CompilerServices
 @inject IReportService reportService
 
-<ul>
-    @foreach (var report in reports)
-    {
-        <li>
-            <SingleReport Report="report"/>
-        </li>
-    }
-</ul>
+<label style="color: red">@msg</label>
+
+@if (reports.Any())
+{
+    <ul>
+        @foreach (var report in reports)
+        {
+            <li>
+                <SingleReport Report="report" UpdateReports="LoadReports"/>
+            </li>
+        }
+    </ul>
+}
 
 @code {
     IEnumerable<Report> reports = new List<Report>();
-    private string msg;
+    private string msg = "";
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            reports = await reportService.GetAsync();
-        }  
+           await LoadReports();
+        }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
         }
     }
+
+    private async Task LoadReports()
+    {
+        reports = await reportService.GetAsync();
+    }
+
 }

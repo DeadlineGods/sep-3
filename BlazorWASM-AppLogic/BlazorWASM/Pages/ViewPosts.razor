@@ -40,8 +40,7 @@ else if (!posts.Any())
 }
 else
 {
-
-    @foreach (var post in posts)
+	@foreach (var post in posts)
     {
         <a href="posts/@post.Id">
             Go to post
@@ -55,14 +54,12 @@ else
     private string msg;
     private bool isLiked;
 
-
-    private string? tagFilter;
+	private string? tagFilter;
     private IEnumerable<TagPost>? postTag;
 
     [Parameter]
     public int Id { get; set; }
-
-
+	
     protected override async Task OnInitializedAsync()
     {
         try
@@ -98,7 +95,6 @@ else
 	{
 		try
 		{
-
 			long? locationId = await GetUserLocationId();
 			if (locationId == null)
 			{
