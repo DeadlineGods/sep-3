@@ -1,0 +1,56 @@
+@page "/admin-login"
+@using BlazorWasm.Services
+@inject IAuthService authService
+@inject NavigationManager navMgr
+
+<AuthorizeView>
+	<NotAuthorized>
+		<div class="card">
+			<h3>Admin login page</h3>
+			<div class="field">
+				<label>User name:</label>
+				<input type="text" class="feedback-input" @bind="userName"/>
+			</div>
+			<div class="field">
+				<label style="text-align: center">Password:</label>
+				<input type="password" class="feedback-input" @bind="password"/>
+			</div>
+			@if (!string.IsNullOrEmpty(errorLabel))
+			{
+				<div class="field">
+					<label style="color: red">
+						@errorLabel
+					</label>
+				</div>
+			}
+			<div class="field">
+				<button class="button-35" role="button" @onclick="LoginAsync">Log in</button>
+			</div>
+		</div>
+	</NotAuthorized>
+	<Authorized>
+		<h3>Admin logged in</h3>
+	</Authorized>
+</AuthorizeView>
+
+@code {
+	private string userName;
+	private string password;
+	private string errorLabel;
+
+	private async Task LoginAsync()
+	{
+		errorLabel = "";
+		try
+		{
+			await authService.LoginAdminAsync(userName, password);
+			// navMgr.NavigateTo("/posts/all");
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			errorLabel = $"Error: {e.Message}";
+		}
+	}
+
+}

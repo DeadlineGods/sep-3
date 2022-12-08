@@ -7,21 +7,21 @@ using Domain.Models;
 using HttpClients.ClientInterfaces;
 using HttpClients.Implementations;
 using Microsoft.AspNetCore.Mvc;
+using Exception = System.Exception;
 
 namespace WebAPI.Services;
-
 
 public class AuthService : IAuthService
 {
     private readonly IUserLogic userLogic;
     private readonly IAdminLogic adminLogic;
     private IEnumerable<User> users;
-    private readonly IUserDao userDao;
     private IUserService userService = new UserHttpClient(new HttpClient());
 
-    public AuthService(IUserLogic userLogic, IUserDao userDao)
+    public AuthService(IUserLogic userLogic, IAdminLogic adminLogic)
     {
         this.userLogic = userLogic;
+        this.adminLogic = adminLogic;
         users = new List<User>();
     }
 
@@ -111,6 +111,26 @@ public class AuthService : IAuthService
 	    {
 		    throw new Exception("Username cannot be null");
 	    }
+
+	    IEnumerable<Admin> adminList = await adminLogic.GetAsync(username);
+
+	    Admin? existing = adminList.FirstOrDefault();
+
+	    if (existing == null)
+	    {
+		    throw new Exception("Admin not found");
+	    }
+
+	    if (!existing.password.Equals(password))
+	    {
+		    throw new Exception("Password is wrong!");
+	    }
+
+	    return new LoginDto
+	    {
+		    username = username,
+		    password = password
+	    };
 
     }
 }

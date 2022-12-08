@@ -26,7 +26,6 @@ public class JwtAuthService : IAuthService
         string userAsJson = JsonSerializer.Serialize(userLoginDto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
 
-        // TODO change port
         HttpResponseMessage response = await client.PostAsync("https://localhost:7196/auth/login", content);
         string responseContent = await response.Content.ReadAsStringAsync();
 
@@ -41,6 +40,33 @@ public class JwtAuthService : IAuthService
         ClaimsPrincipal principal = CreateClaimsPrincipal();
 
         OnAuthStateChanged.Invoke(principal);
+    }
+
+    public async Task LoginAdminAsync(string username, string password)
+    {
+	    LoginDto userLoginDto = new()
+	    {
+		    username = username,
+		    password = password
+	    };
+
+	    string userAsJson = JsonSerializer.Serialize(userLoginDto);
+	    StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
+
+	    HttpResponseMessage response = await client.PostAsync("https://localhost:7196/auth/admin-login", content);
+	    string responseContent = await response.Content.ReadAsStringAsync();
+
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(responseContent);
+	    }
+
+	    string token = responseContent;
+	    Jwt = token;
+
+	    ClaimsPrincipal principal = CreateClaimsPrincipal();
+
+	    OnAuthStateChanged.Invoke(principal);
     }
 
     public Task LogoutAsync()
