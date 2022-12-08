@@ -144,14 +144,47 @@
                                     </div>
                                 </div>
                         
+                                @* <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800"> *@
+                                @*     <input type="text" placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none"> *@
+                                @*     <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2"> *@
+                                @*         <a href="#"> <i class="uil-image"></i></a> *@
+                                @*         <a href="#"> <i class="uil-video"></i></a> *@
+                                @*     </div> *@
+                                @* </div> *@
+                                
+                        @* aaaaaaaaaaaa         *@
+                        <AuthorizeView>
+                            <Authorized>
                                 <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800">
-                                    <input type="text" placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none">
+                                    <input type="text" @bind="commentInputText" placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none">
                                     <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-                                        <a href="#"> <i class="uil-image"></i></a>
-                                        <a href="#"> <i class="uil-video"></i></a>
+                                        <a href="#"  @onclick:preventDefault="true" @onclick="PublishAsync"> <i class="uil-comment"></i></a>
+                                        @* <a href="#"> <i class="uil-video"></i></a> *@
                                     </div>
                                 </div>
+                                
+                              
+                                @if (postDetail.Owner.UserName == @context.User.Identity.Name)
+                                {
+                                    <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+                                    <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+
+                                }
+                            </Authorized>
+                            </AuthorizeView>
                         
+                        
+                            @if (comments.Any())
+                            {
+                                <ol>
+                                    @foreach (var comment in comments)
+                                    {
+                                        <li>
+                                            <SingleCommentUpdated Comment="@comment"/>
+                                        </li>
+                                    }
+                                </ol>
+                            }
                             </div>
                         
                         </div>
