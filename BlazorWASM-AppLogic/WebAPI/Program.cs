@@ -49,6 +49,9 @@ builder.Services.AddScoped<IReportLogic, ReportLogic>();
 builder.Services.AddScoped<IAdminDao, AdminGrpcClient>();
 builder.Services.AddScoped<IAdminLogic, AdminLogic>();
 
+builder.Services.AddScoped<IBanDao, BanGrpcClient>();
+builder.Services.AddScoped<IBanLogic, BanLogic>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.RequireHttpsMetadata = false;

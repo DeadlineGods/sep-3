@@ -12,8 +12,8 @@ public class AdminHttpClient : IAdminService
     {
         this.client = client;
     }
-    
-    public async Task<Admin> GetAsync(string identityName)
+
+    public async Task<IEnumerable<Admin>> GetAsync(string identityName)
     {
         HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Admin");
 
@@ -23,7 +23,7 @@ public class AdminHttpClient : IAdminService
             throw new Exception(content);
         }
 
-        Admin admin = JsonSerializer.Deserialize<Admin>(content, new JsonSerializerOptions
+        IEnumerable<Admin> admin = JsonSerializer.Deserialize<IEnumerable<Admin>>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;

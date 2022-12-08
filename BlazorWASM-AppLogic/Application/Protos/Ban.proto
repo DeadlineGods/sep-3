@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+service BanService {
+	rpc BanPost(BanData) returns(PostId);
+}
+
+message BanData {
+	string admin = 1;
+	int64 postId = 2;
+	string reason = 3;
+}
+
+message PostId {
+	int64 id = 1;
+}

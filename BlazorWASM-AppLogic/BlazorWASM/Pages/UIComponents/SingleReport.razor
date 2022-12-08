@@ -2,14 +2,14 @@
 @using Report = Domain.Models.Report
 @using Shared
 @using Domain.Models
-@inject IBanService banService
-@inject IAuthService authService
-@inject IAdminService adminService
 @using Domain.DTOs
 @using HttpClients.ClientInterfaces
 @using System.Security.Claims
 @using BlazorWasm.Services
-banService
+
+@inject IBanService banService
+@inject IAuthService authService
+@inject IAdminService adminService
 
 <label style="color: red">@msg</label>
 
@@ -24,7 +24,8 @@ banService
             <img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
             <div>@Report.reportedPost.Owner.UserName</div>
         </div>
-        <button @onclick="BanAsync">Ban</button>
+	    <button @onclick="BanAsync">Ban</button>
+	    <input type="text" @bind="reason">
     </Authorized>
 </AuthorizeView>
 
@@ -37,6 +38,7 @@ banService
     public Func<Task>? UpdateReports { get; set; }
 
     private string msg = "";
+	private string reason = "";
 
     public async Task BanAsync()
     {
@@ -47,7 +49,9 @@ banService
             return;
         }
 
-        Admin admin = await adminService.GetAsync(context.Identity.Name);
+        IEnumerable<Admin> adminList = await adminService.GetAsync(context.Identity.Name);
+	    Admin? admin = adminList.FirstOrDefault();
+
         if (admin == null)
         {
             msg = "Admin not found";
@@ -57,7 +61,8 @@ banService
         BanCreationDto dto = new BanCreationDto
         {
             Admin = admin.username,
-            PostId = Report.reportedPost.Id
+            PostId = Report.reportedPost.Id,
+	        Reason = reason
         };
         await banService.CrateAsync(dto);
         await UpdateReports();

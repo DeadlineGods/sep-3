@@ -16,13 +16,13 @@ public class BanController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateBanAsync([FromBody] BanCreationDto dto)
+    public async Task<ActionResult<long>> CreateBanAsync([FromBody] BanCreationDto dto)
     {
         try
         {
-            await BanLogic.CreateAsync(dto);
-            return Ok();
-        } 
+            long id = await BanLogic.CreateAsync(dto);
+            return Ok(id);
+        }
         catch (Exception e)
         {
             Console.WriteLine(e);

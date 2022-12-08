@@ -12,9 +12,9 @@ public class BanLogic : IBanLogic
     {
         BanDao = banDao;
     }
-    
-    public Task CreateAsync(BanCreationDto dto)
+
+    public async Task<long> CreateAsync(BanCreationDto dto)
     {
-        throw new NotImplementedException();
+	    return await BanDao.CreateAsync(dto);
     }
 }

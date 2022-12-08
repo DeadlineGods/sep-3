@@ -4,5 +4,5 @@ namespace Application.LogicInterfaces;
 
 public interface IBanLogic
 {
-    Task CreateAsync(BanCreationDto dto);
+    Task<long> CreateAsync(BanCreationDto dto);
 }
