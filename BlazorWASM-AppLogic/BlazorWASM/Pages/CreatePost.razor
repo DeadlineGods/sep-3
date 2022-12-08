@@ -105,25 +105,21 @@
 
         try
         {
-	        // get image
-            string imgUrl = await imageUploadService.UploadAsync(filesBase64);
-
-	        Coordinate coordinates = await Map.GetCoordinates();
-
-	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
-
-	        int locationId = await locationService.CreateAsync(locationCreationDto);
-	        Console.WriteLine("Page: " + locationId);
-	        // get user id
-			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
-			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
-	        // PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
-
+		    // get user id
 	        long userId = (long)await GetUserId();
+
 	        if (userId != 0)
 	        {
-		        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
+		        // get image
+	            string imgUrl = await imageUploadService.UploadAsync(filesBase64);
 
+		        Coordinate coordinates = await Map.GetCoordinates();
+
+		        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
+
+		        int locationId = await locationService.CreateAsync(locationCreationDto);
+
+		        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
 		        id = await postService.CreateAsync(dto);
 
 
