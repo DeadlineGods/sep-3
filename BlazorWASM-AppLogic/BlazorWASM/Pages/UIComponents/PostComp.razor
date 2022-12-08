@@ -9,7 +9,9 @@
 @inject ICommentService commentService
 @inject IAuthService authService
 @inject IPostService postService
-    <div class="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0">
+@inject ITagService tagService
+
+    <div class="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0 pb-8">
                         
                             <!-- post header-->
                             <div class="flex justify-between items-center px-4 py-3">
@@ -32,7 +34,7 @@
                                         <Authorized>
                                              @if (postDetail.Owner.UserName == @context.User.Identity.Name)
                                                                             {
-                                            <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
+                                            <a href="#" @onclick:preventDefault="true" > <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
                                             <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
 
                                                 <ul class="space-y-1">
@@ -43,8 +45,8 @@
                                                         </a>
                                                     </li>
                                                    
-                                                    <li  @onclick="Delete">
-                                                        <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                                    <li   @onclick="Delete">
+                                                        <a href="posts/allUpdated" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                                                             <i class="uil-trash-alt mr-1"></i> Delete
                                                         </a>
                                                     </li>
@@ -104,15 +106,13 @@
                                  <div class="p-3  border-t ">
                                     @postDetail.Description
                                  </div>
-                                 <div class="lg:m-0 -mx-5 flex justify-between py-4 relative space-x-3  dark-tabs"  style="">
+                                 <div class="lg:m-0 -mx-5 flex justify-between py-1 relative space-x-3  dark-tabs"  style="">
                                                     <div class="flex flex-wrap lg:pl-0 pl-5 space-x-3">
-                                                       <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Shop</a>
-                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> headphones  </a>
-                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Parfums </a>
-                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Fruits </a>
-                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Mobiles  </a>
-                                                          <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> Laptops </a>
-                                                    </div>
+                                                        @foreach (var tag in tags)
+                                                        {
+                                                            <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> @tag.tagName</a>
+                                                        }
+                                                          </div>
                                                 </div>
                                
                                     
@@ -121,7 +121,7 @@
                          
                         <AuthorizeView>
                             <Authorized>
-                                <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800 mx-3 mb-8">
+                                <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800 mx-3 ">
                                     <input type="text" @bind="commentInputText" placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none ">
                                     <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
                                         <a href="#"  @onclick:preventDefault="true" @onclick="PublishAsync"> <i class="uil-comment"></i></a>
@@ -129,20 +129,14 @@
                                     </div>
                                 </div>
                                 
-                              @* edit *@
-                                @if (postDetail.Owner.UserName == @context.User.Identity.Name)
-                                {
-                                    <div><i class="uil-award"  @onclick="Delete"> </i> </div>
-                                    <div><i class="uil-award"  @onclick="Edit"> </i> </div>
-
-                                }
+                            
                             </Authorized>
                             </AuthorizeView>
                         
                         
                             @if (comments.Any())
                             {
-                                <ol class="ml-3 pb-3">
+                                <ol class="ml-3 pt-3">
                                     @foreach (var comment in comments)
                                     {
                                         <li>
@@ -159,6 +153,10 @@
         public Post postDetail { get; set; }
         private ICollection<Comment> comments = new List<Comment>();
 
+        private ICollection<TagPost> tags = new List<TagPost>();
+
+        
+        
         private string commentInputText = "";
 
         private async Task PublishAsync()
@@ -193,6 +191,21 @@
             try
             {
                 await UpdateCommentsAsync();
+                await UpdateTagsAsync();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+        
+        private async Task UpdateTagsAsync()
+        {
+            try
+            {
+                tags = await tagService.GetPostTagAsync(postDetail.Id);
+                   
             }
             catch (Exception e)
             {
@@ -224,7 +237,8 @@
             try
             {
                 await postService.DeleteAsync(postDetail.Id, postDetail.Owner.Id);
-                navMgr.NavigateTo("/");
+                navMgr.NavigateTo($"posts/allUpdated",true);
+
             }
             catch (Exception e)
             {
@@ -237,7 +251,7 @@
         {
             try
             {
-                navMgr.NavigateTo($"EditPost/{postDetail.Id}");
+                navMgr.NavigateTo($"EditPostUpdated/{postDetail.Id}");
             }
             catch (Exception e)
             {

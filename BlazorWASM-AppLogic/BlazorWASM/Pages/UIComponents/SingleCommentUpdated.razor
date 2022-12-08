@@ -38,10 +38,10 @@
 
     <AuthorizeView>
         <Authorized>
-            <div class="flex">  
+            <div class="flex mt-2">  
                 @if (commentInput)
                   {
-                      <button
+                      <button   
                           @onclick="@(() => commentInput = !commentInput)">
                           <i class="icon-feather-x text-lg mr-1"></i>
                       </button>
