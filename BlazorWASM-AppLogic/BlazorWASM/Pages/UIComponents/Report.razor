@@ -38,20 +38,18 @@
 
 	}
 
-	private async void ReportPostAsync()
+	private async Task ReportPostAsync()
 	{
 
 		try
 		{
 
-			Console.WriteLine("trying");
 			if (UserId != null)
 			{
-				Console.WriteLine("aa");
 				ReportPostDto dto = new ReportPostDto(reportInputText, (int)PostId, (int)UserId);
-				Console.WriteLine("bb");
-				int id = await reportService.ReportPostAsync(dto);
-				Console.WriteLine("cc");
+
+				await reportService.ReportPostAsync(dto);
+
 				msg = "successfully created";
 				reportInputText = "";
 			}
