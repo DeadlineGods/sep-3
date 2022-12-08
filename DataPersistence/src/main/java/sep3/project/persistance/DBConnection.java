@@ -5,18 +5,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-	private static Connection connection = null;
+
+	public DBConnection() throws SQLException {
+		DriverManager.registerDriver(new org.postgresql.Driver());
+	}
 
 	public static Connection getConnection() throws SQLException {
-		if(connection == null) {
-			DriverManager.registerDriver(new org.postgresql.Driver());
-			String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=photoguard";
+		String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=photoguard";
 
-			String user = "postgres";
-			String pw = "admin";
+		//Remember guys you have to have the same user and password in your postgres for this to work
+		String user = "postgres";
+		String pw = "admin";
 
-			connection = DriverManager.getConnection(url, user, pw);
-		}
+		Connection connection = null;
+		connection = DriverManager.getConnection(url, user, pw);
 
 		return connection;
 	}
