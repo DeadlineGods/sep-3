@@ -1,4 +1,14 @@
 ﻿@using Domain.Models
+@namespace UIComponents
+@using HttpClients.ClientInterfaces
+@using Domain.DTOs
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using HttpClients.Implementations
+@inject NavigationManager navMgr
+@inject ICommentService commentService
+@inject IAuthService authService
+@inject IPostService postService
     <div class="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0">
                         
                             <!-- post header-->
@@ -71,14 +81,8 @@
                             <div class="py-3 px-4 space-y-3">
                         
                                 <div class="flex space-x-4 lg:font-bold">
-                                    <a href="#" class="flex items-center space-x-2">
-                                        <div class="p-2 rounded-full text-black">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="22" height="22" class="dark:text-gray-100">
-                                                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                                            </svg>
-                                        </div>
-                                        <div> Like</div>
-                                    </a>
+                                     <LIkeButton PostId="postDetail.Id" UpdateParentsLikes="UpdateLikes"/>
+
                                     <a href="#" class="flex items-center space-x-2">
                                         <div class="p-2 rounded-full text-black">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="22" height="22" class="dark:text-gray-100">
@@ -154,5 +158,93 @@
     @code {
         [Parameter]
         public Post postDetail { get; set; }
+        private ICollection<Comment> comments = new List<Comment>();
+
+        private string commentInputText = "";
+
+        private async Task PublishAsync()
+        {
+            if (string.IsNullOrEmpty(commentInputText))
+            {
+                return;
+            }
+
+            try
+            {
+                ClaimsPrincipal context = await authService.GetAuthAsync();
+                var claims = context.Identities.First().Claims.ToList();
+                string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+
+                await commentService.CreateAsync(commentInputText, long.Parse(ownerId), postDetail.Id);
+
+                commentInputText = "";
+
+                await UpdateCommentsAsync();
+
+                StateHasChanged();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            try
+            {
+                await UpdateCommentsAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+
+        private void UpdateLikes(int changeDiff)
+        {
+            postDetail.Likes += changeDiff;
+            StateHasChanged();
+        }
+
+        private async Task UpdateCommentsAsync()
+        {
+            try
+            {
+                comments = await commentService.GetCommentsByPostAsync(postDetail.Id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+    
+        private async Task Delete()
+        {
+            try
+            {
+                await postService.DeleteAsync(postDetail.Id, postDetail.Owner.Id);
+                navMgr.NavigateTo("/");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+	
+        private async Task Edit()
+        {
+            try
+            {
+                navMgr.NavigateTo($"EditPost/{postDetail.Id}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     
 }
