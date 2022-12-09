@@ -44,7 +44,7 @@
 		try
 		{
 			await authService.LoginAdminAsync(userName, password);
-			navMgr.NavigateTo("/reports");
+			navMgr.NavigateTo("/admin/reports");
 		}
 		catch (Exception e)
 		{
