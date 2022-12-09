@@ -27,7 +27,9 @@ public class UserImpl extends UserServiceGrpc.UserServiceImplBase {
                     request.getLastName(),
                     request.getEmail(),
                     request.getPassword(),
-                    request.getPhoneNumber());
+                    request.getPhoneNumber(),
+					request.getLocationId()
+			);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

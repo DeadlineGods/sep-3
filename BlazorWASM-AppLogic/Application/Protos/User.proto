@@ -26,6 +26,7 @@ message RequestCreateUser {
 	string email = 4;
 	string password = 5;
 	string phoneNumber = 6;
+	int64 locationId = 7;
 }
 
 message RequestGetUsers

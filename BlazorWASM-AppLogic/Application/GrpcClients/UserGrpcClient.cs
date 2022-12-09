@@ -47,7 +47,8 @@ public class UserGrpcClient : IUserDao
                 LastName = user.lastName,
                 Email = user.email,
                 Password = user.password,
-                PhoneNumber = user.phoneNumber
+                PhoneNumber = user.phoneNumber,
+                LocationId = user.locationId
             });
 
         return await Task.FromResult(ConstructUser(reply));

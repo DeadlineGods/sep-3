@@ -19,12 +19,12 @@ public class UserDatabase implements UserPersistence {
     }
 
     @Override
-    public UserData Create(String userName, String firstName, String lastName, String email, String password, String phoneNumber) throws SQLException {
+    public UserData Create(String userName, String firstName, String lastName, String email, String password, String phoneNumber, long locationId) throws SQLException {
         Connection connection = DBConnection.getConnection();
         UserData userData = null;
         try {
             long userId = 0;
-            String sql = "INSERT INTO \"User\" (user_name, first_name, last_name, email, password, phone_number)  VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO \"User\" (user_name, first_name, last_name, email, password, phone_number, location_id)  VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = connection.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
@@ -35,6 +35,7 @@ public class UserDatabase implements UserPersistence {
             ps.setString(4, email);
             ps.setString(5, password);
             ps.setString(6, phoneNumber);
+			ps.setLong(7, locationId);
 
             ps.execute();
 

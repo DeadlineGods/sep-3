@@ -13,7 +13,13 @@
 
 @if (reports.Any() && admin != null)
 {
-    <ul>
+	<Alert Type="success" Show="@showAlert">
+		<p>Post was succesfully banned!</p>
+		<button @onclick="(() => showAlert = false)">keep banning</button>
+	</Alert>
+
+
+	<ul>
         @foreach (var report in reports)
         {
             <li>
@@ -27,6 +33,7 @@
     IEnumerable<Report> reports = new List<Report>();
     private string msg = "";
 	private Admin? admin;
+	private bool showAlert;
 
     protected override async Task OnInitializedAsync()
     {
@@ -61,6 +68,7 @@
     private async Task LoadReports()
     {
         reports = await reportService.GetAsync();
+	    showAlert = true;
     }
 
 }

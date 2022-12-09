@@ -58,6 +58,9 @@
 @code {
     [Parameter]
     public Post? Post { get; set; }
+	[Parameter]
+	public EventCallback<string> OnDeleteCallback { get; set; }
+
 
     private ICollection<Comment> comments = new List<Comment>();
 
@@ -65,7 +68,7 @@
     private string msg;
     private long userId;
 
-    private async Task PublishAsync()
+	private async Task PublishAsync()
     {
         if (string.IsNullOrEmpty(commentInputText))
         {
@@ -133,7 +136,7 @@
         try
         {
             await postService.DeleteAsync(Post.Id, Post.Owner.Id);
-            navMgr.NavigateTo("/");
+	        await OnDeleteCallback.InvokeAsync();
         }
         catch (Exception e)
         {

@@ -19,8 +19,8 @@
 
 	<Alert Type="success" Show="@showAlert">
 		<p>Successfully created post!</p>
-		<button @onclick="@NavigateToPost">show me</button>
-		<button @onclick="(() => showAlert = false)">close</button>
+		<button @onclick="NavigateToFeed">go to feed</button>
+		<button @onclick="(() => showAlert = false)">stay here</button>
 	</Alert>
 
 <div class="card">
@@ -184,9 +184,9 @@
         postTags.Remove(tag);
     }
 
-    private void NavigateToPost()
+    private void NavigateToFeed()
     {
-        navMgr.NavigateTo("posts/" + id);
+        navMgr.NavigateTo("posts/all");
     }
 
 }

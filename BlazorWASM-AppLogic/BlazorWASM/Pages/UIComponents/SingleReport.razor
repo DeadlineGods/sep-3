@@ -13,25 +13,24 @@
 
 
 <AuthorizeView>
-    <Authorized>
-        <h3>@Report.violation</h3>
-        <p>Reported by: @Report.reportedBy.UserName</p>
-        <div class="post-card">
-            <div>@Report.reportedPost.Title</div>
-            <div>@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</div>
-            <div>@Report.reportedPost.Description</div>
-            <img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
-            <div>@Report.reportedPost.Owner.UserName</div>
-        </div>
-	    <button @onclick="BanAsync">Ban</button>
-	    <input type="text" @bind="reason">
-	    <label style="color: red">@msg</label>
-    </Authorized>
+	<Authorized>
+		<h3>@Report.violation</h3>
+		<p>Reported by: @Report.reportedBy.UserName</p>
+		<div class="post-card">
+			<div>@Report.reportedPost.Title</div>
+			<div>@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</div>
+			<div>@Report.reportedPost.Description</div>
+			<img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
+			<div>@Report.reportedPost.Owner.UserName</div>
+		</div>
+		<button @onclick="BanAsync">Ban</button>
+		<input type="text" @bind="reason">
+		<label style="color: red">@msg</label>
+	</Authorized>
 </AuthorizeView>
 
 @code {
-
-    [Parameter]
+	[Parameter]
     public Domain.Models.Report? Report { get; set; }
 	[Parameter]
 	public EventCallback<string> OnClickCallback { get; set; }
@@ -41,7 +40,6 @@
 
 	private string msg = "";
 	private string reason = "";
-
 
 	public async Task BanAsync()
     {
@@ -57,9 +55,7 @@
 	        };
 	        await banService.CrateAsync(dto);
 
-		    msg = "Successfully banned post";
-
-		    await OnClickCallback.InvokeAsync();
+			await OnClickCallback.InvokeAsync();
 
 		}
     }

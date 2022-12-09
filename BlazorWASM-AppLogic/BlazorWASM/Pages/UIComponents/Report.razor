@@ -4,7 +4,13 @@
 @using HttpClients.ClientInterfaces
 @namespace UIComponents
 @inject IReportService reportService
+@inject NavigationManager navMgr
 
+<Alert Type="success" Show="@showAlert">
+	<p>Thank you for contributing to build community who cares!</p>
+	@* <button @onclick="() => @navMgr.NavigateTo("/posts/all")">go to feed</button> *@
+	<button @onclick="(() => showAlert = false)">great</button>
+</Alert>
 
 <button @onclick="@(() => showReportField = true)">" >Report post</button>
 
@@ -31,6 +37,7 @@
 	public bool showReportField;
 	private string reportInputText;
 	private string msg;
+	private bool showAlert;
 
 
 	protected override async Task OnInitializedAsync()
@@ -50,7 +57,8 @@
 
 				await reportService.ReportPostAsync(dto);
 
-				msg = "successfully created";
+
+				showAlert = true;
 				reportInputText = "";
 			}
 		}

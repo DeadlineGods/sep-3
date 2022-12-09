@@ -9,8 +9,9 @@ public class UserCreationDto
 	public String lastName { get; set; }
 	public String email { get; set; }
 	public String phoneNumber { get; set; }
+	public long locationId { get; set; }
 
-	public UserCreationDto(string username, string password, string firstName, string lastName, string email, string phoneNumber)
+	public UserCreationDto(string username, string password, string firstName, string lastName, string email, string phoneNumber, long locationId)
 	{
 		this.username = username;
 		this.password = password;
@@ -18,5 +19,6 @@ public class UserCreationDto
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.locationId = locationId;
 	}
 }
