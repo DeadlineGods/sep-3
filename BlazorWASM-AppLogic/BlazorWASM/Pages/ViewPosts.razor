@@ -107,9 +107,12 @@ else
 				msg = "You have to be logged in!";
 				return;
 			}
-
+	
 			Coordinate coordinates = await locationService.GetCoordinatesAsync((int)locationId);
 			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
+
+			// IEnumerable<Post> temp = await postService.GetInRadiusAsync(new Coordinate(55.8581310000,9.8475880000), 30000);
+			
 			posts = temp.ToList();
 		}
 		catch (Exception e)

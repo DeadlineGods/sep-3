@@ -2292,12 +2292,15 @@ header .uk-dropdown {
 
 .sidebar .sidebar_inner ul li.active-submenu a i,
 .sidebar .sidebar_inner ul li.active a i,
-.sidebar .sidebar_inner ul li:hover a i {
+.sidebar .sidebar_inner ul li:hover a i,
+.sidebar .sidebar_inner ul li:focus a i
+{
   color: #be185d;
 }
 
 .sidebar .sidebar_inner ul li.active-submenu a,
 .sidebar .sidebar_inner ul li:hover a,
+.sidebar .sidebar_inner ul li:focus a,
 .sidebar .sidebar_inner ul li.active a {
   color: #be185d;
 }
@@ -2848,4 +2851,8 @@ header .uk-dropdown {
     position: absolute;
   }
 }
+
+/*.side_nav:focus{*/
+/*  background-color:rgb(123, 180, 17);*/
+/*}*/
  
