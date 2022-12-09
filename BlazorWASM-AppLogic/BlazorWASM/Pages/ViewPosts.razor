@@ -103,7 +103,7 @@ else
 		if (context.Identity?.Name == null)
 		{
 			msg = "You have to be logged in!";
-			return 0;
+			return null;
 		}
 
 		var users = await userService.GetUsersAsync(context.Identity.Name);
@@ -118,7 +118,7 @@ else
 		try
 		{
 			long? locationId = await GetUserLocationId();
-			if (locationId == null)
+			if (locationId == null || locationId == 0)
 			{
 				msg = "You have to be logged in!";
 				return;

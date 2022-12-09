@@ -142,7 +142,20 @@
         }
     }
 
-	private bool Validate()
+	private async Task<long?> GetUserId()
+	{
+		ClaimsPrincipal context = await authService.GetAuthAsync();
+		if (context.Identity?.Name == null)
+		{
+			msg = "You have to be logged in!";
+			return 0;
+		}
+		var claims = context.Identities.First().Claims.ToList();
+		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+		return long.Parse(userIdAsStrubg);
+	}
+
+    private bool Validate()
     {
         msg = "";
         if (string.IsNullOrEmpty(postTitle))
