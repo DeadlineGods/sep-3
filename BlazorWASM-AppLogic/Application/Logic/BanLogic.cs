@@ -17,4 +17,9 @@ public class BanLogic : IBanLogic
     {
 	    return await BanDao.CreateAsync(dto);
     }
+
+    public async Task<long> GetAsync(long postId)
+    {
+	    return await BanDao.GetAsync(postId);
+    }
 }

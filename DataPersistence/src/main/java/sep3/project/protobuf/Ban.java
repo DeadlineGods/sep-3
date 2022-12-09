@@ -35,9 +35,9 @@ public final class Ban {
     java.lang.String[] descriptorData = {
       "\n\tban.proto\"8\n\007BanData\022\r\n\005admin\030\001 \001(\t\022\016\n" +
       "\006postId\030\002 \001(\003\022\016\n\006reason\030\003 \001(\t\"\024\n\006PostId\022" +
-      "\n\n\002id\030\001 \001(\0032*\n\nBanService\022\034\n\007BanPost\022\010.B" +
-      "anData\032\007.PostIdB\031\n\025sep3.project.protobuf" +
-      "P\001b\006proto3"
+      "\n\n\002id\030\001 \001(\0032C\n\nBanService\022\034\n\007BanPost\022\010.B" +
+      "anData\032\007.PostId\022\027\n\003Get\022\007.PostId\032\007.PostId" +
+      "B\031\n\025sep3.project.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

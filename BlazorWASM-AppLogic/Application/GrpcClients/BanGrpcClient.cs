@@ -22,4 +22,18 @@ public class BanGrpcClient : IBanDao
 
 		return await Task.FromResult(reply.Id);
 	}
+
+	public async Task<long> GetAsync(long postId)
+	{
+		using var channel = GrpcChannel.ForAddress("http://localhost:6565");
+		var client = new BanService.BanServiceClient(channel);
+
+		var reply = await client.GetAsync(
+			new PostId()
+			{
+				Id = postId
+			});
+
+		return await Task.FromResult(reply.Id);
+	}
 }

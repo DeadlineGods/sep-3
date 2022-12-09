@@ -29,4 +29,19 @@ public class BanController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+
+    [HttpGet]
+    public async Task<ActionResult<long>> GetAsync([FromQuery] long postId)
+    {
+	    try
+	    {
+		    long id = await BanLogic.GetAsync(postId);
+		    return Ok(id);
+	    }
+	    catch (Exception e)
+	    {
+		    Console.WriteLine(e);
+		    return StatusCode(500, e.Message);
+	    }
+    }
 }

@@ -8,4 +8,5 @@ import java.sql.SQLException;
 @Component
 public interface BanPersistence {
 	PostId create(String admin, String reason, long postId) throws SQLException;
+	PostId get(long postId) throws SQLException;
 }

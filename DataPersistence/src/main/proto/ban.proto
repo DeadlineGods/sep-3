@@ -5,6 +5,7 @@ option java_package = "sep3.project.protobuf";
 
 service BanService {
 	rpc BanPost(BanData) returns(PostId);
+	rpc Get(PostId) returns(PostId);
 }
 
 message BanData {

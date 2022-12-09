@@ -39,4 +39,20 @@ public class BanService extends BanServiceGrpc.BanServiceImplBase {
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	}
+
+	@Override
+	public void get(PostId request, StreamObserver<PostId> responseObserver) {
+		System.out.println("Received Request =v \n" + request.toString());
+
+		PostId response = null;
+
+		try {
+			response = database.get(request.getId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
 }

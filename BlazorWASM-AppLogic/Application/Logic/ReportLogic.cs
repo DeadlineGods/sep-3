@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
@@ -10,12 +11,14 @@ public class ReportLogic : IReportLogic
 	private readonly IUserDao userDao;
 	private readonly IPostDao postDao;
 	private readonly IReportDao reportDao;
+	private readonly IBanLogic banLogic;
 
-	public ReportLogic(IUserDao userDao, IPostDao postDao, IReportDao reportDao)
+	public ReportLogic(IUserDao userDao, IPostDao postDao, IReportDao reportDao, IBanLogic banLogic)
 	{
 		this.userDao = userDao;
 		this.postDao = postDao;
 		this.reportDao = reportDao;
+		this.banLogic = banLogic;
 	}
 
 	public async Task<long> ReportPostAsync(ReportPostDto dto)
@@ -51,7 +54,22 @@ public class ReportLogic : IReportLogic
 
 	public async Task<IEnumerable<Report>> GetAsync()
 	{
-		return await reportDao.GetAsync();
+		IEnumerable<Report> reports = await reportDao.GetAsync();
+
+
+		foreach (var report in reports)
+		{
+			if (await IsPostBanned(report.reportedPost.Id))
+			{
+				Console.WriteLine(report.reportedPost.Id);
+				reports = reports.Where(r => !r.reportedPost.Equals(report.reportedPost));
+			}
+
+		}
+
+
+
+		return reports;
 	}
 
 	private async Task<bool> CheckIfPostExistsAsync(long id)
@@ -70,5 +88,12 @@ public class ReportLogic : IReportLogic
 		User? existingUser = existingUsers.FirstOrDefault();
 
 		return existingUser != null;
+	}
+
+	private async Task<bool> IsPostBanned(long postId)
+	{
+		long exists = await banLogic.GetAsync(postId);
+
+		return exists != 0;
 	}
 }

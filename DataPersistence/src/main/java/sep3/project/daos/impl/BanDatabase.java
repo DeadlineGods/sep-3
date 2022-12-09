@@ -28,4 +28,25 @@ public class BanDatabase implements BanPersistence {
 
 		return PostId.newBuilder().setId(postId).build();
 	}
+
+	@Override
+	public PostId get(long postId) throws SQLException {
+		Connection connection = DBConnection.getConnection();
+
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT post_id From ban_post WHERE post_id = ?");
+
+			statement.setLong(1, postId);
+
+			ResultSet result = statement.executeQuery();
+			if (result.next()) {
+				return PostId.newBuilder().setId(result.getInt("post_id")).build();
+			}
+		}
+		finally {
+			connection.close();
+		}
+
+		return PostId.newBuilder().setId(0).build();
+	}
 }

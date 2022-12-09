@@ -11,7 +11,7 @@
 @inject IAuthService authService
 @inject IAdminService adminService
 
-<label style="color: red">@msg</label>
+
 
 <AuthorizeView>
     <Authorized>
@@ -26,6 +26,7 @@
         </div>
 	    <button @onclick="BanAsync">Ban</button>
 	    <input type="text" @bind="reason">
+	    <label style="color: red">@msg</label>
     </Authorized>
 </AuthorizeView>
 
@@ -34,10 +35,10 @@
     [Parameter]
     public Domain.Models.Report? Report { get; set; }
 
-    [Parameter]
-    public Func<Task>? UpdateReports { get; set; }
+	[Parameter]
+	public EventCallback<string> OnClickCallback { get; set; }
 
-    private string msg = "";
+	private string msg = "";
 	private string reason = "";
 
     public async Task BanAsync()
@@ -65,7 +66,11 @@
 	        Reason = reason
         };
         await banService.CrateAsync(dto);
-        await UpdateReports();
+
+	    msg = "Successfully banned post";
+
+	    await OnClickCallback.InvokeAsync();
+
     }
 
 }

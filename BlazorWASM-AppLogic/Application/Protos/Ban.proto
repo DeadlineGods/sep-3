@@ -4,6 +4,7 @@ option csharp_namespace = "GrpcClient";
 
 service BanService {
 	rpc BanPost(BanData) returns(PostId);
+	rpc Get(PostId) returns(PostId);
 }
 
 message BanData {

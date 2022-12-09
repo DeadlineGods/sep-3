@@ -14,7 +14,7 @@
         @foreach (var report in reports)
         {
             <li>
-                <SingleReport Report="report" UpdateReports="LoadReports"/>
+                <SingleReport Report="report" OnClickCallback="LoadReports"/>
             </li>
         }
     </ul>

@@ -45,6 +45,37 @@ public final class BanServiceGrpc {
     return getBanPostMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<sep3.project.protobuf.PostId,
+      sep3.project.protobuf.PostId> getGetMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Get",
+      requestType = sep3.project.protobuf.PostId.class,
+      responseType = sep3.project.protobuf.PostId.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<sep3.project.protobuf.PostId,
+      sep3.project.protobuf.PostId> getGetMethod() {
+    io.grpc.MethodDescriptor<sep3.project.protobuf.PostId, sep3.project.protobuf.PostId> getGetMethod;
+    if ((getGetMethod = BanServiceGrpc.getGetMethod) == null) {
+      synchronized (BanServiceGrpc.class) {
+        if ((getGetMethod = BanServiceGrpc.getGetMethod) == null) {
+          BanServiceGrpc.getGetMethod = getGetMethod =
+              io.grpc.MethodDescriptor.<sep3.project.protobuf.PostId, sep3.project.protobuf.PostId>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Get"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.PostId.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  sep3.project.protobuf.PostId.getDefaultInstance()))
+              .setSchemaDescriptor(new BanServiceMethodDescriptorSupplier("Get"))
+              .build();
+        }
+      }
+    }
+    return getGetMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -100,6 +131,13 @@ public final class BanServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getBanPostMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void get(sep3.project.protobuf.PostId request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.PostId> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -109,6 +147,13 @@ public final class BanServiceGrpc {
                 sep3.project.protobuf.BanData,
                 sep3.project.protobuf.PostId>(
                   this, METHODID_BAN_POST)))
+          .addMethod(
+            getGetMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                sep3.project.protobuf.PostId,
+                sep3.project.protobuf.PostId>(
+                  this, METHODID_GET)))
           .build();
     }
   }
@@ -134,6 +179,14 @@ public final class BanServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getBanPostMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void get(sep3.project.protobuf.PostId request,
+        io.grpc.stub.StreamObserver<sep3.project.protobuf.PostId> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -155,6 +208,13 @@ public final class BanServiceGrpc {
     public sep3.project.protobuf.PostId banPost(sep3.project.protobuf.BanData request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getBanPostMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public sep3.project.protobuf.PostId get(sep3.project.protobuf.PostId request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetMethod(), getCallOptions(), request);
     }
   }
 
@@ -179,9 +239,18 @@ public final class BanServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getBanPostMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<sep3.project.protobuf.PostId> get(
+        sep3.project.protobuf.PostId request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_BAN_POST = 0;
+  private static final int METHODID_GET = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -202,6 +271,10 @@ public final class BanServiceGrpc {
       switch (methodId) {
         case METHODID_BAN_POST:
           serviceImpl.banPost((sep3.project.protobuf.BanData) request,
+              (io.grpc.stub.StreamObserver<sep3.project.protobuf.PostId>) responseObserver);
+          break;
+        case METHODID_GET:
+          serviceImpl.get((sep3.project.protobuf.PostId) request,
               (io.grpc.stub.StreamObserver<sep3.project.protobuf.PostId>) responseObserver);
           break;
         default:
@@ -266,6 +339,7 @@ public final class BanServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new BanServiceFileDescriptorSupplier())
               .addMethod(getBanPostMethod())
+              .addMethod(getGetMethod())
               .build();
         }
       }
