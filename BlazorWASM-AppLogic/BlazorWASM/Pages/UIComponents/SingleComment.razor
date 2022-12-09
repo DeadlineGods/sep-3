@@ -79,13 +79,12 @@
 
         try
         {
-	        ClaimsPrincipal context = await authService.GetAuthAsync();
-	        if (context.Identity?.Name == null)
+	        long userId = await authService.GetLoggedUserId();
+	        if (userId == 0)
 	        {
+		        // msg = "You have to be logged in!";
 		        return;
 	        }
-	        var users = await userService.GetUsersAsync(context.Identity.Name);
-	        long userId = users.FirstOrDefault().Id;
 
 	        long createdCommentId = await commentService.CreateAsync(commentInputText, userId, Comment.PostId);
             await commentService.AssignCommentToParentAsync(createdCommentId, Comment.Id);

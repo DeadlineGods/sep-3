@@ -14,12 +14,12 @@
               </div>
 
             <div class="field">
-                    <label>Full name:</label>
+                    <label>First name:</label>
                     <input type="text" class="feedback-input-register" @bind="firstName"/>
                 </div>
 
             <div class="field">
-                <label>Full name:</label>
+                <label>Last name:</label>
                 <input type="text" class="feedback-input-register" @bind="lastName"/>
             </div>
 
@@ -73,7 +73,7 @@
         try
         {
             await authService.RegisterAsync(new UserCreationDto(userName,firstName,lastName,password,email,phoneNumber));
-            navMgr.NavigateTo("/");
+            navMgr.NavigateTo("/login");
         }
         catch (Exception e)
         {

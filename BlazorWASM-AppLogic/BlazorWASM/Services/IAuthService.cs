@@ -11,6 +11,7 @@ public interface IAuthService
     public Task LogoutAsync();
     public Task RegisterAsync(UserCreationDto dto);
     public Task<ClaimsPrincipal> GetAuthAsync();
+    public Task<long> GetLoggedUserId();
 
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; }
 }

@@ -63,7 +63,7 @@
 
     private string commentInputText = "";
     private string msg;
-    private long? userId;
+    private long userId;
 
     private async Task PublishAsync()
     {
@@ -74,19 +74,19 @@
 
         try
         {
-            // ClaimsPrincipal context = await authService.GetAuthAsync();
-            // var claims = context.Identities.First().Claims.ToList();
-            // string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-
-	        if (userId != null)
+	        if (userId == 0)
 	        {
-				await commentService.CreateAsync(commentInputText, (long)userId, Post.Id);
-	            commentInputText = "";
-
-	            await UpdateCommentsAsync();
-
-	            StateHasChanged();
+		        msg = "You have to be logged in!";
+		        return;
 	        }
+
+			await commentService.CreateAsync(commentInputText, userId, Post.Id);
+            commentInputText = "";
+
+            await UpdateCommentsAsync();
+
+            StateHasChanged();
+
 
         }
         catch (Exception e)
@@ -99,8 +99,8 @@
     {
         try
         {
+	        userId = await authService.GetLoggedUserId();
             await UpdateCommentsAsync();
-            userId = await GetUserId();
         }
         catch (Exception e)
         {
@@ -108,20 +108,6 @@
         }
     }
 
-    private async Task<long?> GetUserId()
-    {
-        ClaimsPrincipal context = await authService.GetAuthAsync();
-        if (context.Identity?.Name == null)
-        {
-            msg = "You have to be logged in!";
-            return null;
-        }
-
-	    var users = await userService.GetUsersAsync(context.Identity.Name);
-	    long? id = users.FirstOrDefault().Id;
-
-        return (long) id;
-    }
 
 
     private void UpdateLikes(int changeDiff)

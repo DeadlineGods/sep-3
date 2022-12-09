@@ -105,8 +105,16 @@
 
         try
         {
-	        // get image
-            string imgUrl = await imageUploadService.UploadAsync(filesBase64);
+
+	        long userId = await authService.GetLoggedUserId();
+	        if (userId == 0)
+	        {
+		        msg = "You have to be logged in!";
+		        return;
+	        }
+
+			// get image
+	        string imgUrl = await imageUploadService.UploadAsync(filesBase64);
 
 	        Coordinate coordinates = await Map.GetCoordinates();
 
@@ -114,27 +122,17 @@
 
 	        int locationId = await locationService.CreateAsync(locationCreationDto);
 
-	        // get user id
-			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
-			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
-	        // PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
+	        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
 
-	        long userId = (long)await GetUserId();
-	        if (userId != 0)
-	        {
-		        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
+	        id = await postService.CreateAsync(dto);
 
-		        id = await postService.CreateAsync(dto);
+	        PostTagCreationDto tagDto = new(id, postTags.ToArray());
+	        await tagService.CreateAsync(tagDto);
 
-
-		        PostTagCreationDto tagDto = new(id, postTags.ToArray());
-		        await tagService.CreateAsync(tagDto);
-
-		        showAlert = true;
-		        postTitle = "";
-		        postDescription = "";
-		        postTags = new List<string>();
-	        }
+	        showAlert = true;
+	        postTitle = "";
+	        postDescription = "";
+	        postTags = new List<string>();
 
         }
         catch (Exception e)
@@ -144,21 +142,7 @@
         }
     }
 
-	private async Task<long?> GetUserId()
-	{
-		ClaimsPrincipal context = await authService.GetAuthAsync();
-		if (context.Identity?.Name == null)
-		{
-			msg = "You have to be logged in!";
-			return 0;
-		}
-
-		var users = await userService.GetUsersAsync(context.Identity.Name);
-		long? userId = users.FirstOrDefault().Id;
-		return userId;
-	}
-
-    private bool Validate()
+	private bool Validate()
     {
         msg = "";
         if (string.IsNullOrEmpty(postTitle))

@@ -2,9 +2,11 @@
 @using Domain.DTOs
 @using Domain.Models
 @using HttpClients.ClientInterfaces
+@using BlazorWasm.Services
 @inject IPostService postService
 @inject NavigationManager navMgr;
 @inject ITagService tagService;
+@inject IAuthService authService;
 <h3>EditPost</h3>
 
 <div class="card">
@@ -65,8 +67,17 @@
         msg = "";
         try
         {
+
+
             ICollection<Post> posts = await postService.GetAsync(Id);
             postData = posts.FirstOrDefault();
+
+	        long userId = await authService.GetLoggedUserId();
+	        if (userId == 0 || userId != postData.Owner.Id)
+	        {
+		        navMgr.NavigateTo("/");
+		        return;
+	        }
 
 	        if (postData == null)
 	        {
