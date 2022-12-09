@@ -61,7 +61,6 @@ public class ReportLogic : IReportLogic
 		{
 			if (await IsPostBanned(report.reportedPost.Id))
 			{
-				Console.WriteLine(report.reportedPost.Id);
 				reports = reports.Where(r => !r.reportedPost.Equals(report.reportedPost));
 			}
 
