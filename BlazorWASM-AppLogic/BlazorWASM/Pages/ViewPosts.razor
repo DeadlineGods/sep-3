@@ -100,19 +100,24 @@ else
 	{
 		try
 		{
-
+			Console.WriteLine("tu");
 			long? locationId = await GetUserLocationId();
 			if (locationId == null)
 			{
 				msg = "You have to be logged in!";
 				return;
 			}
-	
-			Coordinate coordinates = await locationService.GetCoordinatesAsync((int)locationId);
-			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
 
-			// IEnumerable<Post> temp = await postService.GetInRadiusAsync(new Coordinate(55.8581310000,9.8475880000), 30000);
-			
+			Coordinate coordinates = await locationService.GetCoordinatesAsync((int)locationId);
+			// IEnumerable<Post> temp = await postService.GetAsync();
+			// IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
+			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 300000);
+			Console.WriteLine("+++++++++++++++++++++++"+temp.Count());
+			foreach (var t in temp)
+			{
+				Console.WriteLine(t+"aaaaaaaaaaa");
+			}
+
 			posts = temp.ToList();
 		}
 		catch (Exception e)

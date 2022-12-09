@@ -48,6 +48,8 @@ public class PostLogic : IPostLogic
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
+        
+
         IEnumerable<Post> posts = await PostDao.GetAsync(parametersDto);
         foreach (var post in posts)
         {
@@ -57,9 +59,7 @@ public class PostLogic : IPostLogic
         return posts;
     }
 
-
-
-
+    
     public async Task DeleteAsync(long post_id, int user_id)
     {
         SearchPostParametersDto parameters = new SearchPostParametersDto(post_id);
@@ -83,6 +83,7 @@ public class PostLogic : IPostLogic
     {
 	    IEnumerable<Post> posts = await GetAsync(new SearchPostParametersDto());
 	    ICollection<Post> postsInRadius = new List<Post>();
+        Console.WriteLine("tu33333");
 
 
 	    foreach (Post post in posts)

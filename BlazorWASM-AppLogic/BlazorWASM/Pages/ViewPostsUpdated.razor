@@ -38,7 +38,7 @@
                             <input type="text" @bind="tagFilter" placeholder="Search by Tag..">
 
                             <div class="icon-search" >
-                                <a href="#" @onclick:preventDefault="true"  @onclick="OnInitializedAsync"> <i class="icon-feather-x text-lg mr-1 text-gray-400"></i></a>
+                                <a href="#" @onclick:preventDefault="true" @onclick="LoadPostsBasedOnLocationAsync"> <i class="icon-feather-x text-lg mr-1 text-gray-400"></i></a>
                                 <a href="#" @onclick:preventDefault="true" @onclick="LoadPosts">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
@@ -354,7 +354,7 @@
 		try
 		{
 
-			long? locationId = await GetUserLocationId();
+		    long? locationId = await GetUserLocationId();
 			if (locationId == null)
 			{
 				msg = "You have to be logged in!";

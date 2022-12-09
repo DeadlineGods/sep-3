@@ -45,6 +45,7 @@ public class PostsController : ControllerBase
     {
 		try
 	    {
+
 		    SearchPostParametersDto parametersDto = new SearchPostParametersDto(id, userId, titleContains);
             IEnumerable<Post> posts = await postLogic.GetAsync(parametersDto);
             return Ok(posts);
