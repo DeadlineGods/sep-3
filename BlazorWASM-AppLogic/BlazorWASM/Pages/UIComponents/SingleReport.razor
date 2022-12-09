@@ -9,7 +9,6 @@
 
 @inject IBanService banService
 @inject IAuthService authService
-@inject IAdminService adminService
 
 
 
@@ -34,43 +33,35 @@
 
     [Parameter]
     public Domain.Models.Report? Report { get; set; }
-
 	[Parameter]
 	public EventCallback<string> OnClickCallback { get; set; }
+
+	[Parameter]
+	public Admin? Admin { get; set; }
 
 	private string msg = "";
 	private string reason = "";
 
-    public async Task BanAsync()
+
+	public async Task BanAsync()
     {
-        ClaimsPrincipal context = await authService.GetAuthAsync();
-        if (context.Identity?.Name == null)
-        {
-            msg = "You have to be logged in!";
-            return;
-        }
 
-        IEnumerable<Admin> adminList = await adminService.GetAsync(context.Identity.Name);
-	    Admin? admin = adminList.FirstOrDefault();
+		if (Admin != null)
+		{
 
-        if (admin == null)
-        {
-            msg = "Admin not found";
-            return;
-        }
+	        BanCreationDto dto = new BanCreationDto
+	        {
+	            Admin = Admin.username,
+	            PostId = Report.reportedPost.Id,
+		        Reason = reason
+	        };
+	        await banService.CrateAsync(dto);
 
-        BanCreationDto dto = new BanCreationDto
-        {
-            Admin = admin.username,
-            PostId = Report.reportedPost.Id,
-	        Reason = reason
-        };
-        await banService.CrateAsync(dto);
+		    msg = "Successfully banned post";
 
-	    msg = "Successfully banned post";
+		    await OnClickCallback.InvokeAsync();
 
-	    await OnClickCallback.InvokeAsync();
-
+		}
     }
 
 }

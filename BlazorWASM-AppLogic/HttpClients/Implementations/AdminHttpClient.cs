@@ -15,7 +15,7 @@ public class AdminHttpClient : IAdminService
 
     public async Task<IEnumerable<Admin>> GetAsync(string identityName)
     {
-        HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Admin");
+        HttpResponseMessage response = await client.GetAsync("https://localhost:7196/Admin?username=" + identityName);
 
         string content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)

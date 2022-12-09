@@ -7,46 +7,50 @@
 @inject NavigationManager navMgr;
 @inject ITagService tagService;
 @inject IAuthService authService;
-<h3>EditPost</h3>
 
-<div class="card">
-    @if (postData == null)
-    {
-        <label>Post not found</label>
-    }
-    else
-    {
-        <h3>Update Todo</h3>
-        <div class="form-group field">
-            <label>Title:</label>
-            <input type="text" @bind="postTitle"/>
-        </div>
-        <div class="form-group field">
-            <label>Description:</label>
-            <input type="text" @bind="postDescription"/>
-        </div>
-        <label>Tags</label>
-        <input type="text" @bind="newTag"/>
-        <button @onclick="@AddTag">add </button>
+<AuthorizeView>
+    <Authorized>
+		<h3>EditPost</h3>
 
-        @foreach (string tag in postTags)
-        {
-            <div class="row">
-                @tag
-                <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-            </div>
-        }
-        <div class="button-row">
-            @if (!string.IsNullOrEmpty(msg))
-            {
-                <label style="color: red">@msg</label>
-            }
-            <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
-        </div>
+		<div class="card">
+		    @if (postData == null)
+		    {
+		        <label>Post not found</label>
+		    }
+		    else
+		    {
+		        <h3>Update Todo</h3>
+		        <div class="form-group field">
+		            <label>Title:</label>
+		            <input type="text" @bind="postTitle"/>
+		        </div>
+		        <div class="form-group field">
+		            <label>Description:</label>
+		            <input type="text" @bind="postDescription"/>
+		        </div>
+		        <label>Tags</label>
+		        <input type="text" @bind="newTag"/>
+		        <button @onclick="@AddTag">add </button>
 
-    }
-</div>
+		        @foreach (string tag in postTags)
+		        {
+		            <div class="row">
+		                @tag
+		                <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+		            </div>
+		        }
+		        <div class="button-row">
+		            @if (!string.IsNullOrEmpty(msg))
+		            {
+		                <label style="color: red">@msg</label>
+		            }
+		            <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
+		        </div>
 
+		    }
+		</div>
+    </Authorized>
+</AuthorizeView>
 
 
 
