@@ -1,42 +1,54 @@
 @page "/admin/login"
 @using BlazorWasm.Services
+@using System.Security.Claims
+@using Domain.Models
+@using HttpClients.ClientInterfaces
 @inject IAuthService authService
 @inject NavigationManager navMgr
+@inject IAdminService adminService
 
-<AuthorizeView>
-	<NotAuthorized>
-		<div class="card">
-			<h3>Admin login page</h3>
-			<div class="field">
-				<label>User name:</label>
-				<input type="text" class="feedback-input" @bind="userName"/>
-			</div>
-			<div class="field">
-				<label style="text-align: center">Password:</label>
-				<input type="password" class="feedback-input" @bind="password"/>
-			</div>
-			@if (!string.IsNullOrEmpty(errorLabel))
-			{
-				<div class="field">
-					<label style="color: red">
-						@errorLabel
-					</label>
-				</div>
-			}
-			<div class="field">
-				<button class="button-35" role="button" @onclick="LoginAsync">Log in</button>
-			</div>
+@if (isAdminLogged)
+{
+
+}
+else
+{
+	<div class="card">
+		<h3>Admin login page</h3>
+		<div class="field">
+			<label>User name:</label>
+			<input type="text" class="feedback-input" @bind="userName"/>
 		</div>
-	</NotAuthorized>
-	<Authorized>
-		<h3>Admin logged in</h3>
-	</Authorized>
-</AuthorizeView>
+		<div class="field">
+			<label style="text-align: center">Password:</label>
+			<input type="password" class="feedback-input" @bind="password"/>
+		</div>
+		@if (!string.IsNullOrEmpty(errorLabel))
+		{
+			<div class="field">
+				<label style="color: red">
+					@errorLabel
+				</label>
+			</div>
+		}
+		<div class="field">
+			<button class="button-35" role="button" @onclick="LoginAsync">Log in</button>
+		</div>
+	</div>
+
+}
+
 
 @code {
 	private string userName;
 	private string password;
 	private string errorLabel;
+	private bool isAdminLogged;
+
+	protected override async Task OnInitializedAsync()
+	{
+		isAdminLogged = await IsAdminLogged();
+	}
 
 	private async Task LoginAsync()
 	{
@@ -51,6 +63,21 @@
 			Console.WriteLine(e);
 			errorLabel = $"Error: {e.Message}";
 		}
+	}
+
+	private async Task<bool> IsAdminLogged()
+	{
+		ClaimsPrincipal context = await authService.GetAuthAsync();
+
+		if (context.Identity?.Name == null)
+		{
+			return false;
+		}
+
+		IEnumerable<Admin> adminList = await adminService.GetAsync(context.Identity.Name);
+		Admin? admin = adminList.FirstOrDefault();
+
+		return admin != null;
 	}
 
 }

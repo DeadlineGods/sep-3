@@ -3,6 +3,7 @@ using System.Text.Json;
 using Domain.DTOs;
 using Domain.Models;
 using HttpClients.ClientInterfaces;
+using Location = Domain.Models.Location;
 
 namespace HttpClients.Implementations;
 
@@ -54,7 +55,6 @@ public class LocationHttpClient : ILocationService
 
 	public async Task<int> CreateAsync(LocationCreationDto dto)
 	{
-
 		string subFormAsJson = JsonSerializer.Serialize(dto);
 		StringContent content = new(subFormAsJson, Encoding.UTF8, "application/json");
 
@@ -69,29 +69,6 @@ public class LocationHttpClient : ILocationService
 		return Int32.Parse(responseContent);
 	}
 
-	private async Task<LocationCreationDto> GetAddressFromCoordinates(Coordinate coordinate)
-	{
-
-		HttpResponseMessage response = await client.GetAsync($"https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyBWOfx3pXBNiaG9aRvUjhHfFV8NqEZlsio");
-		string responseContent = await response.Content.ReadAsStringAsync();
-
-		Console.WriteLine(responseContent);
-		Console.WriteLine("aa");
-
-		if (!response.IsSuccessStatusCode)
-		{
-			throw new Exception(responseContent);
-		}
-
-		Object obj = JsonSerializer.Deserialize<Object>(responseContent, new JsonSerializerOptions
-		{
-			PropertyNameCaseInsensitive = true
-		})!;
-
-		Console.WriteLine(obj);
-
-		return null;
-	}
 
 
 }
