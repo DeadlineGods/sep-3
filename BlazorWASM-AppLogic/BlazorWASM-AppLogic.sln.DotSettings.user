@@ -14,6 +14,14 @@
     &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LikeLogicTest.UnLikePost&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LikeLogicTest.IsPostLiked&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LikeLogicTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.CommentLogicTest.Create&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.CommentLogicTest.Get&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.CommentLogicTest.GetById&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.CommentLogicTest.GetSubComments&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.CommentLogicTest.AssignCommentToParent&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LocationLogicTest.Get&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LocationLogicTest.GetCoordinates&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LocationLogicTest.Create&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
 	
