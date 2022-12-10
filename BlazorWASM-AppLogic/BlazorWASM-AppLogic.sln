@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageHosting", "ImageHostin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{3321474F-9B3B-428E-B489-2B07C586A2B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationXUnitTest", "ApplicationXUnitTest\ApplicationXUnitTest.csproj", "{AA767EC5-9070-4665-BF1B-52C36AE59129}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{3321474F-9B3B-428E-B489-2B07C586A2B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3321474F-9B3B-428E-B489-2B07C586A2B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3321474F-9B3B-428E-B489-2B07C586A2B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA767EC5-9070-4665-BF1B-52C36AE59129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA767EC5-9070-4665-BF1B-52C36AE59129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA767EC5-9070-4665-BF1B-52C36AE59129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA767EC5-9070-4665-BF1B-52C36AE59129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -6,5 +6,14 @@
 	<s:String x:Key="/Default/CodeInspection/PencilsConfiguration/FiltersState/=SpellingFilter/@EntryIndexedValue">On</s:String>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\natal\.nuget\packages\grpc.net.client\2.49.0\lib\net6.0\Grpc.Net.Client.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a82e3070_002Da9c3_002D498d_002D8af8_002D8c4ba4dd7cfc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.PostLogicTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LikeLogicTest.LikePost&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LikeLogicTest.UnLikePost&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LikeLogicTest.IsPostLiked&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.LikeLogicTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
 	

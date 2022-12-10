@@ -210,7 +210,7 @@ public class PostDatabase implements PostPersistence {
 			statement = connection.prepareStatement(
 					"SELECT * FROM \"post\" WHERE lower(title) LIKE '%' || ? || '%'");
 
-			statement.setString(1, titleContains);
+			statement.setString(1, titleContains.toLowerCase());
 			return statement.executeQuery();
 
 		} catch (SQLException e) {

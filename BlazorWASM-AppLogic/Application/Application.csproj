@@ -30,6 +30,7 @@
 		<Protobuf Include="Protos\Tag.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\Report.proto" GrpcServices="Client" />
 		<Protobuf Include="Protos\Admin.proto" GrpcServices="Client" />
-		<Protobuf Include="Protos\Ban.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\Test.proto" GrpcServices="Client" />
+        <Protobuf Include="Protos\Ban.proto" GrpcServices="Client" />
 	</ItemGroup>
 </Project>
