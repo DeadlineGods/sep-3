@@ -63,8 +63,8 @@ else
     protected override async Task OnInitializedAsync()
     {
 
-	    userId = await authService.GetLoggedUserId();
-	    isLiked = await IsLikedAsync(PostId);
+        userId = await authService.GetLoggedUserId();
+        isLiked = await IsLikedAsync(PostId);
     }
 
 
@@ -72,11 +72,11 @@ else
     {
         try
         {
-	        if (userId == 0)
-	        {
-		        // msg = "You have to be logged in!";
-		        return;
-	        }
+            if (userId == 0)
+            {
+    // msg = "You have to be logged in!";
+                return;
+            }
 
             LikePostDto dto = new LikePostDto(postId, userId);
             isLiked = !isLiked;

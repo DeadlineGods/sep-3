@@ -95,10 +95,14 @@
 
         try
         {
-            ClaimsPrincipal context = await authService.GetAuthAsync();
-            var claims = context.Identities.First().Claims.ToList();
-            string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-            long createdCommentId = await commentService.CreateAsync(commentInputText, long.Parse(ownerId), Comment.PostId);
+            long userId = await authService.GetLoggedUserId();
+            if (userId == 0)
+            {
+    // msg = "You have to be logged in!";
+                return;
+            }
+
+            long createdCommentId = await commentService.CreateAsync(commentInputText, userId, Comment.PostId);
             await commentService.AssignCommentToParentAsync(createdCommentId, Comment.Id);
 
             await LoadAsync();

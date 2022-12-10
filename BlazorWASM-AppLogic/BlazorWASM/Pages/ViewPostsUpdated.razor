@@ -38,8 +38,8 @@
                             <input type="text" @bind="tagFilter" placeholder="Search by Tag..">
 
                             <div class="icon-search" >
-                                <a href="#" @onclick:preventDefault="true" @onclick="LoadPostsBasedOnLocationAsync"> <i class="icon-feather-x text-lg mr-1 text-gray-400"></i></a>
-                                <a href="#" @onclick:preventDefault="true" @onclick="LoadPosts">
+                                <a href="#" @onclick:preventDefault="true" @onclick="OnInitializedAsync"> <i class="icon-feather-x text-lg mr-1 text-gray-400"></i></a>
+                                <a href="#" @onclick:preventDefault="true" @onclick="LoadPostsWithTags">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -52,13 +52,16 @@
 
                     </div>
                     <div class="right-side lg:pr-4">
-                         <!-- upload -->
-                        <a href="/posts/create2"
+                        <!-- upload -->
+                        <AuthorizeView>
+                        	    <Authorized>
+                        <a href="/posts/create"
                             class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-4 px-4 py-2 rounded shado text-white">
                             <ion-icon name="add-circle" class="-mb-1
                              mr-1 opacity-90 text-xl uilus-circle"></ion-icon> Upload
                         </a>
-                       
+                          </Authorized>
+                           </AuthorizeView>
                         
                          <!-- Notification -->
 
@@ -182,7 +185,7 @@
                         {
                             @foreach (var post in posts)
                             { 
-                                <PostComp PostDetail="@post">
+                                <PostComp PostDetail="@post" OnDeleteCallback="OnDelete">
                               
                               </PostComp>
                                 
@@ -304,25 +307,25 @@
 
 
 @code {
-      private IList<Post>? posts = new List<Post>();
+    [Parameter]
+    public int Id { get; set; }
+
+
+    private IList<Post>? posts = new List<Post>();
     private string msg;
     private bool isLiked;
 
-
-    private string? tagFilter;
+	private string? tagFilter;
     private IEnumerable<TagPost>? postTag;
-
-    [Parameter]
-    public int Id { get; set; }
+	private bool showAlert;
+	private string alertMsg;
 
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            tagFilter = "";
-            IEnumerable<Post> temp = await postService.GetAsync();
-            posts = temp.ToList();
+	        await LoadPosts();
         }
         catch (Exception e)
         {
@@ -331,19 +334,32 @@
         }
     }
 
+	private async Task OnDelete()
+	{
+		alertMsg = "Post was successfully deleted!";
+		showAlert = true;
+
+		await LoadPosts();
+	}
+
+	private async Task LoadPosts()
+	{
+		tagFilter = "";
+		IEnumerable<Post> temp = await postService.GetAsync();
+		posts = temp.ToList();
+	}
+
 	private async Task<long?> GetUserLocationId()
 	{
 		ClaimsPrincipal context = await authService.GetAuthAsync();
-
 		if (context.Identity?.Name == null)
 		{
+			msg = "You have to be logged in!";
 			return null;
 		}
 
-		var claims = context.Identities.First().Claims.ToList();
-		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-		long userId = long.Parse(userIdAsStrubg);
-		var users = await userService.GetUsersAsync(null, userId);
+		var users = await userService.GetUsersAsync(context.Identity.Name);
+
 		var user = users.FirstOrDefault();
 
 		return user.LocationId;
@@ -353,15 +369,15 @@
 	{
 		try
 		{
-
-		    long? locationId = await GetUserLocationId();
-			if (locationId == null)
+			long? locationId = await GetUserLocationId();
+			if (locationId == null || locationId == 0)
 			{
 				msg = "You have to be logged in!";
 				return;
 			}
 
 			Coordinate coordinates = await locationService.GetCoordinatesAsync((int)locationId);
+
 			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
 			posts = temp.ToList();
 		}
@@ -373,7 +389,7 @@
 
 	}
 
-    private async Task LoadPosts()
+    private async Task LoadPostsWithTags()
     {
         try
         {
@@ -398,4 +414,5 @@
             msg = e.Message;
         }
     }
+
 }

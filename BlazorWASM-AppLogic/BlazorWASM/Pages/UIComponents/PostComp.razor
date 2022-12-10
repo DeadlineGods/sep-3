@@ -72,37 +72,44 @@
                                 </a>
                             </div>
                         
-                        
-                            <div class="py-3 px-4 space-y-3">
-                        
-                                <div class="flex space-x-4 lg:font-bold">
-                                     <LIkeButton PostId="postDetail.Id" UpdateParentsLikes="UpdateLikes"/>
-                                     
-                                </div>
-                                <div class="flex items-center space-x-3">
-                                    <div class="flex items-center">
-                                        <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
-                                        <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-                                        <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-                                    </div>
-                                    <div class="dark:text-gray-100">
-                                        Liked by <strong>@postDetail.Likes</strong> people
-                                    </div>
-                                </div>
-                                 <div class="p-3  border-t ">
-                                    @postDetail.Description
-                                 </div>
-                                 <div class="lg:m-0 -mx-5 flex justify-between py-1 relative space-x-3  dark-tabs"  style="">
-                                                    <div class="flex flex-wrap lg:pl-0 pl-5 space-x-3">
-                                                        @foreach (var tag in tags)
-                                                        {
-                                                            <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> @tag.tagName</a>
-                                                        }
-                                                          </div>
-                                                </div>
-                               
+                            
+                          
                                     
+                            <div class="py-3 px-4 space-y-3">
+                            
+                                <AuthorizeView>
+                                    <Authorized>
+                                        
+                                        <div class="flex space-x-4 lg:font-bold">
+                                            <LIkeButton PostId="postDetail.Id" UpdateParentsLikes="UpdateLikes"/>
+
+                                        </div>
+                                        <div class="flex items-center space-x-3 border-b pb-3">
+                                            <div class="flex items-center">
+                                                <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
+                                                <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
+                                                <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
+                                            </div>
+                                            <div class="dark:text-gray-100">
+                                                Liked by <strong>@postDetail.Likes</strong> people
+                                            </div>
+                                        </div>
+                                    </Authorized>
+                                </AuthorizeView>
+                                <div class="pb-3 pt-2  ">
+                                    @postDetail.Description
                                 </div>
+                                <div class="lg:m-0 -mx-5 flex justify-between py-1 relative space-x-3  dark-tabs" style="">
+                                    <div class="flex flex-wrap lg:pl-0 pl-5 space-x-3">
+                                        @foreach (var tag in tags)
+                                        {
+                                            <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> @tag.tagName</a>
+                                        }
+                                    </div>
+                                </div>
+
+
+                            </div>
                         
                          
                         <AuthorizeView>
@@ -136,54 +143,81 @@
                         
     @code {
         [Parameter]
-        public Post postDetail { get; set; }
-        private ICollection<Comment> comments = new List<Comment>();
+    public Post? postDetail { get; set; }
+	[Parameter]
+	public EventCallback<string> OnDeleteCallback { get; set; }
 
-        private ICollection<TagPost> tags = new List<TagPost>();
 
+    private ICollection<Comment> comments = new List<Comment>();
+    private ICollection<TagPost> tags = new List<TagPost>();
         
-        
-        private string commentInputText = "";
+    private string commentInputText = "";
+    private string msg;
+    private long userId;
 
-        private async Task PublishAsync()
+	private async Task PublishAsync()
+    {
+        if (string.IsNullOrEmpty(commentInputText))
         {
-            if (string.IsNullOrEmpty(commentInputText))
-            {
-                return;
-            }
-
-            try
-            {
-                ClaimsPrincipal context = await authService.GetAuthAsync();
-                var claims = context.Identities.First().Claims.ToList();
-                string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-
-                await commentService.CreateAsync(commentInputText, long.Parse(ownerId), postDetail.Id);
-
-                commentInputText = "";
-                await UpdateCommentsAsync();
-
-                StateHasChanged();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            return;
         }
 
-        protected override async Task OnInitializedAsync()
+        try
         {
-            try
-            {
-                await UpdateCommentsAsync();
-                await UpdateTagsAsync();
+	        if (userId == 0)
+	        {
+		        msg = "You have to be logged in!";
+		        return;
+	        }
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+			await commentService.CreateAsync(commentInputText, userId, postDetail.Id);
+            commentInputText = "";
+
+            await UpdateCommentsAsync();
+
+            StateHasChanged();
+
+
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+	        userId = await authService.GetLoggedUserId();
+            await UpdateCommentsAsync();
+            await UpdateTagsAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+
+
+    private void UpdateLikes(int changeDiff)
+    {
+        postDetail.Likes += changeDiff;
+        StateHasChanged();
+    }
+
+    private async Task UpdateCommentsAsync()
+    {
+        try
+        {
+            comments = await commentService.GetCommentsByPostAsync(postDetail.Id);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
         
         private async Task UpdateTagsAsync()
         {
@@ -198,51 +232,33 @@
             }
         }
 
+    private async Task Delete()
+    {
+        try
+        {
+            await postService.DeleteAsync(postDetail.Id, postDetail.Owner.Id);
+	        await OnDeleteCallback.InvokeAsync();
+            
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 
-        private void UpdateLikes(int changeDiff)
+    private async Task Edit()
+    {
+        try
         {
-            postDetail.Likes += changeDiff;
-            StateHasChanged();
+            navMgr.NavigateTo($"EditPostUpdated/{postDetail.Id}");
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 
-        private async Task UpdateCommentsAsync()
-        {
-            try
-            {
-                comments = await commentService.GetCommentsByPostAsync(postDetail.Id);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-    
-        private async Task Delete()
-        {
-            try
-            {
-                await postService.DeleteAsync(postDetail.Id, postDetail.Owner.Id);
-                navMgr.NavigateTo($"posts/allUpdated",true);
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-	
-        private async Task Edit()
-        {
-            try
-            {
-                navMgr.NavigateTo($"EditPostUpdated/{postDetail.Id}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
     
 }
