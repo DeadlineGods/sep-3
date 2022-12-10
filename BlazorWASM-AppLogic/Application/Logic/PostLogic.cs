@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using System.Collections;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
+using Geocoding;
 using SearchPostParameters = Domain.DTOs.SearchPostParametersDto;
 
 namespace Application.Logic;
@@ -83,13 +85,14 @@ public class PostLogic : IPostLogic
     {
 	    IEnumerable<Post> posts = await GetAsync(new SearchPostParametersDto());
 	    ICollection<Post> postsInRadius = new List<Post>();
-        Console.WriteLine("tu33333");
 
 
-	    foreach (Post post in posts)
+        foreach (Post post in posts)
 	    {
-		    if (IsInRadius(center, post.Location.coordinate, radius))
-			    postsInRadius.Add(post);
+            if (IsInRadius(center, post.Location.coordinate, radius))
+            {
+                postsInRadius.Add(post);
+            }
 	    }
 
 	    return postsInRadius;
@@ -110,6 +113,8 @@ public class PostLogic : IPostLogic
 	    double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1-a));
 	    double d = R * c;
 
+        Console.WriteLine(postCoordinate.ToJSON());
+        Console.WriteLine(center.ToJSON());
 
 	    return d * 1000 < radius;
     }

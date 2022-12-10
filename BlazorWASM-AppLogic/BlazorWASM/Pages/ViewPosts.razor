@@ -125,6 +125,7 @@ else
 			}
 
 			Coordinate coordinates = await locationService.GetCoordinatesAsync((int)locationId);
+
 			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
 			posts = temp.ToList();
 		}

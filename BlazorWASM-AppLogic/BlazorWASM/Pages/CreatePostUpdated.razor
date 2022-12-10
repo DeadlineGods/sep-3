@@ -26,7 +26,7 @@
         <div class="alertBox pt-6">
             <Alert Type="success" Show="@showAlert">
                 <p>Successfully created post!</p>
-                <button @onclick="@NavigateToPost">show me</button>
+                <button @onclick="@NavigateToFeed">show me</button>
                 <button @onclick="(() => showAlert = false)">close</button>
             </Alert>
         </div>
@@ -101,8 +101,8 @@
 </div>
 </body>
 @code {
- ElementReference tagInput;
-    private ImageFile? filesBase64 = null;
+ElementReference tagInput;
+    private ImageFile? filesBase64;
     private string postTitle = "";
     private string postDescription = "";
     private IList<string> postTags = new List<string>();
@@ -150,36 +150,34 @@
 
         try
         {
-	        // get image
-            string imgUrl = await imageUploadService.UploadAsync(filesBase64);
+
+	        long userId = await authService.GetLoggedUserId();
+	        if (userId == 0)
+	        {
+		        msg = "You have to be logged in!";
+		        return;
+	        }
+
+			// get image
+	        string imgUrl = await imageUploadService.UploadAsync(filesBase64);
 
 	        Coordinate coordinates = await Map.GetCoordinates();
 
 	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
 
 	        int locationId = await locationService.CreateAsync(locationCreationDto);
-	        Console.WriteLine("Page: " + locationId);
-	        // get user id
-			// TODO the user id is hardcoded in please change it with JWT to match the logged in user
-			// int? userId = AuthenticationStateProvider.GetAuthenticationStateAsync().Id;
-	        // PostCreationDto postCreationDto = new(postTitle, userId ?? 1, postDescription, imgUrl, postTags, locationId);
 
-	        long userId = (long)await GetUserId();
-	        if (userId != 0)
-	        {
-		        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
+	        PostCreationDto dto = new(postTitle, userId, postDescription, imgUrl, locationId);
 
-		        id = await postService.CreateAsync(dto);
+	        id = await postService.CreateAsync(dto);
 
+	        PostTagCreationDto tagDto = new(id, postTags.ToArray());
+	        await tagService.CreateAsync(tagDto);
 
-		        PostTagCreationDto tagDto = new(id, postTags.ToArray());
-		        await tagService.CreateAsync(tagDto);
-
-		        showAlert = true;
-		        postTitle = "";
-		        postDescription = "";
-		        postTags = new List<string>();
-	        }
+	        showAlert = true;
+	        postTitle = "";
+	        postDescription = "";
+	        postTags = new List<string>();
 
         }
         catch (Exception e)
@@ -189,20 +187,7 @@
         }
     }
 
-	private async Task<long?> GetUserId()
-	{
-		ClaimsPrincipal context = await authService.GetAuthAsync();
-		if (context.Identity?.Name == null)
-		{
-			msg = "You have to be logged in!";
-			return 0;
-		}
-		var claims = context.Identities.First().Claims.ToList();
-		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-		return long.Parse(userIdAsStrubg);
-	}
-
-    private bool Validate()
+	private bool Validate()
     {
         msg = "";
         if (string.IsNullOrEmpty(postTitle))
@@ -244,9 +229,9 @@
         postTags.Remove(tag);
     }
 
-    private void NavigateToPost()
+    private void NavigateToFeed()
     {
-        navMgr.NavigateTo("posts/" + id);
+        navMgr.NavigateTo("posts/all");
     }
 
 }

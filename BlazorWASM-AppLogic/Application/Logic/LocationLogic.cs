@@ -50,6 +50,8 @@ public class LocationLogic : ILocationLogic
 		var route = addresses.Where(a => !a.IsPartialMatch).Select(a => a[GoogleAddressType.Route]).First();
 		var streetNo = addresses.Where(a => !a.IsPartialMatch).Select(a => a[GoogleAddressType.StreetNumber]).First();
 
+		Console.WriteLine(addresses.ToJSON());
+		
 		LocationCreationDto dto = new LocationCreationDto(
 			route.ShortName + " " + streetNo.ShortName,
 			town.ShortName,

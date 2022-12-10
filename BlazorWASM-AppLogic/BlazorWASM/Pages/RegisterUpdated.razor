@@ -103,14 +103,15 @@
     private string phoneNumber;
 
     private string errorLabel;
+    private bool showAlert;
 
     private async Task RegisterAsync()
     {
         errorLabel = "";
         try
         {
-            await authService.RegisterAsync(new UserCreationDto(userName,firstName,lastName,password,email,phoneNumber));
-            navMgr.NavigateTo("/LoginUpdated");
+            await authService.RegisterAsync(new UserCreationDto(userName,firstName,lastName,password,email,phoneNumber, 1));
+            showAlert = true;
         }
         catch (Exception e)
         {
@@ -118,4 +119,10 @@
             errorLabel = $"Error: {e.Message}";
         }
     }
+
+    private void NavigateToLogin()
+    {
+        navMgr.NavigateTo("login");
+    }
+
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
+using Geocoding;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -63,6 +64,7 @@ public class PostsController : ControllerBase
 	    try
 	    {
 		    IEnumerable<Post> posts = await postLogic.GetInRadiusAsync(new Coordinate(lat, lon), radius);
+            Console.WriteLine(lat);
 		    return Ok(posts);
 	    }
 	    catch (Exception e)
