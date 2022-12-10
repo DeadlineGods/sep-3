@@ -1,0 +1,79 @@
+﻿@page "/admin/reports"
+@using HttpClients.ClientInterfaces
+@using UIComponents
+@using Report = Domain.Models.Report
+@using System.Security.Claims
+@using BlazorWasm.Services
+@using Domain.Models
+@using System.Reflection.Emit
+@inject IReportService reportService
+@inject IAuthService authService
+@inject IAdminService adminService
+
+<label style="color: red">@msg</label>
+
+@if (reports.Any() && admin != null)
+{
+	<Alert Type="success" Show="@showAlert">
+		<p>Post was succesfully banned!</p>
+		<button @onclick="(() => showAlert = false)">keep banning</button>
+	</Alert>
+
+
+	<ul>
+        @foreach (var report in reports)
+        {
+            <li>
+                <SingleReport Report="report" OnClickCallback="LoadReports" Admin="admin"/>
+            </li>
+        }
+    </ul>
+}
+else
+{
+	<label class="text-center">There are no reports to show</label>
+}
+
+@code {
+    IEnumerable<Report> reports = new List<Report>();
+    private string msg = "";
+	private Admin? admin;
+	private bool showAlert;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+
+	        ClaimsPrincipal context = await authService.GetAuthAsync();
+	        if (context.Identity?.Name == null)
+	        {
+		        msg = "You have to be logged in!";
+		        return;
+	        }
+
+	        IEnumerable<Admin> adminList = await adminService.GetAsync(context.Identity.Name);
+	        admin = adminList.FirstOrDefault();
+
+	        if (admin == null)
+	        {
+		        msg = "You do not have access to this page";
+		        return;
+	        }
+
+           await LoadReports();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private async Task LoadReports()
+    {
+        reports = await reportService.GetAsync();
+	    showAlert = true;
+    }
+
+}

@@ -7,20 +7,21 @@ using Domain.Models;
 using HttpClients.ClientInterfaces;
 using HttpClients.Implementations;
 using Microsoft.AspNetCore.Mvc;
+using Exception = System.Exception;
 
 namespace WebAPI.Services;
-
 
 public class AuthService : IAuthService
 {
     private readonly IUserLogic userLogic;
+    private readonly IAdminLogic adminLogic;
     private IEnumerable<User> users;
-    private readonly IUserDao userDao;
     private IUserService userService = new UserHttpClient(new HttpClient());
 
-    public AuthService(IUserLogic userLogic, IUserDao userDao)
+    public AuthService(IUserLogic userLogic, IAdminLogic adminLogic)
     {
         this.userLogic = userLogic;
+        this.adminLogic = adminLogic;
         users = new List<User>();
     }
 
@@ -31,7 +32,7 @@ public class AuthService : IAuthService
         users = tempUsers.ToList();
     }
 
-    public Task<User> ValidateUserAsync(string username, string password)
+    public Task<LoginDto> ValidateUserAsync(string username, string password)
     {
         SearchUserParametersDto dto = new SearchUserParametersDto(username);
 
@@ -61,7 +62,14 @@ public class AuthService : IAuthService
         {
             throw new Exception("Password mismatch");
         }
-        return Task.FromResult(existingUser);
+
+        LoginDto loginDto = new LoginDto()
+        {
+	        username = username,
+	        password = password
+        };
+
+        return Task.FromResult(loginDto);
     }
 
     public async Task<User> RegisterUserAsync(UserCreationDto dto)
@@ -95,5 +103,34 @@ public class AuthService : IAuthService
         }
 
         return await userService.Create(dto);
+    }
+
+    public async Task<LoginDto> ValidateAdminAsync(string username, string password)
+    {
+	    if (string.IsNullOrEmpty(username))
+	    {
+		    throw new Exception("Username cannot be null");
+	    }
+
+	    IEnumerable<Admin> adminList = await adminLogic.GetAsync(username);
+
+	    Admin? existing = adminList.FirstOrDefault();
+
+	    if (existing == null)
+	    {
+		    throw new Exception("Admin not found");
+	    }
+
+	    if (!existing.password.Equals(password))
+	    {
+		    throw new Exception("Password is wrong!");
+	    }
+
+	    return new LoginDto
+	    {
+		    username = username,
+		    password = password
+	    };
+
     }
 }

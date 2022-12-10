@@ -5,14 +5,16 @@
 @using System.Security.Claims
 @using BlazorWasm.Services
 @using HttpClients.Implementations
+@using Shared
 @inject NavigationManager navMgr
 @inject ICommentService commentService
 @inject IAuthService authService
 @inject IPostService postService
+@inject IUserService userService
 
 <div class="post-card">
     <div>@Post.Title</div>
-    <div>@Post.PostedOn</div>
+    <div>@Util.DateTimeToRelativeTime(Post.PostedOn)</div>
 	<div>@Post.Description</div>
     <img src="@Post.ImgUrl" alt="thumbnail"/>
     <div>@Post.Owner.UserName</div>
@@ -20,23 +22,25 @@
 
     
     <AuthorizeView>
-        <Authorized>
-            <LIkeButton PostId="Post.Id" UpdateParentsLikes="UpdateLikes"/>
+	    <Authorized>
 
-            <div >
-                <p>comment: </p>
-                <input type="text" @bind="commentInputText"/>
-                <button @onclick="PublishAsync">publish</button>
-            </div>
-            @if (Post.Owner.UserName == @context.User.Identity.Name)
-                        {
-                            <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
-                            <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
-                
-                        }
-        </Authorized>
+		    <LIkeButton PostId="Post.Id" UpdateParentsLikes="UpdateLikes"/>
+
+		    <div >
+			    <p>comment: </p>
+			    <input type="text" @bind="commentInputText"/>
+			    <button @onclick="PublishAsync">publish</button>
+		    </div>
+		    @if (Post.Owner.UserName == @context.User.Identity.Name)
+		    {
+			    <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
+			    <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+
+		    }
+		    <Report PostId="Post.Id" UserId="userId"></Report>
+		    <h1>@msg</h1>
+	    </Authorized>
     </AuthorizeView>
-
 
     @if (comments.Any())
     {
@@ -53,15 +57,19 @@
 </div>
 
 @code {
-
     [Parameter]
     public Post? Post { get; set; }
+	[Parameter]
+	public EventCallback<string> OnDeleteCallback { get; set; }
+
 
     private ICollection<Comment> comments = new List<Comment>();
 
     private string commentInputText = "";
+    private string msg;
+    private long userId;
 
-    private async Task PublishAsync()
+	private async Task PublishAsync()
     {
         if (string.IsNullOrEmpty(commentInputText))
         {
@@ -70,17 +78,20 @@
 
         try
         {
-            ClaimsPrincipal context = await authService.GetAuthAsync();
-            var claims = context.Identities.First().Claims.ToList();
-            string? ownerId = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
+	        if (userId == 0)
+	        {
+		        msg = "You have to be logged in!";
+		        return;
+	        }
 
-            await commentService.CreateAsync(commentInputText, long.Parse(ownerId), Post.Id);
-
+			await commentService.CreateAsync(commentInputText, userId, Post.Id);
             commentInputText = "";
 
             await UpdateCommentsAsync();
 
             StateHasChanged();
+
+
         }
         catch (Exception e)
         {
@@ -92,6 +103,7 @@
     {
         try
         {
+	        userId = await authService.GetLoggedUserId();
             await UpdateCommentsAsync();
         }
         catch (Exception e)
@@ -99,6 +111,7 @@
             Console.WriteLine(e);
         }
     }
+
 
 
     private void UpdateLikes(int changeDiff)
@@ -118,13 +131,13 @@
             Console.WriteLine(e);
         }
     }
-    
+
     private async Task Delete()
     {
         try
         {
             await postService.DeleteAsync(Post.Id, Post.Owner.Id);
-            navMgr.NavigateTo("/");
+	        await OnDeleteCallback.InvokeAsync();
         }
         catch (Exception e)
         {
@@ -132,7 +145,7 @@
             throw;
         }
     }
-	
+
     private async Task Edit()
     {
         try

@@ -52,7 +52,7 @@ public class LocationGrpcClient : ILocationDao
 		using var channel = GrpcChannel.ForAddress("http://localhost:6565");
 		var client = new LocationService.LocationServiceClient(channel);
 
-		var request = new LocationData()
+		var request = new LocationData
 		{
 			Address = dto.address,
 			PostCode = dto.postCode,
@@ -68,7 +68,7 @@ public class LocationGrpcClient : ILocationDao
 		{
 			throw new Exception("Creation was not successful.");
 		}
-		
+
 		return await Task.FromResult(reply.Id);
 	}
 }

@@ -3,21 +3,28 @@ using System.Text;
 using System.Text.Json;
 using Domain.DTOs;
 using Domain.Models;
+using HttpClients.ClientInterfaces;
 
 namespace BlazorWasm.Services.Http;
 
 public class JwtAuthService : IAuthService
 {
     private readonly HttpClient client = new ();
+    private readonly IUserService UserService;
 
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!;
 
     // this private variable for simple caching
     public static string? Jwt { get; private set; } = "";
 
+    public JwtAuthService(IUserService userService)
+    {
+	    UserService = userService;
+    }
+
     public async Task LoginAsync(string username, string password)
     {
-        UserLoginDto userLoginDto = new()
+        LoginDto userLoginDto = new()
         {
             username = username,
             password = password
@@ -26,8 +33,7 @@ public class JwtAuthService : IAuthService
         string userAsJson = JsonSerializer.Serialize(userLoginDto);
         StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
 
-        // TODO change port
-        HttpResponseMessage response = await client.PostAsync("https://localhost:7196/Auth/login", content);
+        HttpResponseMessage response = await client.PostAsync("https://localhost:7196/auth/login", content);
         string responseContent = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
@@ -41,6 +47,33 @@ public class JwtAuthService : IAuthService
         ClaimsPrincipal principal = CreateClaimsPrincipal();
 
         OnAuthStateChanged.Invoke(principal);
+    }
+
+    public async Task LoginAdminAsync(string username, string password)
+    {
+	    LoginDto userLoginDto = new()
+	    {
+		    username = username,
+		    password = password
+	    };
+
+	    string userAsJson = JsonSerializer.Serialize(userLoginDto);
+	    StringContent content = new(userAsJson, Encoding.UTF8, "application/json");
+
+	    HttpResponseMessage response = await client.PostAsync("https://localhost:7196/auth/admin-login", content);
+	    string responseContent = await response.Content.ReadAsStringAsync();
+
+	    if (!response.IsSuccessStatusCode)
+	    {
+		    throw new Exception(responseContent);
+	    }
+
+	    string token = responseContent;
+	    Jwt = token;
+
+	    ClaimsPrincipal principal = CreateClaimsPrincipal();
+
+	    OnAuthStateChanged.Invoke(principal);
     }
 
     public Task LogoutAsync()
@@ -62,6 +95,27 @@ public class JwtAuthService : IAuthService
         {
             throw new Exception(responseContent);
         }
+    }
+
+    public async Task<long> GetLoggedUserId()
+    {
+	    ClaimsPrincipal context = await GetAuthAsync();
+
+	    if (context.Identity?.Name == null)
+	    {
+		    return 0;
+	    }
+
+	    var users = await UserService.GetUsersAsync(context.Identity.Name);
+
+	    if (! users.Any())
+	    {
+		    return 0;
+	    }
+
+	    long userId = users.FirstOrDefault().Id;
+
+	    return userId;
     }
 
     public Task<ClaimsPrincipal> GetAuthAsync()

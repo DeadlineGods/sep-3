@@ -31,7 +31,6 @@
 		string data = await JSRuntime.InvokeAsync<string>("getData");
 
 		Coordinate? coordinates = JsonSerializer.Deserialize<Coordinate>(data);
-		Console.WriteLine(coordinates.latitude);
 		return coordinates;
 	}
 }

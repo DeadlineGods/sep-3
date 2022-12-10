@@ -5,52 +5,57 @@
 @inject NavigationManager navMgr
 
 <AuthorizeView>
-    <NotAuthorized>
-        <div class="card">
-            <h3>Please register</h3>
-             <div class="field">
-                  <label>User name:</label>
-                  <input type="text" class="feedback-input-register" @bind="userName"/>
-              </div>
+	<NotAuthorized>
 
-            <div class="field">
-                    <label>Full name:</label>
-                    <input type="text" class="feedback-input-register" @bind="firstName"/>
-                </div>
+		<Alert Type="success" Show="@showAlert">
+			<p>Your account was created!</p>
+			<button @onclick="NavigateToLogin">go to login page</button>
+		</Alert>
 
-            <div class="field">
-                <label>Full name:</label>
-                <input type="text" class="feedback-input-register" @bind="lastName"/>
-            </div>
+		<div class="card">
+			<h3>Please register</h3>
+			<div class="field">
+				<label>User name:</label>
+				<input type="text" class="feedback-input-register" @bind="userName"/>
+			</div>
 
-            <div class="field">
-                <label style="text-align: center">Password:</label>
-                <input type="password" class="feedback-input-register" @bind="password"/>
-            </div>
-            <div class="field">
-                <label style="text-align: center">Email:</label>
-                <input type="email" class="feedback-input-register" @bind="email"/>
-            </div>
-            <div class="field">
-                <label style="text-align: center">Phone Number:</label>
-                <input type="text" class="feedback-input-register" @bind="phoneNumber"/>
-            </div>
+			<div class="field">
+				<label>First name:</label>
+				<input type="text" class="feedback-input-register" @bind="firstName"/>
+			</div>
+
+			<div class="field">
+				<label>Last name:</label>
+				<input type="text" class="feedback-input-register" @bind="lastName"/>
+			</div>
+
+			<div class="field">
+				<label style="text-align: center">Password:</label>
+				<input type="password" class="feedback-input-register" @bind="password"/>
+			</div>
+			<div class="field">
+				<label style="text-align: center">Email:</label>
+				<input type="email" class="feedback-input-register" @bind="email"/>
+			</div>
+			<div class="field">
+				<label style="text-align: center">Phone Number:</label>
+				<input type="text" class="feedback-input-register" @bind="phoneNumber"/>
+			</div>
 
 
-
-            @if (!string.IsNullOrEmpty(errorLabel))
-            {
-                <div class="field">
-                    <label style="color: red">
-                        @errorLabel
-                    </label>
-                </div>
-            }
-            <div class="field">
-                <button class="button-35" role="button" @onclick="RegisterAsync">Register</button>
-            </div>
-        </div>
-    </NotAuthorized>
+			@if (!string.IsNullOrEmpty(errorLabel))
+			{
+				<div class="field">
+					<label style="color: red">
+						@errorLabel
+					</label>
+				</div>
+			}
+			<div class="field">
+				<button class="button-35" role="button" @onclick="RegisterAsync">Register</button>
+			</div>
+		</div>
+	</NotAuthorized>
     <Authorized>
         <div class="card">
             <h3>Hello, @context.User.Identity.Name</h3>
@@ -67,14 +72,15 @@
     private string phoneNumber;
 
     private string errorLabel;
+	private bool showAlert;
 
-    private async Task RegisterAsync()
+	private async Task RegisterAsync()
     {
         errorLabel = "";
         try
         {
-            await authService.RegisterAsync(new UserCreationDto(userName,firstName,lastName,password,email,phoneNumber));
-            navMgr.NavigateTo("/");
+            await authService.RegisterAsync(new UserCreationDto(userName,firstName,lastName,password,email,phoneNumber, 1));
+	        showAlert = true;
         }
         catch (Exception e)
         {
@@ -82,5 +88,10 @@
             errorLabel = $"Error: {e.Message}";
         }
     }
-    
+
+	private void NavigateToLogin()
+	{
+		navMgr.NavigateTo("login");
+	}
+
 }

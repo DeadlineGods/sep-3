@@ -1,6 +1,6 @@
 ﻿namespace Domain.DTOs;
 
-public class UserLoginDto
+public class LoginDto
 {
     public string username { get; init; }
     public string password { get; init; }

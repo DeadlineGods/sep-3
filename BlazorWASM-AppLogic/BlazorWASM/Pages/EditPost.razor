@@ -2,49 +2,62 @@
 @using Domain.DTOs
 @using Domain.Models
 @using HttpClients.ClientInterfaces
+@using BlazorWasm.Services
 @inject IPostService postService
 @inject NavigationManager navMgr;
 @inject ITagService tagService;
-<h3>EditPost</h3>
+@inject IAuthService authService;
 
-<div class="card">
-    @if (postData == null)
-    {
-        <label>Post not found</label>
-    }
-    else
-    {
-        <h3>Update Todo</h3>
-        <div class="form-group field">
-            <label>Title:</label>
-            <input type="text" @bind="postTitle"/>
-        </div>
-        <div class="form-group field">
-            <label>Description:</label>
-            <input type="text" @bind="postDescription"/>
-        </div>
-        <label>Tags</label>
-        <input type="text" @bind="newTag"/>
-        <button @onclick="@AddTag">add </button>
+<AuthorizeView>
+	<Authorized>
 
-        @foreach (string tag in postTags)
-        {
-            <div class="row">
-                @tag
-                <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-            </div>
-        }
-        <div class="button-row">
-            @if (!string.IsNullOrEmpty(msg))
-            {
-                <label style="color: red">@msg</label>
-            }
-            <button @onclick="UpdateAsync" class="acceptbtn">Update</button>
-        </div>
+		<Alert Type="success" Show="@showAlert">
+			<p>Post #@Id was succesfully edited!</p>
+			<button @onclick="NavigateToFeed">go to feed</button>
+			<button @onclick="(() => showAlert = false)">keep editing</button>
+		</Alert>
 
-    }
-</div>
+		<h3>EditPost</h3>
 
+		<div class="card">
+			@if (postData == null)
+			{
+				<label>Post not found</label>
+			}
+			else
+			{
+				<h3>Update Todo</h3>
+				<div class="form-group field">
+					<label>Title:</label>
+					<input type="text" @bind="postTitle"/>
+				</div>
+				<div class="form-group field">
+					<label>Description:</label>
+					<input type="text" @bind="postDescription"/>
+				</div>
+				<label>Tags</label>
+				<input type="text" @bind="newTag"/>
+				<button @onclick="@AddTag">add </button>
+
+				@foreach (string tag in postTags)
+				{
+					<div class="row">
+						@tag
+						<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+					</div>
+				}
+				<div class="button-row">
+					@if (!string.IsNullOrEmpty(msg))
+					{
+						<label style="color: red">@msg</label>
+					}
+					<button @onclick="UpdateAsync" class="acceptbtn">Update</button>
+				</div>
+
+			}
+		</div>
+	</Authorized>
+</AuthorizeView>
 
 
 
@@ -57,6 +70,8 @@
     private IList<string> postTags = new List<string>();
     private string newTag = "";
     Post? postData { get; set; }
+	private bool showAlert;
+
 
     private string msg = "";
 
@@ -65,8 +80,17 @@
         msg = "";
         try
         {
+
+
             ICollection<Post> posts = await postService.GetAsync(Id);
             postData = posts.FirstOrDefault();
+
+	        long userId = await authService.GetLoggedUserId();
+	        if (userId == 0 || userId != postData.Owner.Id)
+	        {
+		        navMgr.NavigateTo("/");
+		        return;
+	        }
 
 	        if (postData == null)
 	        {
@@ -112,7 +136,7 @@
             await tagService.CreateAsync(tagDto);
 
 
-            navMgr.NavigateTo("/posts/all");
+	        showAlert = true;
         }
         catch (Exception e)
         {
@@ -135,4 +159,9 @@
     {
         postTags.Remove(tag);
     }
+
+	private void NavigateToFeed()
+	{
+		navMgr.NavigateTo("posts/all");
+	}
 }

@@ -4,7 +4,11 @@ using Application.GrpcClients;
 using Application.Logic;
 using Application.LogicInterfaces;
 using Domain.Auth;
+using HttpClients.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Services;
 
@@ -38,6 +42,15 @@ builder.Services.AddScoped<ICommentLogic, CommentLogic>();
 
 builder.Services.AddScoped<ITagDao, TagGrpcClient>();
 builder.Services.AddScoped<ITagLogic, TagLogic>();
+
+builder.Services.AddScoped<IReportDao, ReportGrpcClient>();
+builder.Services.AddScoped<IReportLogic, ReportLogic>();
+
+builder.Services.AddScoped<IAdminDao, AdminGrpcClient>();
+builder.Services.AddScoped<IAdminLogic, AdminLogic>();
+
+builder.Services.AddScoped<IBanDao, BanGrpcClient>();
+builder.Services.AddScoped<IBanLogic, BanLogic>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {

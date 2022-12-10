@@ -57,20 +57,21 @@ public final class User {
       "\010username\030\002 \001(\t\022\021\n\tfirstName\030\003 \001(\t\022\020\n\010la" +
       "stName\030\004 \001(\t\022\r\n\005email\030\005 \001(\t\022\020\n\010password\030" +
       "\006 \001(\t\022\023\n\013phoneNumber\030\007 \001(\t\022\022\n\nlocationId" +
-      "\030\010 \001(\003\"\200\001\n\021RequestCreateUser\022\020\n\010username" +
+      "\030\010 \001(\003\"\224\001\n\021RequestCreateUser\022\020\n\010username" +
       "\030\001 \001(\t\022\021\n\tfirstName\030\002 \001(\t\022\020\n\010lastName\030\003 " +
       "\001(\t\022\r\n\005email\030\004 \001(\t\022\020\n\010password\030\005 \001(\t\022\023\n\013" +
-      "phoneNumber\030\006 \001(\t\"U\n\017RequestGetUsers\022\025\n\010" +
-      "username\030\001 \001(\tH\000\210\001\001\022\023\n\006userid\030\002 \001(\003H\001\210\001\001" +
-      "B\013\n\t_usernameB\t\n\007_userid\"/\n\020ResponseGetU" +
-      "sers\022\033\n\010userData\030\001 \003(\0132\t.UserData\"!\n\017Req" +
-      "uestGetLikes\022\016\n\006postId\030\001 \001(\005\"+\n\020Response" +
-      "GetLikes\022\027\n\004user\030\001 \003(\0132\t.UserData2\244\001\n\013Us" +
-      "erService\022+\n\nCreateUser\022\022.RequestCreateU" +
-      "ser\032\t.UserData\022/\n\010GetUsers\022\020.RequestGetU" +
-      "sers\032\021.ResponseGetUsers\0227\n\020GetUsersWhoLi" +
-      "ked\022\020.RequestGetLikes\032\021.ResponseGetLikes" +
-      "B\031\n\025sep3.project.protobufP\001b\006proto3"
+      "phoneNumber\030\006 \001(\t\022\022\n\nlocationId\030\007 \001(\003\"U\n" +
+      "\017RequestGetUsers\022\025\n\010username\030\001 \001(\tH\000\210\001\001\022" +
+      "\023\n\006userid\030\002 \001(\003H\001\210\001\001B\013\n\t_usernameB\t\n\007_us" +
+      "erid\"/\n\020ResponseGetUsers\022\033\n\010userData\030\001 \003" +
+      "(\0132\t.UserData\"!\n\017RequestGetLikes\022\016\n\006post" +
+      "Id\030\001 \001(\005\"+\n\020ResponseGetLikes\022\027\n\004user\030\001 \003" +
+      "(\0132\t.UserData2\244\001\n\013UserService\022+\n\nCreateU" +
+      "ser\022\022.RequestCreateUser\032\t.UserData\022/\n\010Ge" +
+      "tUsers\022\020.RequestGetUsers\032\021.ResponseGetUs" +
+      "ers\0227\n\020GetUsersWhoLiked\022\020.RequestGetLike" +
+      "s\032\021.ResponseGetLikesB\031\n\025sep3.project.pro" +
+      "tobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -87,7 +88,7 @@ public final class User {
     internal_static_RequestCreateUser_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RequestCreateUser_descriptor,
-        new java.lang.String[] { "Username", "FirstName", "LastName", "Email", "Password", "PhoneNumber", });
+        new java.lang.String[] { "Username", "FirstName", "LastName", "Email", "Password", "PhoneNumber", "LocationId", });
     internal_static_RequestGetUsers_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_RequestGetUsers_fieldAccessorTable = new

@@ -38,8 +38,6 @@ public class PostDatabase implements PostPersistence {
 			if (rs.next()) {
 				id = rs.getInt("id");
 			}
-
-
 		}
 		finally {
 			connection.close();

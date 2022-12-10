@@ -2,14 +2,16 @@
 
 public class Report
 {
-    public int violation { get; set; }
-    public User reportedBy { get; set; }
-    public Post reportedPost { get; set; }
+	public long reportId { get; set; }
+	public string violation { get; set; }
+	public User reportedBy { get; set; }
+	public Post reportedPost { get; set; }
 
-    public Report(int violation, User reportedBy, Post reportedPost)
-    {
-        this.violation = violation;
-        this.reportedBy = reportedBy;
-        this.reportedPost = reportedPost;
-    }
+	public Report(long reportId, string violation, Post reportedPost, User reportedBy)
+	{
+		this.reportId = reportId;
+		this.violation = violation;
+		this.reportedBy = reportedBy;
+		this.reportedPost = reportedPost;
+	}
 }

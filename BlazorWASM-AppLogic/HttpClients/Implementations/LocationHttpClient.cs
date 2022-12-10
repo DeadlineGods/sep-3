@@ -3,6 +3,7 @@ using System.Text.Json;
 using Domain.DTOs;
 using Domain.Models;
 using HttpClients.ClientInterfaces;
+using Location = Domain.Models.Location;
 
 namespace HttpClients.Implementations;
 
@@ -67,4 +68,7 @@ public class LocationHttpClient : ILocationService
 
 		return Int32.Parse(responseContent);
 	}
+
+
+
 }

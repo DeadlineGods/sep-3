@@ -6,6 +6,8 @@
 @using BlazorWasm.Services
 @inject ILikeService likeService
 @inject IAuthService authService
+@inject IUserService userService
+
 
 @if (isLiked)
 {
@@ -60,11 +62,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        ClaimsPrincipal context = await authService.GetAuthAsync();
-        var claims = context.Identities.First().Claims.ToList();
-        string? id = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-        userId = long.Parse(id);
-        isLiked = await IsLikedAsync(PostId);
+
+	    userId = await authService.GetLoggedUserId();
+	    isLiked = await IsLikedAsync(PostId);
     }
 
 
@@ -72,6 +72,12 @@ else
     {
         try
         {
+	        if (userId == 0)
+	        {
+		        // msg = "You have to be logged in!";
+		        return;
+	        }
+
             LikePostDto dto = new LikePostDto(postId, userId);
             isLiked = !isLiked;
             UpdateParentsLikes(1);

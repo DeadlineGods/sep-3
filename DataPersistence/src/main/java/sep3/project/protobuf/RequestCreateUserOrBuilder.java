@@ -78,4 +78,10 @@ public interface RequestCreateUserOrBuilder extends
    */
   com.google.protobuf.ByteString
       getPhoneNumberBytes();
+
+  /**
+   * <code>int64 locationId = 7;</code>
+   * @return The locationId.
+   */
+  long getLocationId();
 }

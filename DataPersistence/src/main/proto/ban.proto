@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "sep3.project.protobuf";
+
+service BanService {
+	rpc BanPost(BanData) returns(PostId);
+	rpc Get(PostId) returns(PostId);
+}
+
+message BanData {
+	string admin = 1;
+	int64 postId = 2;
+	string reason = 3;
+}
+
+message PostId {
+	int64 id = 1;
+}

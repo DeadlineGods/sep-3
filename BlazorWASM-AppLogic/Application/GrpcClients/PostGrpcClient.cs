@@ -54,6 +54,7 @@ public class PostGrpcClient : IPostDao
 		    });
 
 	    IList<Post> posts = new List<Post>();
+
 	    foreach (var replyPost in reply.Posts)
 	    {
 			posts.Add(await ConstructPostAsync(replyPost));
@@ -102,7 +103,6 @@ public class PostGrpcClient : IPostDao
 		    };
 		    foreach (var tag in request.Tags)
 		    {
-			    Console.WriteLine(tag);
 			    request.Tags.Add(tag);
 		    }
 
