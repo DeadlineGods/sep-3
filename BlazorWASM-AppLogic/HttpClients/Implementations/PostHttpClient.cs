@@ -64,8 +64,6 @@ public class PostHttpClient : IPostService
     {
 	    HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/Posts/getInRadius?lat={coordinate.latitude}&lon={coordinate.longitude}&radius={radius}");
 
-	    // HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/Posts/getInRadius?lat=55.8581310000&lon=9.8475880000&radius=3000000");
-
 	    string responseContent = await response.Content.ReadAsStringAsync();
 	    if (!response.IsSuccessStatusCode)
 	    {
@@ -143,11 +141,9 @@ public class PostHttpClient : IPostService
 	    {
 		    throw new Exception(content);
 	    }
-
 	    bool isLiked = response.IsSuccessStatusCode;
 	    return isLiked;
     }
-
     public async Task LikePostAsync(int id)
     {
 	    string query = "";

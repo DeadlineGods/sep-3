@@ -11,6 +11,11 @@
 @inject IUserService userService;
 @inject ILocationService locationService;
 
+ <Alert Type="success" Show="@showAlert">
+        <p>@alertMsg</p>
+        <button @onclick="(() => showAlert = false)">great</button>
+</Alert>
+
 <div class="createPostCard">
 	<button @onclick="LoadPostsBasedOnLocationAsync">Preffered Location</button>
 	@if (!string.IsNullOrEmpty(msg))
@@ -26,7 +31,7 @@
 	</div>
 	<div class="field">
 		<button @onclick="OnInitializedAsync" class="button-35" role="button">Cancel</button>
-		<button @onclick="LoadPosts" class="button-35" role="button">Search</button>
+		<button @onclick="LoadPostsWithTags" class="button-35" role="button">Search</button>
 	</div>
 </div>
 
@@ -40,36 +45,35 @@ else if (!posts.Any())
 }
 else
 {
-
-    @foreach (var post in posts)
+	@foreach (var post in posts)
     {
         <a href="posts/@post.Id">
             Go to post
         </a>
-        <SinglePost Post="post"/>
+        <SinglePost OnDeleteCallback="OnDelete" Post="post"/>
 
     }
 }
 @code {
+    [Parameter]
+    public int Id { get; set; }
+
+
     private IList<Post>? posts = new List<Post>();
     private string msg;
     private bool isLiked;
 
-
-    private string? tagFilter;
+	private string? tagFilter;
     private IEnumerable<TagPost>? postTag;
-
-    [Parameter]
-    public int Id { get; set; }
+	private bool showAlert;
+	private string alertMsg;
 
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            tagFilter = "";
-            IEnumerable<Post> temp = await postService.GetAsync();
-            posts = temp.ToList();
+	        await LoadPosts();
         }
         catch (Exception e)
         {
@@ -78,19 +82,32 @@ else
         }
     }
 
+	private async Task OnDelete()
+	{
+		alertMsg = "Post was successfully deleted!";
+		showAlert = true;
+
+		await LoadPosts();
+	}
+
+	private async Task LoadPosts()
+	{
+		tagFilter = "";
+		IEnumerable<Post> temp = await postService.GetAsync();
+		posts = temp.ToList();
+	}
+
 	private async Task<long?> GetUserLocationId()
 	{
 		ClaimsPrincipal context = await authService.GetAuthAsync();
-
 		if (context.Identity?.Name == null)
 		{
+			msg = "You have to be logged in!";
 			return null;
 		}
 
-		var claims = context.Identities.First().Claims.ToList();
-		string? userIdAsStrubg = claims?.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
-		long userId = long.Parse(userIdAsStrubg);
-		var users = await userService.GetUsersAsync(null, userId);
+		var users = await userService.GetUsersAsync(context.Identity.Name);
+
 		var user = users.FirstOrDefault();
 
 		return user.LocationId;
@@ -100,24 +117,15 @@ else
 	{
 		try
 		{
-			Console.WriteLine("tu");
 			long? locationId = await GetUserLocationId();
-			if (locationId == null)
+			if (locationId == null || locationId == 0)
 			{
 				msg = "You have to be logged in!";
 				return;
 			}
 
 			Coordinate coordinates = await locationService.GetCoordinatesAsync((int)locationId);
-			// IEnumerable<Post> temp = await postService.GetAsync();
-			// IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
-			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 300000);
-			Console.WriteLine("+++++++++++++++++++++++"+temp.Count());
-			foreach (var t in temp)
-			{
-				Console.WriteLine(t+"aaaaaaaaaaa");
-			}
-
+			IEnumerable<Post> temp = await postService.GetInRadiusAsync(coordinates, 30000);
 			posts = temp.ToList();
 		}
 		catch (Exception e)
@@ -128,7 +136,7 @@ else
 
 	}
 
-    private async Task LoadPosts()
+    private async Task LoadPostsWithTags()
     {
         try
         {
