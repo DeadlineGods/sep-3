@@ -2,6 +2,7 @@
 @using BlazorWasm.Services
 @using Domain.DTOs
 @using Domain.Models
+@using UIComponents
 @inject IAuthService authService
 @inject NavigationManager navMgr
 
@@ -45,6 +46,7 @@
                     <input type="text" placeholder="Email" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="email" style="border: 1px solid #d3d5d8 !important;">
                     <input type="password" placeholder="Password" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"  @bind="password" style="border: 1px solid #d3d5d8 !important;">
                     <input type="text" placeholder="Phone Number" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="phoneNumber" style="border: 1px solid #d3d5d8 !important;">
+                    <MapComponent @ref="Map"></MapComponent>
                     <div class="flex justify-start my-4 space-x-1">
                         <div class="checkbox">
                             <input type="checkbox" id="chekcbox1" checked>
@@ -104,6 +106,9 @@
 
     private string errorLabel;
     private bool showAlert;
+    
+    private MapComponent Map;
+
 
     private async Task RegisterAsync()
     {
