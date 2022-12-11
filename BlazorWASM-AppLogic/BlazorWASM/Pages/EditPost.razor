@@ -8,75 +8,75 @@
 @inject ITagService tagService;
 
 <body>
+
+
 <Alert Type="success" Show="@showAlert">
 	<p>Post #@Id was succesfully edited!</p>
 	<button @onclick="NavigateToFeed">go to feed</button>
 	<button @onclick="(() => showAlert = false)">keep editing</button>
 </Alert>
+
+
 <div id="wrapper">
-<SideBar></SideBar>
+	<SideBar></SideBar>
 
-<!-- create post -->
-<div class="main_content">
-    <div id="offcanvas-create flex justify-center ">
-        @if (postData == null)
-            {
-                <label>Post not found</label>
-            }
-        else
-            {
-        @* <div class="alertBox pt-6"> *@
-        @*     <Alert Type="success" Show="@showAlert"> *@
-        @*         <p>Successfully created post!</p> *@
-        @*         <button @onclick="@NavigateToPost">show me</button> *@
-        @*         <button @onclick="(() => showAlert = false)">close</button> *@
-        @*     </Alert> *@
-        @* </div> *@
-        <div class=" lg:w-full dark:bg-gray-700 dark:text-gray-300 p-0">
+	<!-- create post -->
+	<div class="main_content">
+		<div id="offcanvas-create flex justify-center ">
+			@if (postData == null)
+			{
+				<label>Post not found</label>
+			}
+			else
+			{
 
-            <button class="uk-offcanvas-close" type="button" uk-close></button>
+				<div class=" lg:w-full dark:bg-gray-700 dark:text-gray-300 p-0">
 
-            <!-- notivication header -->
-            <div class="-mb-1 border-b font-semibold px-5 py-5 text-lg">
-                <h4>Create new post </h4>
-            </div>
+					<button class="uk-offcanvas-close" type="button" uk-close></button>
 
-            <div class=" p-6 space-y-3">
-                <div>
-                    <label class="mb-0"> Title </label>
-                    <input placeholder="Title" @bind="postTitle" class="bg-gray-100 dark:bg-gray-600 shadow-none border focus:border-blue-600 mt-2 outline-none px-3 py-2 rounded-md w-full">
-                </div>
-                <div>
-                    <label class="mb-0"> Description </label>
-                    <textarea name="description" rows="3" @bind="postDescription" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please describe your product."></textarea>
-                </div>
-                <div>
-                    <label class="mb-0"> Tags</label>
-                    <textarea name="description" @bind="newTag"   rows="3" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></textarea>
-                    <button @onclick="@AddTag">add </button>
+					<div class="-mb-1 border-b font-semibold px-5 py-5 text-lg">
+						<h4>Edit post @Id</h4>
+					</div>
 
-                </div>
-                @foreach (string tag in postTags)
-                {
-                    <div class="flex">
-                        @tag
-                        <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-                    </div>
-                }
+					<div class=" p-6 space-y-3">
+						<div>
+							<label class="mb-0"> Title </label>
+							<input placeholder="Title" @bind="postTitle" class="bg-gray-100 dark:bg-gray-600 shadow-none border focus:border-blue-600 mt-2 outline-none px-3 py-2 rounded-md w-full">
+						</div>
+						<div>
+							<label class="mb-0"> Description </label>
+							<textarea name="description" rows="3" @bind="postDescription" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please describe your product."></textarea>
+						</div>
+						<div>
+							<label class="mb-0"> Tags</label>
+							<input name="description" @bind="newTag" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></input>
+							<button @onclick="@AddTag" class="btn btn-dark mt-2">add </button>
 
-                <button type="button" @onclick="UpdateAsync" class="bg-pink-600 font-semibold p-2 mt-2 rounded-md text-center text-white w-full">
-                    Create </button>
-                @if (!string.IsNullOrEmpty(msg))
-                {
-                    <label style="color: red">@msg</label>
-                }
-            </div>
+						</div>
+						<h3>Tags:</h3>
+						<div class="flex-row flex-wrap">
+							@foreach (string tag in postTags)
+							{
+								<div class="btn btn-light flex justify-content-between my-1 w-25">
+									@tag
+									<button @onclick="(() => RemoveTag(tag))" class="btn-close px-2"></button>
+								</div>
+							}
 
-        </div>
-            }
+						</div>
+						<button type="button" @onclick="UpdateAsync" class="bg-pink-600 font-semibold p-2 mt-2 rounded-md text-center text-white w-full">
+							Edit </button>
+						@if (!string.IsNullOrEmpty(msg))
+						{
+							<label style="color: red">@msg</label>
+						}
+					</div>
 
-    </div>
-</div>
+				</div>
+			}
+
+		</div>
+	</div>
 </div>
 </body>
 

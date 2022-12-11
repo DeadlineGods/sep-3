@@ -12,7 +12,7 @@
 @inject ITagService tagService
 
     <div class="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0 pb-8">
-                        
+
                             <!-- post header-->
                             <div class="flex justify-between items-center px-4 py-3">
                                 <div class="flex flex-1 items-center space-x-4">
@@ -25,36 +25,36 @@
                                         <span class="block capitalize font-semibold dark:text-gray-100"> @postDetail.Owner.UserName </span>
                                         <span class="block capitalize font-normal dark:text-gray-100"> @postDetail.Location.town</span>
                                     </div>
-                        
-                        
+
+
                                 </div>
                                 <div>
                                     @* edit1 *@
                                     <AuthorizeView>
                                         <Authorized>
-                                             @if (postDetail.Owner.UserName == @context.User.Identity.Name)
-                                                                            {
                                             <a href="#" @onclick:preventDefault="true" > <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
                                             <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
 
                                                 <ul class="space-y-1">
-                                                    
-                                                    <li @onclick:preventDefault="true" @onclick="Edit">
-                                                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                                            <i class="uil-edit-alt mr-1"></i> Edit Post
-                                                        </a>
-                                                    </li>
+
                                                      <Report PostId="postDetail.Id" UserId="userId"></Report>
-                                                   
-                                                    <li   @onclick="Delete">
-                                                        <a href="posts/all" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                                                            <i class="uil-trash-alt mr-1"></i> Delete
-                                                        </a>
-                                                    </li>
+		                                             @if (postDetail.Owner.UserName == @context.User.Identity.Name)
+		                                            {
+	                                                    <li @onclick:preventDefault="true" @onclick="Edit">
+	                                                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+	                                                            <i class="uil-edit-alt mr-1"></i> Edit Post
+	                                                        </a>
+	                                                    </li>
+
+	                                                    <li  @onclick="Delete">
+	                                                        <a href="posts/all" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+	                                                            <i class="uil-trash-alt mr-1"></i> Delete
+	                                                        </a>
+	                                                    </li>
+													}
                                                 </ul>
 
                                             </div>
-                                            }
 
                                         </Authorized>
                                 </AuthorizeView>
@@ -63,24 +63,24 @@
                             <div class="titleDateBox flex justify-between">
                                 <h3 class="ml-4">@postDetail.Title</h3>
                                 <p class="text-xs mr-4" >@postDetail.PostedOn</p>
-                        
+
                             </div>
                             <div uk-lightbox>
                                 <a href="assets/images/post/img4.jpg">
                                     @* <img src="assets/images/post/img4.jpg" alt=""> *@
                                     <img src="@postDetail.ImgUrl" alt="thumbnail"/>
-                        
+
                                 </a>
                             </div>
-                        
-                            
-                          
-                                    
+
+
+
+
                             <div class="py-3 px-4 space-y-3">
-                            
+
                                 <AuthorizeView>
                                     <Authorized>
-                                        
+
                                         <div class="flex space-x-4 lg:font-bold">
                                             <LIkeButton PostId="postDetail.Id" UpdateParentsLikes="UpdateLikes"/>
 
@@ -111,8 +111,8 @@
 
 
                             </div>
-                        
-                         
+
+
                         <AuthorizeView>
                             <Authorized>
                                 <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800 mx-3 ">
@@ -122,12 +122,12 @@
                                         @* <a href="#"> <i class="uil-video"></i></a> *@
                                     </div>
                                 </div>
-                                
-                            
+
+
                             </Authorized>
                             </AuthorizeView>
-                        
-                        
+
+
                             @if (comments.Any())
                             {
                                 <ol class="ml-3 pt-3">
@@ -140,10 +140,10 @@
                                 </ol>
                             }
                             </div>
-                        
-                        
-    @code {
-        [Parameter]
+
+
+@code {
+    [Parameter]
     public Post? postDetail { get; set; }
 	[Parameter]
 	public EventCallback<string> OnDeleteCallback { get; set; }
@@ -151,7 +151,7 @@
 
     private ICollection<Comment> comments = new List<Comment>();
     private ICollection<TagPost> tags = new List<TagPost>();
-        
+
     private string commentInputText = "";
     private string msg;
     private long userId;
@@ -219,13 +219,13 @@
             Console.WriteLine(e);
         }
     }
-        
+
         private async Task UpdateTagsAsync()
         {
             try
             {
                 tags = await tagService.GetPostTagAsync(postDetail.Id);
-                   
+
             }
             catch (Exception e)
             {
@@ -239,7 +239,7 @@
         {
             await postService.DeleteAsync(postDetail.Id, postDetail.Owner.Id);
 	        await OnDeleteCallback.InvokeAsync();
-            
+
         }
         catch (Exception e)
         {
@@ -261,5 +261,5 @@
         }
     }
 
-    
+
 }
