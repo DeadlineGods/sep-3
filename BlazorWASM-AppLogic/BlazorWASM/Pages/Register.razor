@@ -2,9 +2,11 @@
 @using BlazorWasm.Services
 @using Domain.DTOs
 @using Domain.Models
+@using HttpClients.ClientInterfaces
 @using UIComponents
 @inject IAuthService authService
 @inject NavigationManager navMgr
+@inject ILocationService locationService
 
 <body class="bg-gray-100">
 <AuthorizeView>
@@ -120,7 +122,13 @@
         errorLabel = "";
         try
         {
-            await authService.RegisterAsync(new UserCreationDto(userName,password,firstName,lastName, email,phoneNumber,1));
+	        Coordinate coordinates = await Map.GetCoordinates();
+
+	        LocationCreationDto locationCreationDto = new("", "", "", Country.AD, coordinates);
+
+	        int locationId = await locationService.CreateAsync(locationCreationDto);
+
+            await authService.RegisterAsync(new UserCreationDto(userName,password,firstName,lastName, email,phoneNumber,locationId));
             showAlert = true;
 
         }
