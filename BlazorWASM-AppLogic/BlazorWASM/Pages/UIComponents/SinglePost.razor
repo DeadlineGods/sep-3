@@ -5,66 +5,153 @@
 @using System.Security.Claims
 @using BlazorWasm.Services
 @using HttpClients.Implementations
-@using Shared
 @inject NavigationManager navMgr
 @inject ICommentService commentService
 @inject IAuthService authService
 @inject IPostService postService
-@inject IUserService userService
+@inject ITagService tagService
 
-<div class="post-card">
-    <div>@Post.Title</div>
-    <div>@Util.DateTimeToRelativeTime(Post.PostedOn)</div>
-	<div>@Post.Description</div>
-    <img src="@Post.ImgUrl" alt="thumbnail"/>
-    <div>@Post.Owner.UserName</div>
-    <div>@Post.Likes</div>
+    <div class="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0 pb-8">
+                        
+                            <!-- post header-->
+                            <div class="flex justify-between items-center px-4 py-3">
+                                <div class="flex flex-1 items-center space-x-4">
+                                    <a href="#">
+                                        <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+                                            <img src="assets/images/avatars/avatar-2.jpg" class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                                        </div>
+                                    </a>
+                                    <div class="preTitle">
+                                        <span class="block capitalize font-semibold dark:text-gray-100"> @postDetail.Owner.UserName </span>
+                                        <span class="block capitalize font-normal dark:text-gray-100"> @postDetail.Location.town</span>
+                                    </div>
+                        
+                        
+                                </div>
+                                <div>
+                                    @* edit1 *@
+                                    <AuthorizeView>
+                                        <Authorized>
+                                             @if (postDetail.Owner.UserName == @context.User.Identity.Name)
+                                                                            {
+                                            <a href="#" @onclick:preventDefault="true" > <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> </a>
+                                            <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
 
-    
-    <AuthorizeView>
-	    <Authorized>
+                                                <ul class="space-y-1">
+                                                    
+                                                    <li @onclick:preventDefault="true" @onclick="Edit">
+                                                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                            <i class="uil-edit-alt mr-1"></i> Edit Post
+                                                        </a>
+                                                    </li>
+                                                     <ReportUpdated PostId="postDetail.Id" UserId="userId"></ReportUpdated>
+                                                   
+                                                    <li   @onclick="Delete">
+                                                        <a href="posts/allUpdated" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                                            <i class="uil-trash-alt mr-1"></i> Delete
+                                                        </a>
+                                                    </li>
+                                                </ul>
 
-		    <LIkeButton PostId="Post.Id" UpdateParentsLikes="UpdateLikes"/>
+                                            </div>
+                                            }
 
-		    <div >
-			    <p>comment: </p>
-			    <input type="text" @bind="commentInputText"/>
-			    <button @onclick="PublishAsync">publish</button>
-		    </div>
-		    @if (Post.Owner.UserName == @context.User.Identity.Name)
-		    {
-			    <div><img class="icon delete-button" src="img/bin.png" alt="bin" @onclick="Delete"/></div>
-			    <div><img class="icon edit-button" src="img/edit.png" alt="edit" @onclick="Edit"/></div>
+                                        </Authorized>
+                                </AuthorizeView>
+                                </div>
+                            </div>
+                            <div class="titleDateBox flex justify-between">
+                                <h3 class="ml-4">@postDetail.Title</h3>
+                                <p class="text-xs mr-4" >@postDetail.PostedOn</p>
+                        
+                            </div>
+                            <div uk-lightbox>
+                                <a href="assets/images/post/img4.jpg">
+                                    @* <img src="assets/images/post/img4.jpg" alt=""> *@
+                                    <img src="@postDetail.ImgUrl" alt="thumbnail"/>
+                        
+                                </a>
+                            </div>
+                        
+                            
+                          
+                                    
+                            <div class="py-3 px-4 space-y-3">
+                            
+                                <AuthorizeView>
+                                    <Authorized>
+                                        
+                                        <div class="flex space-x-4 lg:font-bold">
+                                            <LIkeButton PostId="postDetail.Id" UpdateParentsLikes="UpdateLikes"/>
 
-		    }
-		    <Report PostId="Post.Id" UserId="userId"></Report>
-		    <h1>@msg</h1>
-	    </Authorized>
-    </AuthorizeView>
+                                        </div>
+                                        <div class="flex items-center space-x-3 border-b pb-3">
+                                            <div class="flex items-center">
+                                                <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
+                                                <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
+                                                <img src="assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
+                                            </div>
+                                            <div class="dark:text-gray-100">
+                                                Liked by <strong>@postDetail.Likes</strong> people
+                                            </div>
+                                        </div>
+                                    </Authorized>
+                                </AuthorizeView>
+                                <div class="pb-3 pt-2  ">
+                                    @postDetail.Description
+                                </div>
+                                <div class="lg:m-0 -mx-5 flex justify-between py-1 relative space-x-3  dark-tabs" style="">
+                                    <div class="flex flex-wrap lg:pl-0 pl-5 space-x-3">
+                                        @foreach (var tag in tags)
+                                        {
+                                            <a href="#" class="bg-white py-2 px-4 my-2 rounded inline-block font-bold shadow"> @tag.tagName</a>
+                                        }
+                                    </div>
+                                </div>
 
-    @if (comments.Any())
-    {
-        <ol>
-            @foreach (var comment in comments)
-            {
-                <li>
-                    <SingleComment Comment="@comment"/>
-                </li>
-            }
-        </ol>
-    }
 
-</div>
-
-@code {
-    [Parameter]
-    public Post? Post { get; set; }
+                            </div>
+                        
+                         
+                        <AuthorizeView>
+                            <Authorized>
+                                <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800 mx-3 ">
+                                    <input type="text" @bind="commentInputText" placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none ">
+                                    <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+                                        <a href="#"  @onclick:preventDefault="true" @onclick="PublishAsync"> <i class="uil-comment"></i></a>
+                                        @* <a href="#"> <i class="uil-video"></i></a> *@
+                                    </div>
+                                </div>
+                                
+                            
+                            </Authorized>
+                            </AuthorizeView>
+                        
+                        
+                            @if (comments.Any())
+                            {
+                                <ol class="ml-3 pt-3">
+                                    @foreach (var comment in comments)
+                                    {
+                                        <li>
+                                            <SingleCommentUpdated Comment="@comment"/>
+                                        </li>
+                                    }
+                                </ol>
+                            }
+                            </div>
+                        
+                        
+    @code {
+        [Parameter]
+    public Post? postDetail { get; set; }
 	[Parameter]
 	public EventCallback<string> OnDeleteCallback { get; set; }
 
 
     private ICollection<Comment> comments = new List<Comment>();
-
+    private ICollection<TagPost> tags = new List<TagPost>();
+        
     private string commentInputText = "";
     private string msg;
     private long userId;
@@ -84,7 +171,7 @@
 		        return;
 	        }
 
-			await commentService.CreateAsync(commentInputText, userId, Post.Id);
+			await commentService.CreateAsync(commentInputText, userId, postDetail.Id);
             commentInputText = "";
 
             await UpdateCommentsAsync();
@@ -105,6 +192,7 @@
         {
 	        userId = await authService.GetLoggedUserId();
             await UpdateCommentsAsync();
+            await UpdateTagsAsync();
         }
         catch (Exception e)
         {
@@ -116,7 +204,7 @@
 
     private void UpdateLikes(int changeDiff)
     {
-        Post.Likes += changeDiff;
+        postDetail.Likes += changeDiff;
         StateHasChanged();
     }
 
@@ -124,20 +212,34 @@
     {
         try
         {
-            comments = await commentService.GetCommentsByPostAsync(Post.Id);
+            comments = await commentService.GetCommentsByPostAsync(postDetail.Id);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
         }
     }
+        
+        private async Task UpdateTagsAsync()
+        {
+            try
+            {
+                tags = await tagService.GetPostTagAsync(postDetail.Id);
+                   
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
 
     private async Task Delete()
     {
         try
         {
-            await postService.DeleteAsync(Post.Id, Post.Owner.Id);
+            await postService.DeleteAsync(postDetail.Id, postDetail.Owner.Id);
 	        await OnDeleteCallback.InvokeAsync();
+            
         }
         catch (Exception e)
         {
@@ -150,7 +252,7 @@
     {
         try
         {
-            navMgr.NavigateTo($"EditPost/{Post.Id}");
+            navMgr.NavigateTo($"EditPostUpdated/{postDetail.Id}");
         }
         catch (Exception e)
         {
@@ -159,4 +261,5 @@
         }
     }
 
+    
 }
