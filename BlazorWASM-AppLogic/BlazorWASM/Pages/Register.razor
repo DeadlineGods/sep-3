@@ -8,86 +8,91 @@
 
 <body class="bg-gray-100">
 <AuthorizeView>
-    <NotAuthorized>
-    <div id="wrapper" class="flex flex-col justify-between h-screen">
+	<NotAuthorized>
+		<Alert Type="success" Show="@showAlert">
+        	<p>Your account was created!</p>
+        	<button @onclick="NavigateToLogin">go to login page</button>
+        </Alert>
 
-        <!-- header-->
-        <div class="bg-white py-4 shadow dark:bg-gray-800">
-            <div class="max-w-6xl mx-auto">
+		<div id="wrapper" class="flex flex-col justify-between h-screen">
+
+			<!-- header-->
+			<div class="bg-white py-4 shadow dark:bg-gray-800">
+				<div class="max-w-6xl mx-auto">
 
 
-                <div class="flex items-center lg:justify-between justify-around">
+					<div class="flex items-center lg:justify-between justify-around">
 
-                    <a href="trending.html">
-                        <img src="assets/images/logo.png" alt="" class="w-32">
-                    </a>
+						<a href="trending.html">
+							<img src="assets/images/logo.png" alt="" class="w-32">
+						</a>
 
-                    <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
-                        <a href="/Login" class="py-3 px-4">Login</a>
-                        <a href="/Register" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
-                    </div>
+						<div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
+							<a href="/Login" class="py-3 px-4">Login</a>
+							<a href="/Register" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+						</div>
 
-                </div>
-            </div>
-        </div>
+					</div>
+				</div>
+			</div>
 
-        <!-- Content-->
+			<!-- Content-->
 
-        <div>
-            <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-                <h1 class="lg:text-3xl text-xl font-semibold mb-6"> Sign in</h1>
-                <p class="mb-2 text-black text-lg"> Register to manage your account </p>
-                <form action="">
-                    <div class="flex lg:flex-row flex-col lg:space-x-2">
-                        <input type="text" placeholder="First Name"  class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="firstName" style="border: 1px solid #d3d5d8 !important;">
-                        <input type="text" placeholder="Last Name" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="lastName" style="border: 1px solid #d3d5d8 !important;">
-                    </div>
-                    <input type="text" placeholder="User Name" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="userName" style="border: 1px solid #d3d5d8 !important;">
-                    <input type="text" placeholder="Email" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="email" style="border: 1px solid #d3d5d8 !important;">
-                    <input type="password" placeholder="Password" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"  @bind="password" style="border: 1px solid #d3d5d8 !important;">
-                    <input type="text" placeholder="Phone Number" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="phoneNumber" style="border: 1px solid #d3d5d8 !important;">
-                    <MapComponent @ref="Map"></MapComponent>
-                    <div class="flex justify-start my-4 space-x-1">
-                        <div class="checkbox">
-                            <input type="checkbox" id="chekcbox1" checked>
-                            <label for="chekcbox1"><span class="checkbox-icon"></span> I Agree</label>
-                        </div>
-                        <a href="#"> Terms and Conditions</a>
-                    </div>
-                    @if (!string.IsNullOrEmpty(errorLabel))
-                    {
-                        <div class="field">
-                            <label style="color: red">
-                                @errorLabel
-                            </label>
-                        </div>
-                    }
-                    <button @onclick="RegisterAsync" @onclick:preventDefault="true"  class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
-                    <div class="text-center mt-5 space-x-2">
-                        <p class="text-base"> Do you have an account? <a href="form-login.html"> Login </a></p>
-                    </div>
-                </form>
-            </div>
-        </div>
-           
-        
-        <!-- Footer -->
+			<div>
+				<div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+					<h1 class="lg:text-3xl text-xl font-semibold mb-6"> Sign in</h1>
+					<p class="mb-2 text-black text-lg"> Register to manage your account </p>
+					<form action="">
+						<div class="flex lg:flex-row flex-col lg:space-x-2">
+							<input type="text" placeholder="First Name" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="firstName" style="border: 1px solid #d3d5d8 !important;">
+							<input type="text" placeholder="Last Name" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="lastName" style="border: 1px solid #d3d5d8 !important;">
+						</div>
+						<input type="text" placeholder="User Name" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="userName" style="border: 1px solid #d3d5d8 !important;">
+						<input type="text" placeholder="Email" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="email" style="border: 1px solid #d3d5d8 !important;">
+						<input type="password" placeholder="Password" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="password" style="border: 1px solid #d3d5d8 !important;">
+						<input type="text" placeholder="Phone Number" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="phoneNumber" style="border: 1px solid #d3d5d8 !important;">
+						<MapComponent @ref="Map"></MapComponent>
+						<div class="flex justify-start my-4 space-x-1">
+							<div class="checkbox">
+								<input type="checkbox" id="chekcbox1" checked>
+								<label for="chekcbox1"><span class="checkbox-icon"></span> I Agree</label>
+							</div>
+							<a href="#"> Terms and Conditions</a>
+						</div>
+						@if (!string.IsNullOrEmpty(errorLabel))
+						{
+							<div class="field">
+								<label style="color: red">
+									@errorLabel
+								</label>
+							</div>
+						}
+						<button @onclick="RegisterAsync" @onclick:preventDefault="true" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
+						<div class="text-center mt-5 space-x-2">
+							<p class="text-base"> Do you have an account? <a href="form-login.html"> Login </a></p>
+						</div>
+					</form>
+				</div>
+			</div>
 
-        <div class="lg:mb-5 py-3 uk-link-reset">
-            <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
-                <div class="flex space-x-2 text-gray-700 uppercase">
-                    <a href="#"> About</a>
-                    <a href="#"> Help</a>
-                    <a href="#"> Terms</a>
-                    <a href="#"> Privacy</a>
-                </div>
-                <p class="capitalize"> © copyright 2020 by Instello</p>
-            </div>
-        </div>
 
-    </div>
-            </NotAuthorized>
- <Authorized>
+			<!-- Footer -->
+
+			<div class="lg:mb-5 py-3 uk-link-reset">
+				<div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+					<div class="flex space-x-2 text-gray-700 uppercase">
+						<a href="#"> About</a>
+						<a href="#"> Help</a>
+						<a href="#"> Terms</a>
+						<a href="#"> Privacy</a>
+					</div>
+					<p class="capitalize"> © copyright 2020 by Instello</p>
+				</div>
+			</div>
+
+		</div>
+	</NotAuthorized>
+			<Authorized>
                 <div class="card">
                     <h3>Hello, @context.User.Identity.Name</h3>
                 </div>
@@ -106,7 +111,7 @@
 
     private string errorLabel;
     private bool showAlert;
-    
+
     private MapComponent Map;
 
 
@@ -117,7 +122,6 @@
         {
             await authService.RegisterAsync(new UserCreationDto(userName,password,firstName,lastName, email,phoneNumber,1));
             showAlert = true;
-            navMgr.NavigateTo("/Login");
 
         }
         catch (Exception e)

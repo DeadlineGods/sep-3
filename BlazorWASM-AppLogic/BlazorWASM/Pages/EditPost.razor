@@ -8,10 +8,14 @@
 @inject ITagService tagService;
 
 <body>
-
+<Alert Type="success" Show="@showAlert">
+	<p>Post #@Id was succesfully edited!</p>
+	<button @onclick="NavigateToFeed">go to feed</button>
+	<button @onclick="(() => showAlert = false)">keep editing</button>
+</Alert>
 <div id="wrapper">
 <SideBar></SideBar>
-    
+
 <!-- create post -->
 <div class="main_content">
     <div id="offcanvas-create flex justify-center ">
@@ -59,7 +63,7 @@
                         <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
                     </div>
                 }
-                
+
                 <button type="button" @onclick="UpdateAsync" class="bg-pink-600 font-semibold p-2 mt-2 rounded-md text-center text-white w-full">
                     Create </button>
                 @if (!string.IsNullOrEmpty(msg))
@@ -85,6 +89,7 @@
     private IList<string> postTags = new List<string>();
     private string newTag = "";
     Post? postData { get; set; }
+	private bool showAlert;
 
     private string msg = "";
 
@@ -140,7 +145,7 @@
             await tagService.CreateAsync(tagDto);
 
 
-            navMgr.NavigateTo("/posts/all");
+	        showAlert = true;
         }
         catch (Exception e)
         {
@@ -163,4 +168,9 @@
     {
         postTags.Remove(tag);
     }
+
+	private void NavigateToFeed()
+	{
+		navMgr.NavigateTo("posts/all");
+	}
 }

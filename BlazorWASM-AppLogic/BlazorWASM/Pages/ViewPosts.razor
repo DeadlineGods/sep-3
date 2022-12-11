@@ -17,202 +17,207 @@
 
     <div id="wrapper">
     <SideBar></SideBar>
-    <div class="main_content">
+	    <div class="main_content">
 
-            <header>
-                <div class="header_inner">
-                    <div class="left-side">
-                        <!-- Logo -->
-                        <div id="logo" class=" uk-hidden@s">
-                            <a href="home.html">
-                                <img src="assets/images/logo-mobile.png" alt="">
-                                <img src="assets/images/logo-mobile-light.png" class="logo_inverse">
-                            </a>
-                        </div>
+		     <Alert Type="success" Show="@showAlert">
+                    <p>@alertMsg</p>
+                    <button @onclick="(() => showAlert = false)">great</button>
+            </Alert>
 
-                        <div class="triger" uk-toggle="target: #wrapper ; cls: sidebar-active">
-                            <i class="uil-bars"></i>
-                        </div>
+		    <header>
+			    <div class="header_inner">
+				    <div class="left-side">
+					    <!-- Logo -->
+					    <div id="logo" class=" uk-hidden@s">
+						    <a href="home.html">
+							    <img src="assets/images/logo-mobile.png" alt="">
+							    <img src="assets/images/logo-mobile-light.png" class="logo_inverse">
+						    </a>
+					    </div>
 
-                        <div class="header_search flex items-center">
-                            <input type="text" @bind="tagFilter" placeholder="Search by Tag..">
+					    <div class="triger" uk-toggle="target: #wrapper ; cls: sidebar-active">
+						    <i class="uil-bars"></i>
+					    </div>
 
-                            <div class="icon-search" >
-                                <a href="#" @onclick:preventDefault="true" @onclick="OnInitializedAsync"> <i class="icon-feather-x text-lg mr-1 text-gray-400"></i></a>
-                                <a href="#" @onclick:preventDefault="true" @onclick="LoadPostsWithTags">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                                    </svg>
-                                </a>
-                            </div>
+					    <div class="header_search flex items-center">
+						    <input type="text" @bind="tagFilter" placeholder="Search by Tag..">
 
-                        </div>
+						    <div class="icon-search">
+							    <a href="#" @onclick:preventDefault="true" @onclick="OnInitializedAsync"> <i class="icon-feather-x text-lg mr-1 text-gray-400"></i></a>
+							    <a href="#" @onclick:preventDefault="true" @onclick="LoadPostsWithTags">
+								    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+								         stroke="currentColor">
+									    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+								    </svg>
+							    </a>
+						    </div>
 
-                    </div>
-                    <div class="right-side lg:pr-4">
-                        <!-- upload -->
-                        <AuthorizeView>
-                        	    <Authorized>
-                        <a href="/posts/create"
-                            class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-4 px-4 py-2 rounded shado text-white">
-                            <ion-icon name="add-circle" class="-mb-1
+					    </div>
+
+				    </div>
+				    <div class="right-side lg:pr-4">
+					    <!-- upload -->
+					    <AuthorizeView>
+						    <Authorized>
+							    <a href="/posts/create"
+							       class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-4 px-4 py-2 rounded shado text-white">
+								    <ion-icon name="add-circle" class="-mb-1
                              mr-1 opacity-90 text-xl uilus-circle"></ion-icon> Upload
-                        </a>
-                          </Authorized>
-                           </AuthorizeView>
-                        
-                         <!-- Notification -->
+							    </a>
+						    </Authorized>
+					    </AuthorizeView>
 
-                        <a href="#" class="header-links-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                            </svg>
-                        </a>
-                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
-                            <h4
-                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
-                                Notification </h4>
-                            <ul class="dropdown_scrollbar" data-simplebar>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
-                                        </div>
-                                        <div class="drop_content">
-                                            <p> <strong>Adrian Mohani</strong>  Lorem ipsum dolor cursus
-                                                <span class="text-link"> Adipiscing massa convallis  </span>
-                                            </p>
-                                            <span class="time-ago"> 2 hours ago </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-2.jpg" alt="">
-                                        </div>
-                                        <div class="drop_content">
-                                            <p>
-                                                <strong>Stella Johnson</strong> Nonummy nibh euismod
-                                                <span class="text-link"> Imperdiet doming </span>
-                                            </p>
-                                            <span class="time-ago"> 9 hours ago </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-3.jpg" alt="">
-                                        </div>
-                                        <div class="drop_content">
-                                            <p>
-                                                <strong>Alex Dolgove</strong>  Lorem ipsum dolor cursus
-                                                <span class="text-link"> Adipiscing massa convallis  </span>
-                                            </p>
-                                            <span class="time-ago"> 12 hours ago </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
-                                        </div>
-                                        <div class="drop_content">
-                                            <p>
-                                                <strong>Stella Johnson</strong> Nonummy nibh euismod
-                                                <span class="text-link"> Imperdiet doming </span>
-                                            </p>
-                                            <span class="time-ago"> Yesterday </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-3.jpg" alt="">
-                                        </div>
-                                        <div class="drop_content">
-                                            <p>
-                                                <strong>Alex Dolgove</strong>  Lorem ipsum dolor cursus
-                                                <span class="text-link"> Adipiscing massa convallis  </span>
-                                            </p>
-                                            <span class="time-ago"> 12 hours ago </span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                            <a href="#" class="see-all">See all</a>
-                        </div>
+					    <!-- Notification -->
 
-                     
-                        <!-- profile -->
+					    <a href="#" class="header-links-item">
+						    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+						         stroke="currentColor">
+							    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+						    </svg>
+					    </a>
+					    <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+						    <h4
+							    class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+							    Notification </h4>
+						    <ul class="dropdown_scrollbar" data-simplebar>
+							    <li>
+								    <a href="#">
+									    <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
+									    </div>
+									    <div class="drop_content">
+										    <p> <strong>Adrian Mohani</strong> Lorem ipsum dolor cursus
+											    <span class="text-link"> Adipiscing massa convallis </span>
+										    </p>
+										    <span class="time-ago"> 2 hours ago </span>
+									    </div>
+								    </a>
+							    </li>
+							    <li>
+								    <a href="#">
+									    <div class="drop_avatar"> <img src="assets/images/avatars/avatar-2.jpg" alt="">
+									    </div>
+									    <div class="drop_content">
+										    <p>
+											    <strong>Stella Johnson</strong> Nonummy nibh euismod
+											    <span class="text-link"> Imperdiet doming </span>
+										    </p>
+										    <span class="time-ago"> 9 hours ago </span>
+									    </div>
+								    </a>
+							    </li>
+							    <li>
+								    <a href="#">
+									    <div class="drop_avatar"> <img src="assets/images/avatars/avatar-3.jpg" alt="">
+									    </div>
+									    <div class="drop_content">
+										    <p>
+											    <strong>Alex Dolgove</strong> Lorem ipsum dolor cursus
+											    <span class="text-link"> Adipiscing massa convallis </span>
+										    </p>
+										    <span class="time-ago"> 12 hours ago </span>
+									    </div>
+								    </a>
+							    </li>
+							    <li>
+								    <a href="#">
+									    <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
+									    </div>
+									    <div class="drop_content">
+										    <p>
+											    <strong>Stella Johnson</strong> Nonummy nibh euismod
+											    <span class="text-link"> Imperdiet doming </span>
+										    </p>
+										    <span class="time-ago"> Yesterday </span>
+									    </div>
+								    </a>
+							    </li>
+							    <li>
+								    <a href="#">
+									    <div class="drop_avatar"> <img src="assets/images/avatars/avatar-3.jpg" alt="">
+									    </div>
+									    <div class="drop_content">
+										    <p>
+											    <strong>Alex Dolgove</strong> Lorem ipsum dolor cursus
+											    <span class="text-link"> Adipiscing massa convallis </span>
+										    </p>
+										    <span class="time-ago"> 12 hours ago </span>
+									    </div>
+								    </a>
+							    </li>
+						    </ul>
+						    <a href="#" class="see-all">See all</a>
+					    </div>
 
-                        <a href="#">
-                            <img src="assets/images/avatars/avatar-2.jpg" class="header-avatar" alt="">
-                        </a>
-                        <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
-                            <ul>
-                                <li><a href="#"> Account setting </a> </li>
-                                <li><a href="#"> Payments </a> </li>
-                                <li><a href="#"> Help </a> </li>
-                                <li><a href="form-login.html"> Log Out</a></li>
-                            </ul>
-                        </div>
 
-                    </div>
-                </div>
-            </header>
+					    <!-- profile -->
 
-            <div class="container m-auto">
+					    <a href="#">
+						    <img src="assets/images/avatars/avatar-2.jpg" class="header-avatar" alt="">
+					    </a>
+					    <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
+						    <ul>
+							    <li><a href="#"> Account setting </a> </li>
+							    <li><a href="#"> Payments </a> </li>
+							    <li><a href="#"> Help </a> </li>
+							    <li><a href="form-login.html"> Log Out</a></li>
+						    </ul>
+					    </div>
 
-                <h1 class="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
+				    </div>
+			    </div>
+		    </header>
 
-                <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+		    <div class="container m-auto">
 
-                    <!-- left sidebar-->
-                    <div class="space-y-5 flex-shrink-0 lg:w-7/12">
-                        @* Origin post *@
-                        @if (posts == null)
-                        {
-                            <p>Loading..</p>
-                        }
-                        else if (!posts.Any())
-                        {
-                            <p>No posts to display</p>
-                        }
-                        else
-                        {
-                            @foreach (var post in posts)
-                            { 
-                                <SinglePost PostDetail="@post" OnDeleteCallback="OnDelete">
-                              
-                              </SinglePost>
-                                
-                                 
-                        
-       
-                            }
-                        }
-                        @if (!string.IsNullOrEmpty(msg))
-                        {
-                            <label style="color: red">@msg</label>
-                        }
-                
-                    </div>
+			    <h1 class="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
 
-                  
+			    <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
 
-                    </div>
+				    <!-- left sidebar-->
+				    <div class="space-y-5 flex-shrink-0 lg:w-7/12">
+					    @* Origin post *@
+					    @if (posts == null)
+					    {
+						    <p>Loading..</p>
+					    }
+					    else if (!posts.Any())
+					    {
+						    <p>No posts to display</p>
+					    }
+					    else
+					    {
+						    @foreach (var post in posts)
+						    {
+							    <SinglePost PostDetail="@post" OnDeleteCallback="OnDelete">
 
-                </div>               
-          
+							    </SinglePost>
 
-            </div>
+
+
+
+						    }
+					    }
+					    @if (!string.IsNullOrEmpty(msg))
+					    {
+						    <label style="color: red">@msg</label>
+					    }
+
+				    </div>
+
+
+
+			    </div>
+
+		    </div>
+
+
+	    </div>
 
         </div>
 
-    
+
 
 
 
@@ -225,7 +230,7 @@
                     <img src="assets/images/post/img4.jpg" alt=""  class="inset-0 h-full w-full object-cover">
                 </div>
                 <div class="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100">
-                
+
                     <!-- post header-->
                     <div class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
                         <div class="flex flex-1 items-center space-x-4">
@@ -237,14 +242,14 @@
                             </a>
                             <span class="block text-lg font-semibold"> Johnson smith </span>
                         </div>
-                        <a href="#"> 
+                        <a href="#">
                             <i  class="icon-feather-more-horizontal text-2xl rounded-full p-2 transition -mr-1"></i>
                         </a>
                     </div>
                     <div class="story-content p-4" data-simplebar>
 
                         <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        
+
                         <div class="py-4 ">
                             <div class="flex justify-around">
                                 <a href="#" class="flex items-center space-x-3">
@@ -258,7 +263,7 @@
                                 </a>
                             </div>
                             <hr class="-mx-4 my-3">
-                            <div class="flex items-center space-x-3"> 
+                            <div class="flex items-center space-x-3">
                                 <div class="flex items-center">
                                     <img src="assets/images/avatars/avatar-1.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white">
                                     <img src="assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white -ml-2">
