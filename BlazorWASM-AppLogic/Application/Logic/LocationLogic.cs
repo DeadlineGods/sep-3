@@ -35,7 +35,7 @@ public class LocationLogic : ILocationLogic
 	public async Task<int> CreateAsync(LocationCreationDto dto)
 	{
 		// TODO maybe check if there is such a data in db already
-		
+
 		dto = await GetAddressFromCoordinates(dto.coordinate);
 
 		return await dao.CreateAsync(dto);
@@ -50,12 +50,22 @@ public class LocationLogic : ILocationLogic
 		var route = addresses.Where(a => !a.IsPartialMatch).Select(a => a[GoogleAddressType.Route]).First();
 		var streetNo = addresses.Where(a => !a.IsPartialMatch).Select(a => a[GoogleAddressType.StreetNumber]).First();
 
-		LocationCreationDto dto = new LocationCreationDto(
-			route.ShortName + " " + streetNo.ShortName,
-			town.ShortName,
-			postCode.ShortName,
-			(Country)Enum.Parse(typeof(Country), country.ShortName),
-			coordinate);
+		LocationCreationDto dto;
+
+		if (country == null || route == null)
+		{
+			dto = new LocationCreationDto("This place do not have address", "", "", Country.EMPTY, coordinate);
+		}
+		else
+		{
+			dto = new LocationCreationDto(
+				route.ShortName + streetNo.ShortName,
+				town.ShortName,
+				postCode.ShortName,
+				(Country) Enum.Parse(typeof(Country), country.ShortName),
+				coordinate);
+		}
+
 		return dto;
 	}
 }

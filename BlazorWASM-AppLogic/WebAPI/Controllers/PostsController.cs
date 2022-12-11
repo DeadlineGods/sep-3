@@ -72,7 +72,7 @@ public class PostsController : ControllerBase
     }
 
 
-   
+
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] long id,[FromQuery] int user_id)
     {
@@ -102,7 +102,7 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
 
 
 }
