@@ -1,4 +1,4 @@
-﻿@page "/LoginUpdated"
+﻿@page "/Login"
 @using BlazorWasm.Services
 @inject IAuthService authService
 @inject NavigationManager navMgr
@@ -26,8 +26,8 @@
                 </a>
 
                 <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
-                    <a href="/loginUpdated" class="py-3 px-4">Login</a>
-                    <a href="/registerUpdated" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+                    <a href="/Login" class="py-3 px-4">Login</a>
+                    <a href="/Register" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
                 </div>
 
             </div>
@@ -59,7 +59,8 @@
                             }
                 <button  @onclick="LoginAsync"  @onclick:preventDefault="true"  class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
                 <div class="text-center mt-5 space-x-2">
-                    <p class="text-base"> Not registered? <a href="/registerUpdated" class="text-pink-700 font-semibold"> Create a account </a> or contine as <a href="/posts/allUpdated" class="text-pink-700 font-semibold">Guest</a></p>
+                    <p class="text-base"> Not registered? <a href="/Register" class="text-pink-700 font-semibold"> Create a account </a> or contine as <a href="/posts/all" class="text-pink-700 font-semibold">Guest</a></p>
+                    <p class="text-base mt-1"> Log in as <a href="/admin/Login" class="text-pink-700 font-semibold"> Admin </a> </p>
 
                     </div>
             </form>
@@ -101,7 +102,7 @@
         try
         {
             await authService.LoginAsync(userName, password);
-            navMgr.NavigateTo("/posts/allUpdated");
+            navMgr.NavigateTo("/posts/all");
             
      //Console.WriteLine("HERE");
 

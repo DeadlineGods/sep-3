@@ -1,4 +1,4 @@
-﻿@page "/EditPostUpdated/{id:int}"
+﻿@page "/EditPost/{id:int}"
 @using UIComponents
 @using Domain.DTOs
 @using Domain.Models
@@ -140,7 +140,7 @@
             await tagService.CreateAsync(tagDto);
 
 
-            navMgr.NavigateTo("/posts/allUpdated");
+            navMgr.NavigateTo("/posts/all");
         }
         catch (Exception e)
         {

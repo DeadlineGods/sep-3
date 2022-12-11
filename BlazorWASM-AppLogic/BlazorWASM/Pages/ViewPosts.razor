@@ -1,4 +1,4 @@
-﻿@page "/posts/allUpdated"
+﻿@page "/posts/all"
 @using UIComponents
 @using Domain.Models
 @using HttpClients.ClientInterfaces
@@ -185,9 +185,9 @@
                         {
                             @foreach (var post in posts)
                             { 
-                                <PostComp PostDetail="@post" OnDeleteCallback="OnDelete">
+                                <SinglePost PostDetail="@post" OnDeleteCallback="OnDelete">
                               
-                              </PostComp>
+                              </SinglePost>
                                 
                                  
                         
