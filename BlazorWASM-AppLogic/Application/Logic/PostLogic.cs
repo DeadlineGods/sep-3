@@ -50,7 +50,7 @@ public class PostLogic : IPostLogic
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
-        
+
 
         IEnumerable<Post> posts = await PostDao.GetAsync(parametersDto);
         foreach (var post in posts)
@@ -61,7 +61,7 @@ public class PostLogic : IPostLogic
         return posts;
     }
 
-    
+
     public async Task DeleteAsync(long post_id, int user_id)
     {
         SearchPostParametersDto parameters = new SearchPostParametersDto(post_id);
@@ -77,7 +77,7 @@ public class PostLogic : IPostLogic
 
             }
         }
-        
+
         await PostDao.DeleteAsync(post_id);
     }
 
@@ -113,17 +113,14 @@ public class PostLogic : IPostLogic
 	    double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1-a));
 	    double d = R * c;
 
-        Console.WriteLine(postCoordinate.ToJSON());
-        Console.WriteLine(center.ToJSON());
-
 	    return d * 1000 < radius;
     }
 
-    
+
 
     public async Task<int> UpdateAsync(UpdatePostDto dto, int user_id)
     {
-        
+
 
         SearchPostParametersDto postParameters = new SearchPostParametersDto(dto.Id);
         IEnumerable<Post> posts = await PostDao.GetAsync(postParameters);
@@ -132,16 +129,16 @@ public class PostLogic : IPostLogic
         {
             throw new Exception($"Post with {dto.Id} not found");
         }
-        
-        
+
+
         if (existing.Owner.Id == user_id)
         {
-            
+
             string titleToUse = dto.Title ?? existing.Title;
             string descriptionToUse = dto.Description ?? existing.Description;
             IList<string> tags = dto.Tags;
-            
-            
+
+
             Post updated = new Post()
             {
                 Id = dto.Id,
@@ -149,11 +146,11 @@ public class PostLogic : IPostLogic
                 Description = descriptionToUse,
                 Owner = existing.Owner
             };
-            
+
             ValidatePost(updated);
             await PostDao.UpdateAsync(updated);
         }
-        
+
 
         return dto.Id;
     }
@@ -172,7 +169,7 @@ public class PostLogic : IPostLogic
             throw new Exception("Title has more characters than 150");
         }
     }
-    
+
     private void ValidatePost(Post dto)
     {
         if (dto.Description.Length > 5000)

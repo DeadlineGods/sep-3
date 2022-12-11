@@ -7,6 +7,9 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\natal\.nuget\packages\grpc.net.client\2.49.0\lib\net6.0\Grpc.Net.Client.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=96466e68_002D6dbf_002D4673_002D9a79_002D2b7af13d2a5b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from AdminLogicTest.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;ProjectFile&gt;AA767EC5-9070-4665-BF1B-52C36AE59129/f:AdminLogicTest.cs&lt;/ProjectFile&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a82e3070_002Da9c3_002D498d_002D8af8_002D8c4ba4dd7cfc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::AA767EC5-9070-4665-BF1B-52C36AE59129::net6.0::ApplicationXUnitTest.PostLogicTest&lt;/TestId&gt;&#xD;
