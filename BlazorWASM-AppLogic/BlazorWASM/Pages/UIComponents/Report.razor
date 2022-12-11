@@ -1,4 +1,4 @@
-@using System.Security.Claims
+﻿@using System.Security.Claims
 @using BlazorWasm.Services
 @using Domain.DTOs
 @using HttpClients.ClientInterfaces
@@ -7,66 +7,74 @@
 @inject NavigationManager navMgr
 
 <Alert Type="success" Show="@showAlert">
-	<p>Thank you for contributing to build community who cares!</p>
-	@* <button @onclick="() => @navMgr.NavigateTo("/posts/all")">go to feed</button> *@
-	<button @onclick="(() => showAlert = false)">great</button>
+    <div class="w-full">
+        <p >Thank you for contributing to build community who cares!</p>
+        @* <button @onclick="@(() => showAlert = false)>close</button> *@
+        <button @onclick="(() => {showAlert = false;showReportField = false;})"><strong>close</strong></button>
+    </div>
 </Alert>
 
-<button @onclick="@(() => showReportField = true)">" >Report post</button>
+<li @onclick:preventDefault="true" @onclick="@(() => showReportField = true)">
+    <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+        <i class="uil-edit-alt mr-1"></i> Report post
+    </a>
+</li>
 
 @if (showReportField)
 {
-	<input type="text" @bind="reportInputText" >
-	<button
-		@onclick="ReportPostAsync">
-		report
-	</button>
+    <input type="text" @bind="reportInputText" >
+    <button
+        @onclick="ReportPostAsync">
+        report
+    </button>
 
-	<label>@msg</label>
+    <label>@msg</label>
 
 }
 
 @code {
 
-	[Parameter]
-	public long PostId { get; set; }
+    [Parameter]
+    public long PostId { get; set; }
 
-	[Parameter]
-	public long UserId { get; set; }
+    [Parameter]
+    public long UserId { get; set; }
 
-	public bool showReportField;
-	private string reportInputText;
-	private string msg;
-	private bool showAlert;
-
-
-	protected override async Task OnInitializedAsync()
-	{
-
-	}
-
-	private async Task ReportPostAsync()
-	{
-
-		try
-		{
-
-			if (UserId != 0)
-			{
-				ReportPostDto dto = new ReportPostDto(reportInputText, (int)PostId, (int)UserId);
-
-				await reportService.ReportPostAsync(dto);
+    public bool showReportField;
+    private string reportInputText;
+    private string msg;
+    private bool showAlert;
+    private bool showInput;
 
 
-				showAlert = true;
-				reportInputText = "";
-			}
-		}
-		catch (Exception e)
-		{
-			Console.WriteLine(e);
-			msg = e.Message;
-		}
-	}
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task ReportPostAsync()
+    {
+
+        try
+        {
+
+            if (UserId != 0)
+            {
+                ReportPostDto dto = new ReportPostDto(reportInputText, (int)PostId, (int)UserId);
+
+                await reportService.ReportPostAsync(dto);
+
+
+                showAlert = true;
+                reportInputText = "";
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
 
 }

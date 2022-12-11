@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using System.Collections;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
+using Geocoding;
 using SearchPostParameters = Domain.DTOs.SearchPostParametersDto;
 
 namespace Application.Logic;
@@ -48,6 +50,8 @@ public class PostLogic : IPostLogic
 
     public async Task<IEnumerable<Post>> GetAsync(SearchPostParametersDto parametersDto)
     {
+        
+
         IEnumerable<Post> posts = await PostDao.GetAsync(parametersDto);
         foreach (var post in posts)
         {
@@ -57,9 +61,7 @@ public class PostLogic : IPostLogic
         return posts;
     }
 
-
-
-
+    
     public async Task DeleteAsync(long post_id, int user_id)
     {
         SearchPostParametersDto parameters = new SearchPostParametersDto(post_id);
@@ -85,10 +87,12 @@ public class PostLogic : IPostLogic
 	    ICollection<Post> postsInRadius = new List<Post>();
 
 
-	    foreach (Post post in posts)
+        foreach (Post post in posts)
 	    {
-		    if (IsInRadius(center, post.Location.coordinate, radius))
-			    postsInRadius.Add(post);
+            if (IsInRadius(center, post.Location.coordinate, radius))
+            {
+                postsInRadius.Add(post);
+            }
 	    }
 
 	    return postsInRadius;
@@ -109,6 +113,8 @@ public class PostLogic : IPostLogic
 	    double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1-a));
 	    double d = R * c;
 
+        Console.WriteLine(postCoordinate.ToJSON());
+        Console.WriteLine(center.ToJSON());
 
 	    return d * 1000 < radius;
     }

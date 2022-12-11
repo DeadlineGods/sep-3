@@ -1,4 +1,4 @@
-@page "/admin/login"
+﻿@page "/admin/Login"
 @using BlazorWasm.Services
 @using System.Security.Claims
 @using Domain.Models
@@ -7,77 +7,122 @@
 @inject NavigationManager navMgr
 @inject IAdminService adminService
 
-@if (isAdminLogged)
-{
+<body class="bg-gray-100">
+<AuthorizeView>
+    <NotAuthorized>
 
-}
-else
-{
-	<div class="card">
-		<h3>Admin login page</h3>
-		<div class="field">
-			<label>User name:</label>
-			<input type="text" class="feedback-input" @bind="userName"/>
-		</div>
-		<div class="field">
-			<label style="text-align: center">Password:</label>
-			<input type="password" class="feedback-input" @bind="password"/>
-		</div>
-		@if (!string.IsNullOrEmpty(errorLabel))
-		{
-			<div class="field">
-				<label style="color: red">
-					@errorLabel
-				</label>
-			</div>
-		}
-		<div class="field">
-			<button class="button-35" role="button" @onclick="LoginAsync">Log in</button>
-		</div>
-	</div>
+<div id="wrapper" class="flex flex-col justify-between h-screen">
 
-}
+    <!-- header-->
+    <div class="bg-white py-4 shadow dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto">
 
+
+            <div class="flex items-center lg:justify-between justify-around">
+
+                <a href="trending.html">
+                    <img src="assets/images/logo.png" alt="" class="w-32">
+                </a>
+
+                <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
+                    <a href="/Login" class="py-3 px-4">Login</a>
+                    <a href="/Register" class="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Content-->
+    <div>
+        <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+            <h1 class="lg:text-3xl text-xl font-semibold  mb-6"> Log in as Admin</h1>
+            <p class="mb-2 text-black text-lg"> Username</p>
+            <form action="">
+                <input type="text" placeholder="John Smith" @bind="userName" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+                <input type="password" placeholder="***********" @bind="password" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+                <div class="flex justify-between my-4">
+                    <div class="checkbox">
+                        <input type="checkbox" id="chekcbox1" checked>
+                        
+                    </div>
+                   
+                </div>
+                  @if (!string.IsNullOrEmpty(errorLabel))
+                            {
+                                <div class="field">
+                                    <label style="color: red">
+                                        @errorLabel
+                                    </label>
+                                </div>
+                            }
+                <button  @onclick="LoginAsync"  @onclick:preventDefault="true"  class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
+                
+            </form>
+        </div>
+    </div>
+        
+    <!-- Footer -->
+
+    <div class="lg:mb-5 py-3 uk-link-reset">
+        <div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+            <div class="flex space-x-2 text-gray-700 uppercase">
+              
+            </div>
+            <p class="capitalize"> © copyright 2020 by Instello</p>
+        </div>
+    </div>
+
+</div>
+    </NotAuthorized>
+    <Authorized>
+        <div class="card">
+            <h3>Hello, @context.User.Identity.Name</h3>
+            
+        </div>
+    </Authorized>
+</AuthorizeView>
+</body>
 
 @code {
-	private string userName;
-	private string password;
-	private string errorLabel;
-	private bool isAdminLogged;
+    private string userName;
+    private string password;
+    private string errorLabel;
+    private bool isAdminLogged;
 
-	protected override async Task OnInitializedAsync()
-	{
-		isAdminLogged = await IsAdminLogged();
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        isAdminLogged = await IsAdminLogged();
+    }
 
-	private async Task LoginAsync()
-	{
-		errorLabel = "";
-		try
-		{
-			await authService.LoginAdminAsync(userName, password);
-			navMgr.NavigateTo("/admin/reports");
-		}
-		catch (Exception e)
-		{
-			Console.WriteLine(e);
-			errorLabel = $"Error: {e.Message}";
-		}
-	}
+    private async Task LoginAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            await authService.LoginAdminAsync(userName, password);
+            navMgr.NavigateTo("/admin/reports");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
 
-	private async Task<bool> IsAdminLogged()
-	{
-		ClaimsPrincipal context = await authService.GetAuthAsync();
+    private async Task<bool> IsAdminLogged()
+    {
+        ClaimsPrincipal context = await authService.GetAuthAsync();
 
-		if (context.Identity?.Name == null)
-		{
-			return false;
-		}
+        if (context.Identity?.Name == null)
+        {
+            return false;
+        }
 
-		IEnumerable<Admin> adminList = await adminService.GetAsync(context.Identity.Name);
-		Admin? admin = adminList.FirstOrDefault();
+        IEnumerable<Admin> adminList = await adminService.GetAsync(context.Identity.Name);
+        Admin? admin = adminList.FirstOrDefault();
 
-		return admin != null;
-	}
+        return admin != null;
+    }
 
 }

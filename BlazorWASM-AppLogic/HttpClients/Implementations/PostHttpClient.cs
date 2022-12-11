@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using Domain.DTOs;
 using Domain.Models;
@@ -62,9 +63,11 @@ public class PostHttpClient : IPostService
 
     public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate coordinate, int radius)
     {
+	    Console.WriteLine(coordinate.latitude);
 	    HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/Posts/getInRadius?lat={coordinate.latitude}&lon={coordinate.longitude}&radius={radius}");
 
 	    string responseContent = await response.Content.ReadAsStringAsync();
+
 	    if (!response.IsSuccessStatusCode)
 	    {
 		    throw new Exception(responseContent);
@@ -141,11 +144,9 @@ public class PostHttpClient : IPostService
 	    {
 		    throw new Exception(content);
 	    }
-
 	    bool isLiked = response.IsSuccessStatusCode;
 	    return isLiked;
     }
-
     public async Task LikePostAsync(int id)
     {
 	    string query = "";

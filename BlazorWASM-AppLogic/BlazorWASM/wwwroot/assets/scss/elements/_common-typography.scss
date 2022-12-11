@@ -1,0 +1,137 @@
+/* ---------------------------------- */
+/* Common Styles
+------------------------------------- */
+
+body {
+  color: $body-font-color;
+  font-size: $body-font-size;
+  line-height: $body-line-height;
+  background-color: $body-background-color;
+
+  p {
+    font-size: $body-font-size;
+    line-height: $body-line-height;
+  }
+
+  font-family: $primary-font;
+  text-transform: none;
+}
+
+/* Main Font */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $primary-font;
+  text-transform: none;
+}
+
+input {
+
+  &[type="text"],
+  &[type="password"],
+  &[type="email"] {
+    font-family: $primary-font;
+    text-transform: none;
+  }
+}
+
+textarea,
+select {
+  font-family: $primary-font;
+  text-transform: none;
+}
+
+input {
+
+  &[type="button"],
+  &[type="submit"] {
+    font-family: $primary-font;
+    text-transform: none;
+  }
+}
+
+button,
+body .pac-container {
+  font-family: $primary-font;
+  text-transform: none;
+}
+
+/* Headlines */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $body-heading-color;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: $body-font-size;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  font-size: 12px;
+}
+
+h3.page-title {
+  font-size: $single-page-heading-font-size;
+  line-height: 32px;
+}
+
+
+
+
+b,
+strong {
+  font-weight: 700 !important;
+}
+
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 900px !important;
+    padding-top: 45px
+  }
+}
+
+@media (min-width: 1500px) {
+  .container {
+    max-width: 1000px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    padding: 10px 20px !important;
+  }
+}
+
+.custom-overly1 {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 67%) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 67%) 100%);
+}

@@ -7,64 +7,101 @@
 @using UIComponents
 @using System.Security.Claims
 @using BlazorWasm.Services
-
+@using System.Diagnostics.SymbolStore
 @inject NavigationManager navMgr
 @inject IPostService postService
 @inject ILocationService locationService
 @inject IAuthService authService
-@inject IUserService userService
-
+@inject HttpClient Http
 @inject ITagService tagService
 @inject IImageUploadService imageUploadService
+<body>
 
-<AuthorizeView>
-	<Authorized>
+<div id="wrapper">
+<SideBar></SideBar>
+    
+<!-- create post -->
+<div class="main_content">
+    <div id="offcanvas-create flex justify-center ">
+        <div class="alertBox pt-6">
+            <Alert Type="success" Show="@showAlert">
+                <p>Successfully created post!</p>
+                <button @onclick="@NavigateToFeed">show me</button>
+                <button @onclick="(() => showAlert = false)">close</button>
+            </Alert>
+        </div>
+        <div class=" lg:w-full dark:bg-gray-700 dark:text-gray-300 p-0">
 
-		<Alert Type="success" Show="@showAlert">
-			<p>Successfully created post!</p>
-			<button @onclick="NavigateToFeed">go to feed</button>
-			<button @onclick="(() => showAlert = false)">stay here</button>
-		</Alert>
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
 
-		<div class="card">
-			<h3>Create Post</h3>
-			<div class="form-group field">
-				<label>Title:</label>
-				<input type="text" @bind="postTitle"/>
-				<label>Body:</label>
-				<input type="text" @bind="postDescription"/>
-				<label>Tags</label>
-				<input type="text" @bind="newTag" @ref="tagInput"/>
-				<button @onclick="@AddTag">add </button>
+            <!-- notivication header -->
+            <div class="-mb-1 border-b font-semibold px-5 py-5 text-lg">
+                <h4>Create new post </h4>
+            </div>
 
-				@foreach (string tag in postTags)
-				{
-					<div class="row">
-						@tag
-						<button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
-					</div>
-				}
+            <div class=" p-6 space-y-3">
+                <div>
+                    <label class="mb-0"> Title </label>
+                    <input placeholder="Title" @bind="postTitle" class="bg-gray-100 dark:bg-gray-600 shadow-none border focus:border-blue-600 mt-2 outline-none px-3 py-2 rounded-md w-full">
+                </div>
+                <div>
+                    <label class="mb-0"> Description </label>
+                    <textarea name="description" rows="3" @bind="postDescription" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please describe your product."></textarea>
+                </div>
+                <div>
+                    <label class="mb-0"> Tags</label>
+                    <textarea name="description" @bind="newTag"  @ref="tagInput" rows="3" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></textarea>
+                    <button @onclick="@AddTag">add </button>
 
-				<InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
-			</div>
-			<div class="button-row">
-				@if (!string.IsNullOrEmpty(msg))
-				{
-					<label style="color: red">@msg</label>
-				}
-				<button @onclick="CreateAsync" class="acceptbtn">Create</button>
-			</div>
-		</div>
-		<MapComponent @ref="Map"></MapComponent>
+                </div>
+                @foreach (string tag in postTags)
+                {
+                    <div class="flex">
+                        @tag
+                        <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
+                    </div>
+                }
 
-	</Authorized>
-	<NotAuthorized>
-		<label style="color: red">You have to be logged in</label>
-	</NotAuthorized>
-</AuthorizeView>
 
+
+                <div>
+                    <label class="mb-0"> Photos </label>
+                </div>
+
+                <div uk-form-custom class="w-full">
+                    <div class="bg-gray-100 border-2 border-dashed flex flex-col h-32 items-center justify-center relative w-full rounded-lg dark:bg-gray-800 dark:border-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+                            <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"/>
+                            <path d="M9 13h2v5a1 1 0 11-2 0v-5z"/>
+                        </svg>
+                    </div>
+                    <InputFile OnChange="@OnChangeAsync" accept="image/png, image/jpeg"></InputFile>
+
+                </div>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="chekcbox1" checked="">
+                    <label for="chekcbox1"><span class="checkbox-icon"></span> I agree to the <a href="pages-terms.html" target="_blank" class="uk-text-bold uk-text-small uk-link-reset"> Terms and Conditions </a>
+                    </label>
+                </div>
+                <button type="button" @onclick="CreateAsync" class="bg-pink-600 font-semibold p-2 mt-2 rounded-md text-center text-white w-full">
+                    Create </button>
+                @if (!string.IsNullOrEmpty(msg))
+                {
+                    <label style="color: red">@msg</label>
+                }
+
+            </div>
+            <MapComponent @ref="Map"></MapComponent>
+
+        </div>
+
+    </div>
+</div>
+</div>
+</body>
 @code {
-	ElementReference tagInput;
+ElementReference tagInput;
     private ImageFile? filesBase64;
     private string postTitle = "";
     private string postDescription = "";

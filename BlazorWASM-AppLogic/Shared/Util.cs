@@ -1,6 +1,6 @@
 ﻿namespace Shared;
 
-public class Util
+public static class Util
 {
     
     // Not our code, used from => https://stackoverflow.com/questions/11/calculate-relative-time-in-c-sharp

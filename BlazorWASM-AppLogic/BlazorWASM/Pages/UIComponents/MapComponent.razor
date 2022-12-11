@@ -9,6 +9,13 @@
 	// [Parameter]
 	// public EventCallback<Coordinate> GetCoordinates { get; set; }
 	// public Coordinate/ Coordinate { get; set; }
+	[Parameter]
+	public Action AfterRender { get; set; }
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		AfterRender?.Invoke();
+	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{

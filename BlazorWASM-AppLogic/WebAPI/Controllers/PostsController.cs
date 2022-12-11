@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
+using Geocoding;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -45,6 +46,7 @@ public class PostsController : ControllerBase
     {
 		try
 	    {
+
 		    SearchPostParametersDto parametersDto = new SearchPostParametersDto(id, userId, titleContains);
             IEnumerable<Post> posts = await postLogic.GetAsync(parametersDto);
             return Ok(posts);
@@ -62,6 +64,7 @@ public class PostsController : ControllerBase
 	    try
 	    {
 		    IEnumerable<Post> posts = await postLogic.GetInRadiusAsync(new Coordinate(lat, lon), radius);
+            Console.WriteLine(lat);
 		    return Ok(posts);
 	    }
 	    catch (Exception e)
@@ -72,7 +75,7 @@ public class PostsController : ControllerBase
     }
 
 
-   
+
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] long id,[FromQuery] int user_id)
     {
@@ -102,7 +105,7 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
 
 
 }

@@ -1,6 +1,5 @@
 ﻿@page "/admin/reports"
 @using HttpClients.ClientInterfaces
-@using UIComponents
 @using Report = Domain.Models.Report
 @using System.Security.Claims
 @using BlazorWasm.Services
@@ -24,7 +23,7 @@
         @foreach (var report in reports)
         {
             <li>
-                <SingleReport Report="report" OnClickCallback="LoadReports" Admin="admin"/>
+                <SingleReport Report="@report" OnClickCallback="LoadReports" Admin="admin"/>
             </li>
         }
     </ul>
@@ -55,11 +54,11 @@ else
 	        IEnumerable<Admin> adminList = await adminService.GetAsync(context.Identity.Name);
 	        admin = adminList.FirstOrDefault();
 
-	        if (admin == null)
-	        {
-		        msg = "You do not have access to this page";
-		        return;
-	        }
+	        // if (admin == null)
+	        // {
+		       //  msg = "You do not have access to this page";
+		       //  return;
+	        // }
 
            await LoadReports();
         }

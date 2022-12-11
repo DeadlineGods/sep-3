@@ -1,0 +1,61 @@
+ 
+
+@charset "UTF-8";
+
+/*
+* Author: Hamza mohamat
+* URL: https://Foxthemes.com */
+
+@import 'variables';
+
+/* -------------------------------------------------------------- */
+/* 01. Graphic User Interface Elements
+-----------------------------------------------------------------*/ 
+
+@import 'elements/buttons';
+@import 'elements/form-styles';
+@import 'elements/checkbox';
+@import 'elements/radio-button';
+@import 'elements/on-off-switch';
+@import 'elements/common-typography';
+  
+/* -------------------------------------------------------------- */
+/* 02. Vendor (third party assets styles)
+----------------------------------------------------------------- */
+
+@import 'vendor/tooltips';
+@import 'vendor/simplebar';
+
+/* -------------------------------------------------------------- */
+/* 03. Layouts
+----------------------------------------------------------------- */
+
+@import 'layout/header';
+@import 'layout/sidebar';
+@import 'layout/market';
+@import 'layout/story-model';
+
+/* -------------------------------------------------------------- */
+/* 04. Dark mode
+----------------------------------------------------------------- */
+
+@import '_dark';
+  
+
+/* -------------------------------------------------------------- */
+/* 05. Add your custom classes 
+----------------------------------------------------------------- */
+
+@import '_custom';
+  
+ 
+
+
+
+
+
+
+
+
+
+ 
