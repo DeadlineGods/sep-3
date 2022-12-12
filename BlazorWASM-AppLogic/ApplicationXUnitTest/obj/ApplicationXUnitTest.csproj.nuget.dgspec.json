@@ -1,0 +1,231 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\ApplicationXUnitTest\\ApplicationXUnitTest.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\ApplicationXUnitTest\\ApplicationXUnitTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\ApplicationXUnitTest\\ApplicationXUnitTest.csproj",
+        "projectName": "ApplicationXUnitTest",
+        "projectPath": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\ApplicationXUnitTest\\ApplicationXUnitTest.csproj",
+        "packagesPath": "C:\\Users\\Coding2\\.nuget\\packages",
+        "outputPath": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\ApplicationXUnitTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Coding2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.1.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.18.3, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
+        "projectName": "Application",
+        "projectPath": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\Coding2\\.nuget\\packages",
+        "outputPath": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Coding2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Geocoding.Core": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "Geocoding.Google": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            },
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.21.9, )"
+            },
+            "Grpc.Net.Client": {
+              "target": "Package",
+              "version": "[2.49.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.50.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Coding2\\.nuget\\packages",
+        "outputPath": "C:\\Users\\Coding2\\Desktop\\Test\\SEPV1\\sep-3\\BlazorWASM-AppLogic\\Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Coding2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authorization": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
