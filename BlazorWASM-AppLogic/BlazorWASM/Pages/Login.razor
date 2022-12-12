@@ -9,8 +9,7 @@
 
 
 <body class="bg-gray-100">
-<AuthorizeView>
-    <NotAuthorized>
+
 
 <div id="wrapper" class="flex flex-col justify-between h-screen">
 
@@ -78,14 +77,7 @@
     </div>
 
 </div>
-    </NotAuthorized>
-    <Authorized>
-        <div class="card">
-            <h3>Hello, @context.User.Identity.Name</h3>
-
-        </div>
-    </Authorized>
-</AuthorizeView>
+    
 </body>
 
 @code {

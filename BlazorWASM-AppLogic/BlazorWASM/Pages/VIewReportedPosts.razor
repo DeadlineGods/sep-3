@@ -11,24 +11,34 @@
 
 <label style="color: red">@msg</label>
 <AdminSideBar></AdminSideBar>
-<AuthorizeView>
+
+		<div class="container m-auto">
+
+			<AuthorizeView>
 	<Authorized>
 	@if (reports.Any() && admin != null)
 	{
-		<Alert Type="success" Show="@showAlert">
-			<p>Post was succesfully banned!</p>
-			<button @onclick="(() => showAlert = false)">keep banning</button>
-		</Alert>
+		
 
 
-		<ul>
-	        @foreach (var report in reports)
-	        {
-	            <li>
-	                <SingleReportUpdated Report="@report" OnClickCallback="LoadReportsAfterBan" Admin="admin"/>
-	            </li>
-	        }
-	    </ul>
+		
+		<div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+    
+	<!-- left sidebar-->
+	<div class="space-y-5 flex-shrink-0 lg:w-7/12">
+		 <Alert Type="success" Show="@showAlert" class="fixed" >
+        			        <p>Post was succesfully banned!</p>
+        			        <button @onclick="(() => showAlert = false)">keep banning</button>
+        		        </Alert>
+		@foreach (var report in reports)
+		{
+
+			
+			<SingleReport Report="@report" OnClickCallback="LoadReportsAfterBan" Admin="admin"/>
+
+		}
+	</div>
+    </div>
 	}
 	else
 	{
@@ -36,6 +46,8 @@
 	}
 	</Authorized>
 </AuthorizeView>
+					</div>
+
 
 @code {
     IEnumerable<Report> reports = new List<Report>();

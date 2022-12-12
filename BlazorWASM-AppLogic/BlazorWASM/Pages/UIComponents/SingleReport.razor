@@ -1,56 +1,120 @@
 ﻿@namespace UIComponents
+@using Report = Domain.Models.Report
 @using Shared
+@using static Shared.Util;
 
 @using Domain.Models
 @using Domain.DTOs
 @using HttpClients.ClientInterfaces
+@using System.Security.Claims
+@using BlazorWasm.Services
 
 @inject IBanService banService
+@inject IAuthService authService
 
 
-	<h3>@Report.violation</h3>
-	<p>Reported by: @Report.reportedBy.UserName</p>
-	<div class="post-card">
-		<div>@Report.reportedPost.Title</div>
-		<div>@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</div>
-		<div>@Report.reportedPost.Description</div>
-		<img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
-		<div>@Report.reportedPost.Owner.UserName</div>
-	</div>
-	<button @onclick="BanAsync">Ban</button>
-	<input type="text" @bind="reason">
-	<label style="color: red">@msg</label>
+ <div class="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0 pb-8">
+
+                            <!-- post header-->
+                            <div class="flex justify-between items-center px-4 py-3">
+                                <div class="flex flex-1 items-center space-x-4">
+                                    <a href="#">
+                                        <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+                                            <img src="assets/images/avatars/avatar-2.jpg" class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                                        </div>
+                                    </a>
+                                    <div class="preTitle">
+                                        <span class="block capitalize font-semibold dark:text-gray-100"> Post by @Report.reportedPost.Owner.UserName</span>
+                                        <span class="block capitalize font-normal dark:text-gray-100"> <strong>Reported by @Report.reportedBy.UserName </strong></span>
+                                    </div>
+
+
+                                </div>
+                                <div>
+                                    @* edit1 *@
+                                    
+                                            <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: hover;pos: top-right">
+
+                                                <ul class="space-y-1">
+
+                                                    <li   @onclick="BanAsync">
+                                                        <a href="posts/all" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                                            <i class="uil-trash-alt mr-1"></i> Ban Post
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+
+
+                                </div>
+                            </div>
+                            <div class="titleDateBox flex justify-between">
+                                <h3 class="ml-4">@Report.reportedPost.Title</h3>
+                                <p class="text-xs mr-4" >@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</p>
+
+                            </div>
+                            <div uk-lightbox>
+                                <a href="assets/images/post/img4.jpg">
+                                    @* <img src="assets/images/post/img4.jpg" alt=""> *@
+                                    <img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
+
+                                </a>
+                            </div>
+
+
+
+
+                        
+
+
+
+                                <div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800 mx-3 mt-5">
+                                    <input type="text" @bind="reason" placeholder="Add reason of banning.." class="bg-transparent max-h-10 shadow-none ">
+                                    <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+                                        <a href="#"  @onclick:preventDefault="true" @onclick="BanAsync">  <i class="uil-comment"></i></a>
+                                        @* <a href="#"> <i class="uil-video"></i></a> *@
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
 
 
 @code {
-	[Parameter]
-    public Domain.Models.Report Report { get; set; }
-	[Parameter]
-	public EventCallback<string> OnClickCallback { get; set; }
+    [Parameter]
+    public Domain.Models.Report? Report { get; set; }
+    [Parameter]
+    public EventCallback<string> OnClickCallback { get; set; }
 
-	[Parameter]
-	public Admin? Admin { get; set; }
+    [Parameter]
+    public Admin? Admin { get; set; }
 
-	private string msg = "";
-	private string reason = "";
+    private string msg = "";
+    private string reason = "";
 
-	public async Task BanAsync()
+    public async Task BanAsync()
     {
 
-		if (Admin != null)
-		{
+        if (Admin != null)
+        {
 
-	        BanCreationDto dto = new BanCreationDto
-	        {
-	            Admin = Admin.username,
-	            PostId = Report.reportedPost.Id,
-		        Reason = reason
-	        };
-	        await banService.CrateAsync(dto);
+            BanCreationDto dto = new BanCreationDto
+            {
+                Admin = Admin.username,
+                PostId = Report.reportedPost.Id,
+                Reason = reason
+            };
+            await banService.CrateAsync(dto);
 
-			await OnClickCallback.InvokeAsync();
+            await OnClickCallback.InvokeAsync();
 
-		}
+        }
     }
-
 }
