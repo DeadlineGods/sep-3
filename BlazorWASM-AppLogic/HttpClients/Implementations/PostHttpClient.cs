@@ -61,10 +61,9 @@ public class PostHttpClient : IPostService
 	    return posts;
     }
 
-    public async Task<IEnumerable<Post>> GetInRadiusAsync(Coordinate coordinate, int radius)
+    public async Task<IEnumerable<Post>> GetInRadiusAsync(string latitude, string longitude, int radius)
     {
-	    Console.WriteLine(coordinate.latitude);
-	    HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/Posts/getInRadius?lat={coordinate.latitude}&lon={coordinate.longitude}&radius={radius}");
+	    HttpResponseMessage response = await client.GetAsync($"https://localhost:7196/Posts/getInRadius?lat={latitude}&lon={longitude}&radius={radius}");
 
 	    string responseContent = await response.Content.ReadAsStringAsync();
 
