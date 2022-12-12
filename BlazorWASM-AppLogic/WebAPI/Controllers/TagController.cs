@@ -15,6 +15,12 @@ public class TagController:ControllerBase
     {
         this.tagLogic = tagLogic;
     }
+    
+    /// <summary>
+    /// Returns a newly created TagPost.
+    /// </summary>
+    /// <param name="dto">Dto contains postId and list of tags. All of the parameters are mandatory.</param>
+    /// <returns></returns>
     [HttpPost, Route("create")]
     public async Task<ActionResult<TagPost>> CreateAsync(PostTagCreationDto dto)
     {
@@ -29,8 +35,16 @@ public class TagController:ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    /// <summary>
+    /// Returns a list of TagPosts from a given post id, with filter.
+    /// If all of the parameters are null end point returns all of the TagPosts
+    /// </summary>
+    /// <param name="TagContains">It is optional.</param>
+    /// <param name="postId">It is optional.</param>
+    /// <returns></returns>
     [HttpGet,Route("getPostTag")]
-    public async Task<ActionResult<TagPost>> GetPostTagAsync
+    public async Task<ActionResult<IEnumerable<TagPost>>> GetPostTagAsync
     (
         [FromQuery] string? TagContains,
         [FromQuery] long? postId
@@ -47,6 +61,12 @@ public class TagController:ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    /// <summary>
+    /// Returns a list of Tags a with filter.
+    /// If the parameter is null the end point returns all of the tags /// </summary>
+    /// <param name="TagContains">It is optional.</param>
+    /// <returns></returns>
     [HttpGet,Route("getTagList")]
     public async Task<ActionResult<Tag>> GetTagListAsync
     (
@@ -66,6 +86,11 @@ public class TagController:ControllerBase
         }
     }
     
+    /// <summary>
+    /// Deletes all tags from specified post id.
+    /// </summary>
+    /// <param name="postId"></param>
+    /// <returns></returns>
     [HttpDelete("{postId:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] long postId)
     {
