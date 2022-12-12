@@ -4,6 +4,7 @@
 @using System.Security.Claims
 @using BlazorWasm.Services
 @using Domain.Models
+@using UIComponents
 @using System.Reflection.Emit
 @inject IReportService reportService
 @inject IAuthService authService
@@ -13,31 +14,43 @@
 
 @if (reports.Any() && admin != null)
 {
-	<Alert Type="success" Show="@showAlert">
-		<p>Post was succesfully banned!</p>
-		<button @onclick="(() => showAlert = false)">keep banning</button>
-	</Alert>
+	
 
 
-	<ul>
-        @foreach (var report in reports)
-        {
-            <li>
-                <SingleReport Report="@report" OnClickCallback="LoadReports" Admin="admin"/>
-            </li>
-        }
-    </ul>
+	 <div class="container m-auto">
+					<Alert Type="success" Show="@showAlert">
+                    		<p>Post was succesfully banned!</p>
+                    		<button @onclick="(() => showAlert = false)">keep banning</button>
+                    	</Alert>
+		 
+					<h1 class="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
+    
+                    <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+    
+                        <!-- left sidebar-->
+                    <div class="space-y-5 flex-shrink-0 lg:w-7/12">
+	                    @foreach (var report in reports)
+	                    {
+		                    
+			                    <SingleReportUpdated Report="@report" OnClickCallback="@(() => {LoadReports(); showAlert = true;})" Admin="admin"/>
+		                    
+	                    }
+                    </div>
+                        </div>
+					</div>
+
 }
 else
 {
-	<label class="text-center">There are no reports to show</label>
+	<label class="text-center">There are no reports to show @reports.Count()</label>
+	
 }
 
 @code {
     IEnumerable<Report> reports = new List<Report>();
     private string msg = "";
 	private Admin? admin;
-	private bool showAlert;
+	private bool showAlert=false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -72,7 +85,7 @@ else
     private async Task LoadReports()
     {
         reports = await reportService.GetAsync();
-	    showAlert = true;
+	    
     }
 
 }

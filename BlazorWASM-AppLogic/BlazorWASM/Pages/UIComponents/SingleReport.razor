@@ -11,25 +11,20 @@
 
 @inject IBanService banService
 
-
-
-
-<AuthorizeView>
-	<Authorized>
+		<h1>Loremmmmmmmm</h1>
 		<h3>@Report.violation</h3>
 		<p>Reported by: @Report.reportedBy.UserName</p>
 		<div class="post-card">
-			<div>@Report.reportedPost.Title</div>
-			<div>@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</div>
-			<div>@Report.reportedPost.Description</div>
-			<img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
-			<div>@Report.reportedPost.Owner.UserName</div>
+		<div>@Report.reportedPost.Title</div>
+		<div>@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</div>
+		<div>@Report.reportedPost.Description</div>
+		<img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
+		<div>@Report.reportedPost.Owner.UserName</div>
 		</div>
 		<button @onclick="BanAsync">Ban</button>
 		<input type="text" @bind="reason">
 		<label style="color: red">@msg</label>
-	</Authorized>
-</AuthorizeView>
+
 
 @code {
 	[Parameter]
