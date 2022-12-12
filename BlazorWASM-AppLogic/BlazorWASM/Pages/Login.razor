@@ -21,8 +21,8 @@
 
             <div class="flex items-center lg:justify-between justify-around">
 
-                <a href="/posts/all">
-                    <img src="assets/images/logo.png" alt="" class="w-32">
+                <a href="">
+                    <img src="" alt="" class="w-32">
                 </a>
 
                 <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
@@ -41,12 +41,11 @@
             <p class="mb-2 text-black text-lg"> Username</p>
             <form action="">
                 <input type="text" placeholder="John Smith" @bind="userName" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+                            <p class="mb-2 text-black text-lg"> Password</p>
+
                 <input type="password" placeholder="***********" @bind="password" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
                 <div class="flex justify-between my-4">
-                    <div class="checkbox">
-                        <input type="checkbox" id="chekcbox1" checked>
-                        <label for="chekcbox1"><span class="checkbox-icon"></span>Remember Me</label>
-                    </div>
+                   
 
                 </div>
                   @if (!string.IsNullOrEmpty(errorLabel))

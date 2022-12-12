@@ -79,11 +79,8 @@
 
                 </div>
 
-                <div class="checkbox">
-                    <input type="checkbox" id="chekcbox1" checked="">
-                    <label for="chekcbox1"><span class="checkbox-icon"></span> I agree to the <a href="pages-terms.html" target="_blank" class="uk-text-bold uk-text-small uk-link-reset"> Terms and Conditions </a>
-                    </label>
-                </div>
+                           <MapComponent @ref="Map"></MapComponent>
+
                 <button type="button" @onclick="CreateAsync" class="bg-pink-600 font-semibold p-2 mt-2 rounded-md text-center text-white w-full">
                     Create </button>
                 @if (!string.IsNullOrEmpty(msg))
@@ -92,7 +89,6 @@
                 }
 
             </div>
-            <MapComponent @ref="Map"></MapComponent>
 
         </div>
 
