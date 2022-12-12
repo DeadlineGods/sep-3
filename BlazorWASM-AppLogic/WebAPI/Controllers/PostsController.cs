@@ -20,6 +20,11 @@ public class PostsController : ControllerBase
         this.postLogic = postLogic;
     }
 
+    /// <summary>
+    /// Returns a newly created post.
+    /// </summary>
+    /// <param name="postCreationDto">Dto contains Title, Description, UserId, ImgUrl, LocationId. All of the parameters are mandatory.</param>
+    /// <returns></returns>
     [HttpPost, Route("create")]
     public async Task<ActionResult<Post>> CreateAsync(PostCreationDto postCreationDto)
     {
@@ -35,7 +40,13 @@ public class PostsController : ControllerBase
         }
     }
 
-
+    /// <summary>
+    /// Returns a post by search parameters. If none of the search parameters are specified end point returns all of the posts.
+    /// </summary>
+    /// <param name="id">If the "id" is null, it will not be applied as a filter.</param>
+    /// <param name="userId">If the "userId" is null, it will not be applied as a filter.</param>
+    /// <param name="titleContains">If the "titleContains" is null, it will not be applied as a filter.</param>
+    /// <returns></returns>
     [HttpGet, Route("get")]
     public async Task<ActionResult<Post>> GetAsync
     (
@@ -58,8 +69,15 @@ public class PostsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Returns a list of posts that are in radius of a given location. Example return all posts in radius = 10km at the location latitude = 55.8547202, longitude = 9.7687163. 
+    /// </summary>
+    /// <param name="lat">Latitude.</param>
+    /// <param name="lon">Longitude.</param>
+    /// <param name="radius">Must be in kilometres.</param>
+    /// <returns></returns>
     [HttpGet, Route("getInRadius")]
-    public async Task<ActionResult<Post>> GetInRadiusAsync([FromQuery] double lat, [FromQuery] double lon, [FromQuery] int radius)
+    public async Task<ActionResult<IEnumerable<Post>>> GetInRadiusAsync([FromQuery] double lat, [FromQuery] double lon, [FromQuery] int radius)
     {
 	    try
 	    {
@@ -73,9 +91,13 @@ public class PostsController : ControllerBase
 		    return StatusCode(500, e.Message);
 	    }
     }
-
-
-
+    
+    /// <summary>
+    /// Deletes a post with given id. UserId parameter check if the user who wants to delete is the owner.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="user_id"></param>
+    /// <returns></returns>
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteAsync([FromRoute] long id,[FromQuery] int user_id)
     {
@@ -91,6 +113,14 @@ public class PostsController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Updating a given post. UserId parameter check if the user who wants to update is the owner.
+    /// </summary>
+    /// <param name="dto">Dto contains Id, Title, Description, list of tags.
+    /// Only Id and tags list are mandatory.
+    /// Title and description are not mandatory and if they are null they will be skipped.</param>
+    /// <param name="user_id"></param>
+    /// <returns></returns>
     [HttpPatch]
     public async Task<ActionResult> UpdateAsync([FromBody] UpdatePostDto dto, [FromQuery] int user_id)
     {
@@ -105,7 +135,4 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-
-
-
 }

@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:WebAPI.Controllers.AdminController.GetAsync(System.String)">
+            <summary>
+            Returns a admin for a given username, if the username is null it will return a list of admins.
+            </summary>
+            <param name="username">Search parameter is optional</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.AuthController.AdminLoginAsync(Domain.DTOs.LoginDto)">
+            <summary>
+            Generates a JWT token for authorizing admin
+            </summary>
+            <param name="dto">Dto contains username and password</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.AuthController.LoginAsync(Domain.DTOs.LoginDto)">
+            <summary>
+            Generates a JWT token for authorizing admin
+            </summary>
+            <param name="userLoginDto">Dto contains username and password</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.AuthController.RegisterAsync(Domain.DTOs.UserCreationDto)">
+            <summary>
+            Creates a new user in the database
+            </summary>
+            <param name="userDto">Dto containing username, password, firstName, lastName, email, phoneNumber and locationId.
+            All of the parameters are optional</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BanController.CreateBanAsync(Domain.DTOs.BanCreationDto)">
+            <summary>
+            Returns a id of a created ban.
+            </summary>
+            <param name="dto">Dto contains Reason, Admin, PostId. All parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.BanController.GetAsync(System.Int64)">
+            <summary>
+            Returns a id of a requested ban. Ban is returned from a post.
+            </summary>
+            <param name="postId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CommentsController.CreateAsync(Domain.DTOs.CommentCreationDto)">
+            <summary>
+            Returns a id of a created comment.
+            </summary>
+            <param name="creationDto">Dto contains OwnerId, PostId, Body (comment text). All the parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CommentsController.AssignCommentToParentAsync(Domain.DTOs.AssignCommentToDto)">
+            <summary>
+            Assigns a sub comment to a parent comment.
+            </summary>
+            <param name="assignCommentToDto">Dto contains commentId (sub comment id), parentId. All of the parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CommentsController.GetAsync(System.Int64)">
+            <summary>
+            Returns a list of only comments that are root comments from a post (they do not have a parent comment).
+            </summary>
+            <param name="postId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CommentsController.GetSubCommentsAsync(System.Int64)">
+            <summary>
+            Returns a list of comments only that have a parent comment with a given id. Example all sub comments of a comment with id = 5.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.CommentsController.GetByIdAsync(System.Int64)">
+            <summary>
+            Returns a single comment by the id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LikeController.CountLikesAsync(System.Int32)">
+            <summary>
+            Returns how many likes a post has with a given id.
+            </summary>
+            <param name="postId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LikeController.IsPostLikedAsync(System.Int32,System.Int64)">
+            <summary>
+            Returns a boolean is post liked, true = is liked, false = not liked.
+            </summary>
+            <param name="postId"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LikeController.UnlikePostAsync(Domain.DTOs.UnLikePostDto)">
+            <summary>
+            Unlikes the post.
+            </summary>
+            <param name="dto">Dto contains postId, userId. All parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LikeController.LikePostAsync(Domain.DTOs.LikePostDto)">
+            <summary>
+            Likes the post.
+            </summary>
+            <param name="">Dto contains postId, userId. All parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LocationController.GetCoordinates(System.Int32)">
+            <summary>
+            Returns coordinates from a given location id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LocationController.Get(System.Int32)">
+            <summary>
+            Returns coordinates from a given location id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.LocationController.Create(Domain.DTOs.LocationCreationDto)">
+            <summary>
+            Returns a id of a created location.
+            </summary>
+            <param name="dto">Dto contains address, town, postCode, country, coordinates. All of the parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PostsController.CreateAsync(Domain.DTOs.PostCreationDto)">
+            <summary>
+            Returns a newly created post.
+            </summary>
+            <param name="postCreationDto">Dto contains Title, Description, UserId, ImgUrl, LocationId. All of the parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PostsController.GetAsync(System.Nullable{System.Int64},System.Nullable{System.Int64},System.String)">
+            <summary>
+            Returns a post by search parameters. If none of the search parameters are specified end point returns all of the posts.
+            </summary>
+            <param name="id">If the "id" is null, it will not be applied as a filter.</param>
+            <param name="userId">If the "userId" is null, it will not be applied as a filter.</param>
+            <param name="titleContains">If the "titleContains" is null, it will not be applied as a filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PostsController.GetInRadiusAsync(System.Double,System.Double,System.Int32)">
+            <summary>
+            Returns a list of posts that are in radius of a given location. Example return all posts in radius = 10km at the location latitude = 55.8547202, longitude = 9.7687163. 
+            </summary>
+            <param name="lat">Latitude.</param>
+            <param name="lon">Longitude.</param>
+            <param name="radius">Must be in kilometres.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PostsController.DeleteAsync(System.Int64,System.Int32)">
+            <summary>
+            Deletes a post with given id. UserId parameter check if the user who wants to delete is the owner.
+            </summary>
+            <param name="id"></param>
+            <param name="user_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PostsController.UpdateAsync(Domain.DTOs.UpdatePostDto,System.Int32)">
+            <summary>
+            Updating a given post. UserId parameter check if the user who wants to update is the owner.
+            </summary>
+            <param name="dto">Dto contains Id, Title, Description, list of tags.
+            Only Id and tags list are mandatory.
+            Title and description are not mandatory and if they are null they will be skipped.</param>
+            <param name="user_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ReportController.ReportPostAsync(Domain.DTOs.ReportPostDto)">
+            <summary>
+            Returns a newly created report.
+            </summary>
+            <param name="dto">Dto contains violationDesc (violation description), postId, userId. ALl of the parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ReportController.GetByIdAsync(System.Int32)">
+            <summary>
+            Returns report from a given id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.ReportController.GetAsync">
+            <summary>
+            Returns all list of all reports.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TagController.CreateAsync(Domain.DTOs.PostTagCreationDto)">
+            <summary>
+            Returns a newly created TagPost.
+            </summary>
+            <param name="dto">Dto contains postId and list of tags. All of the parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TagController.GetPostTagAsync(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Returns a list of TagPosts from a given post id, with filter.
+            If all of the parameters are null end point returns all of the TagPosts
+            </summary>
+            <param name="TagContains">It is optional.</param>
+            <param name="postId">It is optional.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TagController.GetTagListAsync(System.String)">
+            <summary>
+            Returns a list of Tags a with filter.
+            If the parameter is null the end point returns all of the tags /// </summary>
+            <param name="TagContains">It is optional.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.TagController.DeleteAsync(System.Int64)">
+            <summary>
+            Deletes all tags from specified post id.
+            </summary>
+            <param name="postId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.CreateAsync(Domain.DTOs.UserCreationDto)">
+            <summary>
+            Returns a newly created user.
+            </summary>
+            <param name="userCreationDto">Dto contains username, password, firstName, lastName, email, phoneNumber, locationId. All of the parameters are mandatory.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.GetAsync(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Returns a list of user based on search parameters. If all of the parameters are null end point will return all of the users.
+            </summary>
+            <param name="username">if "username" is null the filter will not be applied.</param>
+            <param name="userId">if "userId" is null the filter will not be applied.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.UserController.GetLikesAsync(System.Int32)">
+            <summary>
+            Returns a list of users who liked the post.
+            </summary>
+            <param name="postId"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

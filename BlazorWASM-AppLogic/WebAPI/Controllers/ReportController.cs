@@ -15,6 +15,11 @@ public class ReportController : ControllerBase
 		this.reportLogic = reportLogic;
 	}
 
+	/// <summary>
+	/// Returns a newly created report.
+	/// </summary>
+	/// <param name="dto">Dto contains violationDesc (violation description), postId, userId. ALl of the parameters are mandatory.</param>
+	/// <returns></returns>
 	[HttpPost]
 	public async Task<ActionResult<Report>> ReportPostAsync([FromBody] ReportPostDto dto)
 	{
@@ -31,6 +36,11 @@ public class ReportController : ControllerBase
 		}
 	}
 
+	/// <summary>
+	/// Returns report from a given id.
+	/// </summary>
+	/// <param name="id"></param>
+	/// <returns></returns>
 	[HttpGet]
 	[Route("get")]
 	public async Task<ActionResult<Report>> GetByIdAsync([FromQuery] int id)
@@ -47,6 +57,10 @@ public class ReportController : ControllerBase
 		}
 	}
 
+	/// <summary>
+	/// Returns all list of all reports.
+	/// </summary>
+	/// <returns></returns>
 	[HttpGet]
 	public async Task<ActionResult<IEnumerable<Report>>> GetAsync()
 	{

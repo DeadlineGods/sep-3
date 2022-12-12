@@ -16,6 +16,11 @@ public class CommentsController :  ControllerBase
         this.commentLogic = commentLogic;
     }
     
+    /// <summary>
+    /// Returns a id of a created comment.
+    /// </summary>
+    /// <param name="creationDto">Dto contains OwnerId, PostId, Body (comment text). All the parameters are mandatory.</param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<ActionResult<long>> CreateAsync([FromBody] CommentCreationDto creationDto)
     {
@@ -31,6 +36,11 @@ public class CommentsController :  ControllerBase
         }
     }
     
+    /// <summary>
+    /// Assigns a sub comment to a parent comment.
+    /// </summary>
+    /// <param name="assignCommentToDto">Dto contains commentId (sub comment id), parentId. All of the parameters are mandatory.</param>
+    /// <returns></returns>
     [HttpPost, Route("/assign")]
     public async Task<ActionResult> AssignCommentToParentAsync([FromBody] AssignCommentToDto assignCommentToDto)
     {
@@ -46,6 +56,11 @@ public class CommentsController :  ControllerBase
         }
     }
     
+    /// <summary>
+    /// Returns a list of only comments that are root comments from a post (they do not have a parent comment).
+    /// </summary>
+    /// <param name="postId"></param>
+    /// <returns></returns>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Comment>>> GetAsync([FromQuery] long postId)
     {
@@ -61,6 +76,11 @@ public class CommentsController :  ControllerBase
         }
     }
     
+    /// <summary>
+    /// Returns a list of comments only that have a parent comment with a given id. Example all sub comments of a comment with id = 5.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet]
     [Route("/sub-comments/")]
 
@@ -78,6 +98,11 @@ public class CommentsController :  ControllerBase
         }
     }
 
+    /// <summary>
+    /// Returns a single comment by the id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet]
     [Route("/comment/")]
     public async Task<ActionResult<Comment>> GetByIdAsync([FromQuery] long id)

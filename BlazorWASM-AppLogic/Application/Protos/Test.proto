@@ -1,0 +1,13 @@
+﻿ syntax = "proto3";
+
+option csharp_namespace = "GrpcClient";
+
+service TestService {
+  rpc RestartDatabase(EmptyTest) returns (EmptyTest);
+  rpc SwitchToTestDatabase(EmptyTest) returns (EmptyTest);
+  rpc SwitchToProductionDatabase(EmptyTest) returns (EmptyTest);
+}
+
+message EmptyTest {
+  
+}

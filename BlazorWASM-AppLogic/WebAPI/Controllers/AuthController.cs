@@ -24,6 +24,11 @@ public class AuthController : ControllerBase
         this.authService = authService;
     }
 
+    /// <summary>
+    /// Generates a JWT token for authorizing admin
+    /// </summary>
+    /// <param name="dto">Dto contains username and password</param>
+    /// <returns></returns>
     [HttpPost, Route("admin-login")]
     public async Task<ActionResult> AdminLoginAsync([FromBody] LoginDto dto)
     {
@@ -40,6 +45,11 @@ public class AuthController : ControllerBase
 	    }
     }
 
+    /// <summary>
+    /// Generates a JWT token for authorizing admin
+    /// </summary>
+    /// <param name="userLoginDto">Dto contains username and password</param>
+    /// <returns></returns>
     [HttpPost, Route("login")]
     public async Task<ActionResult> LoginAsync([FromBody] LoginDto userLoginDto)
     {
@@ -56,6 +66,12 @@ public class AuthController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Creates a new user in the database
+    /// </summary>
+    /// <param name="userDto">Dto containing username, password, firstName, lastName, email, phoneNumber and locationId.
+    /// All of the parameters are optional</param>
+    /// <returns></returns>
     [HttpPost, Route("register")]
     public async Task<ActionResult> RegisterAsync([FromBody]UserCreationDto userDto)
     {

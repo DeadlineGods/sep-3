@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using Application.DAOsInterfaces;
 using Application.GrpcClients;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +27,6 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IPostLogic, PostLogic>();
 builder.Services.AddScoped<IPostDao, PostGrpcClient>();
-
 
 
 builder.Services.AddScoped<IUserDao, UserGrpcClient>();
@@ -64,6 +65,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
+});
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Photoguard API",
+        Description = ".Net web api that allows of uploading posts and authentication.",
+        Version = "v1"
+    });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    c.IncludeXmlComments(xmlPath);
 });
 
 AuthorizationPolicies.AddPolicies(builder.Services);
