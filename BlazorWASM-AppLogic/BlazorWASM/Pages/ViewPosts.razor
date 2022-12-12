@@ -19,13 +19,12 @@
     <div id="wrapper">
     <SideBar></SideBar>
 	    <div class="main_content">
+			    
 
-		     <Alert Type="success" Show="@showAlert">
-                    <p>@alertMsg</p>
-                    <button @onclick="(() => showAlert = false)">great</button>
-            </Alert>
 
 		    <header>
+			    
+		
 			    <div class="header_inner">
 				    <div class="left-side">
 					    <!-- Logo -->
@@ -41,8 +40,8 @@
 					    </div>
 
 					    <div class="header_search flex items-center flex-row-reverse">
-							<a href="#" @onclick:preventDefault="true" @onclick="OnInitializedAsync"> <i class="icon-feather-x text-lg mr-1 text-gray-400"></i></a>
-						    <button class="btn btn-outline-dark mr-1" @onclick="LoadPostsWithTags" >filter</button>
+						    <a href="#" @onclick:preventDefault="true" @onclick="OnInitializedAsync"> <i class="icon-feather-x text-lg mr-1 text-gray-400"></i></a>
+						    <button class="btn btn-outline-dark mr-1" @onclick="LoadPostsWithTags">filter</button>
 
 						    <div class="icon-search">
 							    <a href="#" @onclick:preventDefault="true" @onclick="LoadPostsWithTags">
@@ -62,7 +61,7 @@
 					    <!-- upload -->
 					    <AuthorizeView>
 						    <Authorized>
-								<button @onclick="LoadPostsBasedOnLocationAsync" class="btn btn-secondary mr-2">preffered location</button>
+							    <button @onclick="LoadPostsBasedOnLocationAsync" class="btn btn-secondary mr-2">preffered location</button>
 							    <a href="/posts/create"
 							       class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-4 px-4 py-2 rounded shado text-white">
 								    <ion-icon name="add-circle" class="-mb-1
@@ -71,14 +70,21 @@
 						    </Authorized>
 					    </AuthorizeView>
 
-                       
+
 
 				    </div>
 			    </div>
 		    </header>
 
 		    <div class="container m-auto">
-
+			
+		     <Alert Type="success" Show="@showAlert">
+                    		    <p>@alertMsg</p>
+                    		    <button @onclick="(() => showAlert = false)"><strong>close</strong></button>
+            
+                    	    </Alert>
+			 
+			   
 			    <h1 class="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
 
 			    <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">

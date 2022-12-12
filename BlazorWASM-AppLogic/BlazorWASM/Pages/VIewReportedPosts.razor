@@ -11,11 +11,11 @@
 @inject IAdminService adminService
 
 <label style="color: red">@msg</label>
+	<AdminSideBar></AdminSideBar>
 
 @if (reports.Any() && admin != null)
 {
 	
-
 
 	 <div class="container m-auto">
 					<Alert Type="success" Show="@showAlert">
@@ -67,11 +67,11 @@ else
 	        IEnumerable<Admin> adminList = await adminService.GetAsync(context.Identity.Name);
 	        admin = adminList.FirstOrDefault();
 
-	        // if (admin == null)
-	        // {
-		       //  msg = "You do not have access to this page";
-		       //  return;
-	        // }
+	        if (admin == null)
+	        {
+		        msg = "You do not have access to this page";
+		        return;
+	        }
 
            await LoadReports();
         }
