@@ -50,3 +50,7 @@ build/
 /BlazorWASM-AppLogic/Application/obj/
 /BlazorWASM-AppLogic/ImageHosting/obj/
 /.idea/
+/BlazorWASM-AppLogic/ApplicationXUnitTests/obj/
+/BlazorWASM-AppLogic/ApplicationXUnitTests/bin/
+/BlazorWASM-AppLogic/ApplicationXUnitTest/bin/
+/BlazorWASM-AppLogic/ApplicationXUnitTest/obj/

@@ -17,6 +17,11 @@ public class LocationController : ControllerBase
 		LocationLogic = locationLogic;
 	}
 
+	/// <summary>
+	/// Returns coordinates from a given location id.
+	/// </summary>
+	/// <param name="id"></param>
+	/// <returns></returns>
 	[HttpGet, Route("get-coordinates")]
 	public async Task<ActionResult<Coordinate>> GetCoordinates([FromQuery] int id)
 	{
@@ -32,6 +37,11 @@ public class LocationController : ControllerBase
 		}
 	}
 
+	/// <summary>
+	/// Returns coordinates from a given location id.
+	/// </summary>
+	/// <param name="id"></param>
+	/// <returns></returns>
 	[HttpGet, Route("get")]
 	public async Task<ActionResult<Coordinate>> Get([FromQuery] int id)
 	{
@@ -47,6 +57,11 @@ public class LocationController : ControllerBase
 		}
 	}
 
+	/// <summary>
+	/// Returns a id of a created location.
+	/// </summary>
+	/// <param name="dto">Dto contains address, town, postCode, country, coordinates. All of the parameters are mandatory.</param>
+	/// <returns></returns>
 	[HttpPost, Route("create")]
 	public async Task<ActionResult<int>> Create(LocationCreationDto dto)
 	{
@@ -61,5 +76,4 @@ public class LocationController : ControllerBase
 			return StatusCode(500, e.Message);
 		}
 	}
-
 }

@@ -56,7 +56,6 @@ public class ReportLogic : IReportLogic
 	{
 		IEnumerable<Report> reports = await reportDao.GetAsync();
 
-
 		foreach (var report in reports)
 		{
 			if (await IsPostBanned(report.reportedPost.Id))
@@ -65,8 +64,6 @@ public class ReportLogic : IReportLogic
 			}
 
 		}
-
-
 
 		return reports;
 	}

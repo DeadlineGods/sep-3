@@ -15,6 +15,11 @@ public class BanController : ControllerBase
         BanLogic = banLogic;
     }
 
+    /// <summary>
+    /// Returns a id of a created ban.
+    /// </summary>
+    /// <param name="dto">Dto contains Reason, Admin, PostId. All parameters are mandatory.</param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<ActionResult<long>> CreateBanAsync([FromBody] BanCreationDto dto)
     {
@@ -30,6 +35,11 @@ public class BanController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Returns a id of a requested ban. Ban is returned from a post.
+    /// </summary>
+    /// <param name="postId"></param>
+    /// <returns></returns>
     [HttpGet]
     public async Task<ActionResult<long>> GetAsync([FromQuery] long postId)
     {

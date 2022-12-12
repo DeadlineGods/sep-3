@@ -215,7 +215,7 @@ public class TagDatabase implements TagPersistence {
             statement = connection.prepareStatement(
                     "SELECT * FROM \"tag_list\" WHERE lower(tag_name) LIKE '%' || ? || '%'");
 
-            statement.setString(1, tagContains);
+            statement.setString(1, tagContains.toLowerCase());
             return statement.executeQuery();
 
         } catch (SQLException e) {
