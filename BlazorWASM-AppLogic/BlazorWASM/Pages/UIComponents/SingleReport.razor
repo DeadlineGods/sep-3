@@ -1,39 +1,30 @@
 ﻿@namespace UIComponents
-@using Report = Domain.Models.Report
 @using Shared
-@using static Shared.Util;
 
 @using Domain.Models
 @using Domain.DTOs
 @using HttpClients.ClientInterfaces
-@using System.Security.Claims
-@using BlazorWasm.Services
 
 @inject IBanService banService
 
 
+	<h3>@Report.violation</h3>
+	<p>Reported by: @Report.reportedBy.UserName</p>
+	<div class="post-card">
+		<div>@Report.reportedPost.Title</div>
+		<div>@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</div>
+		<div>@Report.reportedPost.Description</div>
+		<img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
+		<div>@Report.reportedPost.Owner.UserName</div>
+	</div>
+	<button @onclick="BanAsync">Ban</button>
+	<input type="text" @bind="reason">
+	<label style="color: red">@msg</label>
 
-
-<AuthorizeView>
-	<Authorized>
-		<h3>@Report.violation</h3>
-		<p>Reported by: @Report.reportedBy.UserName</p>
-		<div class="post-card">
-			<div>@Report.reportedPost.Title</div>
-			<div>@Util.DateTimeToRelativeTime(Report.reportedPost.PostedOn)</div>
-			<div>@Report.reportedPost.Description</div>
-			<img src="@Report.reportedPost.ImgUrl" alt="thumbnail"/>
-			<div>@Report.reportedPost.Owner.UserName</div>
-		</div>
-		<button @onclick="BanAsync">Ban</button>
-		<input type="text" @bind="reason">
-		<label style="color: red">@msg</label>
-	</Authorized>
-</AuthorizeView>
 
 @code {
 	[Parameter]
-    public Domain.Models.Report? Report { get; set; }
+    public Domain.Models.Report Report { get; set; }
 	[Parameter]
 	public EventCallback<string> OnClickCallback { get; set; }
 
