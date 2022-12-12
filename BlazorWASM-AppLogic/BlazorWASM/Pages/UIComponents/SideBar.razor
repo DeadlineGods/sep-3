@@ -24,7 +24,7 @@
 
                 <Authorized>
 
-                <a href="profile.html" class="text-xl font-medium capitalize mt-4 uk-link-reset"> 
+                <a href="profile.html" @onclick:preventDefault="true"  class="text-xl font-medium capitalize mt-4 uk-link-reset"> 
                     @context.User.Identity.Name
                 </a>
                 </Authorized>
@@ -44,7 +44,7 @@
                     <span> Feed </span> </a>
             </li>
             <li class="side_nav"  >
-                <a href="/admin/reports">
+                <a href="" @onclick:preventDefault="true"  @onclick="GetPostsByLocationAsync">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -76,5 +76,12 @@
 </div>
 
 @code {
+    [Parameter]
+    public EventCallback<string> OnPostsByLocationCallback { get; set; }
+    public async Task GetPostsByLocationAsync()
+    {
+        await OnPostsByLocationCallback.InvokeAsync();
+
+    }
     
 }

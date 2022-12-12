@@ -23,7 +23,7 @@
 		</div>
 		<button @onclick="BanAsync">Ban</button>
 		<input type="text" @bind="reason">
-		<label style="color: red">@msg</label>
+		@* <label style="color: red">@msg</label> *@
 
 
 @code {
@@ -35,7 +35,6 @@
 	[Parameter]
 	public Admin? Admin { get; set; }
 
-	private string msg = "";
 	private string reason = "";
 
 	public async Task BanAsync()
