@@ -9,8 +9,7 @@
 
 
 <body class="bg-gray-100">
-<AuthorizeView>
-    <NotAuthorized>
+
 
 <div id="wrapper" class="flex flex-col justify-between h-screen">
 
@@ -41,12 +40,11 @@
             <p class="mb-2 text-black text-lg"> Username</p>
             <form action="">
                 <input type="text" placeholder="John Smith" @bind="userName" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
+                            <p class="mb-2 text-black text-lg"> Password</p>
+
                 <input type="password" placeholder="***********" @bind="password" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
                 <div class="flex justify-between my-4">
-                    <div class="checkbox">
-                        <input type="checkbox" id="chekcbox1" checked>
-                        <label for="chekcbox1"><span class="checkbox-icon"></span>Remember Me</label>
-                    </div>
+                   
 
                 </div>
                   @if (!string.IsNullOrEmpty(errorLabel))
@@ -79,14 +77,7 @@
     </div>
 
 </div>
-    </NotAuthorized>
-    <Authorized>
-        <div class="card">
-            <h3>Hello, @context.User.Identity.Name</h3>
-
-        </div>
-    </Authorized>
-</AuthorizeView>
+    
 </body>
 
 @code {

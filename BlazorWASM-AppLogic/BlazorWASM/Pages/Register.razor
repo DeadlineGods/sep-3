@@ -55,11 +55,8 @@
 						<input type="text" placeholder="Phone Number" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" @bind="phoneNumber" style="border: 1px solid #d3d5d8 !important;">
 						<MapComponent @ref="Map"></MapComponent>
 						<div class="flex justify-start my-4 space-x-1">
-							<div class="checkbox">
-								<input type="checkbox" id="chekcbox1" checked>
-								<label for="chekcbox1"><span class="checkbox-icon"></span> I Agree</label>
-							</div>
-							<a href="#"> Terms and Conditions</a>
+							
+							
 						</div>
 						@if (!string.IsNullOrEmpty(errorLabel))
 						{
@@ -71,7 +68,7 @@
 						}
 						<button @onclick="RegisterAsync" @onclick:preventDefault="true" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
 						<div class="text-center mt-5 space-x-2">
-							<p class="text-base"> Do you have an account? <a href="form-login.html"> Login </a></p>
+							<p class="text-base"> Do you have an account? <a href="/Login"> Login </a></p>
 						</div>
 					</form>
 				</div>
@@ -83,10 +80,7 @@
 			<div class="lg:mb-5 py-3 uk-link-reset">
 				<div class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
 					<div class="flex space-x-2 text-gray-700 uppercase">
-						<a href="#"> About</a>
-						<a href="#"> Help</a>
-						<a href="#"> Terms</a>
-						<a href="#"> Privacy</a>
+						
 					</div>
 					<p class="capitalize"> © copyright 2020 by Instello</p>
 				</div>
