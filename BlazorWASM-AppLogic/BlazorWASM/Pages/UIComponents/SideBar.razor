@@ -1,4 +1,9 @@
-﻿@namespace UIComponents
+﻿@using BlazorWasm.Services
+@namespace UIComponents
+@inject IAuthService authService
+@inject NavigationManager navMgr
+
+
 
 <div class="sidebar ">
   
@@ -43,7 +48,7 @@
             </li>
 	        <li>
 		       
-				        <a href="/Login">
+				        <a href="#" @onclick:preventDefault="true"  @onclick="LogoutAsync">
 					        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 					             stroke="currentColor">
 						        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,5 +65,26 @@
 </div>
 
 @code {
+    private string errorLabel;
+
+    private async Task LogoutAsync()
+    {
+    //Console.WriteLine("HERE");
+
+        errorLabel = "";
+        try
+        {
+            await authService.LogoutAsync();
+            navMgr.NavigateTo("/Login");
+
+    //Console.WriteLine("HERE");
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
 
 }
