@@ -197,7 +197,7 @@ Connection connection = db.getConnection();
 		PreparedStatement statement = null;
 
 		try {
-			statement = connection.prepareStatement("SELECT * FROM post");
+			statement = connection.prepareStatement("SELECT * FROM post WHERE id NOT IN (SELECT post_id FROM ban_post)");
 
 			return statement.executeQuery();
 
@@ -211,7 +211,7 @@ Connection connection = db.getConnection();
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE lower(title) LIKE '%' || ? || '%'");
+					"SELECT * FROM \"post\" WHERE lower(title) LIKE '%' || ? || '%' and id NOT IN (SELECT post_id FROM ban_post)");
 
 			statement.setString(1, titleContains.toLowerCase());
 			return statement.executeQuery();
@@ -226,7 +226,7 @@ Connection connection = db.getConnection();
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE id = ?");
+					"SELECT * FROM \"post\" WHERE id = ? and id NOT IN (SELECT post_id FROM ban_post)");
 
 			statement.setLong(1, id);
 			return statement.executeQuery();
@@ -241,7 +241,7 @@ Connection connection = db.getConnection();
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE user_id = ?");
+					"SELECT * FROM \"post\" WHERE user_id = ? and id NOT IN (SELECT post_id FROM ban_post)");
 
 			statement.setLong(1, userId);
 			return statement.executeQuery();
@@ -255,7 +255,7 @@ Connection connection = db.getConnection();
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE user_id = ? AND id=?");
+					"SELECT * FROM \"post\" WHERE user_id = ? AND id=? and id NOT IN (SELECT post_id FROM ban_post)");
 			statement.setLong(1, userId);
 			statement.setLong(2, id);
 			return statement.executeQuery();
@@ -270,7 +270,7 @@ Connection connection = db.getConnection();
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE user_id = ? AND lower(title) LIKE '%' || ? || '%'");
+					"SELECT * FROM \"post\" WHERE user_id = ? AND lower(title) LIKE '%' || ? || '%' and id NOT IN (SELECT post_id FROM ban_post)");
 			statement.setLong(1, userId);
 			statement.setString(2, titleContains);
 			return statement.executeQuery();
@@ -285,7 +285,7 @@ Connection connection = db.getConnection();
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE id = ? AND lower(title) LIKE '%' || ? || '%'");
+					"SELECT * FROM \"post\" WHERE id = ? AND lower(title) LIKE '%' || ? || '%' and id NOT IN (SELECT post_id FROM ban_post)");
 			statement.setLong(1, id);
 			statement.setString(2, title);
 			return statement.executeQuery();
@@ -300,7 +300,7 @@ Connection connection = db.getConnection();
 
 		try {
 			statement = connection.prepareStatement(
-					"SELECT * FROM \"post\" WHERE id = ? AND lower(title) LIKE '%' || ? || '%' AND user_id = ?");
+					"SELECT * FROM \"post\" WHERE id = ? AND lower(title) LIKE '%' || ? || '%' AND user_id = ? and id NOT IN (SELECT post_id FROM ban_post)");
 			statement.setLong(1, id);
 			statement.setString(2, title);
 			statement.setLong(3, userId);
