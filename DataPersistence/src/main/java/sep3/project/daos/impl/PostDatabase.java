@@ -18,7 +18,8 @@ public class PostDatabase implements PostPersistence {
 
 	@Override
 	public int createPost(String title, long userId, String description,  String imageUrl, int locationId) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		int id = 0;
 
 		try {
@@ -48,7 +49,8 @@ public class PostDatabase implements PostPersistence {
 
 	@Override
 	public void deletePost(long id) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 
 		try
 		{
@@ -118,7 +120,8 @@ public class PostDatabase implements PostPersistence {
 
 	@Override
 	public ArrayList<PostData> getPost(long id, long userId, String titleContains) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		ArrayList<PostData> posts = new ArrayList<>();
 		ResponseGetUsers response = null;
 		try {
@@ -322,7 +325,8 @@ public class PostDatabase implements PostPersistence {
 
 	@Override
 	public ResponseUpdatePost updatePost(long id, String title, String description, String[] tags) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		ResponseUpdatePost response = null;
 		try
 		{

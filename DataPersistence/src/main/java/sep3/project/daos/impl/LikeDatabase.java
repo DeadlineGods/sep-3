@@ -18,7 +18,8 @@ public class LikeDatabase implements LikePersistence {
 
     @Override
     public ResponseLikePost LikePost(long postId, long userId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         ResponseLikePost responseLikePost = null;
         try {
             String sql = "INSERT INTO \"likepost\" (user_id, post_id)  VALUES (?, ?)";
@@ -48,7 +49,8 @@ public class LikeDatabase implements LikePersistence {
 
     @Override
     public void UnLikePost(long postId, long userId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         try {
             String sql = "DELETE FROM likepost WHERE post_id = ? AND user_id = ?";
 
@@ -65,7 +67,8 @@ public class LikeDatabase implements LikePersistence {
 
     @Override
     public ResponseIsPostLiked IsPostLiked(long postId, long userId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         ResponseIsPostLiked response = null;
         try {
             String sql = "SELECT count(*) FROM likepost WHERE user_id = ? and post_id = ?";
@@ -92,7 +95,8 @@ public class LikeDatabase implements LikePersistence {
 
     @Override
     public ResponseCountLikes CountLikes(long postId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         ResponseCountLikes response = null;
         PreparedStatement statement = null;
         try
@@ -115,7 +119,8 @@ public class LikeDatabase implements LikePersistence {
 
     @Override
     public void DeleteLike(long postId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         try
         {
             PreparedStatement statement_likes = connection.prepareStatement(

@@ -20,7 +20,9 @@ public class UserDatabase implements UserPersistence {
 
     @Override
     public UserData Create(String userName, String firstName, String lastName, String email, String password, String phoneNumber, long locationId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+		Connection connection = db.getConnection();
+
         UserData userData = null;
         try {
             long userId = 0;
@@ -66,7 +68,9 @@ public class UserDatabase implements UserPersistence {
 
     @Override
     public ResponseGetLikes GetLikes(int postId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+		Connection connection = db.getConnection();
+
         List<UserData> usersList = new ArrayList<>();
         ResponseGetLikes response = null;
         PreparedStatement statement = null;
@@ -100,7 +104,8 @@ public class UserDatabase implements UserPersistence {
     }
 
     public ResponseGetUsers Get(String username, long userId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+		Connection connection = db.getConnection();
         List<UserData> usersList = new ArrayList<>();
         ResponseGetUsers response = null;
         try

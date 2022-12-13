@@ -15,7 +15,8 @@ public class CommentDatabase implements CommentPersistence {
 
     @Override
     public ResponseCreateComment create(String body, long ownerId, long postId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         long id = 0;
 
         try {
@@ -42,7 +43,8 @@ public class CommentDatabase implements CommentPersistence {
 
     @Override
     public void assignParentCommentTo(long id, long parentId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO CommentParentComment (comment_id, parent_comment_id) VALUES (?, ?)");
@@ -59,7 +61,8 @@ public class CommentDatabase implements CommentPersistence {
 
     @Override
     public CommentData getById(long id) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         CommentData commentData = null;
 
         try {
@@ -88,7 +91,8 @@ public class CommentDatabase implements CommentPersistence {
 
     @Override
     public CommentsList getByPost(long postId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         CommentsList commentsList = null;
         ArrayList<CommentData> commentDataArrayList = new ArrayList<>();
 
@@ -118,7 +122,8 @@ public class CommentDatabase implements CommentPersistence {
 
     @Override
     public CommentsList getSubComments(long id) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         CommentsList commentsList = null;
         ArrayList<CommentData> commentDataArrayList = new ArrayList<>();
 
@@ -148,7 +153,8 @@ public class CommentDatabase implements CommentPersistence {
 
     @Override
     public void deleteComment(long post_id) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 
         try
         {

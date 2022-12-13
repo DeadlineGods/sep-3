@@ -16,11 +16,31 @@ public class DBConnection {
 	private static boolean isTest = false;
 	private static final String user = "postgres";
 	private static final String pw = "admin";
+	private static DBConnection instance;
+	private static final Object lock = new Object();
 
 
-	public DBConnection() throws SQLException {
+//	public DBConnection() throws SQLException {
+//		DriverManager.registerDriver(new org.postgresql.Driver());
+//	}
+
+	private DBConnection() throws SQLException {
 		DriverManager.registerDriver(new org.postgresql.Driver());
 	}
+
+	public static DBConnection getInstance() throws SQLException {
+
+		if (instance == null) {
+			synchronized(lock) {
+				if (instance == null) {
+					instance = new DBConnection();
+				}
+			}
+		}
+
+		return instance;
+	}
+
 
 	public static void setToProduction() {
 		isTest = false;
@@ -30,7 +50,7 @@ public class DBConnection {
 		isTest = true;
 	}
 
-	public static Connection getConnection() throws SQLException {
+	public Connection getConnection() throws SQLException {
 		String url = "";
 		if(isTest) {
 			url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=photoguardtest";

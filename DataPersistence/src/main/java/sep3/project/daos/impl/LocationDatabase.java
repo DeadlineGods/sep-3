@@ -17,7 +17,8 @@ public class LocationDatabase implements LocationPersistence {
 
 	@Override
 	public LocationData get(int id) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		LocationData data = null;
 
 		try {
@@ -50,7 +51,8 @@ public class LocationDatabase implements LocationPersistence {
 
 	@Override
 	public CoordinatesData getCoordinates(int id) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		CoordinatesData data = null;
 
 		try {
@@ -78,7 +80,8 @@ public class LocationDatabase implements LocationPersistence {
 
 	@Override
 	public LocationId create(LocationData data) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		LocationId id = null;
 
 		try {

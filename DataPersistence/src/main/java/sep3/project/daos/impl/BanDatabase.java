@@ -11,7 +11,8 @@ import java.sql.*;
 public class BanDatabase implements BanPersistence {
 	@Override
 	public PostId create(String admin, String reason, long postId) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 
 		try {
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO ban_post (admin, reason, post_id) VALUES (?, ?, ?)");
@@ -31,7 +32,8 @@ public class BanDatabase implements BanPersistence {
 
 	@Override
 	public PostId get(long postId) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 
 		try {
 			PreparedStatement statement = connection.prepareStatement("SELECT post_id From ban_post WHERE post_id = ?");

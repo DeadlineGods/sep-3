@@ -18,7 +18,8 @@ import java.util.List;
 public class AdminDatabase implements AdminPersistence {
 	@Override
 	public ResponseGetAdmins Get(String username) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		List<AdminData> adminList = new ArrayList<>();
 		ResponseGetAdmins response = null;
 

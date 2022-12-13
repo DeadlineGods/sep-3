@@ -17,7 +17,8 @@ import java.util.List;
 public class ReportDatabase implements ReportPersistence {
 	@Override
 	public ResponseReportPost reportPost(String violation, long postId, long userId) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		int id = 0;
 
 		try {
@@ -44,7 +45,8 @@ public class ReportDatabase implements ReportPersistence {
 
 	@Override
 	public ReportData getById(long id) throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		ReportData reportData = null;
 		try {
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM report WHERE id = ?");
@@ -71,7 +73,8 @@ public class ReportDatabase implements ReportPersistence {
 
 	@Override
 	public ResponseGetReports get() throws SQLException {
-		Connection connection = DBConnection.getConnection();
+		DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 		ResponseGetReports reports = null;
 		try {
 			PreparedStatement statement = connection.prepareStatement("SELECT * FROM report");

@@ -17,7 +17,8 @@ public class TagDatabase implements TagPersistence {
 
     @Override
     public String[] CreateTags(long postId, String[] tags) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         PreparedStatement statement = null;
         String[] createdTags = new String[tags.length];
         int index = 0;
@@ -63,7 +64,8 @@ public class TagDatabase implements TagPersistence {
 
     @Override
     public ArrayList<PostTagData> GetPostTag(String tagContains, long postId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         ArrayList<PostTagData> tags = new ArrayList<>();
         try {
             // get tags by post id only
@@ -168,7 +170,8 @@ public class TagDatabase implements TagPersistence {
 
     @Override
     public ArrayList<TagListData> GetTagList(String tagContains) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
         ArrayList<TagListData> tags = new ArrayList<>();
         try {
             // get posts by title only
@@ -232,7 +235,8 @@ public class TagDatabase implements TagPersistence {
 
     @Override
     public void deleteTag(int postId) throws SQLException {
-        Connection connection = DBConnection.getConnection();
+        DBConnection db = DBConnection.getInstance();
+Connection connection = db.getConnection();
 
         try
         {
