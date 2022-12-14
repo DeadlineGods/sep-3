@@ -18,24 +18,19 @@
 	<Authorized>
 	@if (reports.Any() && admin != null)
 	{
-		
 
-
-		
 		<div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
-    
+
 	<!-- left sidebar-->
 	<div class="space-y-5 flex-shrink-0 lg:w-7/12">
-		 <Alert Type="success" Show="@showAlert" >
-        			        <p>Post was succesfully banned!</p>
-        			        <button @onclick="(() => showAlert = false)">keep banning</button>
-        		        </Alert>
+		<Alert Type="success" Show="@showAlert" >
+			<p>Post was succesfully banned!</p>
+			<button @onclick="(() => showAlert = false)" class="btn btn-light">keep banning</button>
+		</Alert>
+
 		@foreach (var report in reports)
 		{
-
-			
 			<SingleReport Report="@report" OnClickCallback="LoadReportsAfterBan" Admin="admin"/>
-
 		}
 	</div>
     </div>
@@ -88,14 +83,14 @@
     private async Task LoadReports()
     {
         reports = await reportService.GetAsync();
-	   
+
     }
 
 	private async Task LoadReportsAfterBan()
 	{
 		await LoadReports();
 		showAlert = true;
-		
+
     }
 
 

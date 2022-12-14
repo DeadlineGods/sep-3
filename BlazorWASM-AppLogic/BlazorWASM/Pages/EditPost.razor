@@ -12,8 +12,8 @@
 
 <Alert Type="success" Show="@showAlert">
 	<p>Post #@Id was succesfully edited!</p>
-	<button @onclick="NavigateToFeed">go to feed</button>
-	<button @onclick="(() => showAlert = false)">keep editing</button>
+	<button @onclick="NavigateToFeed" class="btn btn-light">go to feed</button>
+	<button @onclick="(() => showAlert = false)" class="btn">keep editing</button>
 </Alert>
 
 
@@ -49,7 +49,7 @@
 						</div>
 						<div>
 							<label class="mb-0"> Tags</label>
-							<input name="description" @bind="newTag" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></input>
+							<input name="tags" @bind="newTag" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></input>
 							<button @onclick="@AddTag" class="btn btn-dark mt-2">add </button>
 
 						</div>

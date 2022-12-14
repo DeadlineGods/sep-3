@@ -49,7 +49,7 @@ Connection connection = db.getConnection();
 Connection connection = db.getConnection();
 		ReportData reportData = null;
 		try {
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM report WHERE id = ?");
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM report WHERE id = ? and post_id NOT IN (SELECT post_id FROM ban_post)");
 
 			statement.setLong(1, id);
 
@@ -77,7 +77,7 @@ Connection connection = db.getConnection();
 Connection connection = db.getConnection();
 		ResponseGetReports reports = null;
 		try {
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM report");
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM report WHERE post_id NOT IN (SELECT post_id FROM ban_post)");
 
 			ResultSet resultSet = statement.executeQuery();
 

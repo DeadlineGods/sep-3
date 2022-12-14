@@ -19,15 +19,15 @@
 
 <div id="wrapper">
 <SideBar></SideBar>
-    
+
 <!-- create post -->
 <div class="main_content">
     <div id="offcanvas-create flex justify-center ">
         <div class="alertBox pt-6">
             <Alert Type="success" Show="@showAlert">
                 <p>Successfully created post!</p>
-                <button @onclick="@NavigateToFeed">show me</button>
-                <button @onclick="(() => showAlert = false)">close</button>
+                <button @onclick="@NavigateToFeed" class="btn btn-light">show me</button>
+                <button @onclick="(() => showAlert = false)" class="btn">close</button>
             </Alert>
         </div>
         <div class=" lg:w-full dark:bg-gray-700 dark:text-gray-300 p-0">
@@ -48,19 +48,23 @@
                     <label class="mb-0"> Description </label>
                     <textarea name="description" rows="3" @bind="postDescription" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please describe your product."></textarea>
                 </div>
-                <div>
-                    <label class="mb-0"> Tags</label>
-                    <textarea name="description" @bind="newTag"  @ref="tagInput" rows="3" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></textarea>
-                    <button @onclick="@AddTag">add </button>
+	            <div>
+		            <label class="mb-0"> Tags</label>
+		            <input name="tags" @bind="newTag"  @ref="tagInput" rows="3" class="bg-gray-100 shadow-none border mt-2 w-full px-3 py-2 rounded-md focus:border-blue-600 outline-none mt- "id="description" placeholder="Please add tag."></input>
+		            <button @onclick="@AddTag">add </button>
 
-                </div>
+	            </div>
+
+                <h3>Tags:</h3>
+                <div class="flex-row flex-wrap">
                 @foreach (string tag in postTags)
                 {
-                    <div class="flex">
+                    <div class="btn btn-light flex justify-content-between my-1 w-25">
                         @tag
                         <button @onclick="(() => RemoveTag(tag))" class="btn-close"></button>
                     </div>
                 }
+                </div>
 
 
 

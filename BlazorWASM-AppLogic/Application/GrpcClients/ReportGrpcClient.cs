@@ -2,6 +2,7 @@ using Application.DAOsInterfaces;
 using Application.LogicInterfaces;
 using Domain.DTOs;
 using Domain.Models;
+using Geocoding;
 using Grpc.Net.Client;
 using GrpcClient;
 
@@ -19,7 +20,7 @@ public class ReportGrpcClient : IReportDao
 		UserDao = userDao;
 		PostDao = postDao;
 	}
-	
+
 	public async Task<long> ReportPostAsync(ReportPostDto reportDto)
 	{
 		using var channel = GrpcChannel.ForAddress("http://localhost:6565");
@@ -75,10 +76,9 @@ public class ReportGrpcClient : IReportDao
 	{
 		SearchUserParametersDto searchUserParametersDto = new SearchUserParametersDto(null, reportData.UserId);
 		IEnumerable<User> users = await UserDao.GetAsync(searchUserParametersDto);
-		
+
 		SearchPostParametersDto searchPostParametersDto = new SearchPostParametersDto(reportData.PostId, null, null);
 		IEnumerable<Post> posts = await PostDao.GetAsync(searchPostParametersDto);
-
 		return new Report(reportData.ReportId, reportData.ViolationDesc, posts.FirstOrDefault(),
 			users.FirstOrDefault());
 
