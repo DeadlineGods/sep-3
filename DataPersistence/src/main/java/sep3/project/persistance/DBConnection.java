@@ -13,9 +13,11 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-	private static boolean isTest = false;
 	private static final String user = "postgres";
 	private static final String pw = "admin";
+
+
+	private static boolean isTest = false;
 	private static DBConnection instance;
 	private static final Object lock = new Object();
 
@@ -69,7 +71,7 @@ public class DBConnection {
 		Connection connection = DriverManager.getConnection(url, user, pw);
 		System.out.println("Connection established......");
 		ScriptRunner sr = new ScriptRunner(connection);
-		Reader reader = new BufferedReader(new FileReader("src/main/java/sep3/project/static/photoguardtest_DDL_DML.sql"));
+		Reader reader = new BufferedReader(new FileReader("/Users/antondurcak/Documents/via/Semester III/SEP/SepProject/Code/sep-3/DataPersistence/src/main/java/sep3/project/static/photoguardtest_DDL_DML.sql"));
 		sr.runScript(reader);
 	}
 }
